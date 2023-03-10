@@ -110,6 +110,9 @@ form input[type='button']:hover{
 #moverLogin{
     width: fit-content;
 }
+.error{
+    color: red;
+}
 
 
 

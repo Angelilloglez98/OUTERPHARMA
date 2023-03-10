@@ -1,0 +1,76 @@
+DROP TABLE VENTAS;
+DROP TABLE INVENTARIOS;
+DROP TABLE PRODUCTOS;
+DROP TABLE EMPLEADOS;
+DROP TABLE FARMACIAS;
+
+CREATE TABLE FARMACIAS(
+    Codigo int(9) PRIMARY KEY NOT NULL,
+    nColegiado int(9) NOT NULL,
+    Nombre VARCHAR(20) NOT NULL,
+    Ccorreo VARCHAR(20) NOT NULL,
+    Contrasenia VARCHAR(20) NOT NULL,
+    Direccion VARCHAR(40) NOT NULL,
+    nTelefono int(9) NOT NULL
+);
+
+CREATE TABLE EMPLEADOS(
+    nEmpleado int(3) PRIMARY KEY NOT NULL,
+    Nombre VARCHAR(20) NOT NULL,
+    Codigo int(9),
+    Contrasena VARCHAR(30) NOT NULL,
+    Rol VARCHAR(15) NOT NULL,
+    CONSTRAINT Codigo_Farmacia_FK
+	FOREIGN KEY (Codigo) REFERENCES FARMACIAS(Codigo) ON DELETE SET NULL
+);
+
+CREATE TABLE PRODUCTOS(
+    IdProducto int(9) PRIMARY KEY NOT NULL,
+    Nombre VARCHAR(20) NOT NULL,
+    pActivo VARCHAR(30) NOT NULL,
+    Laboratorio VARCHAR(15) NOT NULL,
+    vAdmin VARCHAR(20) NOT NULL,
+    presMedica VARCHAR(2) NOT NULL
+);
+
+CREATE TABLE INVENTARIOS(
+    IdInventario int(9) PRIMARY KEY NOT NULL,
+    IdProducto int(9),
+    Codigo int(9),
+    Precio float(4,2),
+    Cantidad int(3),
+    fEntrada DATE,
+    fCaducidad DATE,
+    CONSTRAINT Codigo_Farmacia2_FK
+	FOREIGN KEY (Codigo) REFERENCES FARMACIAS(Codigo) ON DELETE SET NULL,
+    CONSTRAINT IdProducto_FK
+	FOREIGN KEY (IdProducto) REFERENCES PRODUCTOS(IdProducto) ON DELETE SET NULL
+);
+
+CREATE TABLE VENTAS(
+    nVentas int(9) PRIMARY KEY NOT NULL,
+    IdProducto int(9),
+    nEmpleado int(3),
+    Fecha DATE,
+    Cantidad int(2),
+    Precio float(4,2),
+    Total float(5,2),
+    CONSTRAINT IdProducto2_FK
+	FOREIGN KEY (IdProducto) REFERENCES PRODUCTOS(IdProducto) ON DELETE SET NULL,
+    CONSTRAINT nEmpleado_FK
+	FOREIGN KEY (nEmpleado) REFERENCES EMPLEADOS(nEmpleado) ON DELETE SET NULL
+);
+
+CREATE TABLE PROVEEDORES(
+    Nombre VARCHAR(50) PRIMARY KEY NOT NULL,
+    Direccion VARCHAR(50),
+    nTelefono INT(7)
+)
+
+
+INSERT INTO FARMACIAS VALUES (1,'123456','MARIA','maria1234@gmail.com','1234','avd/dolores 12',622910802);
+INSERT INTO EMPLEADOS VALUES (1,'JOSE','1','JOSE1234','admin');
+SELECT * FROM FARMACIAS;
+SELECT * FROM EMPLEADOS;
+SELECT * FROM PRODUCTOS;
+SELECT * FROM INVENTARIOS;
