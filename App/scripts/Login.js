@@ -1,9 +1,14 @@
+
+//Variables y constantes
 let formularios=document.querySelector('#formularios');
 let btnregistrar=document.querySelector('#moverRegister');
 let btnLogin=document.querySelector('#moverLogin');
 const form = document.querySelector('.Login');
 const emailInput = form.querySelector('input[type="email"]');
 const passwordInput = form.querySelector('input[type="password"]');
+const error=document.querySelector('.error');
+
+
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -12,24 +17,19 @@ form.addEventListener('submit', (event) => {
   
   // Validar el campo de correo electrónico
   if (!email) {
-    alert('Por favor, introduce tu correo electrónico');
+    crearMensajeError(error,'Por favor, introduce un email')
     emailInput.focus();
     return;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    alert('Por favor, introduce un correo electrónico válido');
+    crearMensajeError(error,'Por favor, introduce un correo electrónico válido');
     emailInput.focus();
     return;
   }
   
   // Validar el campo de contraseña
-  if (!password) {
-    alert('Por favor, introduce tu contraseña');
-    passwordInput.focus();
-    return;
-  }
-  if (password.length < 6) {
-    alert('La contraseña debe tener al menos 6 caracteres');
+  if (!password){
+    crearMensajeError(error,'Por favor, introduce tu contraseña')
     passwordInput.focus();
     return;
   }
@@ -39,12 +39,21 @@ form.addEventListener('submit', (event) => {
 });
 
 btnregistrar.onclick=()=>{
-    activarRegistrar();
+  activarRegistrar();
 }
 btnLogin.onclick=()=>{
-    activarLogin();
+  activarLogin();
 }
 
+
+function crearMensajeError(elemento, mensaje) {
+  elemento.innerHTML='';
+    let p=document.createElement('p');
+    p.classList.add('error');
+    let texto=document.createTextNode(mensaje);
+    p.appendChild(texto);
+    elemento.appendChild(p)
+}
 
 function activarRegistrar() {
     formularios.style.transform='translateX(-50%)';    

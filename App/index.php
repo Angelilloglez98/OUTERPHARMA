@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/Login.css">
-    <script src="./scripts/Login-Register-js.js" defer></script>
+    <script src="./scripts/Login.js" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <script type="text/javascript">
@@ -37,16 +37,18 @@
               <input type="password" name="password" id="" placeholder="Introduce tu contraseña">
             </div>
             <input type="submit" value="Iniciar Sesion">
+            <p for="" id="moverRegister" class="parrafoP">¿No tienes cuenta?</p>
+            <div class="error"> 
 
             <?php
               session_start();
               if (isset($_SESSION['error'])) {
-                  echo '<p class="error">' . $_SESSION['error'] . '</p>';
+                  echo  $_SESSION['error'];
                   unset($_SESSION['error']);
               }
             ?>
             
-            <p for="" id="moverRegister" class="parrafoP">¿No tienes cuenta?</p>
+            </div>
           </form>
           
           <form id="form">

@@ -20,7 +20,7 @@
                 // $auth = password_verify($password, $fila['Contraseina']);
                 //contraseña y usuario correctos
                 
-                $_SESSION['email']=$fila['email'];
+                $_SESSION['codigoFarmacia']=$fila['Codigo'];
                 header('Location: ../selecPerfil.html');
             }else {
                 
