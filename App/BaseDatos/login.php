@@ -1,4 +1,3 @@
-
     <?php
         require('./conexionDB.php');
 
@@ -8,7 +7,9 @@
             
             $password=$_POST['password'];
 
-            $sql="SELECT * from farmacias where cCorreo='$email'";
+            $sql="SELECT * from farmacias where Ccorreo='$email'";
+
+            $pdo->exec("SET NAMES utf8");
 
             $sth=$pdo->prepare($sql);
             
@@ -17,13 +18,12 @@
             $fila=$sth->fetch();
             session_start();
             if ($sth->rowCount()==1 && $password==$fila['Contrasenia']){   
-                // $auth = password_verify($password, $fila['Contraseina']);
+                //$auth = password_verify($password, $fila['Contraseina']);
                 //contraseña y usuario correctos
                 
-                $_SESSION['codigoFarmacia']=$fila['Codigo'];
+                $_SESSION['CorreoFarmacia']=$fila['Ccorreo'];
                 header('Location: ../selecPerfil.html');
             }else {
-                
                 // correo electrónico incorrecto
                 $_SESSION['error'] = "El correo electrónico o la contraseña son incorrectos.";
                 header('Location: ../index.php');

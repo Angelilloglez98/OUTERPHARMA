@@ -52,7 +52,7 @@ function crearMensajeError(elemento, mensaje) {
     p.classList.add('error');
     let texto=document.createTextNode(mensaje);
     p.appendChild(texto);
-    elemento.appendChild(p)
+    elemento.appendChild(p);
 }
 
 function activarRegistrar() {

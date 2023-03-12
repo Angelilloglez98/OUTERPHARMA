@@ -1,24 +1,29 @@
+<?php
+    require('./conexionDB.php');
+    session_start();
 
-    <?php
-        require('./conexionDB.php');
-        session_start();
+    $registros=array();
 
-        $registros=array();
+    $correo=$_SESSION['CorreoFarmacia'];
 
-        $codigo=$_SESSION['codigoFarmacia'];
+    $sql="SELECT Nombre,Contrasena,Rol from empleados where CcorreoFarmacia='$correo'";
+    
+    $pdo->exec("SET NAMES 'utf8mb4'");
 
-        $sql="SELECT Nombre,Contrasena,Rol from empleados where Codigo='$codigo'";
+    
 
-        $sth=$pdo->prepare($sql);
-    	
-        $sth->execute();
-        while ($fila=$sth->fetch()) {
-            $registros[]=array(
-                'nombre'=>$fila['Nombre'],
-                'contrasena'=>$fila['Contrasena'],
-                'rol'=>$fila['Rol']
-            );
-        }
-        $registros_json=json_encode($registros);
-        echo($registros_json);
-    ?>
+    $sth=$pdo->prepare($sql);
+
+    $sth->execute();
+
+    while ($fila=$sth->fetch()) {
+        $registros[]=array(
+            'nombre'=>$fila['Nombre'],
+            'contrasena'=>$fila['Contrasena'],
+            'rol'=>$fila['Rol']
+        );
+    }
+    
+    $resultado = json_encode($registros, JSON_UNESCAPED_UNICODE);
+    echo $resultado;
+?>
