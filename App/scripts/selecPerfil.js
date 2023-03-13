@@ -5,7 +5,6 @@ window.onload=()=>{
     fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
-        
         Pintar(document.querySelector('.contenedorUser'),element.nombre)
     }));
 
@@ -25,12 +24,24 @@ window.onload=()=>{
     }
 
     function pintarContrasena(elemento) {
+        eliminarForms();
         let form=document.createElement('form');
         let inputPassword=document.createElement('input');
         inputPassword.type='password';
         form.appendChild(inputPassword);
-        elemento.appendChild(form);
-           
+        elemento.appendChild(form);    
+    }
+
+    function eliminarForms(){
+        let users = document.querySelectorAll('.user');
+        
+        users.forEach(user => {
+            let forms = user.querySelectorAll('form');
+            forms.forEach(form => {
+            form.remove();
+            });
+        });
+        
     }
 
     function ComprobarContrasena(contrasenaReal,contrasenaInput) {
