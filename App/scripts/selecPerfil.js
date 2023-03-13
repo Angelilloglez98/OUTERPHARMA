@@ -33,12 +33,15 @@ window.onload=()=>{
     }
 
     function eliminarForms(){
+        let users = document.querySelectorAll('.user');
         
-        let users=document.querySelectorAll('.user');
-        users.forEach(element => {
-            let users=document.querySelector('.user>form');
-            element.removeChild(users);
+        users.forEach(user => {
+            let forms = user.querySelectorAll('form');
+            forms.forEach(form => {
+            form.remove();
+            });
         });
+        
     }
 
     function ComprobarContrasena(contrasenaReal,contrasenaInput) {
