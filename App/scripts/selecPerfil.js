@@ -5,7 +5,6 @@ window.onload=()=>{
     fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
-        
         Pintar(document.querySelector('.contenedorUser'),element.nombre)
     }));
 
@@ -34,12 +33,15 @@ window.onload=()=>{
     }
 
     function eliminarForms(){
-        let users=document.querySelectorAll('.user');
+        let users = document.querySelectorAll('.user');
         
-        users.forEach(element => {
-            let users=document.querySelector('.user>form');
-            element.removeChild(users);
+        users.forEach(user => {
+            let forms = user.querySelectorAll('form');
+            forms.forEach(form => {
+            form.remove();
+            });
         });
+        
     }
 
     function ComprobarContrasena(contrasenaReal,contrasenaInput) {
