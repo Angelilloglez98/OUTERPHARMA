@@ -25,12 +25,21 @@ window.onload=()=>{
     }
 
     function pintarContrasena(elemento) {
+        eliminarForms();
         let form=document.createElement('form');
         let inputPassword=document.createElement('input');
         inputPassword.type='password';
         form.appendChild(inputPassword);
-        elemento.appendChild(form);
-           
+        elemento.appendChild(form);    
+    }
+
+    function eliminarForms(){
+        let users=document.querySelectorAll('.user');
+        
+        users.forEach(element => {
+            let users=document.querySelector('.user>form');
+            element.removeChild(users);
+        });
     }
 
     function ComprobarContrasena(contrasenaReal,contrasenaInput) {
