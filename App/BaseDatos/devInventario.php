@@ -6,10 +6,9 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT FP.Ccorreo, FP.IdProducto, P.Nombre, FP.Cantidad
-    FROM FARMACIAS_PRODUCTOS FP
-    JOIN PRODUCTOS P ON FP.IdProducto = P.IdProducto
-    where CcorreoFarmacia='$correo'";
+    $sql="SELECT FARMACIAS_PRODUCTOS.Ccorreo,FARMACIAS_PRODUCTOS.idProducto,productos.Nombre,FARMACIAS_PRODUCTOS.Precio,FARMACIAS_PRODUCTOS.Cantidad,FARMACIAS_PRODUCTOS.fCaducidad
+    FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.idProducto=PRODUCTOS.idProducto where Ccorreo='$correo'";
+    
     
     $pdo->exec("SET NAMES 'utf8mb4'");
 
@@ -19,7 +18,9 @@
 
     while ($fila=$sth->fetch()) {
         $registros[]=array(
-            'idProducto'=>$fila['IdProducto'],
+            'Ccorreo'=>$fila['Ccorreo'],
+            'idProducto'=>$fila['idProducto'],
+            'NombreProducto'=>$fila['Nombre'],
             'Precio'=>$fila['Precio'],
             'Cantidad'=>$fila['Cantidad'],
             'fCaducidad'=>$fila['fCaducidad']
