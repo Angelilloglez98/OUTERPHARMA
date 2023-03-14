@@ -6,19 +6,20 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT Nombre,Contrasena,Rol from empleados where CcorreoFarmacia='$correo'";
+    $sql="SELECT IdProducto, Precio, Cantidad, fCaducidad from inventarios where CcorreoFarmacia='$correo'";
     
     $pdo->exec("SET NAMES 'utf8mb4'");
-    
+
     $sth=$pdo->prepare($sql);
 
     $sth->execute();
 
     while ($fila=$sth->fetch()) {
         $registros[]=array(
-            'nombre'=>$fila['Nombre'],
-            'contrasena'=>$fila['Contrasena'],
-            'rol'=>$fila['Rol']
+            'idProducto'=>$fila['IdProducto'],
+            'Precio'=>$fila['Precio'],
+            'Cantidad'=>$fila['Cantidad'],
+            'fCaducidad'=>$fila['fCaducidad']
         );
     }
     
