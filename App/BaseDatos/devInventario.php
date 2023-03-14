@@ -6,7 +6,10 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT IdProducto, Precio, Cantidad, fCaducidad from inventarios where CcorreoFarmacia='$correo'";
+    $sql="SELECT FP.Ccorreo, FP.IdProducto, P.Nombre, FP.Cantidad
+    FROM FARMACIAS_PRODUCTOS FP
+    JOIN PRODUCTOS P ON FP.IdProducto = P.IdProducto
+    where CcorreoFarmacia='$correo'";
     
     $pdo->exec("SET NAMES 'utf8mb4'");
 
