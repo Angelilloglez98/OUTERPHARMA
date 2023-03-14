@@ -23,7 +23,7 @@ window.onload=()=>{
     
         function pintarContrasena(elemento) {
             eliminarForms();
-            let form=document.createElement('form');
+            
             let inputPassword=document.createElement('input');
             let button=document.createElement('input');
             button.type='button';
@@ -33,9 +33,9 @@ window.onload=()=>{
                 ComprobarContrasena(element.contrasena,inputPassword.value);
             }
             
-            form.appendChild(inputPassword);
-            form.appendChild(button);
-            elemento.appendChild(form);    
+            
+            elemento.appendChild(inputPassword);
+            elemento.appendChild(button);    
         }
     
         function eliminarForms(){
@@ -52,7 +52,8 @@ window.onload=()=>{
     
         function ComprobarContrasena(contrasenaReal,contrasenaInput) {
             if (contrasenaReal===contrasenaInput) {
-                console.log('iguales');
+                
+                location.replace('./Inicio.html');
             }else{
                 console.log('diferentes');
             }

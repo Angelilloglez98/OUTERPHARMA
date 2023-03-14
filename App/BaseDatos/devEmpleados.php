@@ -9,7 +9,7 @@
     $sql="SELECT Nombre,Contrasena,Rol from empleados where CcorreoFarmacia='$correo'";
     
     $pdo->exec("SET NAMES 'utf8mb4'");
-
+    
     $sth=$pdo->prepare($sql);
 
     $sth->execute();
