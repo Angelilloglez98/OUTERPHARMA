@@ -1,6 +1,4 @@
 window.onload=()=>{
-    
-
 
     fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
     .then(response => response.json())
@@ -30,7 +28,7 @@ window.onload=()=>{
             button.value='Enviar';
             inputPassword.type='password';
             button.onclick=()=>{
-                ComprobarContrasena(element.contrasena,inputPassword.value);
+                ComprobarContrasena(element.contrasena,inputPassword.value,element.rol);
             }
             
             
@@ -50,19 +48,17 @@ window.onload=()=>{
             
         }
     
-        function ComprobarContrasena(contrasenaReal,contrasenaInput) {
-            if (contrasenaReal===contrasenaInput) {
-                
-                location.replace('./Inicio.html');
+        function ComprobarContrasena(contrasenaReal,contrasenaInput,rol) {
+            if (contrasenaReal=== contrasenaInput) {
+                if (rol==='Admin') {
+                    location.replace('./InicioAdmin.html');
+                }else{
+                    location.replace('./Inicio.html');
+                }
             }else{
-                console.log('diferentes');
+                
             }
             
         }
     }));
-
-
-    
 }
-
-
