@@ -14,6 +14,7 @@
     <script src="scripts/Inicio.js" defer></script>
     <script src="scripts/header.js"></script>
     <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/Inicio.css">
     
 </head>
 <body id="body-pd">
@@ -23,47 +24,39 @@
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">OuterPharma</span> </a>
-                <div class="nav_list">
-                    <a href="#" class="nav_link active">
-                        <i class='bx bx-grid-alt nav_icon'></i>
-                        <span class="nav_name">Inicio</span> 
-                    </a> 
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-user nav_icon'></i>
-                        <span class="nav_name">Ventas</span>
-                    </a> <a href="#" class="nav_link">
-                        <i class='bx bx-message-square-detail nav_icon'></i>
-                        <span class="nav_name">Inventario</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-bookmark nav_icon'></i>
-                        <span class="nav_name">Pedidos</span>
-                    </a> <a href="#" class="nav_link">
-                        <i class='bx bx-folder nav_icon'></i> 
-                        <span class="nav_name">Clientes</span> 
-                    </a> 
-                    <a href="#" class="nav_link"> 
-                        <i class='bx bx-bar-chart-alt-2 nav_icon'></i> 
-                        <span class="nav_name">Historial Ventas</span> 
-                    </a> 
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-                        <span class="nav_name">Gestion de usuarios</span> 
-                    </a> 
-                </div>
-            </div> 
-            <a href="#" class="nav_link">
-                <i class='bx bx-log-out nav_icon'></i>
-                <span class="nav_name">SignOut</span>
-            </a>
+                <div> <a href="#" class="nav_logo"> <img src="assets/logo.png" class="outerpharma"> <span class="nav_logo-name">OuterPharma</span> </a>
+                <div class="nav_list"> <a href="#" class="nav_link active"> <i class='bx bxs-home-alt-2 nav_icon'></i> <span class="nav_name">Inicio</span> </a>
+                    <a href="#" class="nav_link"> <i class='bx bxs-dollar-circle nav_icon'></i> <span class="nav_name">Ventas</span>
+                    </a> <a href="#" class="nav_link"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name">Inventario</span> </a>
+                    <a href="#" class="nav_link"> <i class='bx bxs-cart-alt nav_icon'></i> <span class="nav_name">Pedidos</span> </a>
+                    <a href="#" class="nav_link"> <i class='bx bxs-user nav_icon'></i> <span class="nav_name">Clientes</span> </a>
+                    <a href="#" class="nav_link"> <i class='bx bxs-credit-card nav_icon'></i> <span class="nav_name">Historial Ventas</span> </a> </div>
+                    <a href="#" class="nav_link"> <i class='bx bxs-id-card nav_icon'></i> <span class="nav_name">Gestion de usuarios</span> </a> </div>
+
+             <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
     <!--Container Main start-->
     <div class="height-100 bg-light">
-        <div>
-            <canvas id="myChart"></canvas>
-        </div>
+        <div class="container-fluid">
+            <div class="row column-gap-3 row-gap-3 gap-0 rounded">
+              <div class="p-2 col-sm-3">
+                <h4>Marcas top</h4>
+                <p></p>
+              </div>
+              <div class="p-2 col-sm-8">
+                <h4>Productos top</h4>
+                <p></p>
+              </div>
+              <div class="p-2 col-sm-9">
+                <canvas id="myChart"></canvas>
+              </div>
+              <div class="p-2 col-sm-2">
+                <h4>Historial diario</h4>
+                <p></p>
+              </div>
+            </div>
+          </div>
     </div>
     <!--Container Main end-->
 </body>
