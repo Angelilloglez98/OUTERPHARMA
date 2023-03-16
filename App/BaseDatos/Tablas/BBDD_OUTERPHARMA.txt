@@ -82,14 +82,14 @@ INSERT INTO PRODUCTOS (IdProducto, Nombre, pActivo, Laboratorio, vAdmin, presMed
 
 INSERT INTO VENTAS (nVentas, IdProducto, nEmpleado, Fecha, Cantidad, Precio, Total) 
 VALUES 
-(1, 1, 1, '2022-01-01', 5, 1.5, 7.5),
-(2, 1, 2, '2022-01-02', 10, 1.5, 15),
-(3, 2, 1, '2022-02-03', 15, 2.5, 37.5),
-(4, 2, 2, '2022-03-04', 20, 2.5, 50),
-(5, 1, 1, '2022-03-01', 5, 1.5, 7.5),
-(6, 1, 2, '2022-03-02', 10, 1.5, 15),
-(7, 2, 1, '2022-04-03', 15, 2.5, 37.5),
-(8, 2, 2, '2022-01-04', 20, 2.5, 50);
+(1, 1, 1, '2023-01-01', 5, 1.5, 7.5),
+(2, 1, 2, '2023-01-02', 10, 1.5, 15),
+(3, 2, 1, '2023-02-03', 15, 2.5, 37.5),
+(4, 2, 2, '2023-03-04', 20, 2.5, 50),
+(5, 1, 1, '2023-03-01', 5, 1.5, 7.5),
+(6, 1, 2, '2023-03-02', 10, 1.5, 15),
+(7, 2, 1, '2023-04-03', 15, 2.5, 37.5),
+(8, 2, 2, '2023-01-04', 20, 2.5, 50);
 
 INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, CcorreoFarmacia) VALUES
 ('Distribuidora Farmaceutica SA', 'Calle 4, #67', 5554321, 'farmacia1@gmail.com'),
