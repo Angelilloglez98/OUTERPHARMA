@@ -58,26 +58,29 @@ CREATE TABLE FARMACIAS_PRODUCTOS(
     FOREIGN KEY (IdProducto) REFERENCES PRODUCTOS(IdProducto)
 );
 
+CREATE TABLE VENTAS_PRODUCTOS(
+    nVentas int(9) NOT NULL,
+    IdProducto int(9) NOT NULL,
+    FOREIGN KEY (nVentas) REFERENCES VENTAS(nVentas),
+    FOREIGN KEY (IdProducto) REFERENCES PRODUCTOS(IdProducto)
+);
 
-INSERT INTO FARMACIAS (Ccorreo, nColegiado, Nombre, Contrasenia, Direccion, nTelefono) 
-VALUES 
-('farmacia1@mail.com', 123456789, 'Farmacia1', 'contrasena1', 'Calle 1', 111111111),
-('farmacia2@mail.com', 987654321, 'Farmacia2', 'contraseña2', 'Calle 2', 222222222),
-('farmacia3@mail.com', 246810121, 'Farmacia3', 'contraseña3', 'Calle 3', 333333333);
 
-INSERT INTO EMPLEADOS (Nombre, CcorreoFarmacia, Contrasena, Rol) 
-VALUES 
-('Empleado1', 'farmacia1@mail.com', 'contrasenaEmpleado1', 'Admin'),
-('Empleado2', 'farmacia1@mail.com', 'contrasenaEmpleado2', 'Empleado'),
-('Empleado3', 'farmacia2@mail.com', 'contrasenaEmpleado3', 'Admin'),
-('Empleado4', 'farmacia2@mail.com', 'contrasenaEmpleado4', 'Empleado');
+INSERT INTO FARMACIAS (Ccorreo, nColegiado, Nombre, Contrasenia, Direccion, nTelefono) VALUES
+('farmacia1@gmail.com', 123456789, 'Farmacia La Esperanza', 'password1', 'Calle 1, #23', 5551234),
+('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', 'password2', 'Avenida 2, #45', 5555678);
 
-INSERT INTO PRODUCTOS (IdProducto, Nombre, pActivo, Laboratorio, vAdmin, presMedica) 
-VALUES 
-(1, 'Paracetamol', 'Acetaminofén', 'Laboratorio1', 'oral', 'NO'),
-(2, 'Ibuprofeno', 'Ibuprofeno', 'Laboratorio2', 'oral', 'NO'),
-(3, 'Aspirina', 'Ácido acetilsalicílico', 'Laboratorio3', 'oral', 'NO');
+INSERT INTO EMPLEADOS (Nombre, CcorreoFarmacia, Contrasena, Rol) VALUES
+('Juan Perez', 'farmacia1@gmail.com', 'password3', 'Cajero'),
+('Maria Rodriguez', 'farmacia1@gmail.com', 'password4', 'Farmaceutico'),
+('Pedro Garcia', 'farmacia2@yahoo.com', 'password5', 'Cajero');
 
+<<<<<<< HEAD
+INSERT INTO PRODUCTOS (IdProducto, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
+(1, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),
+(2, 'Aspirina', 'Acido acetilsalicilico', 'Pfizer', 'Oral', 'N'),
+(3, 'Ibuprofeno', 'Ibuprofeno', 'Roche', 'Oral', 'N');
+=======
 INSERT INTO VENTAS (nVentas, IdProducto, nEmpleado, Fecha, Cantidad, Precio, Total) 
 VALUES 
 (1, 1, 1, '2022-01-01', 5, 1.5, 7.5),
@@ -88,20 +91,26 @@ VALUES
 (6, 1, 2, '2022-03-02', 10, 1.5, 15),
 (7, 2, 1, '2022-04-03', 15, 2.5, 37.5),
 (8, 2, 2, '2022-01-04', 20, 2.5, 50);
+>>>>>>> 3f3060b2c7af3cccf7b6ee7ba51012fcfb78d93b
 
-INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, CcorreoFarmacia) 
-VALUES 
-('Proveedor1', 'Calle 1', 111111111, 'farmacia1@mail.com'),
-('Proveedor2', 'Calle 2', 222222222, 'farmacia2@mail.com');
+INSERT INTO VENTAS (nVentas, IdProducto, nEmpleado, Fecha, Cantidad, Precio, Total) VALUES
+(1, 1, 1, '2022-01-01', 2, 1.50, 3.00),
+(2, 2, 2, '2022-01-02', 1, 2.00, 2.00),
+(3, 3, 1, '2022-01-03', 3, 3.00, 9.00);
 
-INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, IdProducto, Precio, Cantidad, fEntrada, fCaducidad)
-VALUES ('farmacia1@mail.com', 1, 10.99, 50, '2022-01-01', '2023-01-01');
+INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, CcorreoFarmacia) VALUES
+('Distribuidora Farmaceutica SA', 'Calle 4, #67', 5554321, 'farmacia1@gmail.com'),
+('Farmaceuticos Unidos', 'Avenida 5, #89', 5558765, 'farmacia2@yahoo.com');
 
-INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, IdProducto, Precio, Cantidad, fEntrada, fCaducidad)
-VALUES ('farmacia2@mail.com', 2, 8.99, 30, '2022-02-01', '2023-02-01');
+INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, IdProducto, Precio, Cantidad, fEntrada, fCaducidad) VALUES
+('farmacia1@gmail.com', 1, 1.25, 100, '2021-12-01', '2023-12-01'),
+('farmacia1@gmail.com', 2, 1.50, 50, '2021-12-01', '2023-12-01'),
+('farmacia2@yahoo.com', 3, 2.00, 75, '2021-12-01', '2023-12-01');
 
-INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, IdProducto, Precio, Cantidad, fEntrada, fCaducidad)
-VALUES ('farmacia1@mail.com', 2, 12.99, 100, '2022-03-01', '2023-03-01');
-
-INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, IdProducto, Precio, Cantidad, fEntrada, fCaducidad)
-VALUES ('farmacia2@mail.com', 1, 9.99, 20, '2022-02-15', '2023-02-15');
+INSERT INTO VENTAS_PRODUCTOS (nVentas, IdProducto) VALUES
+(1, 1),
+(1, 1),
+(2, 2),
+(3, 3),
+(3, 3),
+(3, 3);
