@@ -71,16 +71,15 @@ INSERT INTO FARMACIAS (Ccorreo, nColegiado, Nombre, Contrasenia, Direccion, nTel
 ('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', 'password2', 'Avenida 2, #45', 5555678);
 
 INSERT INTO EMPLEADOS (Nombre, CcorreoFarmacia, Contrasena, Rol) VALUES
-('Juan Perez', 'farmacia1@gmail.com', 'password3', 'Cajero'),
-('Maria Rodriguez', 'farmacia1@gmail.com', 'password4', 'Farmaceutico'),
-('Pedro Garcia', 'farmacia2@yahoo.com', 'password5', 'Cajero');
+('Juan Perez', 'farmacia1@gmail.com', 'password3', 'User'),
+('Maria Rodriguez', 'farmacia1@gmail.com', 'password4', 'Admin'),
+('Pedro Garcia', 'farmacia2@yahoo.com', 'password5', 'User');
 
-<<<<<<< HEAD
 INSERT INTO PRODUCTOS (IdProducto, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
 (1, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),
 (2, 'Aspirina', 'Acido acetilsalicilico', 'Pfizer', 'Oral', 'N'),
 (3, 'Ibuprofeno', 'Ibuprofeno', 'Roche', 'Oral', 'N');
-=======
+
 INSERT INTO VENTAS (nVentas, IdProducto, nEmpleado, Fecha, Cantidad, Precio, Total) 
 VALUES 
 (1, 1, 1, '2022-01-01', 5, 1.5, 7.5),
@@ -91,12 +90,6 @@ VALUES
 (6, 1, 2, '2022-03-02', 10, 1.5, 15),
 (7, 2, 1, '2022-04-03', 15, 2.5, 37.5),
 (8, 2, 2, '2022-01-04', 20, 2.5, 50);
->>>>>>> 3f3060b2c7af3cccf7b6ee7ba51012fcfb78d93b
-
-INSERT INTO VENTAS (nVentas, IdProducto, nEmpleado, Fecha, Cantidad, Precio, Total) VALUES
-(1, 1, 1, '2022-01-01', 2, 1.50, 3.00),
-(2, 2, 2, '2022-01-02', 1, 2.00, 2.00),
-(3, 3, 1, '2022-01-03', 3, 3.00, 9.00);
 
 INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, CcorreoFarmacia) VALUES
 ('Distribuidora Farmaceutica SA', 'Calle 4, #67', 5554321, 'farmacia1@gmail.com'),
