@@ -31,7 +31,6 @@ window.onload=()=>{
                 ComprobarContrasena(element.contrasena,inputPassword.value,element.rol);
             }
             
-            
             elemento.appendChild(inputPassword);
             elemento.appendChild(button);    
         }
@@ -49,7 +48,7 @@ window.onload=()=>{
         }
     
         function ComprobarContrasena(contrasenaReal,contrasenaInput,rol) {
-            if (contrasenaReal=== contrasenaInput) {
+            if (contrasenaReal=== contrasenaInput){
                 if (rol==='Admin') {
                     location.replace('./InicioAdmin.html');
                 }else{

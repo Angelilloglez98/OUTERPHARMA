@@ -11,7 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="scripts/Inicio.js" defer></script>
+    <script src="scripts/graficoLineal.js" defer></script>
+    <script src="scripts/graficoCircular.js" defer></script>
     <script src="scripts/header.js"></script>
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/Inicio.css">
@@ -47,6 +48,16 @@
                 </div>
                 <div class="p-2 col-sm-6 ">
                   <h4>Productos top</h4>
+                  <form action="BaseDatos/devProductosMasVendidos.php" method="GET">
+                    <select name="fecha" class="btn  mb-2 border-dark-subtle">
+                      <option value="2023">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                      <option value="2020">2020</option>
+                      <option value="2019">2019</option>
+                    </select>
+                    
+                  </form>
                   <canvas id="graficoCircular"></canvas>
                 </div>
                 <div class="p-2 col-sm-7">
