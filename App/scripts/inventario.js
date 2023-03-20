@@ -6,15 +6,19 @@ fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
 
         let datos = document.querySelector(".datos");
         let medicamentos = document.createElement("div");
+        medicamentos.classList.add("my-2", "col-4", "mx-3", "p-2");
 
         let pNombre = document.createElement("p");
-        pNombre = document.createTextNode("Nombre del producto: " + inventario.NombreProducto);
+        let nombrePro = document.createTextNode("Nombre del producto: " + inventario.NombreProducto)
+        pNombre.appendChild(nombrePro);
 
         let pCantidad = document.createElement("p");
-        pCantidad = document.createTextNode("Cantidad: " + inventario.Cantidad);
+        let cantidadPro = document.createTextNode("Stock: " + inventario.Cantidad)
+        pCantidad.appendChild(cantidadPro);
 
         let pPrecio = document.createElement("p");
-        pPrecio = document.createTextNode("Precio: " + inventario.Precio);
+        let precioPro = document.createTextNode("Precio: " + inventario.Precio)
+        pPrecio.appendChild(precioPro);
 
         medicamentos.appendChild(pNombre);
         medicamentos.appendChild(pCantidad);
@@ -22,7 +26,7 @@ fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
 
         datos.appendChild(medicamentos);
 
-
+        
 
     });
 });
