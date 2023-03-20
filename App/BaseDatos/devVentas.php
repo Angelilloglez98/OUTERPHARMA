@@ -18,8 +18,8 @@
     FROM VENTAS
     GROUP BY MONTH(Fecha)";
     // Id producto -> Nombre del producto, nº Empleado, Cantidad vendida, fecha de la venta, total de esa venta
-    
-    
+
+
     $pdo->exec("SET NAMES 'utf8mb4'");
 
     $sth=$pdo->prepare($sql);
