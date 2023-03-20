@@ -65,6 +65,10 @@ CREATE TABLE VENTAS_PRODUCTOS(
     FOREIGN KEY (IdProducto) REFERENCES PRODUCTOS(IdProducto)
 );
 
+CREATE TRIGGER Actualizar_VENTAS_PRODUCTOS
+AFTER INSERT ON VENTAS FOR EACH ROW
+INSERT INTO VENTAS_PRODUCTOS (nVentas, IdProducto)
+VALUES (NEW.nVentas, NEW.IdProducto);
 
 INSERT INTO FARMACIAS (Ccorreo, nColegiado, Nombre, Contrasenia, Direccion, nTelefono) VALUES
 ('farmacia1@gmail.com', 123456789, 'Farmacia La Esperanza', 'password1', 'Calle 1, #23', 5551234),
