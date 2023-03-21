@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="scripts/graficoLineal.js" defer></script>
     <script src="scripts/graficoCircular.js" defer></script>
+    <script src="scripts/LaboratoriosTop.js"></script>
     <script src="scripts/header.js"></script>
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/Inicio.css">
@@ -42,9 +43,20 @@
       <div class="height-100 bg-light">
           <div class="container-fluid">
               <div class="row column-gap-3 row-gap-3 gap-0 rounded">
-                <div class="p-2 col-sm-5">
-                  <h4>Marcas top</h4>
-                  <p></p>
+                <div class="p-2 col-sm-5 LaboratoriosTop">
+                  <h4>Laboratorios top</h4>
+                  <div style="width: 100%; height: 300px; overflow: auto; text-align: center;">
+                  <table class="table table-striped">
+                    <thead style="position:sticky; top: -1px; background-color: rgb(77, 79, 209); color: white; ">
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                      </tr>
+                    </thead>
+                    <tbody id="TablaLaboratorios">
+                    </tbody>
+                  </table>
+                </div>
                 </div>
                 <div class="p-2 col-sm-6 ">
                   <h4>Productos top</h4>

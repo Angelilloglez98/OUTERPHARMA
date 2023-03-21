@@ -13,8 +13,7 @@
     WHERE FARMACIAS.Ccorreo = '$correo'
     AND YEAR(Fecha) = YEAR(CURDATE())
     GROUP BY Mes;";
-    
-    
+      
     $pdo->exec("SET NAMES 'utf8mb4'");
 
     $sth=$pdo->prepare($sql);

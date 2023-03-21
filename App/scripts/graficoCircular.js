@@ -74,7 +74,6 @@ function recogerDatos() {
     fetch(`http://localhost/OuterPharma/App/BaseDatos/devProductosMasVendidos.php?fecha=${formulario.fecha.value}`)
     .then(respuesta=>respuesta.json())
     .then(resultado=>{
-        console.log(resultado);
         resultado.forEach(element => {
             nombreMedicamento.push(element.Nombre);
             cantidadPorMedicamento.push(element.CantidadVendida);
