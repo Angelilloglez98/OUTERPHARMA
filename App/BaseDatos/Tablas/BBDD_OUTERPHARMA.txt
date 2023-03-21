@@ -82,7 +82,8 @@ INSERT INTO EMPLEADOS (Nombre, CcorreoFarmacia, Contrasena, Rol) VALUES
 INSERT INTO PRODUCTOS (IdProducto, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
 (1, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),
 (2, 'Aspirina', 'Acido acetilsalicilico', 'Pfizer', 'Oral', 'N'),
-(3, 'Ibuprofeno', 'Ibuprofeno', 'Roche', 'Oral', 'N');
+(3, 'Ibuprofeno', 'Ibuprofeno', 'Roche', 'Oral', 'N'),
+(4, 'Acetilcisteina', 'Acetilcisteina', 'MOBA', 'Efervescente', 'N');
 
 INSERT INTO VENTAS (nVentas, IdProducto, nEmpleado, Fecha, Cantidad, Precio, Total) 
 VALUES 
@@ -102,7 +103,8 @@ INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, CcorreoFarmacia) VALUES
 INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, IdProducto, Precio, Cantidad, fEntrada, fCaducidad) VALUES
 ('farmacia1@gmail.com', 1, 1.25, 100, '2021-12-01', '2023-12-01'),
 ('farmacia1@gmail.com', 2, 1.50, 50, '2021-12-01', '2023-12-01'),
-('farmacia2@yahoo.com', 3, 2.00, 75, '2021-12-01', '2023-12-01');
+('farmacia2@yahoo.com', 3, 2.00, 75, '2021-12-01', '2023-12-01'),
+('farmacia1@gmail.com', 4, 1.75, 75, '2021-12-01', '2023-12-01');
 
 INSERT INTO VENTAS_PRODUCTOS (nVentas, IdProducto) VALUES
 (1, 1),
