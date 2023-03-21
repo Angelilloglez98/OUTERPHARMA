@@ -29,6 +29,15 @@ window.onload = () =>{
     }
 
     const busqueda = document.querySelector('input[type="search"]');
+
+    busqueda.addEventListener("keydown", (event) => {
+
+        if (event.isComposing || event.keyCode === 'Enter') {
+          console.log("Si");
+        }
+        
+      });
+
     console.log(busqueda.value); 
 
     buscarMed("paracetamol").then((response) => {

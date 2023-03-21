@@ -25,4 +25,6 @@
     
     $resultado = json_encode($registros, JSON_UNESCAPED_UNICODE);
     echo $resultado;
+    
+
 ?>
