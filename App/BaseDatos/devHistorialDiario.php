@@ -7,16 +7,13 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT PRODUCTOS.Nombre,VENTAS.Cantidad 
+    $sql="SELECT PRODUCTOS.Nombre,VENTAS.Precio
     FROM VENTAS 
     INNER JOIN PRODUCTOS ON VENTAS.IdProducto=PRODUCTOS.IdProducto
     INNER JOIN EMPLEADOS ON VENTAS.nEmpleado=EMPLEADOS.nEmpleado
     INNER JOIN FARMACIAS ON EMPLEADOS.CcorreoFarmacia=FARMACIAS.Ccorreo
     WHERE VENTAS.Fecha=CAST(CURRENT_TIMESTAMP as DATE)
-    AND FARMACIAS.Ccorreo='$correo';
-    "
-    
-    ;
+    AND FARMACIAS.Ccorreo='$correo';";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
 
@@ -27,7 +24,7 @@
     while ($fila=$sth->fetch()) {
         $registros[]=array(
             'Nombre'=>$fila['Nombre'],
-            'CantidadEnElDia'=>$fila['Cantidad']
+            'Precio'=>$fila['Precio']
         );
     }
 

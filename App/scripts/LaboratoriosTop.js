@@ -4,7 +4,6 @@ window.onload=()=>{
         .then(respuesta=>respuesta.json())
         .then(resultado=>{
             resultado.forEach(element => {
-                console.log(element);
                 imprimirDatos(element.Laboratorio,element.VentasLab);
             });
         })
@@ -21,8 +20,6 @@ window.onload=()=>{
         fila.appendChild(col);
         fila.appendChild(col2);
         tabla.appendChild(fila);
-        let graficoCircular=document.querySelector('#graficoCircular');
-        let altoGrafico=graficoCircular.style.height;
-        tabla.style.height=altoGrafico;
+
     }
 }
