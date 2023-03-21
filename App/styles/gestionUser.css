@@ -43,7 +43,7 @@ p{
 p:hover{
     background-color: #87A3AA;
     color: aliceblue;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 .contra{
     display: none;
@@ -53,4 +53,32 @@ img{
     padding: 10PX;
     border-radius: 100PX;
     background-color: #DCE2E2;
+}
+
+#delete {
+    background-color: transparent;
+    height: 50px;
+    width: 50px;
+    font-size: 1.5em;
+    border: transparent;
+}
+#edit {
+    background-color: transparent;
+    height: 50px;
+    width: 50px;
+    font-size: 1.5em;
+    border: transparent;
+}
+
+.emergente{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 800px;
+    background-color: white;
+    transform: translate(-50%, -60%);
+}
+.emergente p{
+    background-color: pink;
 }
