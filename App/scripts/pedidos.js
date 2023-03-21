@@ -28,6 +28,7 @@ window.onload = () =>{
         .then(medicamentos => {return medicamentos})
         .catch(e => {console.error("ERROR: ", e.message)});
 
+
     }
 
     const busqueda = document.querySelector('input[type="search"]');
