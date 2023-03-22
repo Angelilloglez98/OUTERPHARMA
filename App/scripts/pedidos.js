@@ -6,7 +6,7 @@ window.onload = () =>{
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
 
-        console.log(element);
+        // console.log(element);
 
     }));
 
@@ -45,23 +45,45 @@ window.onload = () =>{
         tr.appendChild(th);
 
         for (const i in data) {
+
             let td = document.createElement('td');
-            if (i == 'nombre' || i == 'vtm' || i == 'formaFarmaceutica' || i == 'viasAdministracion' || i == 'labtitular' || i == 'cpresc') {
+
+            if (i == 'nombre' || i == 'vtm' || i == 'formaFarmaceutica' || i == 'viasAdministracion' || i == 'labtitular' || i == 'cpresc' || i == 'docs') {
                 
-                if(i == 'vtm' || i == 'formaFarmaceutica' || i == 'viasAdministracion'){
+                if(i == 'vtm' || i == 'formaFarmaceutica'|| i == 'viasAdministracion'){
 
                     for (const j in data[i]) {
                         if(j == 'nombre'){
                             let info = document.createTextNode(data[i][j]);
                             td.appendChild(info); 
                         }
+                        
+                    }
+
+                    if(i == 'viasAdministracion'){
+                        data[i].forEach(element=>{
+
+                            let info = document.createTextNode(element.nombre);
+                            td.appendChild(info); 
+
+                        })
                     }
 
                 }else{
-                  let info = document.createTextNode(data[i]);
-                  td.appendChild(info);
-                }
 
+                    if(i == 'docs'){
+                        let link = document.createElement('a');
+                        link.href = `${data[i][1].urlHtml}`;
+                        link.textContent = "Prospecto";
+                        link.target = "_blank"
+                        td.appendChild(link);
+                    }else{
+                        let info = document.createTextNode(data[i]);
+                        td.appendChild(info);
+                    }
+                 
+
+                }
                 
                 tr.appendChild(td);
                 
@@ -79,17 +101,11 @@ window.onload = () =>{
             busqueda.value = "";
           
             buscarMed(datos).then((response) => {
-                console.log(response.resultados);
-                console.log(response.resultados[0].nombre);
-                console.log(response.resultados[0].vtm.nombre);
-                console.log(response.resultados[0].formaFarmaceutica.nombre);
-                console.log(response.resultados[0].viasAdministracion[0].nombre);
-                console.log(response.resultados[0].labtitular);
-                console.log(response.resultados[0].cpresc);
 
                 response.resultados.forEach(element => {
                     
                     creatRow(element);
+                    // console.log(element);
                     
                 })
 
