@@ -52,6 +52,10 @@ window.onload = () => {
             medicamentos.appendChild(pPrecio);
             medicamentos.appendChild(botonBorrar);
             medicamentos.appendChild(pId);
+
+            medicamentos.addEventListener('click', function(e){
+                recibir(e);
+            })
     
             datos.appendChild(medicamentos);
         }
@@ -59,19 +63,6 @@ window.onload = () => {
         function recibir(e){
             console.log(e.target);
         }
-
-        function ponerListener(){
-            let medicamentos = document.querySelectorAll('.medicamentos');
-            medicamentos.forEach(function(medicamento){
-                medicamento.addEventListener('click', function(e){
-                    recibir(e);
-                });
-            });
-        }
-
-        
     }));
     
 }
-
-
