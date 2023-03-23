@@ -31,6 +31,14 @@ window.onload = () =>{
 
     }
 
+    const borrarTabla = (tabla) => {
+
+        while (tabla.firstChild) {
+            tabla.removeChild(tabla.firstChild);
+        }
+
+    }
+
     const busqueda = document.querySelector('input[type="search"]');
 
     const creatRow = (data) =>{
@@ -97,6 +105,9 @@ window.onload = () =>{
     busqueda.addEventListener("keydown", (event) => {
  
         if (event.key === 'Enter' && busqueda.value != '') {
+
+            var tbody = document.querySelector("#buscarMed");
+            borrarTabla(tbody);
             var datos = busqueda.value;
             busqueda.value = "";
           
