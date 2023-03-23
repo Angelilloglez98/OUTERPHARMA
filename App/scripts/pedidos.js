@@ -10,7 +10,7 @@ window.onload = () =>{
 
     }));
 
-    const buscarMed = async(datos) => {
+    const buscarMed = async(datos, filtro) => {
 
         const options = {
             method: 'GET',
@@ -106,12 +106,14 @@ window.onload = () =>{
  
         if (event.key === 'Enter' && busqueda.value != '') {
 
-            var tbody = document.querySelector("#buscarMed");
+            const filtro = document.querySelector("#filtro");
+            const tbody = document.querySelector("#buscarMed");
+
             borrarTabla(tbody);
             var datos = busqueda.value;
             busqueda.value = "";
           
-            buscarMed(datos).then((response) => {
+            buscarMed(datos, filtro.value).then((response) => {
 
                 response.resultados.forEach(element => {
                     
