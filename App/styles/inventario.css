@@ -30,6 +30,15 @@ p{
 }
 
 .col-2{
+    border-radius: 25px;
+}
+
+.col-12{
+    margin-left: 1.25rem;
     border: 1px solid black;
     border-radius: 25px;
+}
+
+.col-12:first-child{
+    margin-bottom: 3rem;
 }
