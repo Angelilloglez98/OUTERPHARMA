@@ -41,20 +41,22 @@
       <div class="height-100 bg-light">
           <div class="container-fluid">
               <div class="row column-gap-3 row-gap-3 gap-0 rounded">
-                <div class="p-2 col-sm-5 LaboratoriosTop">
+                <div class="p-2 col-sm-5">
                   <h4>Laboratorios top</h4>
-                  <div style="width: 100%; height: 300px; overflow: auto; text-align: center;">
-                  <table class="table table-striped">
-                    <thead style="position:sticky; top: -1px; background-color: rgb(77, 79, 209); color: white; ">
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Cantidad</th>
-                      </tr>
-                    </thead>
-                    <tbody id="TablaLaboratorios">
+                  
+                  
+                    <table class="table table-striped tablas ">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Cantidad</th>
+                        </tr>
+                      </thead>
+                      <tbody id="TablaLaboratorios">
                     </tbody>
                   </table>
                 </div>
+                
                 <div class="p-2 col-sm-6 ">
                   <h4>Productos top</h4>
                   <form action="BaseDatos/devProductosMasVendidos.php" method="GET">
@@ -73,9 +75,19 @@
                   <h4>Compras Ventas</h4>
                   <canvas id="myChart"></canvas>
                 </div>
-                <div class="p-2 col-sm-4">
+                <div class="p-2 col-sm-4" style="position: relative;">
                   <h4>Historial diario</h4>
-                  <p></p>
+                  <table class="table table-striped tablas">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                      </tr>
+                    </thead>
+                    <tbody id="TablaHistorial">
+
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
