@@ -48,18 +48,18 @@ btnLogin.onclick=()=>{
 
 function crearMensajeError(elemento, mensaje) {
   elemento.innerHTML='';
-    let p=document.createElement('p');
-    p.classList.add('error');
-    let texto=document.createTextNode(mensaje);
-    p.appendChild(texto);
-    elemento.appendChild(p);
+  let p=document.createElement('p');
+  p.classList.add('error');
+  let texto=document.createTextNode(mensaje);
+  p.appendChild(texto);
+  elemento.appendChild(p);
 }
 
 function activarRegistrar() {
-    formularios.style.transform='translateX(-50%)';    
+  formularios.style.transform='translateX(-50%)';    
 }
 
 function activarLogin() {
-    formularios.style.transform='translateX(0)';
+  formularios.style.transform='translateX(0)';
 }
 

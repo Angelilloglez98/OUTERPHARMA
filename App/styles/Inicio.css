@@ -2,3 +2,29 @@ canvas{
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
 }
+.tablas {
+    max-height: 300px;
+    display: block;
+    overflow-y: scroll;
+    border-collapse: collapse;
+    width: 100%;
+    box-sizing: border-box;
+    table-layout: auto;
+  }
+  
+  .tablas thead {
+    background: #ccc;
+    position: sticky;
+    top: 0;
+  }
+  
+  .tablas th,
+  .tablas td {
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

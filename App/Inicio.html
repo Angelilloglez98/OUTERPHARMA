@@ -13,36 +13,51 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="scripts/graficoLineal.js" defer></script>
     <script src="scripts/graficoCircular.js" defer></script>
+    <script src="scripts/LaboratoriosTop.js"></script>
     <script src="scripts/header.js"></script>
-    <link rel="stylesheet" href="styles/Inicio.css">
+    <script src="scripts/historialDiario.js" defer></script>
     <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/Inicio.css">
 </head>
+
 <body id="body-pd">
   <header class="header" id="header">
     <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
     <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
 </header>
     <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="assets/logo.png" class="outerpharma"> <span class="nav_logo-name">OuterPharma</span> </a>
-                <div class="nav_list"> <a href="#" class="nav_link active"> <i class='bx bxs-home-alt-2 nav_icon'></i> <span class="nav_name">Inicio</span> </a>
-                    <a href="#" class="nav_link"> <i class='bx bxs-dollar-circle nav_icon'></i> <span class="nav_name">Ventas</span>
-                    </a> <a href="#" class="nav_link"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name">Inventario</span> </a>
-                    <a href="pedidos.html" class="nav_link"> <i class='bx bxs-cart-alt nav_icon'></i> <span class="nav_name">Pedidos</span> </a>
-                    <a href="#" class="nav_link"> <i class='bx bxs-user nav_icon'></i> <span class="nav_name">Clientes</span> </a>
-                    <a href="#" class="nav_link"> <i class='bx bxs-credit-card nav_icon'></i> <span class="nav_name">Historial Ventas</span> </a> </div>
-            </div> <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
-        </nav>
-    </div>
+      <nav class="nav">
+          <div> <a href="Inicio.html" class="nav_logo"> <img src="assets/logo.png" class="outerpharma"> <span class="nav_logo-name">OuterPharma</span> </a>
+              <div class="nav_list"> <a href="Inicio.html" class="nav_link active"> <i class='bx bxs-home-alt-2 nav_icon'></i> <span class="nav_name">Inicio</span> </a>
+                  <a href="ventas.html" class="nav_link"> <i class='bx bxs-dollar-circle nav_icon'></i> <span class="nav_name">Ventas</span></a> 
+                  <a href="inventario.html" class="nav_link"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name">Inventario</span> </a>
+                  <a href="pedidos.html" class="nav_link"> <i class='bx bxs-cart-alt nav_icon'></i> <span class="nav_name">Pedidos</span> </a>
+                  <a href="clientes.html" class="nav_link"> <i class='bx bxs-user nav_icon'></i> <span class="nav_name">Clientes</span> </a>
+                  <a href="historialVentas.html" class="nav_link"> <i class='bx bxs-credit-card nav_icon'></i> <span class="nav_name">Historial Ventas</span> </a> </div>
+          </div> <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+      </nav>
+  </div>
     <!--Container Main start-->
     <div class="height-100 bg-light">
       <div class="height-100 bg-light">
           <div class="container-fluid">
               <div class="row column-gap-3 row-gap-3 gap-0 rounded">
                 <div class="p-2 col-sm-5">
-                  <h4>Marcas top</h4>
-                  <p></p>
+                  <h4>Laboratorios top</h4>
+                  
+                  
+                    <table class="table table-striped tablas ">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Cantidad</th>
+                        </tr>
+                      </thead>
+                      <tbody id="TablaLaboratorios">
+                    </tbody>
+                  </table>
                 </div>
+                
                 <div class="p-2 col-sm-6 ">
                   <h4>Productos top</h4>
                   <form action="BaseDatos/devProductosMasVendidos.php" method="GET">
@@ -61,15 +76,24 @@
                   <h4>Compras Ventas</h4>
                   <canvas id="myChart"></canvas>
                 </div>
-                <div class="p-2 col-sm-4">
+                <div class="p-2 col-sm-4" style="position: relative;">
                   <h4>Historial diario</h4>
-                  <p></p>
+                  <table class="table table-striped tablas">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                      </tr>
+                    </thead>
+                    <tbody id="TablaHistorial">
+
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
       </div>
   </div>
-    
     <!--Container Main end-->
 </body>
 </html>
