@@ -6,8 +6,8 @@ window.onload = () => {
         Pintar(document.querySelector('.contenedorUser'), element.nombre,element.rol)
         document.querySelectorAll(".edit").forEach(resultado =>{
             resultado.addEventListener("click", function(elemento) {
-                ventanaEmergente(element.nombre,resultado.rol);
-                console.log(elemento.target);
+                ventanaEmergente(elemento.path[2].innerText,resultado.rol);
+                console.log(elemento);
                 
             });
         })
@@ -25,24 +25,14 @@ window.onload = () => {
         inputName.type = "text";
         inputName.value = nombre;
         div.appendChild(inputName); 
-        let pRol = document.createElement('p');
-        let txtRol = document.createTextNode("Cargo:");
-        pRol.appendChild(txtRol);
-        div.appendChild(pRol);
-        let selectRol = document.createElement('select');
-        let option3 = document.createElement("option");
-        option3.text = "Elige cargo";
-        option3.value = "Elige cargo";
-        let option1 = document.createElement("option");
-        option1.text = "Administrador";
-        option1.value = "Administrador";
-        let option2 = document.createElement("option");
-        option2.text = "Usuario";
-        option2.value = "Usuario";
-        selectRol.appendChild(option3);
-        selectRol.appendChild(option1);
-        selectRol.appendChild(option2);
-        div.appendChild(selectRol);
+        let pNacimiento = document.createElement('p');
+        let txtNacimiento = document.createTextNode("Fecha de nacimiento:");
+        pNacimiento.appendChild(txtNacimiento);
+        div.appendChild(pNacimiento);
+        let inputNacimiento = document.createElement("input");
+        inputNacimiento.classList.add("inputs");
+        div.appendChild(inputNacimiento);
+
 
         let buttonAccept = document.createElement('button')
         let buttonCancel = document.createElement('button')
@@ -53,7 +43,7 @@ window.onload = () => {
     function Pintar(elemento, nombre, rol) {
         let div = document.createElement('div');
         let p = document.createElement('p');
-        let texto = document.createTextNode(rol+ " " +nombre);
+        let texto = document.createTextNode(nombre);
         let beli = document.createElement('button');
         let bedi = document.createElement('button');
         let trash = document.createElement('i');
