@@ -28,15 +28,18 @@ window.onload = () => {
             pId.appendChild(idPro);
     
             let pNombre = document.createElement("p");
+            pNombre.classList.add('parrafo');
             let nombrePro = document.createTextNode(inventario.NombreProducto)
             pNombre.appendChild(nombrePro);
     
             let pCantidad = document.createElement("p");
             let cantidadPro = document.createTextNode("Stock: " + inventario.Cantidad)
+            pCantidad.classList.add('parrafo');
             pCantidad.appendChild(cantidadPro); 
     
             let pPrecio = document.createElement("p");
             let precioPro = document.createTextNode("Precio: " + inventario.Precio + "€")
+            pPrecio.classList.add('parrafo');
             pPrecio.appendChild(precioPro);
     
             let botonBorrar = document.createElement("input");
@@ -61,8 +64,24 @@ window.onload = () => {
         }
 
         function recibir(e){
-            let datos = document.querySelector('.medicamentos')
-            console.log(datos);
+            if (e.target.classList.contains('parrafo')) {
+                let div = e.target.parentNode;
+                var nombre = div.firstChild.innerText;
+                console.log(nombre);
+            } else {
+                var nombre = e.target.firstChild.innerText;
+                console.log(nombre);
+            }
+
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/borrarStock.php?nombre=${nombre}`)
+            .then(respuesta=>respuesta.json())
+            .then(resultado=>{
+                resultado.forEach(element => {
+                    console.log(element);
+                    location.reload();
+                });
+            });
+            console.log(nombre);
         }
     }));
     
