@@ -6,6 +6,7 @@ window.onload=()=>{
         Pintar(document.querySelector('.contenedorUser'),element.nombre)
         
         function Pintar(elemento, mensaje) {
+            
             let div=document.createElement('div');
             div.classList.add('user');
             let p=document.createElement('p');
@@ -21,18 +22,26 @@ window.onload=()=>{
     
         function pintarContrasena(elemento) {
             eliminarForms();
-            
+            let form =document.createElement("form");
             let inputPassword=document.createElement('input');
             let button=document.createElement('input');
             button.type='button';
             button.value='Enviar';
             inputPassword.type='password';
+            form.appendChild(inputPassword);
+            form.appendChild(button);
             button.onclick=()=>{
                 ComprobarContrasena(element.contrasena,inputPassword.value,element.rol);
             }
+            form.onsubmit=(e)=>{
+                e.preventDefault();
+                ComprobarContrasena(element.contrasena,inputPassword.value,element.rol);
+            }
+                
             
-            elemento.appendChild(inputPassword);
-            elemento.appendChild(button);    
+            
+            elemento.appendChild(form);
+                
         }
     
         function eliminarForms(){
