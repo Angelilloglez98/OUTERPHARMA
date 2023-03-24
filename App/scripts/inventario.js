@@ -73,15 +73,13 @@ window.onload = () => {
                 console.log(nombre);
             }
 
-            fetch(`http://localhost/OuterPharma/App/BaseDatos/borrarStock.php?nombre=${nombre}`)
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?nombre=${nombre}`)
             .then(respuesta=>respuesta.json())
             .then(resultado=>{
                 resultado.forEach(element => {
                     console.log(element);
-                    location.reload();
                 });
             });
-            console.log(nombre);
         }
     }));
     
