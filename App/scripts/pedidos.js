@@ -1,14 +1,12 @@
 window.onload = () =>{
 
-    //IMPLEMENTAR LIMPIAR LA TABLA
+    // fetch('http://localhost/OuterPharma/App/BaseDatos/devProveedores.php')
+    // .then(response => response.json())
+    // .then(registro => registro.forEach(element => {
 
-    fetch('http://localhost/OuterPharma/App/BaseDatos/devProveedores.php')
-    .then(response => response.json())
-    .then(registro => registro.forEach(element => {
+    //     // console.log(element);
 
-        // console.log(element);
-
-    }));
+    // }));
 
     const buscarMed = async(datos, filtro) => {
 
@@ -18,12 +16,25 @@ window.onload = () =>{
             Headers: {'Accept':'aplication/json'}
         }
 
-        const url = "https://cima.aemps.es/cima/rest/medicamentos?";
-        const busqueda = "nombre="
-        // if(isNaN(datos)){url+="s?"}
-        // else{url+="?"}
+        var url = "https://cima.aemps.es/cima/rest/medicamento";
 
-        return fetch(url+busqueda+datos, options)
+        if(filtro==="nregistro"){
+
+            url += "?"
+            filtro += "="
+
+        }
+
+        if(filtro==="nombre" || filtro === "vtm"){
+
+            url += "s?"
+            filtro += "="
+
+        }
+
+        console.log(filtro);
+
+        return fetch(url+filtro+datos, options)
         .then(response => response.json())
         .then(medicamentos => {return medicamentos})
         .catch(e => {console.error("ERROR: ", e.message)});
@@ -106,7 +117,7 @@ window.onload = () =>{
  
         if (event.key === 'Enter' && busqueda.value != '') {
 
-            const filtro = document.querySelector("#filtro");
+            var filtro = document.querySelector("#filtro");
             const tbody = document.querySelector("#buscarMed");
 
             borrarTabla(tbody);
@@ -118,7 +129,7 @@ window.onload = () =>{
                 response.resultados.forEach(element => {
                     
                     creatRow(element);
-                    // console.log(element);
+                    console.log(element);
                     
                 })
 
