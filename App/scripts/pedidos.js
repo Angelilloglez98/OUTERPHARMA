@@ -10,7 +10,7 @@ window.onload = () =>{
 
     }));
 
-    const buscarMed = async(datos) => {
+    const buscarMed = async(datos, filtro) => {
 
         const options = {
             method: 'GET',
@@ -28,6 +28,14 @@ window.onload = () =>{
         .then(medicamentos => {return medicamentos})
         .catch(e => {console.error("ERROR: ", e.message)});
 
+
+    }
+
+    const borrarTabla = (tabla) => {
+
+        while (tabla.firstChild) {
+            tabla.removeChild(tabla.firstChild);
+        }
 
     }
 
@@ -97,10 +105,15 @@ window.onload = () =>{
     busqueda.addEventListener("keydown", (event) => {
  
         if (event.key === 'Enter' && busqueda.value != '') {
+
+            const filtro = document.querySelector("#filtro");
+            const tbody = document.querySelector("#buscarMed");
+
+            borrarTabla(tbody);
             var datos = busqueda.value;
             busqueda.value = "";
           
-            buscarMed(datos).then((response) => {
+            buscarMed(datos, filtro.value).then((response) => {
 
                 response.resultados.forEach(element => {
                     
