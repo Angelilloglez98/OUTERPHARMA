@@ -8,8 +8,8 @@ $nombre = $_GET["nombre"];
 
 $correo=$_SESSION['CorreoFarmacia'];
 
-$sql="SELECT FARMACIAS_PRODUCTOS.Ccorreo,FARMACIAS_PRODUCTOS.idProducto,productos.Nombre,FARMACIAS_PRODUCTOS.Precio,FARMACIAS_PRODUCTOS.Cantidad,FARMACIAS_PRODUCTOS.fCaducidad, productos.pActivo, productos.Laboratorio, productos.vAdmin, productos.presMedica
-    FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.idProducto=PRODUCTOS.idProducto where Ccorreo='$correo' and productos.Nombre='$nombre'";
+$sql="SELECT FARMACIAS_PRODUCTOS.Ccorreo,FARMACIAS_PRODUCTOS.CodigoNacional,productos.Nombre,FARMACIAS_PRODUCTOS.Precio,FARMACIAS_PRODUCTOS.Cantidad,FARMACIAS_PRODUCTOS.fCaducidad, productos.pActivo, productos.Laboratorio, productos.vAdmin, productos.presMedica
+    FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.CodigoNacional=PRODUCTOS.CodigoNacional where Ccorreo='$correo' and productos.Nombre='$nombre'";
 
 $pdo->exec("SET NAMES 'utf8mb4'");
 
@@ -20,7 +20,7 @@ $sth->execute();
 while ($fila=$sth->fetch()) {
     $registros[]=array(
         'Ccorreo'=>$fila['Ccorreo'],
-        'idProducto'=>$fila['idProducto'],
+        'CodigoNacional'=>$fila['CodigoNacional'],
         'NombreProducto'=>$fila['Nombre'],
         'Precio'=>$fila['Precio'],
         'Cantidad'=>$fila['Cantidad'],
