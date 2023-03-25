@@ -8,7 +8,7 @@
 
     $sql="SELECT PRODUCTOS.Laboratorio AS laboratorio, SUM(VENTAS.Cantidad) AS ventasProducto
     FROM VENTAS
-    INNER JOIN PRODUCTOS ON VENTAS.IdProducto=PRODUCTOS.IdProducto
+    INNER JOIN PRODUCTOS ON VENTAS.CodigoNacional=PRODUCTOS.CodigoNacional
     INNER JOIN EMPLEADOS ON VENTAS.nEmpleado=EMPLEADOS.nEmpleado
     INNER JOIN FARMACIAS ON EMPLEADOS.CcorreoFarmacia=FARMACIAS.Ccorreo
     WHERE FARMACIAS.Ccorreo = '$correo'
