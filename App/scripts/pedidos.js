@@ -15,16 +15,8 @@ window.onload = () =>{
             redirect: 'follow',
             Headers: {'Accept':'aplication/json'}
         }
-<<<<<<< HEAD
-<
-        const url = "https://cima.aemps.es/cima/rest/medicamentos?";
-        const busqueda = "nombre="
-        // if(isNaN(datos)){url+="s?"}
-        // else{url+="?"}
-=======
 
         var url = "https://cima.aemps.es/cima/rest/medicamento";
->>>>>>> 2f24fdea0c124f1cb98610bb43c76c11367bc1ce
 
         if(filtro==="nregistro"){
 
@@ -41,7 +33,7 @@ window.onload = () =>{
         }
 
         console.log(filtro);
-
+        
         return fetch(url+filtro+datos, options)
         .then(response => response.json())
         .then(medicamentos => {return medicamentos})
@@ -137,7 +129,7 @@ window.onload = () =>{
                 response.resultados.forEach(element => {
                     
                     creatRow(element);
-                    console.log(element);
+                    // console.log(element);
                     
                 })
 
