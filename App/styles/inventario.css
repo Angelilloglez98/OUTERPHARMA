@@ -42,3 +42,7 @@ p{
 .col-12:first-child{
     margin-bottom: 3rem;
 }
+
+.small{
+    font-size: .80rem;
+}

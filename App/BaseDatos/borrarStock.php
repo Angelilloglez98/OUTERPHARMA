@@ -8,7 +8,7 @@ $CodigoNacional = $_GET["CodigoNacional"];
 $cantidad = $_GET["cantidad"];
 $cantidad--;
 
-$sqlUpdate = "UPDATE `farmacias_productos` SET `Cantidad`='$cantidad' WHERE `IdProducto`= '$CodigoNacional'";
+$sqlUpdate = "UPDATE `farmacias_productos` SET `Cantidad`='$cantidad' WHERE `CodigoNacional`= '$CodigoNacional'";
 
 $correo=$_SESSION['CorreoFarmacia'];
 

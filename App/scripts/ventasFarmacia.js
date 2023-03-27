@@ -6,8 +6,8 @@
     formulario.onsubmit=(e)=>{
         e.preventDefault();
         let valorInput=document.querySelector('#AnadirPorCN');
-         BuscarMedicamento(valorInput.value);      
-        }
+        BuscarMedicamento(valorInput.value);      
+    }
 
     async function BuscarMedicamento(cn) {
         await fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
