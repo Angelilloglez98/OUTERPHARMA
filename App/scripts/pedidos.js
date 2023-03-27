@@ -18,7 +18,7 @@ window.onload = () =>{
 
         var url = "https://cima.aemps.es/cima/rest/medicamento";
 
-        if(filtro==="nregistro"){
+        if(filtro==="cn"){
 
             url += "?"
             filtro += "="
@@ -31,8 +31,6 @@ window.onload = () =>{
             filtro += "="
 
         }
-
-        console.log(filtro);
         
         return fetch(url+filtro+datos, options)
         .then(response => response.json())
@@ -56,20 +54,28 @@ window.onload = () =>{
 
         var tableBody = document.querySelector("#buscarMed");
         var tr = document.createElement('tr');
-        var th = document.createElement('th');
-        var checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-
-        th.appendChild(checkbox);
-        tr.appendChild(th);
+        var img = document.createElement("img");
 
         for (const i in data) {
 
             let td = document.createElement('td');
 
-            if (i == 'nombre' || i == 'vtm' || i == 'formaFarmaceutica' || i == 'viasAdministracion' || i == 'labtitular' || i == 'cpresc' || i == 'docs') {
+            if (i == 'fotos' || i == 'nombre' || i == 'vtm' || i == 'formaFarmaceutica' || i == 'viasAdministracion' || i == 'labtitular' || i == 'cpresc' || i == 'docs') {
                 
-                if(i == 'vtm' || i == 'formaFarmaceutica'|| i == 'viasAdministracion'){
+                if(i == 'fotos'){
+
+                    const urlIMG = data[i][0].url;
+                    if(urlIMG == undefined){
+                        img.src = "sin datos"
+                    }else{
+                        img.src = urlIMG;
+                    }
+                    console.log(urlIMG);
+                    
+                    td.appendChild(img);
+                    
+
+                }else if(i == 'vtm' || i == 'formaFarmaceutica'|| i == 'viasAdministracion'){
 
                     for (const j in data[i]) {
                         if(j == 'nombre'){
@@ -126,14 +132,23 @@ window.onload = () =>{
           
             buscarMed(datos, filtro.value).then((response) => {
 
-                response.resultados.forEach(element => {
-                    
-                    creatRow(element);
-                    // console.log(element);
-                    
-                })
+                if(Array.isArray(response.resultados)){
 
-            })
+                    response.resultados.forEach(element => {
+                    
+                        creatRow(element);
+                        console.log(element);
+                        
+                    })
+
+                }else{
+
+                    creatRow(response);
+
+                }
+
+
+            });
 
         }
         
