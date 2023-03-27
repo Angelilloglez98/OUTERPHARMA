@@ -1,0 +1,125 @@
+table{
+    margin: auto;
+}
+
+tr{
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+}
+select{
+    min-width: 40px;
+    width: 100%;
+}
+
+tr img{
+    width: 100%;
+    min-width: 100px;
+}
+
+form{
+    display: flex;
+    align-items: stretch;
+    column-gap: 10px;
+}
+#Escaner{
+    width: 100%;
+    
+}
+#Escaner video{
+    width: 100%;
+    
+}
+#venta{
+    max-height: 700px;
+    overflow-y: scroll;
+}
+/* CSS */
+.botonverde {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #27ae60;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  padding: 13px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.botonverde:hover {
+  background-color: #1e8449;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.botonverde:active {
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.botonverde:hover {
+  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+}
+
+#codigoBarra{
+    padding: 20px;
+    background-image: url('../assets/photo_camera_FILL1_wght400_GRAD0_opsz48.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+
+#Escaner{
+    max-width: 300px;
+}
+.drawingBuffer{
+    display: none;
+}
+
+.cambiarForma{
+    margin: 50px 0;
+}
+@media (max-width:975px) {
+    table{
+        font-size:0.75em;
+        
+    }
+}
+@media (max-width:650px) {
+    .fotoProducto{
+        display: none
+    }
+    body{
+        font-size: 14px;
+    }
+    tr{
+        grid-template-columns: repeat(6,1fr);
+        
+    }
+    .cambiarForma{
+        display: flex;
+        justify-content: center;
+        
+    }
+}

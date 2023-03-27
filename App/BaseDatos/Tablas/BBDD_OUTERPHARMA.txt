@@ -10,6 +10,8 @@ CREATE TABLE FARMACIAS(
 CREATE TABLE EMPLEADOS(
     nEmpleado int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Nombre VARCHAR(20) NOT NULL,
+    Telefono int(12) NOT NULL,
+    CorreoPersonal VARCHAR(100),
     CcorreoFarmacia VARCHAR(50) NOT NULL,
     Contrasena VARCHAR(30) NOT NULL,
     Rol VARCHAR(15) NOT NULL,
@@ -18,7 +20,7 @@ CREATE TABLE EMPLEADOS(
 );
 
 CREATE TABLE PRODUCTOS(
-    IdProducto int(9) PRIMARY KEY NOT NULL,
+    CodigoNacional int(15) PRIMARY KEY NOT NULL,
     Nombre VARCHAR(20) NOT NULL,
     pActivo VARCHAR(30) NOT NULL,
     Laboratorio VARCHAR(15) NOT NULL,
@@ -28,13 +30,13 @@ CREATE TABLE PRODUCTOS(
 
 CREATE TABLE VENTAS(
     nVentas int(9) PRIMARY KEY NOT NULL,
-    IdProducto int(9),
+    CodigoNacional int(15),
     nEmpleado int(3),
     Fecha DATE,
     Cantidad int(2),
     Precio float(4,2),
     Total float(5,2),
-    FOREIGN KEY (IdProducto) REFERENCES PRODUCTOS(IdProducto),
+    FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional),
     FOREIGN KEY (nEmpleado) REFERENCES EMPLEADOS(nEmpleado) 
 );
 
@@ -48,68 +50,68 @@ CREATE TABLE PROVEEDORES(
 
 CREATE TABLE FARMACIAS_PRODUCTOS(
     Ccorreo VARCHAR(50),
-    IdProducto int(9),
+    CodigoNacional int(9),
     Precio float(4,2),
     Cantidad int(3),
     fEntrada DATE,
     fCaducidad DATE,
-    PRIMARY KEY (Ccorreo, IdProducto),
+    PRIMARY KEY (Ccorreo, CodigoNacional),
     FOREIGN KEY (Ccorreo) REFERENCES FARMACIAS(Ccorreo),
-    FOREIGN KEY (IdProducto) REFERENCES PRODUCTOS(IdProducto)
+    FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional)
 );
 
 CREATE TABLE VENTAS_PRODUCTOS(
     nVentas int(9) NOT NULL,
-    IdProducto int(9) NOT NULL,
+    CodigoNacional int(9) NOT NULL,
     FOREIGN KEY (nVentas) REFERENCES VENTAS(nVentas),
-    FOREIGN KEY (IdProducto) REFERENCES PRODUCTOS(IdProducto)
+    FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional)
 );
 
 CREATE TRIGGER Actualizar_VENTAS_PRODUCTOS
 AFTER INSERT ON VENTAS FOR EACH ROW
-INSERT INTO VENTAS_PRODUCTOS (nVentas, IdProducto)
-VALUES (NEW.nVentas, NEW.IdProducto);
+INSERT INTO VENTAS_PRODUCTOS (nVentas, CodigoNacional)
+VALUES (NEW.nVentas, NEW.CodigoNacional);
 
 INSERT INTO FARMACIAS (Ccorreo, nColegiado, Nombre, Contrasenia, Direccion, nTelefono) VALUES
 ('farmacia1@gmail.com', 123456789, 'Farmacia La Esperanza', 'password1', 'Calle 1, #23', 5551234),
 ('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', 'password2', 'Avenida 2, #45', 5555678);
 
-INSERT INTO EMPLEADOS (Nombre, CcorreoFarmacia, Contrasena, Rol) VALUES
-('Juan Perez', 'farmacia1@gmail.com', 'password3', 'User'),
-('Maria Rodriguez', 'farmacia1@gmail.com', 'password4', 'Admin'),
-('Pedro Garcia', 'farmacia2@yahoo.com', 'password5', 'User');
+INSERT INTO EMPLEADOS (Nombre,Telefono,CorreoPersonal, CcorreoFarmacia, Contrasena, Rol) VALUES
+('Juan Perez',622345367,'juanperez@gmail.com','farmacia1@gmail.com', 'password3', 'User'),
+('Maria Rodriguez',624765187,'mariz@gmail.com', 'farmacia1@gmail.com', 'password4', 'Admin'),
+('Pedro Garcia',626738523,'pedrito@gmail.com', 'farmacia2@yahoo.com', 'password5', 'User');
 
-INSERT INTO PRODUCTOS (IdProducto, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
-(1, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),
-(2, 'Aspirina', 'Acido acetilsalicilico', 'Pfizer', 'Oral', 'N'),
-(3, 'Ibuprofeno', 'Ibuprofeno', 'Roche', 'Oral', 'N'),
-(4, 'Acetilcisteina', 'Acetilcisteina', 'MOBA', 'Efervescente', 'N');
+INSERT INTO PRODUCTOS (CodigoNacional, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
+(698683, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),
+(712729, 'Aspirina', 'Acido acetilsalicilico', 'Pfizer', 'Oral', 'N'),
+(660477, 'Ibuprofeno', 'Ibuprofeno', 'Roche', 'Oral', 'N'),
+(730705, 'Acetilcisteina', 'Acetilcisteina', 'MOBA', 'Efervescente', 'N');
 
-INSERT INTO VENTAS (nVentas, IdProducto, nEmpleado, Fecha, Cantidad, Precio, Total) 
+INSERT INTO VENTAS (nVentas, CodigoNacional, nEmpleado, Fecha, Cantidad, Precio, Total) 
 VALUES 
-(1, 1, 1, '2023-01-01', 5, 1.5, 7.5),
-(2, 1, 2, '2023-01-02', 10, 1.5, 15),
-(3, 2, 1, '2023-02-03', 15, 2.5, 37.5),
-(4, 2, 2, '2023-03-04', 20, 2.5, 50),
-(5, 1, 1, '2023-03-01', 5, 1.5, 7.5),
-(6, 1, 2, '2023-03-02', 10, 1.5, 15),
-(7, 2, 1, '2023-04-03', 15, 2.5, 37.5),
-(8, 2, 2, '2023-01-04', 20, 2.5, 50);
+(1, 698683, 1, '2023-01-01', 5, 1.5, 7.5),
+(2, 698683, 2, '2023-01-02', 10, 1.5, 15),
+(3, 698683, 1, '2023-02-03', 15, 2.5, 37.5),
+(4, 712729, 2, '2023-03-04', 20, 2.5, 50),
+(5, 730705, 1, '2023-03-01', 5, 1.5, 7.5),
+(6, 712729, 2, '2023-03-02', 10, 1.5, 15),
+(7, 730705, 1, '2023-04-03', 15, 2.5, 37.5),
+(8, 712729, 2, '2023-01-04', 20, 2.5, 50);
 
 INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, CcorreoFarmacia) VALUES
 ('Distribuidora Farmaceutica SA', 'Calle 4, #67', 5554321, 'farmacia1@gmail.com'),
 ('Farmaceuticos Unidos', 'Avenida 5, #89', 5558765, 'farmacia2@yahoo.com');
 
-INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, IdProducto, Precio, Cantidad, fEntrada, fCaducidad) VALUES
-('farmacia1@gmail.com', 1, 1.25, 100, '2021-12-01', '2023-12-01'),
-('farmacia1@gmail.com', 2, 1.50, 50, '2021-12-01', '2023-12-01'),
-('farmacia2@yahoo.com', 3, 2.00, 75, '2021-12-01', '2023-12-01'),
-('farmacia1@gmail.com', 4, 1.75, 75, '2021-12-01', '2023-12-01');
+INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, CodigoNacional, Precio, Cantidad, fEntrada, fCaducidad) VALUES
+('farmacia1@gmail.com', 698683, 1.25, 100, '2021-12-01', '2023-12-01'),
+('farmacia1@gmail.com', 712729, 1.50, 50, '2021-12-01', '2023-12-01'),
+('farmacia2@yahoo.com', 660477, 2.00, 75, '2021-12-01', '2023-12-01'),
+('farmacia1@gmail.com', 730705, 1.75, 75, '2021-12-01', '2023-12-01');
 
-INSERT INTO VENTAS_PRODUCTOS (nVentas, IdProducto) VALUES
-(1, 1),
-(1, 1),
-(2, 2),
-(3, 3),
-(3, 3),
-(3, 3);
+INSERT INTO VENTAS_PRODUCTOS (nVentas, CodigoNacional) VALUES
+(1, 730705),
+(1, 660477),
+(2, 712729),
+(3, 698683),
+(3, 698683),
+(3, 730705);

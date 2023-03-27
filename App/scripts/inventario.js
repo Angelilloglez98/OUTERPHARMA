@@ -20,7 +20,7 @@ window.onload = () => {
 
             let datos = document.querySelector(".datos");
             let medicamentos = document.createElement("div");
-            medicamentos.classList.add("my-2", "col-4", "mx-3", "p-2", "medicamentos");
+            medicamentos.classList.add("my-2", "col-3", "mx-4", "p-3", "medicamentos");
     
             let pId = document.createElement("input");
             let idPro = document.createTextNode(inventario.idProducto);
@@ -28,15 +28,18 @@ window.onload = () => {
             pId.appendChild(idPro);
     
             let pNombre = document.createElement("p");
-            let nombrePro = document.createTextNode("Nombre del producto: " + inventario.NombreProducto)
+            pNombre.classList.add('parrafo');
+            let nombrePro = document.createTextNode(inventario.NombreProducto)
             pNombre.appendChild(nombrePro);
     
             let pCantidad = document.createElement("p");
             let cantidadPro = document.createTextNode("Stock: " + inventario.Cantidad)
+            pCantidad.classList.add('parrafo');
             pCantidad.appendChild(cantidadPro); 
     
             let pPrecio = document.createElement("p");
             let precioPro = document.createTextNode("Precio: " + inventario.Precio + "€")
+            pPrecio.classList.add('parrafo');
             pPrecio.appendChild(precioPro);
     
             let botonBorrar = document.createElement("input");
@@ -61,7 +64,22 @@ window.onload = () => {
         }
 
         function recibir(e){
-            console.log(e.target);
+            if (e.target.classList.contains('parrafo')) {
+                let div = e.target.parentNode;
+                var nombre = div.firstChild.innerText;
+                console.log(nombre);
+            } else {
+                var nombre = e.target.firstChild.innerText;
+                console.log(nombre);
+            }
+
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?nombre=${nombre}`)
+            .then(respuesta=>respuesta.json())
+            .then(resultado=>{
+                resultado.forEach(element => {
+                    console.log(element);
+                });
+            });
         }
     }));
     
