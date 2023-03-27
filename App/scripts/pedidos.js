@@ -17,7 +17,7 @@ window.onload = () =>{
             redirect: 'follow',
             Headers: {'Accept':'aplication/json'}
         }
-
+<
         const url = "https://cima.aemps.es/cima/rest/medicamentos?";
         const busqueda = "nombre="
         // if(isNaN(datos)){url+="s?"}
