@@ -16,6 +16,12 @@ tr img{
     min-width: 100px;
 }
 
+.realizarventa{
+    display: grid;
+    grid-template-areas:'realizarpedido none none none none none total' ;
+    grid-template-columns: repeat(7,1fr);
+}
+
 form{
     display: flex;
     align-items: stretch;
@@ -93,6 +99,7 @@ form{
 #Escaner{
     max-width: 300px;
 }
+
 .drawingBuffer{
     display: none;
 }
@@ -100,10 +107,31 @@ form{
 .cambiarForma{
     margin: 50px 0;
 }
+
+.total{
+    width: 100px;
+    height: 50px;
+    grid-area: total;
+}
+
+.venta{
+    grid-area: realizarpedido;
+    min-width: 160px;
+}
+
+td{
+    display: flex;
+    justify-content: left;
+    align-items: start;
+}
 @media (max-width:975px) {
     table{
         font-size:0.75em;
         
+    }
+    .total{
+        width: 100px;
+        height: 50px;
     }
 }
 @media (max-width:650px) {
