@@ -1,5 +1,8 @@
 window.onload = () =>{
 
+    const busqueda = document.querySelector('input[type="search"]');
+    
+
     // fetch('http://localhost/OuterPharma/App/BaseDatos/devProveedores.php')
     // .then(response => response.json())
     // .then(registro => registro.forEach(element => {
@@ -48,71 +51,68 @@ window.onload = () =>{
 
     }
 
-    const busqueda = document.querySelector('input[type="search"]');
+    const creatRow = (data, urlIMG) =>{
 
-    const creatRow = (data) =>{
+        let tableBody = document.querySelector("#buscarMed");
+        let tr = document.createElement('tr');
+        let tdIMG = document.createElement('td');
+        let img = document.createElement("img");
 
-        var tableBody = document.querySelector("#buscarMed");
-        var tr = document.createElement('tr');
-        var img = document.createElement("img");
+        img.src = urlIMG;
+
+        tdIMG.appendChild(img);
+        tr.appendChild(tdIMG);
 
         for (const i in data) {
 
             let td = document.createElement('td');
 
-            if (i == 'fotos' || i == 'nombre' || i == 'vtm' || i == 'formaFarmaceutica' || i == 'viasAdministracion' || i == 'labtitular' || i == 'cpresc' || i == 'docs') {
+            switch (i) {
+
+                case 'nombre': case 'labtitular': case 'cpresc':
                 
-                if(i == 'fotos'){
+                    let info = document.createTextNode(data[i]);
+                    td.appendChild(info);
+                    tr.appendChild(td);
+                break;
 
-                    const urlIMG = data[i][0].url;
-                    if(urlIMG == undefined){
-                        img.src = "sin datos"
-                    }else{
-                        img.src = urlIMG;
-                    }
-                    console.log(urlIMG);
+                case 'docs':
                     
-                    td.appendChild(img);
-                    
+                    let link = document.createElement('a');
+                    link.href = `${data[i][1].urlHtml}`;
+                    link.textContent = "Prospecto";
+                    link.target = "_blank"
+                    td.appendChild(link);
+                    tr.appendChild(td);
+                break;
 
-                }else if(i == 'vtm' || i == 'formaFarmaceutica'|| i == 'viasAdministracion'){
+                case 'vtm': case 'formaFarmaceutica':
 
                     for (const j in data[i]) {
                         if(j == 'nombre'){
                             let info = document.createTextNode(data[i][j]);
-                            td.appendChild(info); 
+                            td.appendChild(info);
+                            tr.appendChild(td); 
                         }
                         
                     }
+                    
+                break;
 
-                    if(i == 'viasAdministracion'){
-                        data[i].forEach(element=>{
+                case 'viasAdministracion':
 
-                            let info = document.createTextNode(element.nombre);
-                            td.appendChild(info); 
+                    data[i].forEach(element=>{
 
-                        })
-                    }
-
-                }else{
-
-                    if(i == 'docs'){
-                        let link = document.createElement('a');
-                        link.href = `${data[i][1].urlHtml}`;
-                        link.textContent = "Prospecto";
-                        link.target = "_blank"
-                        td.appendChild(link);
-                    }else{
-                        let info = document.createTextNode(data[i]);
+                        let info = document.createTextNode(element.nombre);
                         td.appendChild(info);
-                    }
-                 
+                        tr.appendChild(td); 
 
-                }
-                
-                tr.appendChild(td);
-                
+                    })
+                        
+                break;
+
             }
+
         }
 
         tableBody.appendChild(tr);
@@ -136,8 +136,15 @@ window.onload = () =>{
 
                     response.resultados.forEach(element => {
                     
-                        creatRow(element);
-                        console.log(element);
+                        if(element.fotos === undefined){
+
+                            const noIMG = "sin datos";
+
+                            creatRow(element, noIMG);
+
+                        }else{
+                            creatRow(element, element.fotos[0].url);
+                        }
                         
                     })
 
