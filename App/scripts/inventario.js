@@ -15,6 +15,50 @@ window.onload = () => {
                 
             });
     })); 
+    const buscarMed = (datos) => {
+
+        if (isNaN(datos)) {
+            console.log("Tremendo texto");
+        } else {
+            console.log("Tremendo numero");
+        }
+        // var url = `http://localhost/OuterPharma/App/BaseDatos/buscarProducto.php?datos=${datos}`;
+    
+        console.log(datos);
+        
+        // return fetch(url)
+        // .then(response => response.json())
+        // .then(medicamentos => {return medicamentos})
+        // .catch(e => {console.error("ERROR: ", e.message)});
+    
+    
+    }
+    
+    const busqueda = document.querySelector('input[type="search"]');
+    
+    busqueda.addEventListener("keydown", (event) => {
+     
+        if (event.key === 'Enter' && busqueda.value != '') {
+    
+            const tbody = document.querySelector("#buscarMed");
+    
+            var datos = busqueda.value;
+            busqueda.value = "";
+          
+            buscarMed(datos).then((response) => {
+    
+                // response.resultados.forEach(element => {
+                    
+                //     creatRow(element);
+                //     // console.log(element);
+                    
+                // })
+    
+            })
+    
+        }
+        
+      });
 }
 
 
@@ -44,8 +88,6 @@ function recibir(e){
                 }
                 
             });
-            
-        // pintarDatosCaja(med.NombreProducto, med.Cantidad, med.Precio, med.presMedica, med.pActivo, med.Laboratorio, med.vAdmin)    
         
     })});
 }
@@ -199,3 +241,4 @@ function pintarDatosCaja(foto, nombre, cant, precio, pres, pAct, Lab, vAd){
     datos.appendChild(imagen)
     datos.appendChild(info);
 }
+
