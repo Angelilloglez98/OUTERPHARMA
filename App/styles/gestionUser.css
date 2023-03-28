@@ -3,11 +3,13 @@
     padding: 0;
     color: #4D4D4D;
 }
+
 .usuario{
     height: 100vh;
     display: flex;
     align-items: center;
 }
+
 .contenedor{
     width: 100%;
     display: flex;
@@ -15,6 +17,7 @@
     align-items: center;
     flex-direction: column;
 }
+
 .contenedorUser{
     width: 40%;
     height: 400px;
@@ -22,6 +25,7 @@
     border: 1px solid #969696;
     margin-top: -8px;
 }
+
 h1{
     text-align: center;
     width: 40%;
@@ -30,6 +34,7 @@ h1{
     background-color: #87A3AA;
     margin-top: 30px;
 }
+
 p{
     height: 10%;
     display: flex;
@@ -40,14 +45,17 @@ p{
     font-size: 1.3em;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
 p:hover{
     background-color: #87A3AA;
     color: aliceblue;
     /* cursor: pointer; */
 }
+
 .contra{
     display: none;
 }
+
 img{
     width: 10%;
     padding: 10PX;
@@ -62,6 +70,7 @@ img{
     font-size: 1.5em;
     border: transparent;
 }
+
 #edit {
     background-color: transparent;
     height: 50px;
@@ -79,6 +88,12 @@ img{
     background-color: white;
     transform: translate(-50%, -60%);
 }
+
 .emergente p{
     background-color: pink;
+}
+
+i{
+    width: 100%;
+    height: 100%;
 }
