@@ -6,7 +6,7 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT Nombre,Contrasena,Rol from empleados where CcorreoFarmacia='$correo'";
+    $sql="SELECT Nombre,Contrasena,Rol,Telefono,CorreoPersonal,nEmpleado from empleados where CcorreoFarmacia='$correo'";
     
     $pdo->exec("SET NAMES 'utf8mb4'");
     
@@ -18,7 +18,11 @@
         $registros[]=array(
             'nombre'=>$fila['Nombre'],
             'contrasena'=>$fila['Contrasena'],
-            'rol'=>$fila['Rol']
+            'rol'=>$fila['Rol'],
+            'telefono'=>$fila['Telefono'],
+            'correopersonal'=>$fila['CorreoPersonal'],
+            'nempleado'=>$fila['nEmpleado']
+
         );
     }
     
