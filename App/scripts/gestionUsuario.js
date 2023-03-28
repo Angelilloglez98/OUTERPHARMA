@@ -100,7 +100,8 @@ window.onload = () => {
         bedi.setAttribute("class", "edit");
         bedi.addEventListener("click", function (elemento) {
             if (elemento.target.nodeName === "BUTTON" || document.querySelector(".emergente") === null) {
-                ventanaEmergente(elemento.target.parentNode.firstChild.textContent, elemento.target.parentNode.firstChild.nextSibling.textContent, elemento.target.parentNode.firstChild.nextSibling.nextSibling.textContent,elemento.target.parentNode.parentNode.lastChild.textContent);
+                ventanaEmergente(elemento.target.parentNode.firstChild.textContent, elemento.target.parentNode.firstChild.nextSibling.textContent, elemento.target.parentNode.firstChild.nextSibling.nextSibling.textContent, elemento.target.parentNode.lastChild.previousSibling.previousSibling.textContent);
+                console.log(elemento.target.parentNode.lastChild.previousSibling.previousSibling.textContent);
                 console.log(document.querySelector(".emergente"));
                 let a = document.querySelectorAll(".cancel")
                 a.forEach(a1 => {
