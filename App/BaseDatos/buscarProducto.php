@@ -4,7 +4,9 @@ require('./conexionDB.php');
 session_start();
 $registros=array();
 
-$CodigoNacional = $_GET["CodigoNacional"];
+// Hacer el if de si es un int o un texto
+// Se cree una variable y se haga un select o otro select
+$CodigoNacional = $_GET["datos"];
 
 $correo=$_SESSION['CorreoFarmacia'];
 

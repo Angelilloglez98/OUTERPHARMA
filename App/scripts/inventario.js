@@ -15,21 +15,24 @@ window.onload = () => {
                 
             });
     })); 
+
     const buscarMed = (datos) => {
 
+        // Hacer el parse int si es un numero y pasarle tremenda variable por url
         if (isNaN(datos)) {
             console.log("Tremendo texto");
         } else {
             console.log("Tremendo numero");
         }
-        // var url = `http://localhost/OuterPharma/App/BaseDatos/buscarProducto.php?datos=${datos}`;
+        
+        var url = `http://localhost/OuterPharma/App/BaseDatos/buscarProducto.php?datos=${datos}`;
     
         console.log(datos);
         
-        // return fetch(url)
-        // .then(response => response.json())
-        // .then(medicamentos => {return medicamentos})
-        // .catch(e => {console.error("ERROR: ", e.message)});
+        return fetch(url)
+        .then(response => response.json())
+        .then(medicamentos => {return medicamentos})
+        .catch(e => {console.error("ERROR: ", e.message)});
     
     
     }
@@ -47,18 +50,17 @@ window.onload = () => {
           
             buscarMed(datos).then((response) => {
     
-                // response.resultados.forEach(element => {
+                response.resultados.forEach(element => {
                     
-                //     creatRow(element);
-                //     // console.log(element);
+                    pintarDatos('sin datos',element.CodigoNacional, element.NombreProducto, element.Cantidad, element.Precio)
                     
-                // })
+                })
     
             })
     
         }
         
-      });
+    });
 }
 
 
@@ -124,7 +126,7 @@ function pintarDatos(foto, CN, nombre, cant, precio){
 
     let pId = document.createElement("input");
     let idPro = document.createTextNode(CN);
-    pId.type = 'hidden';
+    pId.type = 'hidden';    
     pId.appendChild(idPro);
 
     let pNombre = document.createElement("p");
@@ -177,48 +179,48 @@ function pintarDatosCaja(foto, nombre, cant, precio, pres, pAct, Lab, vAd){
     medicamentos.classList.add("medicamento");
     
     let imagen = document.createElement("div");
-    imagen.classList.add("imagen");
+    imagen.classList.add("medicamento_imagen");
 
     let info = document.createElement('div');
-    info.classList.add('info');
+    info.classList.add('medicamento_info');
 
     let pFoto = new Image();
     pFoto.src = foto;
-    pFoto.classList.add('foto');
+    pFoto.classList.add('imagen_foto');
 
     let pNombre = document.createElement("p");
-    pNombre.classList.add('parrafo', 'small');
+    pNombre.classList.add('info_parrafo', 'small');
     let nombrePro = document.createTextNode(nombre)
     pNombre.appendChild(nombrePro);
 
     let pCantidad = document.createElement("p");
     let cantidadPro = document.createTextNode("Stock: " + cant)
-    pCantidad.classList.add('parrafo', 'small');
+    pCantidad.classList.add('info_parrafo', 'small');
     pCantidad.appendChild(cantidadPro); 
 
     let pPrecio = document.createElement("p");
     let precioPro = document.createTextNode("Precio: " + precio + " Euros")
-    pPrecio.classList.add('parrafo', 'small');
+    pPrecio.classList.add('info_parrafo', 'small');
     pPrecio.appendChild(precioPro);
 
     let pPresc = document.createElement("p");
     let presPro = document.createTextNode("Prescripcion: " + pres)
-    pPresc.classList.add('parrafo', 'small');
+    pPresc.classList.add('info_parrafo', 'small');
     pPresc.appendChild(presPro);
         
     let pActivo = document.createElement("p");
     let activoPro = document.createTextNode("P.Activo: " + pAct)
-    pActivo.classList.add('parrafo', 'small');
+    pActivo.classList.add('info_parrafo', 'small');
     pActivo.appendChild(activoPro);
 
     let pLab = document.createElement("p");
     let labPro = document.createTextNode("Laboratorio: " + Lab)
-    pLab.classList.add('parrafo', 'small');
+    pLab.classList.add('info_parrafo', 'small');
     pLab.appendChild(labPro);
 
     let pVia = document.createElement("p");
     let viaPro = document.createTextNode("Vía: " + vAd)
-    pVia.classList.add('parrafo', 'small');
+    pVia.classList.add('info_parrafo', 'small');
     pVia.appendChild(viaPro);
 
     medicamentos.appendChild(pFoto);
