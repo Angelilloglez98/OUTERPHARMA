@@ -1,7 +1,11 @@
 
 let formulario = document.querySelector('form');
 
-//Formulario se envia
+    formulario.onsubmit=(e)=>{
+        e.preventDefault();
+        let valorInput=document.querySelector('#AnadirPorCN');
+        BuscarMedicamento(valorInput.value);      
+    }
 
 formulario.onsubmit = (e) => {
     e.preventDefault();

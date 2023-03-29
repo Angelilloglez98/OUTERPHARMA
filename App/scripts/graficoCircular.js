@@ -1,6 +1,3 @@
-
-
-
 let grafico = null;
 let formulario=document.querySelector('form');
 const cantidadMaximaMedicamento=5;
