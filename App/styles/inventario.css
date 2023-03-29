@@ -48,13 +48,13 @@ p{
     font-size: .80rem;
 }
 
-.foto{
+.imagen_foto{
     width: 70%;
     height: 4.375rem;
     margin: .625rem;
 }
 
-.imagen{
+.medicamento_imagen{
     display: flex;
     justify-content: center;
     align-items: center;

@@ -113,14 +113,14 @@ function pintarDatos(foto, CN, nombre, cant, precio){
     medicamento.classList.add("medicamento");
 
     let imagen = document.createElement("div");
-    imagen.classList.add("imagen");
+    imagen.classList.add("medicamento_imagen");
 
     let info = document.createElement('div');
-    info.classList.add('info');
+    info.classList.add('medicamento_info');
 
     let pFoto = new Image();
     pFoto.src = foto;
-    pFoto.classList.add('foto');
+    pFoto.classList.add('imagen_foto');
 
     let pId = document.createElement("input");
     let idPro = document.createTextNode(CN);
@@ -128,22 +128,22 @@ function pintarDatos(foto, CN, nombre, cant, precio){
     pId.appendChild(idPro);
 
     let pNombre = document.createElement("p");
-    pNombre.classList.add('parrafo');
+    pNombre.classList.add('info_parrafo');
     let nombrePro = document.createTextNode(nombre)
     pNombre.appendChild(nombrePro);
 
     let pCantidad = document.createElement("p");
     let cantidadPro = document.createTextNode("Stock: " + cant)
-    pCantidad.classList.add('parrafo');
+    pCantidad.classList.add('info_parrafo');
     pCantidad.appendChild(cantidadPro); 
 
     let pPrecio = document.createElement("p");
     let precioPro = document.createTextNode("Precio: " + precio + "Euros")
-    pPrecio.classList.add('parrafo');
+    pPrecio.classList.add('info_parrafo');
     pPrecio.appendChild(precioPro);
 
     let botonBorrar = document.createElement("input");
-    botonBorrar.classList.add("botonBorrar");
+    botonBorrar.classList.add("info_botonBorrar");
     botonBorrar.type = "button";
     botonBorrar.value = "Borrar";
 
