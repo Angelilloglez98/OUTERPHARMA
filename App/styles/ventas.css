@@ -4,7 +4,7 @@ table{
 
 tr{
     display: grid;
-    grid-template-columns: repeat(7,1fr);
+    grid-template-columns: 0.3fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 select{
     min-width: 40px;
@@ -18,7 +18,7 @@ tr img{
 
 .realizarventa{
     display: grid;
-    grid-template-areas:'realizarpedido none none none none none total' ;
+    grid-template-areas:'realizarpedido none none none none devuelta total';
     grid-template-columns: repeat(7,1fr);
 }
 
@@ -39,8 +39,50 @@ form{
     max-height: 700px;
     overflow-y: scroll;
 }
+.papelera{
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/papelera.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    min-width: 15px;
+    max-width: 30px;
+}
+
+.devuelta{
+    grid-area: devuelta;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    color: brown;
+    margin: 010px;
+}
+
+.papelera:hover{
+    transform: scale(1.1);
+}
+
+form{
+    display: flex;
+    width: 50%;
+}
+
+.dinero{
+    grid-area: dinero;
+}
+
+.containerPapelera{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 /* CSS */
 .botonverde {
+    width: 50px;
+    height: 50px;
   appearance: none;
   backface-visibility: hidden;
   background-color: #27ae60;
@@ -69,6 +111,9 @@ form{
   touch-action: manipulation;
   vertical-align: top;
   white-space: nowrap;
+}
+form >input{
+    width: fit-content;
 }
 
 .botonverde:hover {
@@ -124,6 +169,7 @@ td{
     justify-content: left;
     align-items: start;
 }
+
 @media (max-width:975px) {
     table{
         font-size:0.75em;
@@ -141,8 +187,11 @@ td{
     body{
         font-size: 14px;
     }
+    .cn{
+        display: none;
+    }
     tr{
-        grid-template-columns: repeat(6,1fr);
+        grid-template-columns: 0.3fr  1fr 1fr 1fr 1fr 1fr;
         
     }
     .cambiarForma{

@@ -55,7 +55,6 @@ async function BuscarMedicamento(cn) {
 
                         });
 
-
                 } else {
                     console.log('No existe en base datos');
                 }
@@ -82,7 +81,11 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
     let total = document.createElement('td');
     total.classList.add('totalfila');
     let foto = document.createElement('img');
-
+    let papeleratd=document.createElement('td');
+    let papeleraDiv=document.createElement('div');
+    papeleratd.appendChild(papeleraDiv);
+    papeleratd.classList.add('containerPapelera');
+    papeleraDiv.classList.add('papelera');
     financiacion.innerHTML = `<select>
         <option value="0">sin financiacion</option>
         <option value="0.1">10%</option>
@@ -98,6 +101,7 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
     precio.appendChild(document.createTextNode(Precio));
     cantidad.innerHTML = `<input type="number" value="1" step="1" min="1" max="${cantidadMaxima}" />`;
     total.appendChild(document.createTextNode(Precio * cantidad.textContent));
+    fila.appendChild(papeleratd);
     fila.appendChild(colfoto);
     fila.appendChild(nombre);
     fila.appendChild(CodigoNacional);
@@ -106,21 +110,28 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
     fila.appendChild(cantidad);
     fila.appendChild(total);
     tabla.appendChild(fila);
+
+    document.querySelectorAll('.papelera').forEach(papelera=>{
+        papelera.addEventListener('click',(e)=>{
+            EliminarFila(e.target.closest('tr'));
+            
+        });
+    })
+
     ActualizarPrecioFila();
     actualizarPrecioTotal();
 }
 let total = document.querySelector('.total');
 total.disabled=true;
 total.style.textAlign='center';
+
 function actualizarPrecioTotal() {
     let totales = document.querySelectorAll('.totalfila');
-    
-    
     let sumatorio = 0;
     totales.forEach(costeFila => {
         sumatorio += parseFloat(costeFila.textContent);
     });
-    total.value = sumatorio + ' Euros';
+    total.value = sumatorio.toFixed(2) + ' Euros';
 }
 
 function ActualizarPrecioFila() {
@@ -129,6 +140,7 @@ function ActualizarPrecioFila() {
     let cantidad = document.querySelectorAll('.cantidad');
     let total = document.querySelectorAll('.totalfila');
     let preciototal = [];
+
     for (let i = 0; i < financiacion.length; i++) {
         let valor = (cantidad[i].firstChild.value * precio[i].textContent) - (precio[i].textContent * financiacion[i].firstChild.value);
         preciototal.push(valor.toFixed(2) + ' Euros')
@@ -147,4 +159,25 @@ function ActualizarPrecioFila() {
             actualizarPrecioTotal();
         };
     });
+}
+
+function devuelta() {
+    document.querySelector('.devuelta').innerHTML='';
+    let inputVuelta=parseFloat(document.querySelector('.dinero').value);
+    let total=parseFloat(document.querySelector('.total').value);
+    if (!isNaN(total)){
+        if (inputVuelta>=total){
+            let totaldevuelto=inputVuelta-total;
+            document.querySelector('.devuelta').appendChild(document.createTextNode(totaldevuelto.toFixed(2)+' Euros'));
+        }else{
+            document.querySelector('.devuelta').appendChild(document.createTextNode('No hay suficiente dinero'));
+        }
+    }
+    
+}
+
+document.querySelector('.dinero').onchange=()=>{devuelta()}
+function EliminarFila(tr) {
+    tr.remove();
+    actualizarPrecioTotal();
 }
