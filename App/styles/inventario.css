@@ -21,6 +21,7 @@ p{
 .col-9{
     border-radius: 25px;
     border: 1px solid black;
+    background-color: white;
 }
 
 .col-3{
@@ -41,4 +42,44 @@ p{
 
 .col-12:first-child{
     margin-bottom: 3rem;
+}
+
+.small{
+    font-size: .80rem;
+}
+
+.imagen_foto{
+    width: 70%;
+    height: 4.375rem;
+    margin: .625rem;
+}
+
+.medicamento_imagen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.devDatos{
+    background-color: white;
+    padding: 1.215rem;
+}
+
+.pedirCN{
+    padding: 0;
+}
+
+.codigo{
+    display: flex;
+    width: 100%;
+    margin: 0;
+}
+
+.cN{
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
 }
