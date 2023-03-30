@@ -59,7 +59,7 @@ window.onload = () => {
         document.body.appendChild(div);
     }
 
-    function ventanaEmergenteCrear(nombre, correo, telefono,nempleado) {
+    function ventanaEmergenteCrear() {
       let div = document.createElement('div');
       div.setAttribute("id", "emergente");
       div.classList.add("emergente");
@@ -116,13 +116,14 @@ window.onload = () => {
     div.classList.add("emergente");
 
     let pName = document.createElement('p');
-    let txtName = document.createTextNode("Nombre del usuario a eliminar:");
-    pName.appendChild(txtName);
-    div.appendChild(pName);
-    let inputName = document.createElement("input");
-    inputName.type = "text";
-    inputName.value = nombre;
-    div.appendChild(inputName);
+        let txtName = document.createTextNode("Nombre:");
+        pName.appendChild(txtName);
+        div.appendChild(pName);
+        let inputName = document.createElement("input");
+        inputName.type = "text";
+        inputName.value = nombre;
+        div.appendChild(inputName);
+
 
     let pPass = document.createElement('p');
     let txtPass = document.createTextNode("Contraseña del administrador:");
@@ -193,8 +194,8 @@ window.onload = () => {
           beli.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/recycle-bin-icon-trash-can-260nw-1687424971.jpg')";
 
           beli.setAttribute("class", "delete");
-          beli.addEventListener("click", function(){
-            ventanaEmergenteEli();
+          beli.addEventListener("click", function(elemento){
+            ventanaEmergenteEli(elemento.target.parentNode.firstChild.textContent);
             let cancel = document.querySelector(".cancel")
                 cancel.addEventListener("click", () => {    
                   cerrarVentana()
@@ -216,10 +217,7 @@ window.onload = () => {
         }
         
         bedi.style.backgroundImage = "url('https://cdn-icons-png.flaticon.com/512/6324/6324826.png')";
-        // bedi.style.backgroundSize = "cover";
-        // bedi.style.width = "30px";
-        // bedi.style.height = "30px";
-        
+
         bedi.setAttribute("class", "edit");
         bedi.addEventListener("click", function (elemento) {
                 ventanaEmergenteEdit(elemento.target.parentNode.firstChild.textContent, elemento.target.parentNode.firstChild.nextSibling.textContent, elemento.target.parentNode.firstChild.nextSibling.nextSibling.textContent,elemento.target.parentNode.lastChild.previousSibling.previousSibling.textContent);

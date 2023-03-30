@@ -37,10 +37,13 @@ window.onload = () => {
     
     }
     
-    const busqueda = document.querySelector('input[type="search"]');
+    
+}
+
+const busqueda = document.querySelector('input[type="search"]');
     
     busqueda.addEventListener("keydown", (event) => {
-     
+     console.log("hola");
         if (event.key === 'Enter' && busqueda.value != '') {
     
             const tbody = document.querySelector("#buscarMed");
@@ -61,9 +64,6 @@ window.onload = () => {
         }
         
     });
-}
-
-
 
 function recibir(e){
     if (e.target.classList.contains('parrafo')) {
