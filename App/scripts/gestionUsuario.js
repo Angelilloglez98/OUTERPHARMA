@@ -189,10 +189,7 @@ window.onload = () => {
         // Este if es para que si tiene el rol admin no aparezca para eliminarse
         if (rol != "Admin") {
           let beli = document.createElement('button');
-          let trash = document.createElement('i');
-          beli.appendChild(trash);
           div.appendChild(beli);
-          trash.classList.add("cerrar");
           beli.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/recycle-bin-icon-trash-can-260nw-1687424971.jpg')";
 
           beli.setAttribute("class", "delete");
