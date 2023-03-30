@@ -56,12 +56,6 @@ p:hover{
     display: none;
 }
 
-img{
-    width: 10%;
-    padding: 10PX;
-    border-radius: 100PX;
-    background-color: #DCE2E2;
-}
 
 #delete {
     background-color: transparent;

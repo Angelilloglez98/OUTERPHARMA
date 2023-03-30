@@ -16,6 +16,16 @@ window.onload = () => {
             });
     })); 
 
+
+
+    const form = document.querySelector('form[role="search"]');
+
+    form.addEventListener('submit', (r) => {
+        r.preventDefault();
+    });
+    
+    const busqueda = document.querySelector('#busqueda');
+    
     const buscarMed = (datos) => {
 
         // Hacer el parse int si es un numero y pasarle tremenda variable por url
@@ -26,21 +36,29 @@ window.onload = () => {
         }
         
         var url = `http://localhost/OuterPharma/App/BaseDatos/buscarProducto.php?datos=${datos}`;
-    
-        console.log(datos);
         
         return fetch(url)
         .then(response => response.json())
-        .then(medicamentos => {return medicamentos})
+        .then(medicamentos => {return medicamentos; })
         .catch(e => {console.error("ERROR: ", e.message)});
+
+        // fetch(url)
+        // .then(res=>res.json())
+        // .then(resultado=>resultado.forEach(inventario => {
+        //     console.log(inventario);
+        
+        //     fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`)
+        //         .then(res=>res.json())
+        //         .then(resultadoApi=>{return resultadoApi});
+        // })); 
     
     
     }
     
-    const busqueda = document.querySelector('input[type="search"]');
     
-    busqueda.addEventListener("keydown", (event) => {
-     
+    
+    busqueda.onkeydown =  (event) => {
+
         if (event.key === 'Enter' && busqueda.value != '') {
     
             const tbody = document.querySelector("#buscarMed");
@@ -48,27 +66,35 @@ window.onload = () => {
             var datos = busqueda.value;
             busqueda.value = "";
           
-            buscarMed(datos).then((response) => {
+            buscarMed(datos).then((element) => {
     
-                response.resultados.forEach(element => {
+                console.log(element);
+                for (const i in element) {
+                    fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
+                    .then(res=>res.json())
+                    .then(resultadoApi=>{
+                        // vaciarDatos();
+                        pintarDatos(resultadoApi.fotos[0].url,element[i].CodigoNacional, element[i].NombreProducto, element[i].Cantidad, element[i].Precio)
+                    });
                     
-                    pintarDatos('sin datos',element.CodigoNacional, element.NombreProducto, element.Cantidad, element.Precio)
-                    
-                })
+                }
     
             })
     
         }
         
-    });
+    };
 }
 
 
 
 function recibir(e){
-    if (e.target.classList.contains('parrafo')) {
+    if (e.target.classList.contains('info_parrafo')) {
         let div = e.target.parentNode;
         var nombre = div.firstChild.innerText;
+        console.log(nombre);
+    } else if(e.target.classList.contains('imagen_foto')) {
+        var nombre = e.target.parentNode.firstChild.innerText;
         console.log(nombre);
     } else {
         var nombre = e.target.firstChild.innerText;
@@ -114,12 +140,6 @@ function pintarDatos(foto, CN, nombre, cant, precio){
     let medicamento = document.createElement("div");
     medicamento.classList.add("medicamento");
 
-    let imagen = document.createElement("div");
-    imagen.classList.add("medicamento_imagen");
-
-    let info = document.createElement('div');
-    info.classList.add('medicamento_info');
-
     let pFoto = new Image();
     pFoto.src = foto;
     pFoto.classList.add('imagen_foto');
@@ -152,23 +172,17 @@ function pintarDatos(foto, CN, nombre, cant, precio){
     botonBorrar.addEventListener('click', borrar);  
 
 
-    medicamento.appendChild(pNombre);
-    medicamento.appendChild(pCantidad);
-    medicamento.appendChild(pPrecio);
-    medicamento.appendChild(botonBorrar);
-    medicamento.appendChild(pId);
-
-    info.appendChild(medicamento);
-
-    imagen.appendChild(pFoto);
+    medicamentos.appendChild(pNombre);
+    medicamentos.appendChild(pCantidad);
+    medicamentos.appendChild(pPrecio);
+    medicamentos.appendChild(botonBorrar);
+    medicamentos.appendChild(pId);
+    medicamentos.appendChild(pFoto);
 
     medicamentos.addEventListener('click', function(e){
         recibir(e);
     })
 
-    medicamentos.appendChild(imagen)
-    medicamentos.appendChild(info)
-    
     datos.appendChild(medicamentos);
 }
 
@@ -244,3 +258,10 @@ function pintarDatosCaja(foto, nombre, cant, precio, pres, pAct, Lab, vAd){
     datos.appendChild(info);
 }
 
+function vaciarDatos() {
+    let datos = document.querySelector(".datos");
+
+    while (datos.hasChildNodes) {
+        datos.removeChild(datos.firstChild);
+    }
+}
