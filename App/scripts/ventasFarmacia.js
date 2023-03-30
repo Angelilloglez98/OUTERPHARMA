@@ -1,4 +1,4 @@
-
+cargarDatos();
 let formulario = document.querySelector('form');
 
     formulario.onsubmit=(e)=>{
@@ -74,6 +74,7 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
     let colfoto = document.createElement('td');
     colfoto.classList.add('fotoProducto');
     let nombre = document.createElement('td');
+    nombre.classList.add('nombre');
     let CodigoNacional = document.createElement('td');
     CodigoNacional.classList.add('cn');
     let financiacion = document.createElement('td');
@@ -124,12 +125,15 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
 
     ActualizarPrecioFila();
     actualizarPrecioTotal();
+    guardarLocalStorage();
+    
 }
-let total = document.querySelector('.total');
-total.disabled=true;
-total.style.textAlign='center';
+
 
 function actualizarPrecioTotal() {
+    let total = document.querySelector('.total');
+total.disabled=true;
+total.style.textAlign='center';
     let totales = document.querySelectorAll('.totalfila');
     let sumatorio = 0;
     totales.forEach(costeFila => {
@@ -139,6 +143,7 @@ function actualizarPrecioTotal() {
 }
 
 function ActualizarPrecioFila() {
+    
     let financiacion = document.querySelectorAll('.financiacion');
     let precio = document.querySelectorAll('.precio');
     let cantidad = document.querySelectorAll('.cantidad');
@@ -163,6 +168,7 @@ function ActualizarPrecioFila() {
             actualizarPrecioTotal();
         };
     });
+    guardarLocalStorage();
 }
 
 function devuelta() {
@@ -177,11 +183,46 @@ function devuelta() {
             document.querySelector('.devuelta').appendChild(document.createTextNode('No hay suficiente dinero'));
         }
     }
-    
 }
 
 document.querySelector('.dinero').onchange=()=>{devuelta()}
 function EliminarFila(tr) {
     tr.remove();
     actualizarPrecioTotal();
+    guardarLocalStorage();
 }
+
+function guardarLocalStorage() {
+    localStorage.setItem("ProductosVenta",'');
+    let tr=document.querySelectorAll('#venta > tr');
+    let productos=[];
+    tr.forEach(fila=>{
+        let tdfoto=fila.querySelector('.fotoProducto');
+        let tdNombre=fila.querySelector('.nombre');
+        let tdCn=fila.querySelector('.cn');
+        let tdFinanciacion=fila.querySelector('.financiacion');
+        let tdPrecioVenta=fila.querySelector('.precio');
+        let tdCantidad=fila.querySelector('.cantidad');
+        let tdTotal=fila.querySelector('.totalfila');
+        let jsonProducto={
+            fotourl:tdfoto.querySelector('img').src,
+            nombre:tdNombre.textContent,
+            cn:tdCn.textContent,
+            financiacion:tdFinanciacion.querySelector('select').value,
+            precio:tdPrecioVenta.textContent,
+            cantidad:tdCantidad.querySelector('input').value,
+            total:tdTotal.textContent
+        }
+        productos.push(jsonProducto);
+    });
+    localStorage.setItem("ProductosVenta",JSON.stringify(productos));
+}
+
+function cargarDatos() {
+
+    let jsonFilas=JSON.parse(localStorage.getItem('ProductosVenta'));
+    jsonFilas.forEach(fila=>{
+        PintarTabla(fila.fotourl,fila.nombre,fila.cn,fila.precio,100);
+    })
+}
+
