@@ -8,11 +8,15 @@
     $nombre=$_POST["nombre"];
     $correopersonal=$_POST["correopersonal"];
     $numero=$_POST["numero"];
-    $idempleado=$_POST["idempleado"];
-    $sql="UPDATE empleados SET Nombre = '$nombre',Telefono='$numero',CorreoPersonal='$correopersonal' where CcorreoFarmacia='$correo' AND nEmpleado='$idempleado'";
+    $password=$_POST["password"];
+
+    // Hasheamos la contraseña utilizando el algoritmo Bcrypt
+    $hash = password_hash($password, PASSWORD_BCRYPT);
+
+    $sql="INSERT INTO empleados (CcorreoFarmacia, Nombre, Telefono, Contrasena, CorreoPersonal) VALUES ('$correo', '$nombre', '$numero', '$hash', '$correopersonal')";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
-    
+
     $sth=$pdo->prepare($sql);
 
     $sth->execute();
