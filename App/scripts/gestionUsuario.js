@@ -110,7 +110,7 @@ window.onload = () => {
       document.body.appendChild(div);
   }
 
-  function ventanaEmergenteEdit(nombre, correo, telefono,nempleado) {
+  function ventanaEmergenteEli(nombre,nempleado) {
     let div = document.createElement('div');
     div.setAttribute("id", "emergente");
     div.classList.add("emergente");
@@ -131,7 +131,7 @@ window.onload = () => {
     let inputPass = document.createElement("input");
     inputPass.classList.add("inputs");
     inputPass.type = "password";
-    div.appendChild(inputCorreo);
+    div.appendChild(inputPass);
 
     let p4 = document.createElement('p');
     let txtnempleado = document.createTextNode(nempleado);
@@ -192,7 +192,9 @@ window.onload = () => {
           let trash = document.createElement('i');
           beli.appendChild(trash);
           div.appendChild(beli);
-          trash.classList.add("bx", "bxs-trash", "cerrar");
+          trash.classList.add("cerrar");
+          beli.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/recycle-bin-icon-trash-can-260nw-1687424971.jpg')";
+
           beli.setAttribute("class", "delete");
           beli.addEventListener("click", function(){
             ventanaEmergenteEli();
@@ -215,13 +217,11 @@ window.onload = () => {
                     })  
           })
         }
-
         
-        // bedi.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/recycle-bin-icon-trash-can-260nw-1687424971.jpg')";
         bedi.style.backgroundImage = "url('https://cdn-icons-png.flaticon.com/512/6324/6324826.png')";
-        bedi.style.backgroundSize = "cover";
-        bedi.style.width = "30px";
-        bedi.style.height = "30px";
+        // bedi.style.backgroundSize = "cover";
+        // bedi.style.width = "30px";
+        // bedi.style.height = "30px";
         
         bedi.setAttribute("class", "edit");
         bedi.addEventListener("click", function (elemento) {
@@ -357,6 +357,32 @@ window.onload = () => {
         xhr.send(data);
       }
       function enviarDatosCrear(nombre,correo,numero,password) {
+        // Creamos un objeto FormData con los datos a enviar
+        var data = 'nombre=' + encodeURIComponent(nombre) +
+             '&correopersonal=' + encodeURIComponent(correo) +
+             '&numero=' + encodeURIComponent(numero) +
+             '&password=' + encodeURIComponent(password)
+        
+        
+        // Creamos una solicitud HTTP POST
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'BaseDatos/insEmpleados.php', true);
+        
+        // Configuramos el tipo de contenido que vamos a enviar
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        
+        // Manejamos la respuesta del servidor
+        xhr.onload = function() {
+          if (xhr.status === 200 && xhr.readyState === 4) {
+            console.log(xhr.responseText);
+          }
+        };
+        
+        // Enviamos los datos al servidor
+        xhr.send(data);
+      }
+
+      function eliminarDatos(nombre,password,empleado) {
         // Creamos un objeto FormData con los datos a enviar
         var data = 'nombre=' + encodeURIComponent(nombre) +
              '&correopersonal=' + encodeURIComponent(correo) +
