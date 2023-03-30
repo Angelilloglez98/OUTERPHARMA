@@ -8,11 +8,12 @@
     $nombre=$_POST["nombre"];
     $correopersonal=$_POST["correopersonal"];
     $numero=$_POST["numero"];
-    $idempleado=$_POST["idempleado"];
-    $sql="UPDATE empleados SET Nombre = '$nombre',Telefono='$numero',CorreoPersonal='$correopersonal' where CcorreoFarmacia='$correo' AND nEmpleado='$idempleado'";
+
+
+    $sql="DELETE FROM empleados WHERE CcorreoFarmacia = '$correo' AND Nombre = '$nombre' AND CorreoPersonal = '$correopersonal' AND Telefono = '$numero'";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
-    
+
     $sth=$pdo->prepare($sql);
 
     $sth->execute();
