@@ -81,11 +81,8 @@ window.onload = () => {
         
             datos.appendChild(medicamentos);
         }
-    })); 
 
-
-
-    const form = document.querySelector('form[role="search"]');
+        const form = document.querySelector('form[role="search"]');
 
     form.addEventListener('submit', (r) => {
         r.preventDefault();
@@ -108,18 +105,6 @@ window.onload = () => {
         .then(response => response.json())
         .then(medicamentos => {return medicamentos; })
         .catch(e => {console.error("ERROR: ", e.message)});
-
-        // fetch(url)
-        // .then(res=>res.json())
-        // .then(resultado=>resultado.forEach(inventario => {
-        //     console.log(inventario);
-        
-        //     fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`)
-        //         .then(res=>res.json())
-        //         .then(resultadoApi=>{return resultadoApi});
-        // })); 
-    
-    
     }
     
     
@@ -140,7 +125,7 @@ window.onload = () => {
                     fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
                     .then(res=>res.json())
                     .then(resultadoApi=>{
-                        // vaciarDatos();
+                        vaciarDatos();
                         pintarDatos(resultadoApi.fotos[0].url,element[i].CodigoNacional, element[i].NombreProducto, element[i].Cantidad, element[i].Precio)
                     });
                     
@@ -151,6 +136,11 @@ window.onload = () => {
         }
         
     };
+    })); 
+
+
+
+    
     
     function pintarDatosCaja(foto, nombre, cant, precio, pres, pAct, Lab, vAd){
         let datos = document.querySelector(".devDatos");
@@ -227,7 +217,7 @@ window.onload = () => {
     function vaciarDatos() {
         let datos = document.querySelector(".datos");
     
-        while (datos.hasChildNodes) {
+        while (datos.hasChildNodes()) {
             datos.removeChild(datos.firstChild);
         }
     }
