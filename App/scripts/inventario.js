@@ -31,6 +31,7 @@ window.onload = () => {
             let datos = document.querySelector(".datos");
             let medicamentos = document.createElement("div");
             medicamentos.classList.add("my-2", "col-3", "mx-4", "p-3", "medicamentos");
+            medicamentos.dataset.name = nombre;
         
             let medicamento = document.createElement("div");
             medicamento.classList.add("medicamento");
@@ -223,18 +224,12 @@ window.onload = () => {
     }
 
     function recibir(e){
-        if (e.target.classList.contains('info_parrafo')) {
-            var nombre = e.target.parentNode.firstChild.nextSibling.innerHTML;
-            console.log(nombre);
-        } else if(e.target.classList.contains('imagen_foto')) {
-            var nombre = e.target.parentNode.firstChild.nextSibling.innerHTML;
-            console.log(nombre);
-        } else if(e.target.classList.contains('info_botonBorrar')){
+        if (e.target.classList.contains('info_botonBorrar')) {
             return;
-        } else {
-            var nombre = e.target.firstChild.nextSibling.innerHTML;
-            console.log(nombre);
         }
+
+        var nombre = e.target.closest(".medicamentos").dataset.name;
+        console.log(nombre);
     
         fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?nombre=${nombre}`)
         .then(respuesta=>respuesta.json())
