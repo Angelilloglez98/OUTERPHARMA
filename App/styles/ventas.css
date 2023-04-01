@@ -16,14 +16,14 @@ tr img{
     min-width: 100px;
 }
 
-.realizarventa{
+.realizarventa form{
+    width: 100%;
     display: grid;
     grid-template-areas:'realizarpedido none none none none devuelta total';
     grid-template-columns: repeat(7,1fr);
 }
 .filaResumen{
     display: grid;
-
     grid-template-columns: repeat(4,1fr);
 }
 
@@ -34,7 +34,6 @@ tr img{
     border-radius: 5px;
     z-index: 1000;
     padding: 60px;
-    
 }
 
 

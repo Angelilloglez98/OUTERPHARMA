@@ -147,7 +147,7 @@ function ActualizarPrecioFila() {
 
     for (let i = 0; i < financiacion.length; i++) {
         let valor = (cantidad[i].firstChild.value * precio[i].textContent) - (precio[i].textContent * financiacion[i].firstChild.value);
-        preciototal.push(valor.toFixed(2) + ' Euros')
+        preciototal.push(valor.toFixed(2))
 
     }
 
@@ -189,6 +189,7 @@ function EliminarFila(tr) {
 }
 
 document.querySelector('#BotonVender').addEventListener('click',()=>{
+
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success',
@@ -206,20 +207,33 @@ document.querySelector('#BotonVender').addEventListener('click',()=>{
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
-
+            VenderProductos();
           swalWithBootstrapButtons.fire(
             'Vendido',
             'Los productos han sido vendidos',
             'success'
           )
-        } else if (
-
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-         
         }
       })
 })
+
+function VenderProductos() {
+
+    let filas = document.querySelectorAll("#venta > tr");
+
+    filas.forEach(fila=>{
+        let cn=fila.querySelector('.cn').textContent;
+        let cantidad=fila.querySelector('.cantidad >input').value;
+        let nEmpleado=localStorage.getItem('perfil');
+        let Precio=fila.querySelector('.precio').textContent;
+        let Total=fila.querySelector('.totalFila').textContent;
+        fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?cantidad=${cantidad}&CodigoNacional=${cn}`);
+        console.log(Total);
+        fetch(`http://localhost/OuterPharma/App/BaseDatos/anadirVenta.php?cantidad=${cantidad}&cn=${cn}&nEmpleado=${nEmpleado}&Precio=${Precio}&Total=${Total}`)
+        .then(res=>console.log(res));
+        EliminarFila(fila);
+    })
+}
 
 function guardarLocalStorage() {
     localStorage.setItem("ProductosVenta",'');
