@@ -1,12 +1,6 @@
 cargarDatos();
 let formulario = document.querySelector('form');
 
-    formulario.onsubmit=(e)=>{
-        e.preventDefault();
-        let valorInput=document.querySelector('#AnadirPorCN');
-        BuscarMedicamento(valorInput.value);      
-    }
-
 formulario.onsubmit = (e) => {
     e.preventDefault();
     let valorInput = document.querySelector('#AnadirPorCN');
@@ -30,10 +24,10 @@ async function BuscarMedicamento(cn) {
                         .then(resultadoApi => {
 
                             let filas = document.querySelectorAll("#venta > tr ");
-                            console.log(filas);
+                            
                             filas.forEach(element => {
                                 let Cns = element.querySelector('.cn')
-                                console.log(Cns.textContent);
+                                
                                 if (Cns.textContent == cn) {
                                     existe=true
                                     filaExistente=element.querySelector('.cantidad> input');
@@ -71,6 +65,7 @@ async function BuscarMedicamento(cn) {
 function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
     let tabla = document.querySelector('#venta');
     let fila = document.createElement('tr');
+    fila.classList.add('filaVenta')
     let colfoto = document.createElement('td');
     colfoto.classList.add('fotoProducto');
     let nombre = document.createElement('td');
@@ -186,11 +181,45 @@ function devuelta() {
 }
 
 document.querySelector('.dinero').onchange=()=>{devuelta()}
+
 function EliminarFila(tr) {
     tr.remove();
     actualizarPrecioTotal();
     guardarLocalStorage();
 }
+
+document.querySelector('#BotonVender').addEventListener('click',()=>{
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Realizar Venta?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Vender',
+        cancelButtonText: 'cancelar',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          swalWithBootstrapButtons.fire(
+            'Vendido',
+            'Los productos han sido vendidos',
+            'success'
+          )
+        } else if (
+
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+         
+        }
+      })
+})
 
 function guardarLocalStorage() {
     localStorage.setItem("ProductosVenta",'');
@@ -225,4 +254,3 @@ function cargarDatos() {
         PintarTabla(fila.fotourl,fila.nombre,fila.cn,fila.precio,100);
     })
 }
-
