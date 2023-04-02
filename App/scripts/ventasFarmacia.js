@@ -134,7 +134,7 @@ total.style.textAlign='center';
     totales.forEach(costeFila => {
         sumatorio += parseFloat(costeFila.textContent);
     });
-    total.value = sumatorio.toFixed(2) + ' Euros';
+    total.value = sumatorio.toFixed(2);
 }
 
 function ActualizarPrecioFila() {
@@ -220,19 +220,34 @@ document.querySelector('#BotonVender').addEventListener('click',()=>{
 function VenderProductos() {
 
     let filas = document.querySelectorAll("#venta > tr");
+    let Productos=[];
+    let PrecioTotalFactura;
+    filas.forEach(fila=>{
+        let cn=fila.querySelector('.cn').textContent;
+        let cantidad=fila.querySelector('.cantidad >input').value;
+        fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?cantidad=${cantidad}&CodigoNacional=${cn}`);
+        
+    })
 
     filas.forEach(fila=>{
         let cn=fila.querySelector('.cn').textContent;
         let cantidad=fila.querySelector('.cantidad >input').value;
-        let nEmpleado=localStorage.getItem('perfil');
-        let Precio=fila.querySelector('.precio').textContent;
-        let Total=fila.querySelector('.totalFila').textContent;
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?cantidad=${cantidad}&CodigoNacional=${cn}`);
-        console.log(Total);
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/anadirVenta.php?cantidad=${cantidad}&cn=${cn}&nEmpleado=${nEmpleado}&Precio=${Precio}&Total=${Total}`)
-        .then(res=>console.log(res));
+        let pvp=fila.querySelector('.precio').textContent;
+        let TotalFila=fila.querySelector('.totalFila').textContent;
+        
+        let productosJson={
+            CodigoNacional:cn,
+            PVP:pvp,
+            precioFila:TotalFila,
+            Cantidad:cantidad,
+        }
+        Productos.push(productosJson);
+        PrecioTotalFactura=document.querySelector('.total').value;
         EliminarFila(fila);
     })
+    let nEmpleado=localStorage.getItem('perfil');
+    
+    fetch(`http://localhost/OuterPharma/App/BaseDatos/anadirVenta.php?Productos=${JSON.stringify(Productos)}&nEmpleado=${nEmpleado}&PTotal=${PrecioTotalFactura}`)
 }
 
 function guardarLocalStorage() {

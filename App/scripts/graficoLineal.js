@@ -3,33 +3,35 @@ function datosVentasPedidos() {
     fetch('http://localhost/OuterPharma/App/BaseDatos/devVentasMeses.php')
         .then(res => res.json())
         .then(resultado => {
+
             resultado.forEach(venta => {
+                console.log(venta);
                 switch (venta.Mes) {
-                    case '01':
+                    case '1':
                         mesesVentas[0] = venta.CantidadVendida;
                         break;
-                    case '02':
+                    case '2':
                         mesesVentas[1] = venta.CantidadVendida;
                         break;
-                    case '03':
+                    case '3':
                         mesesVentas[2] = venta.CantidadVendida;
                         break;
-                    case '04':
+                    case '4':
                         mesesVentas[3] = venta.CantidadVendida;
                         break;
-                    case '05':
+                    case '5':
                         mesesVentas[4] = venta.CantidadVendida;
                         break;
-                    case '06':
+                    case '6':
                         mesesVentas[5] = venta.CantidadVendida;
                         break;
-                    case '07':
+                    case '7':
                         mesesVentas[6] = venta.CantidadVendida;
                         break;
-                    case '08':
+                    case '8':
                         mesesVentas[7] = venta.CantidadVendida;
                         break;
-                    case '09':
+                    case '9':
                         mesesVentas[8] = venta.CantidadVendida;
                         break;
                     case '10':
@@ -55,31 +57,31 @@ function datosVentasPedidos() {
             .then(resultado => {
                 resultado.forEach(venta => {
                     switch (venta.Mes) {
-                        case '01':
+                        case '1':
                             mesesPedidos[0] = venta.CantidadPedida;
                             break;
-                        case '02':
+                        case '2':
                             mesesPedidos[1] = venta.CantidadPedida;
                             break;
-                        case '03':
+                        case '3':
                             mesesPedidos[2] = venta.CantidadPedida;
                             break;
-                        case '04':
+                        case '4':
                             mesesPedidos[3] = venta.CantidadPedida;
                             break;
-                        case '05':
+                        case '5':
                             mesesPedidos[4] = venta.CantidadPedida;
                             break;
-                        case '06':
+                        case '6':
                             mesesPedidos[5] = venta.CantidadPedida;
                             break;
-                        case '07':
+                        case '7':
                             mesesPedidos[6] = venta.CantidadPedida;
                             break;
-                        case '08':
+                        case '8':
                             mesesPedidos[7] = venta.CantidadPedida;
                             break;
-                        case '09':
+                        case '9':
                             mesesPedidos[8] = venta.CantidadPedida;
                             break;
                         case '10':
@@ -95,6 +97,7 @@ function datosVentasPedidos() {
                             break;
                     }
                 });
+                console.log(mesesVentas,mesesPedidos);
                 graficoLineal(mesesVentas,mesesPedidos);
             })
     

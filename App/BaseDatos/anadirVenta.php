@@ -1,15 +1,15 @@
 <?php
 session_start();
 require('./conexionDB.php');
-
-    $cn=$_GET['cn'];
+    $correo=$_SESSION['CorreoFarmacia'];
     $nEmpleado=$_GET['nEmpleado'];
-    $fecha_actual = date("d-m-Y");
-    $cantidad=$_GET['cantidad'];
-    $precio=$_GET['Precio'];
-    $PrecioTotal=$_GET['Total'];
-    
-    $sql="INSERT INTO ventas VALUES ('','$cn','$nEmpleado','$fecha_actual','$cantidad','$precio','$PrecioTotal')";
+    $fecha_actual = date("Y-m-d");
+    $PrecioTotal=$_GET['PTotal'];
+    $Productos_Encoded=$_GET['Productos'];
+    $Productos = json_decode($Productos_Encoded);
+echo($fecha_actual);
+    //Insertar una venta
+    $sql="INSERT INTO ventas VALUES ('','$correo','$nEmpleado','$fecha_actual','$PrecioTotal')";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
 
@@ -17,4 +17,23 @@ require('./conexionDB.php');
 
     $sth->execute();
 
+    //Insertar todos los productos de la venta
+    
+    $ultimaVenta=$pdo->lastInsertId();
+    for ($i=0; $i < count($Productos); $i++) { 
+
+        $sqlVentas="INSERT INTO VENTAS_PRODUCTOS VALUES ('$ultimaVenta','" . $Productos[$i]->CodigoNacional . "','" . $Productos[$i]->Cantidad . "','" . $Productos[$i]->PVP . "','" . $Productos[$i]->precioFila . "')";
+        $pdo->exec("SET NAMES 'utf8mb4'");
+    
+        $stha=$pdo->prepare($sqlVentas);
+        
+        $stha->execute();
+
+        if (!$stha) {
+            echo "\nPDO::errorInfo():\n";
+            print_r($pdo->errorInfo());
+        }
+    }
+    
+    
 ?>
