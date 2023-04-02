@@ -6,10 +6,12 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT MONTH(Fecha) AS Mes, COUNT(nVentas) AS NumeroDeVentas
+    $sql="SELECT MONTH(ventas.Fecha) AS Mes, SUM(ventas_productos.Cantidad) AS CantidadMedicamentosVendidos
     FROM VENTAS
-    WHERE Ccorreo = '$correo' AND YEAR(Fecha) = YEAR(CURRENT_DATE())
-    GROUP BY MONTH(Fecha);";
+    JOIN VENTAS_PRODUCTOS ON VENTAS.nVentas = VENTAS_PRODUCTOS.nVentas
+    JOIN FARMACIAS_PRODUCTOS ON VENTAS_PRODUCTOS.CodigoNacional = FARMACIAS_PRODUCTOS.CodigoNacional
+    WHERE YEAR(Fecha) = YEAR(CURDATE()) AND VENTAS.Ccorreo = '$correo'
+    GROUP BY Mes";
       
     $pdo->exec("SET NAMES 'utf8mb4'");
 
@@ -20,7 +22,7 @@
     while ($fila=$sth->fetch()) {
         $registros[]=array(
             'Mes'=>$fila['Mes'],
-            'CantidadVendida'=>$fila['NumeroDeVentas']
+            'CantidadVendida'=>$fila['CantidadMedicamentosVendidos']
         );
     }
     

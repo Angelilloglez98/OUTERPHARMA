@@ -5,6 +5,7 @@ formulario.onsubmit = (e) => {
     e.preventDefault();
     let valorInput = document.querySelector('#AnadirPorCN');
     BuscarMedicamento(valorInput.value);
+    guardarLocalStorage();
 }
 
 async function BuscarMedicamento(cn) {
