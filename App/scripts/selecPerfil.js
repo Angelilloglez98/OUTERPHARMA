@@ -39,12 +39,12 @@ window.onload=()=>{
             }
                 
             elemento.appendChild(form);
-                
+
         }
-    
+
         function eliminarForms(){
             let users = document.querySelectorAll('.user');
-            
+  
             users.forEach(user => {
                 let forms = user.querySelectorAll('form');
                 forms.forEach(form => {
@@ -57,6 +57,7 @@ window.onload=()=>{
         function ComprobarContrasena(contrasenaReal,contrasenaInput,rol) {
             if (contrasenaReal===contrasenaInput){
                 if (rol==='Admin') {
+                    localStorage.setItem("password",contrasenaReal)
                     location.replace('./InicioAdmin.html');
                 }else{
                     location.replace('./Inicio.html');
