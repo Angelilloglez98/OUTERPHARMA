@@ -35,13 +35,10 @@ p{
     border-radius: 25px;
 }
 
-.col-12{
+.col-12, .col-6{
     margin-left: 1.25rem;
     border: 1px solid black;
     border-radius: 25px;
-}
-
-.col-12:first-child{
     margin-bottom: 3rem;
 }
 
@@ -83,6 +80,18 @@ p{
     font-weight: bold;
     border-radius: 25px;
     border: none;
+}
+
+.col-6 {
+    width: fit-content;
+}
+
+.insertar {
+    background-color: green;
+}
+
+.borrar {
+    background-color: red;
 }
 
 /* Estilos para dispositivos de pantalla pequeña */

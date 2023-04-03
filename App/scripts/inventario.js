@@ -80,25 +80,28 @@ window.onload = () => {
     })
 }
 
-function traerDatos() {
-    fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
-    .then(res=>res.json())
-    .then(resultado=>resultado.forEach(inventario => {
-        console.log(inventario);
-      
-        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`)
-            .then(res=>res.json())
-            .then(resultadoApi=>{
-                if(resultadoApi.fotos===undefined){
-                    pintarDatos('sin datos',inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
-                }else{
-                    pintarDatos(resultadoApi.fotos[0].url, inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
-                }
-                
-            });
-    }));
+async function traerDatos() {
+    try {
+        const res = await fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php');
+        const resultado = await res.json();
 
+        for (const inventario of resultado) {
+            console.log(inventario);
+
+            const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
+            const resultadoApi = await resApi.json();
+
+            if (resultadoApi.fotos === undefined) {
+                pintarDatos('sin datos', inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
+            } else {
+                pintarDatos(resultadoApi.fotos[0].url, inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
+            }
+        }
+    } catch (error) {
+        console.error(error);
+    }
 }
+
 
 function pintarDatos(foto, cn, nombre, cant, precio){
 
