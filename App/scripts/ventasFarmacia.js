@@ -63,7 +63,7 @@ async function BuscarMedicamento(cn) {
 }
 
 
-function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
+function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima,CantidadActual) {
     let tabla = document.querySelector('#venta');
     let fila = document.createElement('tr');
     fila.classList.add('filaVenta')
@@ -100,7 +100,13 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
     nombre.appendChild(document.createTextNode(Nombre));
     CodigoNacional.appendChild(document.createTextNode(CN));
     precio.appendChild(document.createTextNode(Precio));
-    cantidad.innerHTML = `<input type="number" value="1" step="1" min="1" max="${cantidadMaxima}" />`;
+    let valorCantidad;
+    if (CantidadActual!==undefined) {
+        valorCantidad=CantidadActual;
+    }else{
+        valorCantidad=1;
+    }
+    cantidad.innerHTML = `<input type="number" value="${valorCantidad}" step="1" min="1" max="${cantidadMaxima}" />`;
     total.appendChild(document.createTextNode(Precio * cantidad.textContent));
     fila.appendChild(papeleratd);
     fila.appendChild(colfoto);
@@ -280,7 +286,9 @@ function guardarLocalStorage() {
 function cargarDatos() {
 
     let jsonFilas=JSON.parse(localStorage.getItem('ProductosVenta'));
-    jsonFilas.forEach(fila=>{
-        PintarTabla(fila.fotourl,fila.nombre,fila.cn,fila.precio,100);
-    })
+    if (jsonFilas !== null){
+        jsonFilas.forEach(fila=>{
+            PintarTabla(fila.fotourl,fila.nombre,fila.cn,fila.precio,100,fila.cantidad);
+        })
+    }
 }

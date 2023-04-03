@@ -4,8 +4,8 @@ window.onload=()=>{
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
         Pintar(document.querySelector('.contenedorUser'),element.nombre)
-        console.log(element);
-        function Pintar(elemento, mensaje) {
+
+        function Pintar(elemento, mensaje){
             
             let div=document.createElement('div');
             div.classList.add('user');
