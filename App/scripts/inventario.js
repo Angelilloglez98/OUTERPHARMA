@@ -1,8 +1,6 @@
 window.onload = () => {
 
-    traerDatos();
-
-        
+    traerDatos();       
 
     const form = document.querySelector('form[role="search"]');
 
