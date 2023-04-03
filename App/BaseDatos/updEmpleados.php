@@ -2,7 +2,6 @@
     require('./conexionDB.php');
     session_start();
 
-    $registros=array();
 
     $correo=$_SESSION['CorreoFarmacia'];
     $nombre=$_POST["nombre"];

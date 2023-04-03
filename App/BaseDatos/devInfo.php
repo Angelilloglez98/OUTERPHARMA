@@ -9,7 +9,7 @@ $nombre = $_GET["nombre"];
 $correo=$_SESSION['CorreoFarmacia'];
 
 $sql="SELECT FARMACIAS_PRODUCTOS.Ccorreo,FARMACIAS_PRODUCTOS.CodigoNacional,productos.Nombre,FARMACIAS_PRODUCTOS.Precio,FARMACIAS_PRODUCTOS.Cantidad,FARMACIAS_PRODUCTOS.fCaducidad, productos.pActivo, productos.Laboratorio, productos.vAdmin, productos.presMedica
-    FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.CodigoNacional=PRODUCTOS.CodigoNacional where Ccorreo='$correo' and productos.Nombre='$nombre'";
+    FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.CodigoNacional=PRODUCTOS.CodigoNacional where Ccorreo='$correo' and productos.Nombre='$nombre' ORDER BY productos.Nombre ASC";
 
 $pdo->exec("SET NAMES 'utf8mb4'");
 

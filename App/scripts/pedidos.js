@@ -1,15 +1,6 @@
 window.onload = () =>{
 
     const busqueda = document.querySelector('input[type="search"]');
-    
-
-    // fetch('http://localhost/OuterPharma/App/BaseDatos/devProveedores.php')
-    // .then(response => response.json())
-    // .then(registro => registro.forEach(element => {
-
-    //     // console.log(element);
-
-    // }));
 
     const buscarMed = async(datos, filtro) => {
 

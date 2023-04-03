@@ -46,6 +46,9 @@ window.onload = () => {
         p4.appendChild(txtnempleado);
         div.appendChild(p4)
         
+        let div2 = document.createElement("div");
+        div.appendChild(div2);
+
         let buttonAccept = document.createElement('button')
         buttonAccept.classList.add("aceptar")
         let textAccept = document.createTextNode("Aceptar")
@@ -54,12 +57,12 @@ window.onload = () => {
         buttonCancel.classList.add("cancel")
         let textCancel = document.createTextNode("Cancel")
         buttonCancel.appendChild(textCancel);
-        div.appendChild(buttonAccept);
-        div.appendChild(buttonCancel);
+        div2.appendChild(buttonAccept);
+        div2.appendChild(buttonCancel);
         document.body.appendChild(div);
     }
 
-    function ventanaEmergenteCrear(nombre, correo, telefono,nempleado) {
+    function ventanaEmergenteCrear() {
       let div = document.createElement('div');
       div.setAttribute("id", "emergente");
       div.classList.add("emergente");
@@ -96,7 +99,10 @@ window.onload = () => {
       inputContraseña.classList.add("inputs");
       inputContraseña.type="password"
       div.appendChild(inputContraseña);
-      
+
+      let div2 = document.createElement("div");
+      div.appendChild(div2);
+
       let buttonAccept = document.createElement('button')
       buttonAccept.classList.add("aceptar")
       let textAccept = document.createTextNode("Aceptar")
@@ -105,8 +111,8 @@ window.onload = () => {
       buttonCancel.classList.add("cancel")
       let textCancel = document.createTextNode("Cancel")
       buttonCancel.appendChild(textCancel);
-      div.appendChild(buttonAccept);
-      div.appendChild(buttonCancel);
+      div2.appendChild(buttonAccept);
+      div2.appendChild(buttonCancel);
       document.body.appendChild(div);
   }
 
@@ -116,13 +122,15 @@ window.onload = () => {
     div.classList.add("emergente");
 
     let pName = document.createElement('p');
-    let txtName = document.createTextNode("Nombre del usuario a eliminar:");
-    pName.appendChild(txtName);
-    div.appendChild(pName);
-    let inputName = document.createElement("input");
-    inputName.type = "text";
-    inputName.value = nombre;
-    div.appendChild(inputName);
+        let txtName = document.createTextNode("Nombre:");
+        pName.appendChild(txtName);
+        div.appendChild(pName);
+        let inputName = document.createElement("input");
+        inputName.type = "text";
+        inputName.setAttribute("disabled",true)
+        inputName.value = nombre;
+        div.appendChild(inputName);
+
 
     let pPass = document.createElement('p');
     let txtPass = document.createTextNode("Contraseña del administrador:");
@@ -133,13 +141,12 @@ window.onload = () => {
     inputPass.type = "password";
     div.appendChild(inputPass);
 
-    let p4 = document.createElement('p');
-    let txtnempleado = document.createTextNode(nempleado);
-    p4.classList.add("empleado")
-    p4.hidden=true;
-    p4.appendChild(txtnempleado);
-    div.appendChild(p4)
+   
+  
     
+    let div2 = document.createElement("div");
+    div.appendChild(div2);
+
     let buttonAccept = document.createElement('button')
     buttonAccept.classList.add("aceptar")
     let textAccept = document.createTextNode("Aceptar")
@@ -148,8 +155,8 @@ window.onload = () => {
     buttonCancel.classList.add("cancel")
     let textCancel = document.createTextNode("Cancel")
     buttonCancel.appendChild(textCancel);
-    div.appendChild(buttonAccept);
-    div.appendChild(buttonCancel);
+    div2.appendChild(buttonAccept);
+    div2.appendChild(buttonCancel);
     document.body.appendChild(div);
 }
     
@@ -160,9 +167,16 @@ window.onload = () => {
 
     function Pintar(elemento, nombre, correo, telefono,nempleado,rol) {
         let div = document.createElement('div');
+        div.classList.add("usuarios");
+        div.dataset.nombre = nombre;
+        div.dataset.correo = correo;
+        div.dataset.telefono = telefono;
+        div.dataset.numero = nempleado;
         let p = document.createElement('p');
         let txtNombre = document.createTextNode(nombre);
        
+        let botones = document.createElement("div")
+
         let p2 = document.createElement('p');
         let txtCorreo = document.createTextNode(correo);
         let p3 = document.createElement('p');
@@ -182,30 +196,36 @@ window.onload = () => {
         div.appendChild(p2);
         div.appendChild(p3);
         div.appendChild(p4);
-        div.appendChild(bedi);
+        botones.appendChild(bedi);
+        div.appendChild(botones)
         p4.hidden=true;
         
         
         // Este if es para que si tiene el rol admin no aparezca para eliminarse
         if (rol != "Admin") {
           let beli = document.createElement('button');
-          div.appendChild(beli);
+          botones.appendChild(beli);
           beli.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/recycle-bin-icon-trash-can-260nw-1687424971.jpg')";
 
+          
           beli.setAttribute("class", "delete");
-          beli.addEventListener("click", function(){
-            ventanaEmergenteEli();
+          beli.addEventListener("click", function(e){
+            var nombre = e.target.closest(".usuarios").dataset.nombre;
+            var nEmpleado = e.target.closest(".usuarios").dataset.numero;
+            ventanaEmergenteEli(nombre,nEmpleado);
+
             let cancel = document.querySelector(".cancel")
                 cancel.addEventListener("click", () => {    
                   cerrarVentana()
                 })
                 let accept = document.querySelector(".aceptar");
                 let validacion = document.querySelectorAll("input");
+                
                 accept.addEventListener("click", () => { 
+                    let pass = localStorage.getItem("password")
                     
-                  if (validarNombre(validacion[0].value)==true && validarCorreoElectronico(validacion[2].value) && validarTelefono(validacion[1].value)) {
-                    
-                      enviarDatosCrear(validacion[0].value,validacion[2].value,validacion[1].value,validacion[3].value)
+                  if (validacion[1].value==pass ) {
+                      eliminarDatos(nombre,nempleado);
                       cerrarVentana()
                       location.reload();
                   }else{
@@ -216,17 +236,18 @@ window.onload = () => {
         }
         
         bedi.style.backgroundImage = "url('https://cdn-icons-png.flaticon.com/512/6324/6324826.png')";
-        // bedi.style.backgroundSize = "cover";
-        // bedi.style.width = "30px";
-        // bedi.style.height = "30px";
-        
+
         bedi.setAttribute("class", "edit");
-        bedi.addEventListener("click", function (elemento) {
-                ventanaEmergenteEdit(elemento.target.parentNode.firstChild.textContent, elemento.target.parentNode.firstChild.nextSibling.textContent, elemento.target.parentNode.firstChild.nextSibling.nextSibling.textContent,elemento.target.parentNode.lastChild.previousSibling.previousSibling.textContent);
-              
+        bedi.addEventListener("click", function (e) {
+
+                var nombre = e.target.closest(".usuarios").dataset.nombre;
+                var nEmpleado = e.target.closest(".usuarios").dataset.numero;
+                var correo = e.target.closest(".usuarios").dataset.correo;
+                var tlf = e.target.closest(".usuarios").dataset.telefono;
+                ventanaEmergenteEdit(nombre, tlf, correo,nEmpleado);
+                
                 let empleado = document.querySelector(".empleado")
                 let validacion = document.querySelectorAll("input");
-
                 let cancel = document.querySelector(".cancel")
                 cancel.addEventListener("click", () => {    
                   cerrarVentana()
@@ -283,11 +304,6 @@ window.onload = () => {
     function validarNombre(nombre) {
         // Comprueba si el nombre tiene de 1 a 3 palabras
         if (!/^[\wáéíóúñÁÉÍÓÚÑ]{1,}(\s[\wáéíóúñÁÉÍÓÚÑ]{1,}){0,2}$/.test(nombre)) {
-          return false;
-        }
-      
-        // Comprueba que la primera letra de cada palabra esté en mayúscula
-        if (!/^(?:[\wáéíóúñÁÉÍÓÚÑ][a-záéíóúñ]*){1}(?:\s[\wáéíóúñÁÉÍÓÚÑ][a-záéíóúñ]*){0,2}$/.test(nombre)) {
           return false;
         }
       
@@ -379,17 +395,15 @@ window.onload = () => {
         xhr.send(data);
       }
 
-      function eliminarDatos(nombre,password,empleado) {
+      function eliminarDatos(nombre,idempleado) {
         // Creamos un objeto FormData con los datos a enviar
         var data = 'nombre=' + encodeURIComponent(nombre) +
-             '&correopersonal=' + encodeURIComponent(correo) +
-             '&numero=' + encodeURIComponent(numero) +
-             '&password=' + encodeURIComponent(password)
-        
-        
+          '&idempleado=' + encodeURIComponent(idempleado)
+        console.log(nombre);
+        console.log(idempleado);
         // Creamos una solicitud HTTP POST
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'BaseDatos/insEmpleados.php', true);
+        xhr.open('POST', 'BaseDatos/delEmpleados.php', true);
         
         // Configuramos el tipo de contenido que vamos a enviar
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -398,10 +412,11 @@ window.onload = () => {
         xhr.onload = function() {
           if (xhr.status === 200 && xhr.readyState === 4) {
             console.log(xhr.responseText);
+            
           }
         };
         
         // Enviamos los datos al servidor
         xhr.send(data);
       }
-}
+} 
