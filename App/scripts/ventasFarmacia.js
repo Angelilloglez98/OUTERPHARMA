@@ -283,4 +283,6 @@ function cargarDatos() {
     jsonFilas.forEach(fila=>{
         PintarTabla(fila.fotourl,fila.nombre,fila.cn,fila.precio,100);
     })
+
+    
 }
