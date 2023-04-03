@@ -84,3 +84,47 @@ p{
     border-radius: 25px;
     border: none;
 }
+
+/* Estilos para dispositivos de pantalla pequeña */
+@media only screen and (max-width: 767px) {
+    .col-9, .col-3, .col-2, .col-12 {
+      width: 100%; /* Las columnas ocupan todo el ancho */
+      margin: 0; /* Quita el margen */
+      border-radius: 0; /* Quita el radio del borde */
+      border: none; /* Quita el borde */
+    }
+    
+    .col-12:first-child {
+      margin-bottom: 1.5rem; /* Reducir la cantidad de margen inferior */
+    }
+    
+    .imagen_foto {
+      width: 100%; /* La imagen ocupa todo el ancho disponible */
+      height: auto; /* La altura se ajusta automáticamente */
+    }
+  }
+  
+  /* Estilos para dispositivos de pantalla mediana */
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .container-fluid {
+      max-width: 960px; /* Reducir el ancho del contenedor */
+      margin: 0 auto; /* Centrar el contenedor en la página */
+    }
+    
+    .col-9 {
+      width: 75%; /* Reducir el ancho de la columna */
+    }
+    
+    .col-3 {
+      width: 25%; /* Reducir el ancho de la columna */
+    }
+  }
+  
+  /* Estilos para dispositivos de pantalla grande */
+  @media only screen and (min-width: 992px) {
+    .container-fluid {
+      max-width: 1140px; /* Establecer el ancho máximo del contenedor */
+      margin: 0 auto; /* Centrar el contenedor en la página */
+    }
+  }
+  
