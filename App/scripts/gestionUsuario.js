@@ -163,6 +163,10 @@ window.onload = () => {
     function Pintar(elemento, nombre, correo, telefono,nempleado,rol) {
         let div = document.createElement('div');
         div.classList.add("usuarios");
+        div.dataset.nombre = nombre;
+        div.dataset.correo = correo;
+        div.dataset.telefono = telefono;
+        div.dataset.numero = nempleado;
         let p = document.createElement('p');
         let txtNombre = document.createTextNode(nombre);
        
@@ -195,9 +199,12 @@ window.onload = () => {
           div.appendChild(beli);
           beli.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/recycle-bin-icon-trash-can-260nw-1687424971.jpg')";
 
+          
           beli.setAttribute("class", "delete");
-          beli.addEventListener("click", function(elemento){
-            ventanaEmergenteEli(elemento.target.parentNode.firstChild.textContent,elemento.target.parentNode.lastChild.previousSibling.previousSibling.textContent);
+          beli.addEventListener("click", function(e){
+            var nombre = e.target.closest(".usuarios").dataset.nombre;
+            var nEmpleado = e.target.closest(".usuarios").dataset.numero;
+            ventanaEmergenteEli(nombre,nEmpleado);
             let emp = document.querySelector(".empleado");
 
             let cancel = document.querySelector(".cancel")
@@ -224,9 +231,14 @@ window.onload = () => {
         bedi.style.backgroundImage = "url('https://cdn-icons-png.flaticon.com/512/6324/6324826.png')";
 
         bedi.setAttribute("class", "edit");
-        bedi.addEventListener("click", function (elemento) {
-                ventanaEmergenteEdit(elemento.target.parentNode.firstChild.textContent, elemento.target.parentNode.firstChild.nextSibling.textContent, elemento.target.parentNode.firstChild.nextSibling.nextSibling.textContent,elemento.target.parentNode.lastChild.previousSibling.previousSibling.textContent);
-              
+        bedi.addEventListener("click", function (e) {
+
+                var nombre = e.target.closest(".usuarios").dataset.nombre;
+                var nEmpleado = e.target.closest(".usuarios").dataset.numero;
+                var correo = e.target.closest(".usuarios").dataset.correo;
+                var tlf = e.target.closest(".usuarios").dataset.telefono;
+                ventanaEmergenteEdit(nombre, tlf, correo,nEmpleado);
+                
                 let empleado = document.querySelector(".empleado")
                 let validacion = document.querySelectorAll("input");
                 let cancel = document.querySelector(".cancel")
