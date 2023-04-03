@@ -198,6 +198,8 @@ window.onload = () => {
           beli.setAttribute("class", "delete");
           beli.addEventListener("click", function(elemento){
             ventanaEmergenteEli(elemento.target.parentNode.firstChild.textContent,elemento.target.parentNode.lastChild.previousSibling.previousSibling.textContent);
+            let emp = document.querySelector(".empleado");
+
             let cancel = document.querySelector(".cancel")
                 cancel.addEventListener("click", () => {    
                   cerrarVentana()
@@ -207,11 +209,11 @@ window.onload = () => {
                 
                 accept.addEventListener("click", () => { 
                     let pass = localStorage.getItem("password")
-                    let emp = document.querySelector(".empleado");
+                    
                   if (validacion[1].value==pass ) {
-                      eliminarDatos(validacion[0],emp);
+                      eliminarDatos(validacion[0].value,emp.textContent);
                       cerrarVentana()
-                      // location.reload();
+                      location.reload();
                   }else{
                       alert("rellene bien los campos")
                   }
@@ -227,7 +229,6 @@ window.onload = () => {
               
                 let empleado = document.querySelector(".empleado")
                 let validacion = document.querySelectorAll("input");
-
                 let cancel = document.querySelector(".cancel")
                 cancel.addEventListener("click", () => {    
                   cerrarVentana()
@@ -379,8 +380,8 @@ window.onload = () => {
         // Creamos un objeto FormData con los datos a enviar
         var data = 'nombre=' + encodeURIComponent(nombre) +
           '&idempleado=' + encodeURIComponent(idempleado)
-        
-        
+        console.log(nombre);
+        console.log(idempleado);
         // Creamos una solicitud HTTP POST
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'BaseDatos/delEmpleados.php', true);
@@ -392,6 +393,7 @@ window.onload = () => {
         xhr.onload = function() {
           if (xhr.status === 200 && xhr.readyState === 4) {
             console.log(xhr.responseText);
+            
           }
         };
         
