@@ -244,7 +244,7 @@ window.onload = () => {
                 var nEmpleado = e.target.closest(".usuarios").dataset.numero;
                 var correo = e.target.closest(".usuarios").dataset.correo;
                 var tlf = e.target.closest(".usuarios").dataset.telefono;
-                ventanaEmergenteEdit(nombre, tlf, correo,nEmpleado);
+                ventanaEmergenteEdit(nombre, correo, tlf,nEmpleado);
                 
                 let empleado = document.querySelector(".empleado")
                 let validacion = document.querySelectorAll("input");
@@ -293,7 +293,7 @@ window.onload = () => {
                   }else{
                       alert("rellene bien los campos")
                   }
-                    })  
+                    })
           })
         }
         

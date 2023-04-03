@@ -15,11 +15,16 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"/>
   
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
     <!-- datatables-->
+
+    <!-- pdf -->
+        <script src="Library/jspdf.min.js"></script>
+    <!-- pdf -->
+
     <link rel="stylesheet" href="styles/header.css">
     <script src="scripts/header.js"></script>
     <script src="scripts/HistorialVentas.js"></script>
+    <link rel="stylesheet" href="styles/HistorialVentas.css">
 </head>
     <body id="body-pd">
         <header class="header" id="header">
@@ -40,8 +45,9 @@
         </div>
         <!--Container Main start-->
         <div class="height-100 bg-light">
-            <h4>Historial de Ventas</h4>
-                <div>
+            
+                <div class="container-fluid">
+                    <h4 class="mb-5">Historial de Ventas</h4>
                     <table id="myTable" class="display">
                         <thead>
                             <tr>
@@ -49,6 +55,7 @@
                                 <th>Empleado</th>
                                 <th>Fecha</th>
                                 <th>Total</th>
+                                <th>Ticket</th>
                             </tr>
                         </thead>
                         <tbody id="cuerpoTabla">

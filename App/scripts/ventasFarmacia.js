@@ -286,7 +286,9 @@ function guardarLocalStorage() {
 function cargarDatos() {
 
     let jsonFilas=JSON.parse(localStorage.getItem('ProductosVenta'));
-    jsonFilas.forEach(fila=>{
-        PintarTabla(fila.fotourl,fila.nombre,fila.cn,fila.precio,100);
-    })
+    if (jsonFilas !== null){
+        jsonFilas.forEach(fila=>{
+            PintarTabla(fila.fotourl,fila.nombre,fila.cn,fila.precio,100,fila.cantidad);
+        })
+    }
 }
