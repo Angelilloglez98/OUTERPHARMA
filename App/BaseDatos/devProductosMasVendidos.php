@@ -11,12 +11,14 @@
    
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT p.Nombre, SUM(v.Cantidad) as CantidadVendida 
-    FROM VENTAS v JOIN PRODUCTOS p ON v.CodigoNacional = p.CodigoNacional JOIN EMPLEADOS e ON v.nEmpleado = e.nEmpleado JOIN FARMACIAS f ON e.CcorreoFarmacia = f.Ccorreo
-    WHERE f.Ccorreo = '$correo'
-    AND YEAR(v.Fecha) = '$fecha'
+    $sql="SELECT p.Nombre, SUM(vp.Cantidad) AS CantidadVendida
+    FROM PRODUCTOS p
+    JOIN VENTAS_PRODUCTOS vp ON p.CodigoNacional = vp.CodigoNacional
+    JOIN VENTAS v ON vp.nVentas = v.nVentas
+    JOIN FARMACIAS f ON v.Ccorreo = f.Ccorreo
+    WHERE f.Ccorreo = '$correo' AND YEAR(v.Fecha) = '$fecha'
     GROUP BY p.Nombre
-    ORDER BY CantidadVendida DESC;";
+    ORDER BY CantidadVendida DESC";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
 

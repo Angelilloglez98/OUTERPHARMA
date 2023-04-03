@@ -4,7 +4,7 @@ window.onload=()=>{
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
         Pintar(document.querySelector('.contenedorUser'),element.nombre)
-        
+        console.log(element);
         function Pintar(elemento, mensaje) {
             
             let div=document.createElement('div');
@@ -37,7 +37,7 @@ window.onload=()=>{
                 e.preventDefault();
                 ComprobarContrasena(element.contrasena,inputPassword.value,element.rol);
             }
-
+                
             elemento.appendChild(form);
 
         }
@@ -55,15 +55,14 @@ window.onload=()=>{
         }
     
         function ComprobarContrasena(contrasenaReal,contrasenaInput,rol) {
-            if (contrasenaReal=== contrasenaInput){
+            if (contrasenaReal===contrasenaInput){
                 if (rol==='Admin') {
                     localStorage.setItem("password",contrasenaReal)
                     location.replace('./InicioAdmin.html');
                 }else{
                     location.replace('./Inicio.html');
                 }
-            }else{
-                
+                localStorage.setItem('perfil',element.nempleado);
             }
             
         }

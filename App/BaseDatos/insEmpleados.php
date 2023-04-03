@@ -1,6 +1,6 @@
 <?php
-    require('./conexionDB.php');
     session_start();
+    require('./conexionDB.php');
 
     $registros=array();
 

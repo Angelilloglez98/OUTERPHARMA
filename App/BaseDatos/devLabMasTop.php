@@ -6,15 +6,14 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT PRODUCTOS.Laboratorio AS laboratorio, SUM(VENTAS.Cantidad) AS ventasProducto
-    FROM VENTAS
-    INNER JOIN PRODUCTOS ON VENTAS.CodigoNacional=PRODUCTOS.CodigoNacional
-    INNER JOIN EMPLEADOS ON VENTAS.nEmpleado=EMPLEADOS.nEmpleado
-    INNER JOIN FARMACIAS ON EMPLEADOS.CcorreoFarmacia=FARMACIAS.Ccorreo
-    WHERE FARMACIAS.Ccorreo = '$correo'
-    GROUP BY PRODUCTOS.laboratorio
-    ORDER BY VENTAS.Cantidad DESC"
-    ;
+    $sql="SELECT p.Laboratorio, SUM(vp.Cantidad) AS TotalVentas
+    FROM VENTAS v
+    JOIN VENTAS_PRODUCTOS vp ON v.nVentas = vp.nVentas
+    JOIN FARMACIAS_PRODUCTOS fp ON vp.CodigoNacional = fp.CodigoNacional AND v.Ccorreo = fp.Ccorreo
+    JOIN PRODUCTOS p ON vp.CodigoNacional = p.CodigoNacional
+    WHERE v.Ccorreo = '$correo'
+    GROUP BY p.Laboratorio
+    ORDER BY TotalVentas DESC";
     
     $pdo->exec("SET NAMES 'utf8mb4'");
 
@@ -24,8 +23,8 @@
 
     while ($fila=$sth->fetch()) {
         $registros[]=array(
-            'Laboratorio'=>$fila['laboratorio'],
-            'VentasLab'=>$fila['ventasProducto']
+            'Laboratorio'=>$fila['Laboratorio'],
+            'VentasLab'=>$fila['TotalVentas']
         );
     }
     
