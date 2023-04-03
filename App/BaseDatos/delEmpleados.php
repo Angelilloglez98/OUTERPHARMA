@@ -6,11 +6,10 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
     $nombre=$_POST["nombre"];
-    $correopersonal=$_POST["correopersonal"];
-    $numero=$_POST["numero"];
+    $idempleado=$_POST["idempleado"];
 
 
-    $sql="DELETE FROM empleados WHERE CcorreoFarmacia = '$correo' AND Nombre = '$nombre' AND CorreoPersonal = '$correopersonal' AND Telefono = '$numero'";
+    $sql="DELETE FROM empleados WHERE CcorreoFarmacia = '$correo' AND Nombre = '$nombre' AND nEmpleado = '$idempleado'";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
 

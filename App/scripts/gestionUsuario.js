@@ -121,6 +121,7 @@ window.onload = () => {
         div.appendChild(pName);
         let inputName = document.createElement("input");
         inputName.type = "text";
+        inputName.setAttribute("disabled",true)
         inputName.value = nombre;
         div.appendChild(inputName);
 
@@ -161,6 +162,7 @@ window.onload = () => {
 
     function Pintar(elemento, nombre, correo, telefono,nempleado,rol) {
         let div = document.createElement('div');
+        div.classList.add("usuarios");
         let p = document.createElement('p');
         let txtNombre = document.createTextNode(nombre);
        
@@ -195,20 +197,21 @@ window.onload = () => {
 
           beli.setAttribute("class", "delete");
           beli.addEventListener("click", function(elemento){
-            ventanaEmergenteEli(elemento.target.parentNode.firstChild.textContent);
+            ventanaEmergenteEli(elemento.target.parentNode.firstChild.textContent,elemento.target.parentNode.lastChild.previousSibling.previousSibling.textContent);
             let cancel = document.querySelector(".cancel")
                 cancel.addEventListener("click", () => {    
                   cerrarVentana()
                 })
                 let accept = document.querySelector(".aceptar");
                 let validacion = document.querySelectorAll("input");
+                
                 accept.addEventListener("click", () => { 
-                    
-                  if (validarNombre(validacion[0].value)==true && validarCorreoElectronico(validacion[2].value) && validarTelefono(validacion[1].value)) {
-                    
-                      enviarDatosCrear(validacion[0].value,validacion[2].value,validacion[1].value,validacion[3].value)
+                    let pass = localStorage.getItem("password")
+                    let emp = document.querySelector(".empleado");
+                  if (validacion[1].value==pass ) {
+                      eliminarDatos(validacion[0],emp);
                       cerrarVentana()
-                      location.reload();
+                      // location.reload();
                   }else{
                       alert("rellene bien los campos")
                   }
@@ -281,11 +284,6 @@ window.onload = () => {
     function validarNombre(nombre) {
         // Comprueba si el nombre tiene de 1 a 3 palabras
         if (!/^[\wáéíóúñÁÉÍÓÚÑ]{1,}(\s[\wáéíóúñÁÉÍÓÚÑ]{1,}){0,2}$/.test(nombre)) {
-          return false;
-        }
-      
-        // Comprueba que la primera letra de cada palabra esté en mayúscula
-        if (!/^(?:[\wáéíóúñÁÉÍÓÚÑ][a-záéíóúñ]*){1}(?:\s[\wáéíóúñÁÉÍÓÚÑ][a-záéíóúñ]*){0,2}$/.test(nombre)) {
           return false;
         }
       
@@ -377,17 +375,15 @@ window.onload = () => {
         xhr.send(data);
       }
 
-      function eliminarDatos(nombre,password,empleado) {
+      function eliminarDatos(nombre,idempleado) {
         // Creamos un objeto FormData con los datos a enviar
         var data = 'nombre=' + encodeURIComponent(nombre) +
-             '&correopersonal=' + encodeURIComponent(correo) +
-             '&numero=' + encodeURIComponent(numero) +
-             '&password=' + encodeURIComponent(password)
+          '&idempleado=' + encodeURIComponent(idempleado)
         
         
         // Creamos una solicitud HTTP POST
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'BaseDatos/insEmpleados.php', true);
+        xhr.open('POST', 'BaseDatos/delEmpleados.php', true);
         
         // Configuramos el tipo de contenido que vamos a enviar
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
