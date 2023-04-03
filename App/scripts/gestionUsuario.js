@@ -166,6 +166,8 @@ window.onload = () => {
         let p = document.createElement('p');
         let txtNombre = document.createTextNode(nombre);
        
+        let botones = document.createElement("div")
+
         let p2 = document.createElement('p');
         let txtCorreo = document.createTextNode(correo);
         let p3 = document.createElement('p');
@@ -185,14 +187,15 @@ window.onload = () => {
         div.appendChild(p2);
         div.appendChild(p3);
         div.appendChild(p4);
-        div.appendChild(bedi);
+        botones.appendChild(bedi);
+        div.appendChild(botones)
         p4.hidden=true;
         
         
         // Este if es para que si tiene el rol admin no aparezca para eliminarse
         if (rol != "Admin") {
           let beli = document.createElement('button');
-          div.appendChild(beli);
+          botones.appendChild(beli);
           beli.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/recycle-bin-icon-trash-can-260nw-1687424971.jpg')";
 
           beli.setAttribute("class", "delete");
@@ -225,7 +228,7 @@ window.onload = () => {
 
         bedi.setAttribute("class", "edit");
         bedi.addEventListener("click", function (elemento) {
-                ventanaEmergenteEdit(elemento.target.parentNode.firstChild.textContent, elemento.target.parentNode.firstChild.nextSibling.textContent, elemento.target.parentNode.firstChild.nextSibling.nextSibling.textContent,elemento.target.parentNode.lastChild.previousSibling.previousSibling.textContent);
+                ventanaEmergenteEdit(elemento.target.parentNode.parentNode.firstChild.textContent, elemento.target.parentNode.parentNode.firstChild.nextSibling.textContent, elemento.target.parentNode.parentNode.firstChild.nextSibling.nextSibling.textContent,elemento.target.parentNode.parentNode.lastChild.previousSibling.previousSibling.textContent);
               
                 let empleado = document.querySelector(".empleado")
                 let validacion = document.querySelectorAll("input");
@@ -400,4 +403,4 @@ window.onload = () => {
         // Enviamos los datos al servidor
         xhr.send(data);
       }
-}
+} 

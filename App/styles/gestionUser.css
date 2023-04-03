@@ -90,8 +90,12 @@ background-size: cover;
 }
 
 .usuarios{
-    width: 95%;
+    width: 100%;
     border: 1px solid black;
     border-radius:50px 50px 50px 50px;
     margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
