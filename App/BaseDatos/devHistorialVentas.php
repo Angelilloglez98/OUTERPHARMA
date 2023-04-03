@@ -7,7 +7,7 @@ session_start();
 
     //$correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT ventas.nVentas,ventas.Fecha,ventas.Total,ventas_productos.CodigoNacional,ventas_productos.Cantidad,ventas_productos.PVP,ventas_productos.PrecioProductos,productos.Nombre,empleados.Nombre FROM VENTAS
+    $sql="SELECT ventas.nVentas,ventas.Fecha,ventas.Total,ventas_productos.CodigoNacional,ventas_productos.Cantidad,ventas_productos.PVP,ventas_productos.PrecioProductos,productos.Nombre,empleados.NombreEmpleado FROM VENTAS
     INNER JOIN VENTAS_PRODUCTOS ON ventas_productos.nVentas=VENTAS.nVentas 
     INNER JOIN PRODUCTOS ON PRODUCTOS.CodigoNacional=VENTAS_PRODUCTOS.CodigoNacional 
     INNER JOIN EMPLEADOS ON EMPLEADOS.nEmpleado=VENTAS.nEmpleado
