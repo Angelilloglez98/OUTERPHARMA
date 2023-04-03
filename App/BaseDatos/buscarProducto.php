@@ -6,24 +6,34 @@ $registros=array();
 
 // Hacer el if de si es un int o un texto
 // Se cree una variable y se haga un select o otro select
-$CodigoNacional = $_GET["datos"];
+$datos = $_GET["datos"];
 
 $correo=$_SESSION['CorreoFarmacia'];
 
 $sql="SELECT FARMACIAS_PRODUCTOS.Ccorreo,FARMACIAS_PRODUCTOS.CodigoNacional,productos.Nombre,FARMACIAS_PRODUCTOS.Precio,FARMACIAS_PRODUCTOS.Cantidad,FARMACIAS_PRODUCTOS.fCaducidad
     FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.CodigoNacional=PRODUCTOS.CodigoNacional where Ccorreo='$correo'";
+if (is_numeric($datos)) {
+    $sql= "SELECT fp.Ccorreo, fp.CodigoNacional, p.Nombre, fp.Precio, fp.Cantidad, fp.fCaducidad
+    FROM FARMACIAS_PRODUCTOS as fp
+    INNER JOIN PRODUCTOS as p
+    ON fp.CodigoNacional = p.CodigoNacional
+    WHERE fp.Ccorreo = '$correo' and fp.CodigoNacional = '$datos'";
+} else {
+    $sql= "SELECT fp.Ccorreo, fp.CodigoNacional, p.Nombre, fp.Precio, fp.Cantidad, fp.fCaducidad
+    FROM FARMACIAS_PRODUCTOS as fp
+    INNER JOIN PRODUCTOS as  p
+    ON fp.CodigoNacional = p.CodigoNacional
+    WHERE fp.Ccorreo = '$correo' and p.Nombre = '$datos'";
+}
     
 $pdo->exec("SET NAMES 'utf8mb4'");
 
-$sth = $pdo->prepare($sqlUpdate);
+$sth = $pdo->prepare($sql);
+
 
 $sth->execute();
 
-$sthSel = $pdo->prepare($sqlSelect);
-
-$sthSel->execute();
-
-while ($fila=$sthSel->fetch()) {
+while ($fila=$sth->fetch()) {
     $registros[]=array(
         'Ccorreo'=>$fila['Ccorreo'],
         'CodigoNacional'=>$fila['CodigoNacional'],
