@@ -46,6 +46,9 @@ window.onload = () => {
         p4.appendChild(txtnempleado);
         div.appendChild(p4)
         
+        let div2 = document.createElement("div");
+        div.appendChild(div2);
+
         let buttonAccept = document.createElement('button')
         buttonAccept.classList.add("aceptar")
         let textAccept = document.createTextNode("Aceptar")
@@ -54,8 +57,8 @@ window.onload = () => {
         buttonCancel.classList.add("cancel")
         let textCancel = document.createTextNode("Cancel")
         buttonCancel.appendChild(textCancel);
-        div.appendChild(buttonAccept);
-        div.appendChild(buttonCancel);
+        div2.appendChild(buttonAccept);
+        div2.appendChild(buttonCancel);
         document.body.appendChild(div);
     }
 
@@ -96,7 +99,10 @@ window.onload = () => {
       inputContraseña.classList.add("inputs");
       inputContraseña.type="password"
       div.appendChild(inputContraseña);
-      
+
+      let div2 = document.createElement("div");
+      div.appendChild(div2);
+
       let buttonAccept = document.createElement('button')
       buttonAccept.classList.add("aceptar")
       let textAccept = document.createTextNode("Aceptar")
@@ -105,8 +111,8 @@ window.onload = () => {
       buttonCancel.classList.add("cancel")
       let textCancel = document.createTextNode("Cancel")
       buttonCancel.appendChild(textCancel);
-      div.appendChild(buttonAccept);
-      div.appendChild(buttonCancel);
+      div2.appendChild(buttonAccept);
+      div2.appendChild(buttonCancel);
       document.body.appendChild(div);
   }
 
@@ -135,13 +141,12 @@ window.onload = () => {
     inputPass.type = "password";
     div.appendChild(inputPass);
 
-    let p4 = document.createElement('p');
-    let txtnempleado = document.createTextNode(nempleado);
-    p4.classList.add("empleado")
-    p4.hidden=true;
-    p4.appendChild(txtnempleado);
-    div.appendChild(p4)
+   
+  
     
+    let div2 = document.createElement("div");
+    div.appendChild(div2);
+
     let buttonAccept = document.createElement('button')
     buttonAccept.classList.add("aceptar")
     let textAccept = document.createTextNode("Aceptar")
@@ -150,8 +155,8 @@ window.onload = () => {
     buttonCancel.classList.add("cancel")
     let textCancel = document.createTextNode("Cancel")
     buttonCancel.appendChild(textCancel);
-    div.appendChild(buttonAccept);
-    div.appendChild(buttonCancel);
+    div2.appendChild(buttonAccept);
+    div2.appendChild(buttonCancel);
     document.body.appendChild(div);
 }
     
@@ -170,6 +175,8 @@ window.onload = () => {
         let p = document.createElement('p');
         let txtNombre = document.createTextNode(nombre);
        
+        let botones = document.createElement("div")
+
         let p2 = document.createElement('p');
         let txtCorreo = document.createTextNode(correo);
         let p3 = document.createElement('p');
@@ -189,14 +196,15 @@ window.onload = () => {
         div.appendChild(p2);
         div.appendChild(p3);
         div.appendChild(p4);
-        div.appendChild(bedi);
+        botones.appendChild(bedi);
+        div.appendChild(botones)
         p4.hidden=true;
         
         
         // Este if es para que si tiene el rol admin no aparezca para eliminarse
         if (rol != "Admin") {
           let beli = document.createElement('button');
-          div.appendChild(beli);
+          botones.appendChild(beli);
           beli.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/recycle-bin-icon-trash-can-260nw-1687424971.jpg')";
 
           
@@ -205,7 +213,6 @@ window.onload = () => {
             var nombre = e.target.closest(".usuarios").dataset.nombre;
             var nEmpleado = e.target.closest(".usuarios").dataset.numero;
             ventanaEmergenteEli(nombre,nEmpleado);
-            let emp = document.querySelector(".empleado");
 
             let cancel = document.querySelector(".cancel")
                 cancel.addEventListener("click", () => {    
@@ -218,7 +225,7 @@ window.onload = () => {
                     let pass = localStorage.getItem("password")
                     
                   if (validacion[1].value==pass ) {
-                      eliminarDatos(validacion[0].value,emp.textContent);
+                      eliminarDatos(nombre,nempleado);
                       cerrarVentana()
                       location.reload();
                   }else{
@@ -412,4 +419,4 @@ window.onload = () => {
         // Enviamos los datos al servidor
         xhr.send(data);
       }
-}
+} 
