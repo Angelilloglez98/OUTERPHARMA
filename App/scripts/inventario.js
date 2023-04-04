@@ -20,8 +20,14 @@ window.onload = () => {
         .catch(e => {console.error("ERROR: ", e.message)});
     }
     
+    document.querySelector('#insertar').addEventListener('click', ()=>{
+        console.log('insertar');
+    });
     
-    
+    document.querySelector('#borrar').addEventListener('click', ()=>{
+        console.log('borrar');
+    });
+
     busqueda.onkeydown =  (event) => {
 
         if (event.key === 'Enter' && busqueda.value != '') {
@@ -314,4 +320,8 @@ function recibir(e){
             });
         
     })});
+}
+
+function insertar(){
+
 }
