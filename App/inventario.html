@@ -56,11 +56,16 @@
                                 <div class="col-12 devDatos"></div>
                                 <div class="col-12 pedirCN">
                                     <form class="codigo" action="">
-                                        <input class="cN" type="text" name="CodigoNacional" id="" placeholder="Codigo de barra">
-                                    </form>
+                                        <input class="cN" type="text" name="CodigoNacional" id="cn" placeholder="Codigo de barra">
+                                    </form> 
                                 </div>
-                                <div id="insertar" class="col-6 insertar">+</div>
-                                <div id="borrar" class="col-6 borrar">-</div>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" name="funcion" id="insertar" autocomplete="off">
+                                    <label class="btn btn-outline-success" for="insertar">+</label>
+                                  
+                                    <input type="radio" class="btn-check" name="funcion" id="borrar" autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="borrar">-</label>
+                                </div>
                             </div>
                         </div>
                     </div>
