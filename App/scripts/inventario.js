@@ -19,14 +19,28 @@ window.onload = () => {
         .then(medicamentos => {return medicamentos; })
         .catch(e => {console.error("ERROR: ", e.message)});
     }
-    
-    document.querySelector('#insertar').addEventListener('click', ()=>{
-        console.log('insertar');
-    });
-    
-    document.querySelector('#borrar').addEventListener('click', ()=>{
-        console.log('borrar');
-    });
+
+    const btnInsertar = document.getElementById('insertar');
+    const btnBorrar = document.getElementById('borrar');
+    const codigoNacional = document.getElementById('cn');
+
+    btnInsertar.addEventListener('click', function() {
+        // Verificar si el botón de insertar está seleccionado
+        if (btnInsertar.checked) {
+            const codigo = codigoNacional.value;
+            // Ejecutar la función de insertar
+            insertarProducto(codigo);
+        }
+      });
+      
+      btnBorrar.addEventListener('click', function() {
+        // Verificar si el botón de borrar está seleccionado
+        if (btnBorrar.checked) {
+            const codigo = codigoNacional.value;
+            // Ejecutar la función de borrar
+            borrarProducto(codigo);
+        }
+      });
 
     busqueda.onkeydown =  (event) => {
 
@@ -64,25 +78,25 @@ window.onload = () => {
               cancelButton: 'btn btn-danger'
             },
             buttonsStyling: false
-          })
+        })
           
-          swalWithBootstrapButtons.fire({
-            title: 'Realizar Venta?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Vender',
-            cancelButtonText: 'cancelar',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-                VenderProductos();
-              swalWithBootstrapButtons.fire(
+        swalWithBootstrapButtons.fire({
+        title: 'Realizar Venta?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Vender',
+        cancelButtonText: 'cancelar',
+        reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            VenderProductos();
+            swalWithBootstrapButtons.fire(
                 'Vendido',
                 'Los productos han sido vendidos',
                 'success'
-              )
-            }
-          })
+            )
+        }
+        })
     })
 }
 
@@ -92,7 +106,7 @@ async function traerDatos() {
         const resultado = await res.json();
 
         for (const inventario of resultado) {
-            console.log(inventario);
+            
 
             const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
             const resultadoApi = await resApi.json();
@@ -322,6 +336,12 @@ function recibir(e){
     })});
 }
 
-function insertar(){
+function insertarProducto(cn){
+    fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}`)
+    vaciarDatos();
+    traerDatos(); 
+}
 
+function borrarProducto(cn){ 
+    console.log(cn);
 }
