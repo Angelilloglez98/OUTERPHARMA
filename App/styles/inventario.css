@@ -86,13 +86,11 @@ p{
     width: fit-content;
 }
 
-.insertar {
-    background-color: green;
+.btn-group{
+  margin-left: 1.25rem;
 }
 
-.borrar {
-    background-color: red;
-}
+
 
 /* Estilos para dispositivos de pantalla pequeña */
 @media only screen and (max-width: 767px) {
