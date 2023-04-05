@@ -19,7 +19,8 @@
         $registros[]=array(
             'nombre'=>$fila['Nombre'],
             'direccion'=>$fila['Direccion'],
-            'nTelefono'=>$fila['nTelefono']
+            'nTelefono'=>$fila['nTelefono'],
+            'Link'=>$fila['Link'],
         );
     }
     

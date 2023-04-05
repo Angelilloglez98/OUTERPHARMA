@@ -4,10 +4,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"/>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="./styles/pedidos.css">
     <script src="scripts/header.js"></script>
@@ -48,28 +53,48 @@
                 </select>
             </div>
 
-            <div>
+            <!-- <div>
                 <table class="table caption-top" >
-                    <caption>List of users</caption>
                     <thead class="table-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Laboratorio</th>
-                        <th scope="col">Prescripcion</th>
-                        <th scope="col">Docs</th>
-                        <th scope="col">Via Administracion</th>
-                        <th scope="col">Forma</th>
-                        <th scope="col">Principio activo</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Laboratorio</th>
+                            <th scope="col">Prescripcion</th>
+                            <th scope="col">Docs</th>
+                            <th scope="col">Via Administracion</th>
+                            <th scope="col">Forma</th>
+                            <th scope="col">Principio activo</th>
+                        </tr>
                     </thead>
                     <tbody id="buscarMed">
-                    <!-- Aqui se añaden las filas mediante JS -->
+                    
                     </tbody>
                 </table>
+            </div> -->
+
+            <div>
+
+               <table id="myTable" class="display">
+                    <thead >
+                        <tr>
+                            <th >#</th>
+                            <th >Nombre</th>
+                            <th >Laboratorio</th>
+                            <th >Prescripcion</th>
+                            <th >Docs</th>
+                            <th >Via Administracion</th>
+                            <th >Forma</th>
+                            <th >Principio activo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="buscarMed">
+                    </tbody>
+               </table>
+
             </div>
 
         </div>
-        <!--Container Main end-->
+
     </body>
 </html>
