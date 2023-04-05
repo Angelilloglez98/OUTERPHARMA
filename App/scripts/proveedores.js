@@ -1,6 +1,10 @@
 window.onload = () =>{
 
     const newProv = document.querySelector(".newProv");
+    const button = document.createElement('button')
+    button.className = 'addProv';
+    button. textContent = 'Añadir +';
+    newProv.appendChild(button);
 
     const buscarProv = async()=>{
 
@@ -21,21 +25,36 @@ window.onload = () =>{
 
     const createProv = (data) => {
 
-        let showProv = document.querySelector(".showProv");
-        let cardProv = document.createElement("div");
-
         data.forEach(element => {
+
+            let showProv = document.querySelector(".showProv");
+            let cardProv = document.createElement("div");
+            cardProv.className = "tarjeta-proveedor";
 
             for (const atribute in element) {
 
-                let prov = document.createElement("p");
                 let info = document.createTextNode(element[atribute]);
+                let prov = '';
+                if(atribute === 'nombre'){
 
+                    prov = document.createElement("h5");
+                    prov.appendChild(info);
 
-                prov.appendChild(info);
+                }else if(atribute === 'Link'){
+                    prov = document.createElement("a");
+                    prov.href = `${element[atribute]}`;
+                    prov.textContent = 'Pagina Web';
+                    prov.target = '_blank';
+                }else{
+
+                    prov = document.createElement("p");
+                    prov.appendChild(info);
+
+                }
+
                 cardProv.appendChild(prov);
 
-                console.log(element[atribute]);
+                console.log(element);
 
             }
 
@@ -51,4 +70,7 @@ window.onload = () =>{
         createProv(response);
 
     });
+
+
+
 }
