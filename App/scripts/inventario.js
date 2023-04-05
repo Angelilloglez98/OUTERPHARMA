@@ -339,11 +339,16 @@ function recibir(e){
 function insertarProducto(cn){
     fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
     .then(res => res.json())
-    .then(elementos )
+    .then(elementos => {
+        elementos.forEach( elemento => {
+            console.log(elemento.CodigoNacional)
+        }
+        );
+    });
 
-    fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}`)
-    vaciarDatos();
-    traerDatos(); 
+    // fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}`)
+    // vaciarDatos();
+    // traerDatos(); 
 }
 
 function borrarProducto(cn){ 
