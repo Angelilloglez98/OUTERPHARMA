@@ -32,7 +32,7 @@ if ($sth->rowCount() == 0) {
 
     $precio = 1.5;
     $cantidad = 1;
-    $fEntrada = 2023-04-05;
+    $fEntrada = date('Y-m-d H:i:s');
     $fCaducidad = 2024-06-01;
     $sth = $pdo->prepare("INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, CodigoNacional, Precio, Cantidad, fEntrada, fCaducidad) VALUES (:correo, :codigo, :precio, :cantidad, :fEntrada, :fCaducidad)");
     $sth->execute(array(':correo' => $correo, ':codigo' => $codigo, ':precio' => $precio, ':cantidad' => $cantidad, ':fEntrada' => $fEntrada, ':fCaducidad' => $fCaducidad));
