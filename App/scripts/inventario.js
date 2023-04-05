@@ -344,4 +344,42 @@ function insertarProducto(cn){
 
 function borrarProducto(cn){ 
     console.log(cn);
+
+    var cantidad;
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Stock a borrar',
+        icon: 'warning',
+        showCancelButton: true,
+        input: 'number',
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'cancelar',
+        inputValidator: (value) => {
+            if(!value) {
+                return 'Escribe una cantidad por favor';
+            }
+            cantidad = value;
+        },
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            swalWithBootstrapButtons.fire(
+                'Borrado',
+                'Los productos han sido borrados correctamente',
+                'success'
+              )
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?CodigoNacional=${cn}&cantidad=${cantidad}`)
+            vaciarDatos();
+            traerDatos();
+            
+        }
+      })
 }
