@@ -107,7 +107,7 @@ async function traerDatos() {
 
         for (const inventario of resultado) {
             
-
+            console.log(inventario);
             const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
             const resultadoApi = await resApi.json();
 
