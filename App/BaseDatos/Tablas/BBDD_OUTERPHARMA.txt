@@ -1,7 +1,7 @@
 CREATE TABLE FARMACIAS(
     Ccorreo VARCHAR(50) PRIMARY KEY NOT NULL,
     nColegiado int(9) NOT NULL,
-    Nombre VARCHAR(40) NOT NULL,
+    NombreF VARCHAR(40) NOT NULL,
     Contrasenia VARCHAR(20) NOT NULL,
     Direccion VARCHAR(40) NOT NULL,
     nTelefono int(9) NOT NULL
@@ -32,7 +32,7 @@ CREATE TABLE VENTAS(
     nVentas int(9) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Ccorreo VARCHAR(50),
     nEmpleado int(3),
-    Fecha DATE,
+    Fecha DATETIME,
     Total float(5,2),
     FOREIGN KEY (Ccorreo) REFERENCES FARMACIAS(Ccorreo) ON DELETE SET NULL,
     FOREIGN KEY (nEmpleado) REFERENCES EMPLEADOS(nEmpleado) ON DELETE SET NULL
@@ -51,24 +51,23 @@ CREATE TABLE FARMACIAS_PRODUCTOS(
     CodigoNacional int(9),
     Precio float(4,2),
     Cantidad int(3),
-    fEntrada DATE,
-    fCaducidad DATE,
-    PRIMARY KEY (Ccorreo, CodigoNacional),
+    fEntrada DATETIME,
+    fCaducidad DATETIME,
     FOREIGN KEY (Ccorreo) REFERENCES FARMACIAS(Ccorreo),
     FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional)
 );
 
 CREATE TABLE VENTAS_PRODUCTOS(
-    nVentas int(9) NOT NULL,
-    CodigoNacional int(9) NOT NULL,
+    nVentas int(9),
+    CodigoNacional int(9),
     Cantidad int(2),
     PVP float(4,2),
     PrecioProductos float(4,2),
-    FOREIGN KEY (nVentas) REFERENCES VENTAS(nVentas),
+    FOREIGN KEY (nVentas) REFERENCES VENTAS(nVentas) ON DELETE SET NULL,
     FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional)
 );
 
-INSERT INTO FARMACIAS (Ccorreo, nColegiado, Nombre, Contrasenia, Direccion, nTelefono) VALUES
+INSERT INTO FARMACIAS (Ccorreo, nColegiado, NombreF, Contrasenia, Direccion, nTelefono) VALUES
 ('farmacia1@gmail.com', 123456789, 'Farmacia La Esperanza', 'password1', 'Calle 1, #23', 5551234),
 ('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', 'password2', 'Avenida 2, #45', 5555678);
 

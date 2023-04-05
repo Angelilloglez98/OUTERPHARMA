@@ -3,11 +3,11 @@ session_start();
 require('./conexionDB.php');
     $correo=$_SESSION['CorreoFarmacia'];
     $nEmpleado=$_GET['nEmpleado'];
-    $fecha_actual = date("Y-m-d");
+    $fecha_actual = date("Y-m-d H:i:s");
     $PrecioTotal=$_GET['PTotal'];
     $Productos_Encoded=$_GET['Productos'];
     $Productos = json_decode($Productos_Encoded);
-echo($fecha_actual);
+
     //Insertar una venta
     $sql="INSERT INTO ventas VALUES ('','$correo','$nEmpleado','$fecha_actual','$PrecioTotal')";
 
