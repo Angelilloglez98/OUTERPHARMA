@@ -337,6 +337,10 @@ function recibir(e){
 }
 
 function insertarProducto(cn){
+    fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
+    .then(res => res.json())
+    .then(elementos )
+
     fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}`)
     vaciarDatos();
     traerDatos(); 
