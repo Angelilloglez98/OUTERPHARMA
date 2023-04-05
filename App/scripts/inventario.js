@@ -314,6 +314,7 @@ function recibir(e){
         return;
     }
 
+    //Que recibe el cn y busque por cn
     var nombre = e.target.closest(".medicamentos").dataset.name;
     console.log(nombre);
 
@@ -337,18 +338,14 @@ function recibir(e){
 }
 
 function insertarProducto(cn){
-    fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
-    .then(res => res.json())
-    .then(elementos => {
-        elementos.forEach( elemento => {
-            console.log(elemento.CodigoNacional)
-        }
-        );
-    });
-
-    // fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}`)
-    // vaciarDatos();
-    // traerDatos(); 
+    if (comprobarMedicamento(cn)) {
+        fetch(`http://localhost/OuterPharma/App/BaseDatos/añadirStock.php?cn=${cn}`);
+        
+    } else {
+        fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}`);
+    }
+    vaciarDatos();
+    traerDatos(); 
 }
 
 function borrarProducto(cn){ 
@@ -391,4 +388,17 @@ function borrarProducto(cn){
             
         }
       })
+}
+
+function comprobarMedicamento(cn){
+    fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
+    .then(res => res.json())
+    .then(elementos => {
+        elementos.forEach( elemento => {
+            if (cn == elemento.CodigoNacional) {
+                return true;
+            }
+        });
+        return false;
+    });
 }
