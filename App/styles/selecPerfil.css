@@ -1,7 +1,7 @@
 *{
     margin: 0;
     padding: 0;
-    color: #4D4D4D;
+    color: white;
 }
 body{
     height: 100vh;
@@ -18,16 +18,15 @@ body{
 .contenedorUser{
     width: 40%;
     height: 400px;
-    border-radius:0px 0px 50px 50px;
     border: 1px solid #969696;
 }
 h1{
     text-align: center;
     width: 40%;
     padding: 10px 0 10px 0;
-    border-radius:50px 50px 0px 0px;
-    background-color: #87A3AA;
+    background-color: #4723d9;
     margin-top: 30px;
+    border-radius: 3px 0 px 3px;
 }
 p{
     height: 10%;
@@ -38,6 +37,7 @@ p{
     background-color: #DCE2E2;
     font-size: 1.3em;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 20px 0 20px 0;
 }
 p:hover{
     background-color: #87A3AA;
@@ -50,6 +50,6 @@ p:hover{
 img{
     width: 10%;
     padding: 10PX;
-    border-radius: 100PX;
+    
     background-color: #DCE2E2;
 }
