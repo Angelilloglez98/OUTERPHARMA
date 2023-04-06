@@ -7,13 +7,12 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT P.Nombre, FP.Precio, SUM(VP.Cantidad) AS Cantidad
-    FROM FARMACIAS_PRODUCTOS FP
-    JOIN PRODUCTOS P ON FP.CodigoNacional = P.CodigoNacional
-    JOIN VENTAS_PRODUCTOS VP ON FP.CodigoNacional = VP.CodigoNacional
-    JOIN VENTAS V ON VP.nVentas = V.nVentas
-    WHERE V.Ccorreo = '$correo' AND V.Fecha = CURDATE()
-    GROUP BY P.Nombre, FP.Precio;";
+    $sql="SELECT p.Nombre, vp.Cantidad, vp.PVP 
+    FROM VENTAS v
+    JOIN VENTAS_PRODUCTOS vp ON v.nVentas = vp.nVentas
+    JOIN FARMACIAS_PRODUCTOS fp ON vp.CodigoNacional = fp.CodigoNacional AND v.Ccorreo = fp.Ccorreo
+    JOIN PRODUCTOS p ON vp.CodigoNacional = p.CodigoNacional
+    WHERE DATE(v.Fecha) = CURDATE() AND v.Ccorreo = '$correo'";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
 
@@ -25,7 +24,7 @@
         $registros[]=array(
             'Nombre'=>$fila['Nombre'],
             'Cantidad'=>$fila['Cantidad'],
-            'Precio'=>$fila['Precio']
+            'Precio'=>$fila['PVP']
         );
     }
 
