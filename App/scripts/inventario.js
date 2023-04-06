@@ -107,11 +107,9 @@ async function traerDatos() {
 
         for (const inventario of resultado) {
             
-            console.log(inventario);
             const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
             const resultadoApi = await resApi.json();
 
-            console.log(resultadoApi);
             if (resultadoApi.fotos === undefined) {
                 pintarDatos('sin datos', inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
             } else {
@@ -316,7 +314,6 @@ function recibir(e){
     }
 
     var codigo = e.target.closest(".medicamentos").dataset.codigo;
-    console.log(codigo);
 
     fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?cn=${codigo}`)
     .then(respuesta=>respuesta.json())
@@ -373,14 +370,6 @@ async function insertarProducto(cn){
                 ]
             }
         })
-        
-        console.log(Precio);
-        console.log(fEntrada);
-        console.log(nombre);
-        console.log(pactivo);
-        console.log(laboratorio);
-
-        console.log(resultadoApi);
 
         fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
         &via=${vAdmin}&pres=${pres}&precio=${Precio}&fecha=${fEntrada}`);
@@ -390,7 +379,6 @@ async function insertarProducto(cn){
 }
 
 function borrarProducto(cn){ 
-    console.log(cn);
 
     var cantidad;
     const swalWithBootstrapButtons = Swal.mixin({
