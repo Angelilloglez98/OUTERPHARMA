@@ -1,55 +1,88 @@
 *{
     margin: 0;
     padding: 0;
-    color: white;
+    box-sizing: border-box;
 }
-body{
-    height: 100vh;
-    display: flex;
-    align-items: center;
-}
+
 .contenedor{
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
 }
+.contenedor >h1{
+    padding-top:100px ;
+    margin: auto;
+    border-bottom: 1px solid rgb(59, 59, 59);
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 3EM;
+    color: rgb(59, 59, 59);
+    
+    
+}
 .contenedorUser{
-    width: 40%;
-    height: 400px;
-    border: 1px solid #969696;
+    width: 50%;
+    margin: 100px auto;
+    display:flex ;
+    flex-wrap: wrap;
+    padding: 30px;
+    justify-content: space-around;
 }
-h1{
+.user{
+    margin:20px 20px 100px 20px;
+    width: 200PX;
+    height: 200PX;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.user img{
+    width: 100%;
+    border-radius: 100px;
+    box-shadow: 5px 5px  10px  rgb(139, 139, 139);
+    
+}
+.user p{
+    margin-top: 10px;
+    font-family: 'Noto Serif', serif;
+    font-size: 1.2EM;
     text-align: center;
-    width: 40%;
-    padding: 10px 0 10px 0;
-    background-color: #4723d9;
-    margin-top: 30px;
-    border-radius: 3px 0 px 3px;
+    color: rgb(59, 59, 59);
+    font-weight: 700;
+
 }
-p{
-    height: 10%;
+.user form{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px 0px;
-    background-color: #DCE2E2;
-    font-size: 1.3em;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    padding: 20px 0 20px 0;
-}
-p:hover{
-    background-color: #87A3AA;
-    color: aliceblue;
-    cursor: pointer;
-}
-.contra{
-    display: none;
-}
-img{
-    width: 10%;
-    padding: 10PX;
     
-    background-color: #DCE2E2;
 }
+
+@media (max-width:600px) {
+    .contenedorUser{
+        width: 70%;
+        margin: auto;
+
+    }
+    .user{
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media (max-width:350px) {
+    .contenedorUser{
+        width: 70%;
+        margin: auto;
+
+    }
+    .user{
+        width: 170px;
+        height: 170px;
+    }
+}
+
+

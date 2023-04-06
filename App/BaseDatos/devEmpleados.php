@@ -6,7 +6,7 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT NombreEmpleado,Contrasena,Rol,Telefono,CorreoPersonal,nEmpleado from empleados where CcorreoFarmacia='$correo'";
+    $sql="SELECT UrlEmpleado,NombreEmpleado,Contrasena,Rol,Telefono,CorreoPersonal,nEmpleado from empleados where CcorreoFarmacia='$correo'";
     
     $pdo->exec("SET NAMES 'utf8mb4'");
     
@@ -16,6 +16,7 @@
 
     while ($fila=$sth->fetch()) {
         $registros[]=array(
+            'UrlEmpleado'=>$fila['UrlEmpleado'],
             'nombre'=>$fila['NombreEmpleado'],
             'contrasena'=>$fila['Contrasena'],
             'rol'=>$fila['Rol'],
