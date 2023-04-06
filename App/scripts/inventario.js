@@ -314,11 +314,10 @@ function recibir(e){
         return;
     }
 
-    //Que recibe el cn y busque por cn
-    var nombre = e.target.closest(".medicamentos").dataset.name;
-    console.log(nombre);
+    var codigo = e.target.closest(".medicamentos").dataset.codigo;
+    console.log(codigo);
 
-    fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?nombre=${nombre}`)
+    fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?cn=${codigo}`)
     .then(respuesta=>respuesta.json())
     .then(resultado=>{
         resultado.forEach(med => {
