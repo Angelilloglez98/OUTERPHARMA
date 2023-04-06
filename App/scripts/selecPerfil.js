@@ -29,6 +29,7 @@ window.onload=()=>{
             let form =document.createElement("form");
             let inputPassword=document.createElement('input');
             let button=document.createElement('input');
+            button.classList.add('btn','btn-check');
             button.type='button';
             button.value='Enviar';
             inputPassword.type='password';

@@ -1,6 +1,7 @@
 canvas{
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    min-height: 150px;
 }
 .tablas {
     max-height: 300px;
@@ -28,3 +29,14 @@ canvas{
     overflow: hidden;
     text-overflow: ellipsis;
   }
+@media (max-width:900px) {
+  .row{
+    
+    display: grid;
+    grid-template-columns: 100%;
+  }
+  .row *{
+    width: 100%;
+  }
+}
+

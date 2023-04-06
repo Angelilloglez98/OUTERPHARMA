@@ -17,6 +17,7 @@
     while ($fila=$sth->fetch()) {
         $registros[]=array(
             'UrlEmpleado'=>$fila['UrlEmpleado'],
+            'nEmpleado'=>$fila['nEmpleado'],
             'nombre'=>$fila['NombreEmpleado'],
             'contrasena'=>$fila['Contrasena'],
             'rol'=>$fila['Rol'],
