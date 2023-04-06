@@ -37,12 +37,13 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
+    
 }
 .user img{
     width: 100%;
     border-radius: 100px;
     box-shadow: 5px 5px  10px  rgb(139, 139, 139);
+    cursor: pointer;
     
 }
 .user p{

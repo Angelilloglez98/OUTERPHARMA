@@ -19,7 +19,7 @@ window.onload=()=>{
             
             elemento.appendChild(div);
     
-            div.addEventListener('click',()=>{
+            imgPerfil.addEventListener('click',()=>{
                 pintarContrasena(div);
             })
         }
@@ -31,7 +31,6 @@ window.onload=()=>{
             let button=document.createElement('input');
             button.type='button';
             button.value='Enviar';
-            button.classList.add('btn')
             inputPassword.type='password';
             form.appendChild(inputPassword);
             form.appendChild(button);
