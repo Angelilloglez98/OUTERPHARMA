@@ -9,8 +9,7 @@ $codigo = $_GET["cn"];
 $correo=$_SESSION['CorreoFarmacia'];
 
 $sth = $pdo->prepare("SELECT Cantidad FROM Farmacias_Productos WHERE CodigoNacional = :codigo AND Ccorreo = '$correo'");
-$sth->bindParam(':codigo', $codigo);
-$sth->execute();
+$sth->execute(array(':codigo' => $codigo));
 
 $cantidad = $sth->fetchColumn();
 $cantidad++;
