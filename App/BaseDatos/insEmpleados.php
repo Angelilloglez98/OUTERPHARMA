@@ -13,7 +13,7 @@
     // Hasheamos la contraseña utilizando el algoritmo Bcrypt
     $hash = hash('sha256', $password);
 
-    $sql="INSERT INTO empleados (CcorreoFarmacia, Nombre, Telefono, Contrasena, CorreoPersonal,Rol) VALUES ('$correo', '$nombre', '$numero', '$hash', '$correopersonal','$rol')";
+    $sql="INSERT INTO empleados (CcorreoFarmacia, NombreEmpleado, Telefono, Contrasena, CorreoPersonal,Rol) VALUES ('$correo', '$nombre', '$numero', '$hash', '$correopersonal','$rol')";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
 

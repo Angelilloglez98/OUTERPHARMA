@@ -1,15 +1,16 @@
 CREATE TABLE FARMACIAS(
     Ccorreo VARCHAR(50) PRIMARY KEY NOT NULL,
     nColegiado int(9) NOT NULL,
-    Nombre VARCHAR(40) NOT NULL,
+    NombreF VARCHAR(40) NOT NULL,
     Contrasenia VARCHAR(20) NOT NULL,
     Direccion VARCHAR(40) NOT NULL,
     nTelefono int(9) NOT NULL
 );
 
 CREATE TABLE EMPLEADOS(
+    UrlEmpleado VARCHAR(200),
     nEmpleado int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    Nombre VARCHAR(20) NOT NULL,
+    NombreEmpleado VARCHAR(20) NOT NULL,
     Telefono int(12) NOT NULL,
     CorreoPersonal VARCHAR(100),
     CcorreoFarmacia VARCHAR(50) NOT NULL,
@@ -32,7 +33,7 @@ CREATE TABLE VENTAS(
     nVentas int(9) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Ccorreo VARCHAR(50),
     nEmpleado int(3),
-    Fecha DATE,
+    Fecha DATETIME,
     Total float(5,2),
     FOREIGN KEY (Ccorreo) REFERENCES FARMACIAS(Ccorreo) ON DELETE SET NULL,
     FOREIGN KEY (nEmpleado) REFERENCES EMPLEADOS(nEmpleado) ON DELETE SET NULL
@@ -42,6 +43,7 @@ CREATE TABLE PROVEEDORES(
     Nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     Direccion VARCHAR(50),
     nTelefono INT(7),
+    Link VARCHAR(50),
     CcorreoFarmacia VARCHAR(50) NOT NULL,
     FOREIGN KEY (CcorreoFarmacia) REFERENCES FARMACIAS(Ccorreo)
 );
@@ -51,31 +53,30 @@ CREATE TABLE FARMACIAS_PRODUCTOS(
     CodigoNacional int(9),
     Precio float(4,2),
     Cantidad int(3),
-    fEntrada DATE,
-    fCaducidad DATE,
-    PRIMARY KEY (Ccorreo, CodigoNacional),
+    fEntrada DATETIME,
+    fCaducidad DATETIME,
     FOREIGN KEY (Ccorreo) REFERENCES FARMACIAS(Ccorreo),
     FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional)
 );
 
 CREATE TABLE VENTAS_PRODUCTOS(
-    nVentas int(9) NOT NULL,
-    CodigoNacional int(9) NOT NULL,
+    nVentas int(9),
+    CodigoNacional int(9),
     Cantidad int(2),
     PVP float(4,2),
     PrecioProductos float(4,2),
-    FOREIGN KEY (nVentas) REFERENCES VENTAS(nVentas),
+    FOREIGN KEY (nVentas) REFERENCES VENTAS(nVentas) ON DELETE SET NULL,
     FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional)
 );
 
-INSERT INTO FARMACIAS (Ccorreo, nColegiado, Nombre, Contrasenia, Direccion, nTelefono) VALUES
+INSERT INTO FARMACIAS (Ccorreo, nColegiado, NombreF, Contrasenia, Direccion, nTelefono) VALUES
 ('farmacia1@gmail.com', 123456789, 'Farmacia La Esperanza', 'password1', 'Calle 1, #23', 5551234),
 ('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', 'password2', 'Avenida 2, #45', 5555678);
 
-INSERT INTO EMPLEADOS (Nombre,Telefono,CorreoPersonal, CcorreoFarmacia, Contrasena, Rol) VALUES
-('Juan Perez',622345367,'juanperez@gmail.com','farmacia1@gmail.com', 'password3', 'User'),
-('Maria Rodriguez',624765187,'mariz@gmail.com', 'farmacia1@gmail.com', 'password4', 'Admin'),
-('Pedro Garcia',626738523,'pedrito@gmail.com', 'farmacia2@yahoo.com', 'password5', 'User');
+INSERT INTO EMPLEADOS (UrlEmpleado,NombreEmpleado,Telefono,CorreoPersonal, CcorreoFarmacia, Contrasena, Rol) VALUES
+('assets/A1.png','Juan Perez',622345367,'juanperez@gmail.com','farmacia1@gmail.com', 'password3', 'User'),
+('assets/A2.png','Maria Rodriguez',624765187,'mariz@gmail.com', 'farmacia1@gmail.com', 'password4', 'Admin'),
+('assets/A3.png','Pedro Garcia',626738523,'pedrito@gmail.com', 'farmacia2@yahoo.com', 'password5', 'User');
 
 INSERT INTO PRODUCTOS (CodigoNacional, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
 (698683, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),
@@ -94,9 +95,10 @@ VALUES
 (7,'farmacia1@gmail.com', 1, '2023-04-03', 37.5),
 (8,'farmacia1@gmail.com', 2, '2023-01-04', 50);
 
-INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, CcorreoFarmacia) VALUES
-('Distribuidora Farmaceutica SA', 'Calle 4, #67', 5554321, 'farmacia1@gmail.com'),
-('Farmaceuticos Unidos', 'Avenida 5, #89', 5558765, 'farmacia2@yahoo.com');
+INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, Link, CcorreoFarmacia) VALUES
+('Distribuidora Farmaceutica SA', 'Calle 4, #67', 5554321, 'https://www.youtube.com/watch?v=rPunrzkIpeo', 'farmacia1@gmail.com'),
+('Medicamentos Paqui S.L.', 'Calle la flauta Magica, 4', '664235678', 'https://www.youtube.com/watch?v=-ORrwif5q7Q', 'farmacia1@gmail.com'),
+('Farmaceuticos Unidos', 'Avenida 5, #89', 5558765, 'https://www.youtube.com/watch?v=bl_Jy7Q7l7s', 'farmacia2@yahoo.com');
 
 INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, CodigoNacional, Precio, Cantidad, fEntrada, fCaducidad) VALUES
 ('farmacia1@gmail.com', 698683, 1.25, 100, '2021-12-01', '2023-12-01'),

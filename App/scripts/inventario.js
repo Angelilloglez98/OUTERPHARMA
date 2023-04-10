@@ -19,9 +19,29 @@ window.onload = () => {
         .then(medicamentos => {return medicamentos; })
         .catch(e => {console.error("ERROR: ", e.message)});
     }
-    
-    
-    
+
+    const btnInsertar = document.getElementById('insertar');
+    const btnBorrar = document.getElementById('borrar');
+    const codigoNacional = document.getElementById('cn');
+
+    btnInsertar.addEventListener('click', function() {
+        // Verificar si el botón de insertar está seleccionado
+        if (btnInsertar.checked) {
+            const codigo = codigoNacional.value;
+            // Ejecutar la función de insertar
+            insertarProducto(codigo);
+        }
+      });
+      
+      btnBorrar.addEventListener('click', function() {
+        // Verificar si el botón de borrar está seleccionado
+        if (btnBorrar.checked) {
+            const codigo = codigoNacional.value;
+            // Ejecutar la función de borrar
+            borrarProducto(codigo);
+        }
+      });
+
     busqueda.onkeydown =  (event) => {
 
         if (event.key === 'Enter' && busqueda.value != '') {
@@ -49,56 +69,29 @@ window.onload = () => {
         }
         
     };
+}
 
-    document.querySelector('#BotonVender').addEventListener('click',()=>{
+async function traerDatos() {
+    try {
+        const res = await fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php');
+        const resultado = await res.json();
 
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-success',
-              cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-          })
-          
-          swalWithBootstrapButtons.fire({
-            title: 'Realizar Venta?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Vender',
-            cancelButtonText: 'cancelar',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-                VenderProductos();
-              swalWithBootstrapButtons.fire(
-                'Vendido',
-                'Los productos han sido vendidos',
-                'success'
-              )
+        for (const inventario of resultado) {
+            
+            const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
+            const resultadoApi = await resApi.json();
+
+            if (resultadoApi.fotos === undefined) {
+                pintarDatos('sin datos', inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
+            } else {
+                pintarDatos(resultadoApi.fotos[0].url, inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
             }
-          })
-    })
+        }
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-function traerDatos() {
-    fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
-    .then(res=>res.json())
-    .then(resultado=>resultado.forEach(inventario => {
-        console.log(inventario);
-      
-        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`)
-            .then(res=>res.json())
-            .then(resultadoApi=>{
-                if(resultadoApi.fotos===undefined){
-                    pintarDatos('sin datos',inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
-                }else{
-                    pintarDatos(resultadoApi.fotos[0].url, inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
-                }
-                
-            });
-    }));
-
-}
 
 function pintarDatos(foto, cn, nombre, cant, precio){
 
@@ -291,10 +284,9 @@ function recibir(e){
         return;
     }
 
-    var nombre = e.target.closest(".medicamentos").dataset.name;
-    console.log(nombre);
+    var codigo = e.target.closest(".medicamentos").dataset.codigo;
 
-    fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?nombre=${nombre}`)
+    fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?cn=${codigo}`)
     .then(respuesta=>respuesta.json())
     .then(resultado=>{
         resultado.forEach(med => {
@@ -311,4 +303,101 @@ function recibir(e){
             });
         
     })});
+}
+
+async function insertarProducto(cn){
+    const medicamentoExistente = await comprobarMedicamento(cn);
+    if (medicamentoExistente) {
+        fetch(`http://localhost/OuterPharma/App/BaseDatos/añadirStock.php?cn=${cn}`);
+    } else {
+        const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
+        const resultadoApi = await resApi.json();
+
+        let nombre = resultadoApi.nombre;
+        let pactivo = resultadoApi.pactivos;
+        let laboratorio = resultadoApi.labtitular;
+        let vAdmin = resultadoApi.viasAdministracion[0].nombre;
+        let pres = resultadoApi.cpresc;
+
+        if(pres == "Sin Receta") {
+            pres = 'N';
+        } else {
+            pres = 'S';
+        }
+
+        let Precio;
+        let fEntrada;
+        	
+        const { value: formValues } = await Swal.fire({
+            title: 'Precio y fecha de caducidad del nuevo medicamento',
+            html:
+            '<input id="swal-input1" type="number" class="swal2-input">' +
+            '<input id="swal-input2" type="date" class="swal2-input">',
+            focusConfirm: false,
+            preConfirm: () => {
+                return [
+                    Precio = document.getElementById('swal-input1').value,
+                    fEntrada = document.getElementById('swal-input2').value
+                ]
+            }
+        })
+
+        fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+        &via=${vAdmin}&pres=${pres}&precio=${Precio}&fecha=${fEntrada}`);
+    }
+    vaciarDatos();
+    traerDatos(); 
+}
+
+function borrarProducto(cn){ 
+
+    var cantidad;
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Stock a borrar',
+        icon: 'warning',
+        showCancelButton: true,
+        input: 'number',
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'cancelar',
+        inputValidator: (value) => {
+            if(!value) {
+                return 'Escribe una cantidad por favor';
+            }
+            cantidad = value;
+        },
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            swalWithBootstrapButtons.fire(
+                'Borrado',
+                'Los productos han sido borrados correctamente',
+                'success'
+              )
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?CodigoNacional=${cn}&cantidad=${cantidad}`)
+            vaciarDatos();
+            traerDatos();
+            
+        }
+      })
+}
+
+async function comprobarMedicamento(cn){
+    const response = await fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php');
+    const elementos = await response.json();
+    let coincidencia = false;
+    elementos.forEach(elemento => {
+        if (cn == elemento.CodigoNacional) {
+            coincidencia = true;
+        }
+    });
+    return coincidencia;
 }

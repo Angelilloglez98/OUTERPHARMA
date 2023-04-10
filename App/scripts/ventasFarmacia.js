@@ -19,7 +19,7 @@ async function BuscarMedicamento(cn) {
                 //si el codigoNacional que ha puesto el usuario existe en la base de datos de la farmacia 
                 //y hay existencias se añade a la lista para vender
                 if (elemento.CodigoNacional == cn && elemento.Cantidad > 0) {
-
+                    
                     fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${elemento.CodigoNacional}`)
                         .then(res => res.json())
                         .then(resultadoApi => {
@@ -37,7 +37,6 @@ async function BuscarMedicamento(cn) {
 
 
                             if (existe && parseInt(filaExistente.value)<parseInt(elemento.Cantidad)) {
-                                
                                 filaExistente.value++;
                                 ActualizarPrecioFila();
                                 actualizarPrecioTotal();
@@ -63,7 +62,7 @@ async function BuscarMedicamento(cn) {
 }
 
 
-function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
+function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima,CantidadActual) {
     let tabla = document.querySelector('#venta');
     let fila = document.createElement('tr');
     fila.classList.add('filaVenta')
@@ -88,19 +87,25 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima) {
     papeleratd.classList.add('containerPapelera');
     papeleraDiv.classList.add('papelera');
     financiacion.innerHTML = `<select>
-        <option value="0">sin financiacion</option>
-        <option value="0.1">10%</option>
-        <option value="0.3">30%</option>
-        <option value="0.4">40%</option>
+        <option value="1">sin financiacion</option>
+        <option value="0.9">10%</option>
+        <option value="0.7">30%</option>
+        <option value="0.6">40%</option>
         <option value="0.5">50%</option>
-        <option value="0.7">70%</option>
+        <option value="0.3">70%</option>
         </select>`;
     foto.src = Urlfoto;
     colfoto.appendChild(foto);
     nombre.appendChild(document.createTextNode(Nombre));
     CodigoNacional.appendChild(document.createTextNode(CN));
     precio.appendChild(document.createTextNode(Precio));
-    cantidad.innerHTML = `<input type="number" value="1" step="1" min="1" max="${cantidadMaxima}" />`;
+    let valorCantidad;
+    if (CantidadActual!==undefined) {
+        valorCantidad=CantidadActual;
+    }else{
+        valorCantidad=1;
+    }
+    cantidad.innerHTML = `<input type="number" value="${valorCantidad}" step="1" min="1" max="${cantidadMaxima}" />`;
     total.appendChild(document.createTextNode(Precio * cantidad.textContent));
     fila.appendChild(papeleratd);
     fila.appendChild(colfoto);
@@ -147,7 +152,7 @@ function ActualizarPrecioFila() {
     let preciototal = [];
 
     for (let i = 0; i < financiacion.length; i++) {
-        let valor = (cantidad[i].firstChild.value * precio[i].textContent) - (precio[i].textContent * financiacion[i].firstChild.value);
+        let valor = (cantidad[i].firstChild.value * precio[i].textContent) *  financiacion[i].firstChild.value;
         preciototal.push(valor.toFixed(2))
 
     }
@@ -224,6 +229,7 @@ function VenderProductos() {
     let Productos=[];
     let PrecioTotalFactura;
     filas.forEach(fila=>{
+
         let cn=fila.querySelector('.cn').textContent;
         let cantidad=fila.querySelector('.cantidad >input').value;
         fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?cantidad=${cantidad}&CodigoNacional=${cn}`);
@@ -244,11 +250,15 @@ function VenderProductos() {
         }
         Productos.push(productosJson);
         PrecioTotalFactura=document.querySelector('.total').value;
-        EliminarFila(fila);
+        
     })
     let nEmpleado=localStorage.getItem('perfil');
     
     fetch(`http://localhost/OuterPharma/App/BaseDatos/anadirVenta.php?Productos=${JSON.stringify(Productos)}&nEmpleado=${nEmpleado}&PTotal=${PrecioTotalFactura}`)
+
+    filas.forEach(fililla=>{
+        EliminarFila(fililla);
+    })
 }
 
 function guardarLocalStorage() {
@@ -280,9 +290,9 @@ function guardarLocalStorage() {
 function cargarDatos() {
 
     let jsonFilas=JSON.parse(localStorage.getItem('ProductosVenta'));
-    jsonFilas.forEach(fila=>{
-        PintarTabla(fila.fotourl,fila.nombre,fila.cn,fila.precio,100);
-    })
-
-    
+    if (jsonFilas !== null){
+        jsonFilas.forEach(fila=>{
+            PintarTabla(fila.fotourl,fila.nombre,fila.cn,fila.precio,100,fila.cantidad);
+        })
+    }
 }
