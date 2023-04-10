@@ -74,9 +74,9 @@ INSERT INTO FARMACIAS (Ccorreo, nColegiado, NombreF, Contrasenia, Direccion, nTe
 ('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', 'password2', 'Avenida 2, #45', 5555678);
 
 INSERT INTO EMPLEADOS (UrlEmpleado,NombreEmpleado,Telefono,CorreoPersonal, CcorreoFarmacia, Contrasena, Rol) VALUES
-('','Juan Perez',622345367,'juanperez@gmail.com','farmacia1@gmail.com', 'password3', 'User'),
-('','Maria Rodriguez',624765187,'mariz@gmail.com', 'farmacia1@gmail.com', 'password4', 'Admin'),
-('','Pedro Garcia',626738523,'pedrito@gmail.com', 'farmacia2@yahoo.com', 'password5', 'User');
+('assets/A1.png','Juan Perez',622345367,'juanperez@gmail.com','farmacia1@gmail.com', 'password3', 'User'),
+('assets/A2.png','Maria Rodriguez',624765187,'mariz@gmail.com', 'farmacia1@gmail.com', 'password4', 'Admin'),
+('assets/A3.png','Pedro Garcia',626738523,'pedrito@gmail.com', 'farmacia2@yahoo.com', 'password5', 'User');
 
 INSERT INTO PRODUCTOS (CodigoNacional, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
 (698683, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),
