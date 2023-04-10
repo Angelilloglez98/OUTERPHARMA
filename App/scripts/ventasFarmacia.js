@@ -37,7 +37,6 @@ async function BuscarMedicamento(cn) {
 
 
                             if (existe && parseInt(filaExistente.value)<parseInt(elemento.Cantidad)) {
-                                
                                 filaExistente.value++;
                                 ActualizarPrecioFila();
                                 actualizarPrecioTotal();

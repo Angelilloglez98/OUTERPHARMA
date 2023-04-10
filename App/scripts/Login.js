@@ -45,7 +45,6 @@ btnLogin.onclick=()=>{
   activarLogin();
 }
 
-
 function crearMensajeError(elemento, mensaje) {
   elemento.innerHTML='';
   let p=document.createElement('p');
@@ -62,4 +61,3 @@ function activarRegistrar() {
 function activarLogin() {
   formularios.style.transform='translateX(0)';
 }
-

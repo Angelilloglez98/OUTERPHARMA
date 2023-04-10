@@ -1,55 +1,109 @@
 *{
     margin: 0;
     padding: 0;
-    color: #4D4D4D;
+    box-sizing: border-box;
 }
 body{
-    height: 100vh;
-    display: flex;
-    align-items: center;
+    background-color: #f7f6fb;
 }
+
 .contenedor{
+    margin-top:100px ;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
 }
-.contenedorUser{
-    width: 40%;
-    height: 400px;
-    border-radius:0px 0px 50px 50px;
-    border: 1px solid #969696;
-}
-h1{
+.contenedor >h1{
+    
+    width:30% ;
+    padding: 100px 0 20px 0;
+    border-bottom: 1px inset rgb(59, 59, 59);
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 3EM;
+    color: rgb(59, 59, 59);
+    
     text-align: center;
-    width: 40%;
-    padding: 10px 0 10px 0;
-    border-radius:50px 50px 0px 0px;
-    background-color: #87A3AA;
-    margin-top: 30px;
+    margin:auto;
 }
-p{
-    height: 10%;
+
+.contenedorUser{
+    width: 60%;
+    margin: 50px auto;
+    display:flex ;
+    flex-wrap: wrap;
+    padding: 30px;
+    justify-content: space-around;
+}
+.user{
+    margin:20px 20px 100px 20px;
+    width: 200PX;
+    height: 200PX;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.user img{
+    width: 100%;
+    border-radius: 100px;
+    box-shadow: 5px 5px  10px  #a19ead;
+    cursor: pointer;
+    
+}
+.user p{
+    margin-top: 10px;
+    font-family: 'Noto Serif', serif;
+    font-size: 1.2EM;
+    text-align: center;
+    color: rgb(59, 59, 59);
+    font-weight: 700;
+
+}
+.user form{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px 0px;
-    background-color: #DCE2E2;
-    font-size: 1.3em;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
 }
-p:hover{
-    background-color: #87A3AA;
-    color: aliceblue;
-    cursor: pointer;
+@media (max-width:900px) {
+    .contenedor{
+        margin: 0;
+    }
 }
-.contra{
-    display: none;
+
+
+@media (max-width:600px) {
+
+    .contenedorUser{
+        width: 80%;
+        margin: 50px auto;
+
+    }
+    .user{
+        width: 200px;
+        height: 200px;
+        margin: 10px 10px 85px 10px;
+    }
+    .contenedor >h1{
+       font-size: 2em;
+       width: 60%;
+       padding: 50px 0 20px 0;
+    }
 }
-img{
-    width: 10%;
-    padding: 10PX;
-    border-radius: 100PX;
-    background-color: #DCE2E2;
+
+@media (max-width:350px) {
+    .contenedorUser{
+        width: 70%;
+        margin: auto;
+
+    }
+    .user{
+        width: 170px;
+        height: 170px;
+    }
 }
+
+
