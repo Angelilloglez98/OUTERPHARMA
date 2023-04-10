@@ -69,35 +69,6 @@ window.onload = () => {
         }
         
     };
-
-    document.querySelector('#BotonVender').addEventListener('click',()=>{
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-success',
-              cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-        })
-          
-        swalWithBootstrapButtons.fire({
-        title: 'Realizar Venta?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Vender',
-        cancelButtonText: 'cancelar',
-        reverseButtons: true
-        }).then((result) => {
-        if (result.isConfirmed) {
-            VenderProductos();
-            swalWithBootstrapButtons.fire(
-                'Vendido',
-                'Los productos han sido vendidos',
-                'success'
-            )
-        }
-        })
-    })
 }
 
 async function traerDatos() {
