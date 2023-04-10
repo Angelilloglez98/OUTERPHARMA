@@ -92,7 +92,6 @@ async function traerDatos() {
     }
 }
 
-
 function pintarDatos(foto, cn, nombre, cant, precio){
 
     let datos = document.querySelector(".datos");
