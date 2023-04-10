@@ -82,9 +82,9 @@ async function traerDatos() {
             const resultadoApi = await resApi.json();
 
             if (resultadoApi.fotos === undefined) {
-                pintarDatos('sin datos', inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
+                cartaBonita('sin datos', inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
             } else {
-                pintarDatos(resultadoApi.fotos[0].url, inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
+                cartaBonita(resultadoApi.fotos[0].url, inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
             }
         }
     } catch (error) {
@@ -150,6 +150,70 @@ function pintarDatos(foto, cn, nombre, cant, precio){
     
 
     datos.appendChild(medicamentos);
+}
+
+function cartaBonita(foto, cn, nombre, cant, precio){
+    let divPrincipal = document.querySelector(".datos");
+
+    // Creación de la carta principal
+    let card = document.createElement("div");
+    card.classList.add("drug-card", nombre);
+    card.dataset.name = nombre; // Añadir el dataset de nombre
+    card.dataset.codigo = cn; // Añadir el dataset de codigo
+
+    // Crear el div que contiene la imagen
+    let image = document.createElement("div");
+    image.classList.add("drug-card__image")
+
+    // Crear la imagen 
+    let img = new Image();
+    img.src = foto;
+    img.classList.add('imagen_foto');
+
+    image.appendChild(img); // Meter la imagen en el div
+    card.appendChild(image); // Meter el div de la imagen en el div de la carta
+
+    // Poner el nombre del medicamento
+    let name = document.createElement("div");
+    name.classList.add("drug-card__name");
+    name.appendChild(document.createTextNode(nombre));
+    
+    card.appendChild(name); // Meter el nombre en la carta
+
+    // Hacer los recuadros 
+    let datos = document.createElement("div");
+    datos.classList.add("drug-card__datos")
+
+    // Meterle el codigo nacional
+    let recuadro1 = document.createElement("div"); // Crear div del dato
+    recuadro1.classList.add("one-third");
+    let CN = document.createElement("div"); // Contenido del dato
+    CN.classList.add("dato")
+    CN.appendChild(document.createTextNode(cn)); // Meter el texto
+    recuadro1.appendChild(CN); // Meter el texto en el div del dato
+    datos.appendChild(recuadro1); // Meter el dato en el div de los tres datos
+
+    // Meterle el Stock nacional
+    let recuadro2 = document.createElement("div"); // Crear div del dato
+    recuadro2.classList.add("one-third");
+    let Stock = document.createElement("div"); // Contenido del dato
+    Stock.classList.add("dato")
+    Stock.appendChild(document.createTextNode(cant)); // Meter el texto
+    recuadro2.appendChild(Stock); // Meter el texto en el div del dato
+    datos.appendChild(recuadro2); // Meter el dato en el div de los tres datos
+
+    // Meterle el Precio nacional
+    let recuadro3 = document.createElement("div"); // Crear div del dato
+    recuadro3.classList.add("one-third");
+    let Precio = document.createElement("div"); // Contenido del dato
+    Precio.classList.add("dato")
+    Precio.appendChild(document.createTextNode(precio)); // Meter el texto
+    recuadro3.appendChild(Precio); // Meter el texto en el div del dato
+    datos.appendChild(recuadro3); // Meter el dato en el div de los tres datos
+
+    card.appendChild(datos);
+
+    divPrincipal.appendChild(card); // Meter la carta en el div de datos
 }
 
 function borrar(e){
