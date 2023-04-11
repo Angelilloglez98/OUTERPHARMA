@@ -59,7 +59,7 @@ window.onload = () => {
                     .then(res=>res.json())
                     .then(resultadoApi=>{
                         vaciarDatos();
-                        cartaBonita(resultadoApi.fotos[0].url,element[i].CodigoNacional, element[i].NombreProducto, element[i].Cantidad, element[i].Precio)
+                        pintarDatos(resultadoApi.fotos[0].url,element[i].CodigoNacional, element[i].NombreProducto, element[i].Cantidad, element[i].Precio)
                     });
                     
                 }
@@ -82,15 +82,16 @@ async function traerDatos() {
             const resultadoApi = await resApi.json();
 
             if (resultadoApi.fotos === undefined) {
-                cartaBonita('sin datos', inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
+                pintarDatos('sin datos', inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
             } else {
-                cartaBonita(resultadoApi.fotos[0].url, inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
+                pintarDatos(resultadoApi.fotos[0].url, inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
             }
         }
     } catch (error) {
         console.error(error);
     }
 }
+
 
 function pintarDatos(foto, cn, nombre, cant, precio){
 
@@ -150,98 +151,6 @@ function pintarDatos(foto, cn, nombre, cant, precio){
     
 
     datos.appendChild(medicamentos);
-}
-
-function cartaBonita(foto, cn, nombre, cant, precio){
-    let divPrincipal = document.querySelector(".datos");
-
-    // Creación de la carta principal
-    let card = document.createElement("div");
-    card.classList.add("drug-card");
-
-    // Creación de la carta por delante
-    let cardF = document.createElement("div");
-    cardF.classList.add("drug-card__front");
-    cardF.dataset.name = nombre; // Añadir el dataset de nombre
-    cardF.dataset.codigo = cn; // Añadir el dataset de codigo
-
-    // Crear el div que contiene la imagen
-    let image = document.createElement("div");
-    image.classList.add("drug-card__image")
-
-    // Crear la imagen 
-    let img = new Image();
-    img.src = foto;
-    img.classList.add('imagen_foto');
-
-    image.appendChild(img); // Meter la imagen en el div
-    cardF.appendChild(image); // Meter el div de la imagen en el div de la carta
-
-    // Poner el nombre del medicamento
-    let name = document.createElement("div");
-    name.classList.add("drug-card__name");
-    var nom = nombre.split(" ")[0];
-    name.appendChild(document.createTextNode(nom));
-    
-    cardF.appendChild(name); // Meter el nombre en la carta
-
-    // Hacer los recuadros 
-    let datos = document.createElement("div");
-    datos.classList.add("drug-card__datos")
-
-    // Meterle el codigo nacional
-    let recuadro1 = document.createElement("div"); // Crear div del dato
-    recuadro1.classList.add("one-third");
-    let CN = document.createElement("div"); // Contenido del dato
-    CN.classList.add("dato_num")
-    CN.appendChild(document.createTextNode(cn)); // Meter el texto
-    let CNt = document.createElement("div"); // Contenido del dato
-    CNt.classList.add("dato")
-    CNt.appendChild(document.createTextNode("C. Nacional")); // Meter el texto
-    recuadro1.appendChild(CN); // Meter el texto en el div del dato
-    recuadro1.appendChild(CNt); // Meter el texto en el div del dato
-    datos.appendChild(recuadro1); // Meter el dato en el div de los tres datos
-
-    // Meterle el Stock nacional
-    let recuadro2 = document.createElement("div"); // Crear div del dato
-    recuadro2.classList.add("one-third");
-    let Stock = document.createElement("div"); // Contenido del dato
-    Stock.classList.add("dato_num")
-    Stock.appendChild(document.createTextNode(cant)); // Meter el texto
-    let Stockt = document.createElement("div"); // Contenido del dato
-    Stockt.classList.add("dato")
-    Stockt.appendChild(document.createTextNode("Stock")); // Meter el texto
-    recuadro2.appendChild(Stock); // Meter el texto en el div del dato
-    recuadro2.appendChild(Stockt); // Meter el texto en el div del dato
-    datos.appendChild(recuadro2); // Meter el dato en el div de los tres datos
-
-    // Meterle el Precio nacional
-    let recuadro3 = document.createElement("div"); // Crear div del dato
-    recuadro3.classList.add("one-third");
-    let Precio = document.createElement("div"); // Contenido del dato
-    Precio.classList.add("dato_num")
-    Precio.appendChild(document.createTextNode(precio)); // Meter el texto
-    let Preciot = document.createElement("div"); // Contenido del dato
-    Preciot.classList.add("dato")
-    Preciot.appendChild(document.createTextNode("Precio")); // Meter el texto
-    recuadro3.appendChild(Precio); // Meter el texto en el div del dato
-    recuadro3.appendChild(Preciot); // Meter el texto en el div del dato
-    datos.appendChild(recuadro3); // Meter el dato en el div de los tres datos
-
-    cardF.appendChild(datos);
-
-    let cardB = document.createElement("div");
-    cardB.classList.add("drug-card__back");
-    cardB.appendChild(document.createTextNode(nombre));
-
-    card.appendChild(cardF);
-    card.appendChild(cardB);
-
-    let carta = document.createElement("div")
-    carta.classList.add("carta")
-
-    carta.appendChild(card)
-    divPrincipal.appendChild(carta); // Meter la carta en el div de datos
 }
 
 function borrar(e){
@@ -370,31 +279,31 @@ function vaciarDatos() {
     }
 }
 
-// function recibir(e){
-//     if (e.target.classList.contains('info_botonBorrar')) {
-//         return;
-//     }
+function recibir(e){
+    if (e.target.classList.contains('info_botonBorrar')) {
+        return;
+    }
 
-//     var codigo = e.target.closest(".drug-card").dataset.codigo;
+    var codigo = e.target.closest(".medicamentos").dataset.codigo;
 
-//     fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?cn=${codigo}`)
-//     .then(respuesta=>respuesta.json())
-//     .then(resultado=>{
-//         resultado.forEach(med => {
+    fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?cn=${codigo}`)
+    .then(respuesta=>respuesta.json())
+    .then(resultado=>{
+        resultado.forEach(med => {
                    
-//             fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${med.CodigoNacional}`)
-//             .then(res=>res.json())
-//             .then(resultadoApi=>{
-//                 if(resultadoApi.fotos===undefined){
-//                     pintarDatosCaja('sin datos',med.NombreProducto, med.CodigoNacional, med.Cantidad, med.Precio, med.presMedica, med.pActivo, med.Laboratorio, med.vAdmin);
-//                 }else{
-//                     pintarDatosCaja(resultadoApi.fotos[0].url, med.NombreProducto, med.CodigoNacional, med.Cantidad, med.Precio, med.presMedica, med.pActivo, med.Laboratorio, med.vAdmin);
-//                 }
+            fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${med.CodigoNacional}`)
+            .then(res=>res.json())
+            .then(resultadoApi=>{
+                if(resultadoApi.fotos===undefined){
+                    pintarDatosCaja('sin datos',med.NombreProducto, med.CodigoNacional, med.Cantidad, med.Precio, med.presMedica, med.pActivo, med.Laboratorio, med.vAdmin);
+                }else{
+                    pintarDatosCaja(resultadoApi.fotos[0].url, med.NombreProducto, med.CodigoNacional, med.Cantidad, med.Precio, med.presMedica, med.pActivo, med.Laboratorio, med.vAdmin);
+                }
                 
-//             });
+            });
         
-//     })});
-// }
+    })});
+}
 
 async function insertarProducto(cn){
     const medicamentoExistente = await comprobarMedicamento(cn);

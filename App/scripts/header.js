@@ -67,23 +67,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             return;
         }
     }
-
-    document.querySelector('.signOut').closest('.nav_link').onclick=()=>{
-        Swal.fire({
-            title: 'Cerrar Sesión',
-            text: "Estas seguro de cerrar sesion?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Aceptar'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                location.replace('./selecPerfil.html');
-            }
-          })
-        
-    }
 });
 
 

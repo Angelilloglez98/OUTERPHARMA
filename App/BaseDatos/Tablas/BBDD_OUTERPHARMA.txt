@@ -2,7 +2,7 @@ CREATE TABLE FARMACIAS(
     Ccorreo VARCHAR(50) PRIMARY KEY NOT NULL,
     nColegiado int(9) NOT NULL,
     NombreF VARCHAR(40) NOT NULL,
-    Contrasenia VARCHAR(64) NOT NULL,
+    Contrasenia VARCHAR(20) NOT NULL,
     Direccion VARCHAR(40) NOT NULL,
     nTelefono int(9) NOT NULL
 );
@@ -14,7 +14,7 @@ CREATE TABLE EMPLEADOS(
     Telefono int(12) NOT NULL,
     CorreoPersonal VARCHAR(100),
     CcorreoFarmacia VARCHAR(50) NOT NULL,
-    Contrasena VARCHAR(64) NOT NULL,
+    Contrasena VARCHAR(30) NOT NULL,
     Rol VARCHAR(15) NOT NULL,
     CONSTRAINT Codigo_Farmacia_FK
     FOREIGN KEY (CcorreoFarmacia) REFERENCES FARMACIAS(Ccorreo)
