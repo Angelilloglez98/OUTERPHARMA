@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             .then(res => res.json())
             .then(resultados => {
                 resultados.forEach(element => {
-                    console.log(element);
+                    
                     AsignarFotoPerfil(element.nEmpleado,element.UrlEmpleado);
                     AsignarSignOut(element.nEmpleado,element.nombre)
                 });
