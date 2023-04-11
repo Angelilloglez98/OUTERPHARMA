@@ -88,11 +88,9 @@ window.onload = () =>{
 
     }
 
-    const borrarTabla = (tabla) => {
+    const borrarTabla = () => {
 
-        while (tabla.firstChild) {
-            tabla.removeChild(tabla.firstChild);
-        }
+        table.clear().draw();
 
     }
 
@@ -169,9 +167,8 @@ window.onload = () =>{
         if (event.key === 'Enter' && busqueda.value != '') {
 
             var filtro = document.querySelector("#filtro");
-            const tbody = document.querySelector("#buscarMed");
 
-            borrarTabla(tbody);
+            borrarTabla(table);
             var datos = busqueda.value;
             busqueda.value = "";
           
