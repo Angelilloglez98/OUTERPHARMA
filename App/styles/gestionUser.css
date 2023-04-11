@@ -23,12 +23,12 @@
     width: 80%;
     height: 80%;
     border-radius:50px 50px 50px 50px;
-    border: 1px solid #969696;
+    /* border: 1px solid #969696; */
     margin-top: -8px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    background-color: rgb(114, 124, 179);
+    background-color: rgb(27, 28, 34);
 
 }
 
@@ -140,4 +140,24 @@ background-size: cover;
       height: 30px;
       font-size: 0.8em;
     }
+  }
+
+  .card{
+    background-color: #222 !important;
+    border: 1px solid #dd2476 !important;
+    color: rgba(255, 251, 251, 0.8);
+    margin-bottom: 2rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .card img{
+    width: 50% !important;
+    height: 50%;
+  }
+  .card-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }

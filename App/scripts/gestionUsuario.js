@@ -3,7 +3,7 @@ window.onload = () => {
   fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
-      Pintar(document.querySelector('.contenedorUser'), element.nombre, element.correopersonal, element.telefono, element.nempleado, element.rol)
+      Pintar(document.querySelector('.contenedorUser'), element.nombre, element.correopersonal, element.telefono, element.nempleado, element.rol,element.UrlEmpleado)
 
     }));
 
@@ -165,41 +165,54 @@ window.onload = () => {
     document.body.removeChild(cerrar)
   }
 
-  function Pintar(elemento, nombre, correo, telefono, nempleado, rol) {
+  function Pintar(elemento, nombre, correo, telefono, nempleado, rol,url) {
     let div = document.createElement('div');
-    div.classList.add("usuarios");
+    div.classList.add("card");
+    div.style.width = "18rem";
     div.dataset.nombre = nombre;
     div.dataset.correo = correo;
     div.dataset.telefono = telefono;
     div.dataset.numero = nempleado;
-    let p = document.createElement('p');
+
+    const cardImg = document.createElement("img");
+    cardImg.src = url;
+    cardImg.classList.add("card-img-top");
+
+    // Crear el elemento div con la clase "card-body"
+    const cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+
+    // Crear el elemento h5 con la clase "card-title"
+    const cardTitle = document.createElement("h5");
+    cardTitle.classList.add("card-title");
     let txtNombre = document.createTextNode(nombre);
+    cardTitle.appendChild(txtNombre)
+ 
+    const cardSubtitle = document.createElement("h6");
+    cardSubtitle.classList.add("card-subtitle", "mb-2", "text-muted");
+    let txtCorreo = document.createTextNode(correo);
+    cardSubtitle.appendChild(txtCorreo)
 
     let botones = document.createElement("div")
 
-    let p2 = document.createElement('p');
-    let txtCorreo = document.createTextNode(correo);
     let p3 = document.createElement('p');
     let txtTelefono = document.createTextNode(telefono);
     let p4 = document.createElement('p');
     let txtnempleado = document.createTextNode(nempleado);
     let bedi = document.createElement('button');
-
-
     p4.appendChild(txtnempleado);
-
-    p.appendChild(txtNombre);
-    p2.appendChild(txtCorreo);
     p3.appendChild(txtTelefono);
 
-    div.appendChild(p);
-    div.appendChild(p2);
-    div.appendChild(p3);
-    div.appendChild(p4);
+    // Añadir los elementos hijos al elemento div con la clase "card"
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardSubtitle);
+    cardBody.appendChild(p3);
+    cardBody.appendChild(p4);
     botones.appendChild(bedi);
-    div.appendChild(botones)
     p4.hidden = true;
-
+    div.appendChild(cardImg);
+    div.appendChild(cardBody);
+    div.appendChild(botones)
 
     // Este if es para que si tiene el rol admin no aparezca para eliminarse
     if (rol != "Admin") {
@@ -210,8 +223,8 @@ window.onload = () => {
 
       beli.setAttribute("class", "delete");
       beli.addEventListener("click", function (e) {
-        var nombre = e.target.closest(".usuarios").dataset.nombre;
-        var nEmpleado = e.target.closest(".usuarios").dataset.numero;
+        var nombre = e.target.closest(".card").dataset.nombre;
+        var nEmpleado = e.target.closest(".card").dataset.numero;
         ventanaEmergenteEli(nombre, nEmpleado);
 
         let cancel = document.querySelector(".cancel")
@@ -224,16 +237,14 @@ window.onload = () => {
         accept.addEventListener("click", () => {
           let pass = localStorage.getItem("password")
 
-          if (validacion[1].value) {      
-            comprobarPass(validacion[1].value)    
-                // Verifica si el hash generado es igual al hash almacenado
-                // if (comprobarPass(validacion[1].value)) {
-                //   eliminarDatos(nombre, nempleado);
-                //   cerrarVentana()
-                //   location.reload();
-                // } else {
-                //   alert("La contraseña es incorrecta");
-                // }
+          if (validacion[1].value) {        
+                if (comprobarPass(validacion[1].value)) {
+                  eliminarDatos(nombre, nempleado);
+                  cerrarVentana()
+                  location.reload();
+                } else {
+                  alert("La contraseña es incorrecta");
+                }
 
           } else {
             alert("Por favor, ingrese su contraseña");
@@ -247,10 +258,10 @@ window.onload = () => {
     bedi.setAttribute("class", "edit");
     bedi.addEventListener("click", function (e) {
 
-      var nombre = e.target.closest(".usuarios").dataset.nombre;
-      var nEmpleado = e.target.closest(".usuarios").dataset.numero;
-      var correo = e.target.closest(".usuarios").dataset.correo;
-      var tlf = e.target.closest(".usuarios").dataset.telefono;
+      var nombre = e.target.closest(".card").dataset.nombre;
+      var nEmpleado = e.target.closest(".card").dataset.numero;
+      var correo = e.target.closest(".card").dataset.correo;
+      var tlf = e.target.closest(".card").dataset.telefono;
       ventanaEmergenteEdit(nombre, tlf, correo, nEmpleado);
 
       let empleado = document.querySelector(".empleado")
@@ -293,16 +304,20 @@ window.onload = () => {
         accept.addEventListener("click", () => {
 
           if (validarNombre(validacion[0].value) && validarTelefono(validacion[1].value) && validarCorreoElectronico(validacion[2].value) && validarContrasena(validacion[3].value)) {
-
+            url = "assets/A1.png";
             let nombre = validacion[0].value;
             let nombreFormateado = nombre.split(' ').map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)).join(' ')
-            enviarDatosCrear(nombreFormateado, validacion[2].value, validacion[1].value, validacion[3].value)
+            enviarDatosCrear(nombreFormateado, validacion[2].value, validacion[1].value, validacion[3].value,url)
             cerrarVentana()
             location.reload();
           }
         })
       })
     }
+
+
+
+
 
     elemento.appendChild(div);
   }
@@ -411,12 +426,13 @@ window.onload = () => {
     xhr.send(data);
   }
 
-  function enviarDatosCrear(nombre, correo, numero, password) {
+  function enviarDatosCrear(nombre, correo, numero, password,url) {
     // Creamos un objeto FormData con los datos a enviar
     var data = 'nombre=' + encodeURIComponent(nombre) +
       '&correopersonal=' + encodeURIComponent(correo) +
       '&numero=' + encodeURIComponent(numero) +
-      '&password=' + encodeURIComponent(password)
+      '&password=' + encodeURIComponent(password) +
+      '&url=' + encodeURIComponent(url)
 
 
     // Creamos una solicitud HTTP POST
@@ -460,32 +476,18 @@ window.onload = () => {
     xhr.send(data);
   }
 
-  function comprobarPass(password) {
-    // Creamos un objeto FormData con los datos a enviar
-    var data = 'password=' + encodeURIComponent(password)
-    console.log(password);
-    // Creamos una solicitud HTTP POST
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'BaseDatos/comprobarPass.php', true);
-
-    // Configuramos el tipo de contenido que vamos a enviar
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-    // Manejamos la respuesta del servidor
-    xhr.onload = function () {
-      if (xhr.status === 200 && xhr.readyState === 4) {
-        console.log(xhr.responseText);
-
+  const comprobarPass=async(password)=>{
+    const option={
+      method:"POST",
+      redirect:"follow",
+      body:password,
+      Headers:{
+        "Accept":"application/json"
       }
-    };
-
-    // Enviamos los datos al servidor
-    xhr.send(data);
-
-    fetch('http://localhost/OuterPharma/App/BaseDatos/comprobarPass.php')
-    // .then(response => response.json())
-    .then(registro => {
-      console.log(registro);
-    })
+    }
+    return fetch("BaseDatos/comprobarPass.php",option)
+    .then(response=>response.json())
+    .then(result=>{return result})
+    .catch(e=>{console.error("ERROR:" , e.message)})
   }
 } 

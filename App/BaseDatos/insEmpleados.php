@@ -10,10 +10,11 @@
     $numero=$_POST["numero"];
     $password=$_POST["password"];
     $rol = "User";
-    // Hasheamos la contraseña utilizando el algoritmo Bcrypt
+    $url = $_POST["url"];
+
     $hash = hash('sha256', $password);
 
-    $sql="INSERT INTO empleados (CcorreoFarmacia, NombreEmpleado, Telefono, Contrasena, CorreoPersonal,Rol) VALUES ('$correo', '$nombre', '$numero', '$hash', '$correopersonal','$rol')";
+    $sql="INSERT INTO empleados (CcorreoFarmacia, NombreEmpleado, Telefono, Contrasena, CorreoPersonal,Rol,UrlEmpleado) VALUES ('$correo', '$nombre', '$numero', '$hash', '$correopersonal','$rol','$url')";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
 

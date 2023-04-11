@@ -14,8 +14,10 @@
 
     $sth->execute();
 
+    $hash = hash('sha256', $password);
+
     $fila=$sth->fetch();
-    if ($sth->ROWCOUNT()==1 && password_verify($password,$fila['Contrasena'])) {
+    if ($hash==$fila['Contrasena']) {
         echo true;
     }else {
         echo false;
