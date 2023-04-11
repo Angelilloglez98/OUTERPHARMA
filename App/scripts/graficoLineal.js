@@ -5,7 +5,7 @@ function datosVentasPedidos() {
         .then(resultado => {
 
             resultado.forEach(venta => {
-                console.log(venta);
+                
                 switch (venta.Mes) {
                     case '1':
                         mesesVentas[0] = venta.CantidadVendida;
@@ -97,7 +97,7 @@ function datosVentasPedidos() {
                             break;
                     }
                 });
-                console.log(mesesVentas,mesesPedidos);
+                
                 graficoLineal(mesesVentas,mesesPedidos);
             })
     
