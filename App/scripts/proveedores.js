@@ -74,22 +74,24 @@ window.onload = () =>{
   });
 
   const insertProv = async(datos)=>{
-
+    
+    var raw = JSON.stringify(datos);
+    console.log(raw);
     const options = {
-        method: 'GET',
+        method: 'POST',
         redirect: 'follow',
-        body: datos,
+        body: raw,
         Headers: {'Accept':'aplication/json'}
     }
 
     var url = 'http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php';
     
     return fetch(url, options)
-    .then(response => response.json())
+    .then(response => response.text())
     .then(result => {return result})
     .catch(e => {console.error("ERROR: ", e.message)});
 
-}
+  }
 
   button.onclick = ()=>{
     hideOnBush.style.display = 'flex';
@@ -105,10 +107,10 @@ window.onload = () =>{
         preConfirm: () => {
           // Retorna un objeto con los valores de los campos del formulario
           return {
-            nombre: document.getElementsByName("nombre")[0].value,
-            direccion: document.getElementsByName("direccion")[0].value,
-            telefono: document.getElementsByName("telefono")[0].value,
-            paginaWeb: document.getElementsByName("pagina-web")[0].value,
+            Nombre: document.getElementsByName("nombre")[0].value,
+            Direccion: document.getElementsByName("direccion")[0].value,
+            nTelefono: document.getElementsByName("telefono")[0].value,
+            Link: document.getElementsByName("pagina-web")[0].value,
           };
         },
       };
@@ -118,7 +120,7 @@ window.onload = () =>{
         // Si el usuario ha enviado el formulario, muestra los valores de los campos
         if (result.isConfirmed) {
           const formData = result.value;
-          insertProv(formData).then(response => console.log(formData, response));
+          insertProv(formData).then(response => console.log(response));
     
         }
       });
