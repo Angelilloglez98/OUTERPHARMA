@@ -3,7 +3,7 @@ function cogerDatosHistorial() {
     .then(respuesta=>respuesta.json())
     .then(resultado=>{
         resultado.forEach(element => {
-            console.log(element);
+            
             pintarDatosHistorial(element.Nombre,element.Cantidad,element.Precio);
         });
     })

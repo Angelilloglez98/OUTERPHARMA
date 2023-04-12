@@ -19,119 +19,204 @@ p{
     padding: 0;
 }
 
+
 .col-9{
-    border-radius: 25px;
-    border: 1px solid black;
-    background-color: white;
+  border-radius: 25px;
+
+  border: 1px solid black;
+  background-color: white;
 }
 
-.col-3{
-    border: 1px solid black;
-    background-color: #DAE2E4;
-    border-radius: 10px;
+#insertar{
+background-color: #4723D9;
 }
 
-.col-2{
-    border-radius: 25px;
+#borrar {
+background-color: aqua;
 }
-
-.col-12, .col-6{
-    margin-left: 1.25rem;
-    border: 1px solid black;
-    border-radius: 25px;
-    margin-bottom: 3rem;
-}
-
-.small{
-    font-size: .80rem;
-}
-
-.imagen_foto{
-    width: 70%;
-    height: 4.375rem;
-    margin: .625rem;
-}
-
-.medicamento_imagen{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.devDatos{
-    background-color: white;
-    padding: 1.215rem;
-}
-
-.pedirCN{
-    padding: 0;
-}
-
-.codigo{
-    display: flex;
-    width: 100%;
-    margin: 0;
-}
-
-.cN{
-    padding: 10px;
-    width: 100%;
-    font-weight: bold;
-    border-radius: 25px;
-    border: none;
-}
-
-.col-6 {
-    width: fit-content;
-}
-
-.btn-group{
-  margin-left: 1.25rem;
-}
-
-
 
 /* Estilos para dispositivos de pantalla pequeña */
 @media only screen and (max-width: 767px) {
-    .col-9, .col-3, .col-2, .col-12 {
-      width: 100%; /* Las columnas ocupan todo el ancho */
-      margin: 0; /* Quita el margen */
-      border-radius: 0; /* Quita el radio del borde */
-      border: none; /* Quita el borde */
-    }
-    
-    .col-12:first-child {
-      margin-bottom: 1.5rem; /* Reducir la cantidad de margen inferior */
-    }
-    
-    .imagen_foto {
-      width: 100%; /* La imagen ocupa todo el ancho disponible */
-      height: auto; /* La altura se ajusta automáticamente */
-    }
+  .col-9, .col-3, .col-2, .col-12 {
+    width: 100%; /* Las columnas ocupan todo el ancho */
+    margin: 0; /* Quita el margen */
+    border-radius: 0; /* Quita el radio del borde */
+    border: none; /* Quita el borde */
   }
   
-  /* Estilos para dispositivos de pantalla mediana */
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .container-fluid {
-      max-width: 960px; /* Reducir el ancho del contenedor */
-      margin: 0 auto; /* Centrar el contenedor en la página */
-    }
-    
-    .col-9 {
-      width: 75%; /* Reducir el ancho de la columna */
-    }
-    
-    .col-3 {
-      width: 25%; /* Reducir el ancho de la columna */
-    }
+  .col-12:first-child {
+    margin-bottom: 1.5rem; /* Reducir la cantidad de margen inferior */
   }
   
-  /* Estilos para dispositivos de pantalla grande */
-  @media only screen and (min-width: 992px) {
-    .container-fluid {
-      max-width: 1140px; /* Establecer el ancho máximo del contenedor */
-      margin: 0 auto; /* Centrar el contenedor en la página */
-    }
+  .imagen_foto {
+    width: 100%; /* La imagen ocupa todo el ancho disponible */
+    height: auto; /* La altura se ajusta automáticamente */
+  }
+}
+
+/* Estilos para dispositivos de pantalla mediana */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .container-fluid {
+    max-width: 960px; /* Reducir el ancho del contenedor */
+    margin: 0 auto; /* Centrar el contenedor en la página */
   }
   
+  .col-9 {
+    width: 75%; /* Reducir el ancho de la columna */
+  }
+  
+  .col-3 {
+    width: 25%; /* Reducir el ancho de la columna */
+  }
+}
+
+/* Estilos para dispositivos de pantalla grande */
+@media only screen and (min-width: 992px) {
+  .container-fluid {
+    max-width: 1140px; /* Establecer el ancho máximo del contenedor */
+    margin: 0 auto; /* Centrar el contenedor en la página */
+  }
+}
+
+
+/* Css de la tarjeta*/
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.datos{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media only screen and (max-width: 1400px) {
+  .datos{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+  }
+
+  .drug-card{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .datos{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: center;
+  }
+
+  .drug-card{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.row > *{
+  padding: 0;
+}
+
+.drug-card__front {
+  background: white;
+  /* width: 100%; */
+  width: 250px;
+  margin: 2rem;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  box-shadow: -1px 15px 30px -12px black;
+}
+
+.drug-card__image {
+  position: relative;
+  height: 230px;
+  margin-bottom: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .5rem;
+}
+
+.imagen_foto {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.drug-card__name {
+  font-size: 1.5rem;
+  color: black;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.drug-card__datos {
+  color: black;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.one-third {
+  float: left;
+  padding: 20px 0px;
+  background-color: #4723D9;
+  color: white;
+}
+
+sup {
+  position: absolute;
+  bottom: 4px; 
+  font-size: 45%;
+  margin-left: 2px;
+}
+
+.dato_num {
+  position: relative;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.dato {
+  position: relative;
+  font-size: .9rem;
+  width: 100%;
+
+}
+
+.carta {
+  position: relative;
+}
+
+.drug-card{
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  transition: 1s;
+}
+
+.drug-card__front{
+  transform: perspective(500px) rotateY(0deg);
+  /* transform: rotate3d(0deg, 0deg, 180deg); */
+}
+
+.drug-card__back{
+  transform: perspective(500px) rotateY(0deg);
+}
+
+.drug-card__front:hover{
+  transform: perspective(500px) rotateY(180deg);
+  /* transform: rotate3d(0deg, 0deg, 180deg); */
+}
+
+.drug-card__back:hover{
+  transform: perspective(500px) rotateY(360deg);
+}
