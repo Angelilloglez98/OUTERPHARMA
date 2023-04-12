@@ -19,12 +19,10 @@ p{
     padding: 0;
 }
 
-
 .col-9{
   border-radius: 25px;
 
-  border: 1px solid black;
-  background-color: white;
+  /* background-color: white; */
 }
 
 #insertar{
@@ -54,31 +52,6 @@ background-color: aqua;
   }
 }
 
-/* Estilos para dispositivos de pantalla mediana */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .container-fluid {
-    max-width: 960px; /* Reducir el ancho del contenedor */
-    margin: 0 auto; /* Centrar el contenedor en la página */
-  }
-  
-  .col-9 {
-    width: 75%; /* Reducir el ancho de la columna */
-  }
-  
-  .col-3 {
-    width: 25%; /* Reducir el ancho de la columna */
-  }
-}
-
-/* Estilos para dispositivos de pantalla grande */
-@media only screen and (min-width: 992px) {
-  .container-fluid {
-    max-width: 1140px; /* Establecer el ancho máximo del contenedor */
-    margin: 0 auto; /* Centrar el contenedor en la página */
-  }
-}
-
-
 /* Css de la tarjeta*/
 *, *:before, *:after {
   box-sizing: border-box;
@@ -87,6 +60,7 @@ background-color: aqua;
 .datos{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  justify-items: center !important;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -117,17 +91,6 @@ background-color: aqua;
 
 .row > *{
   padding: 0;
-}
-
-.drug-card__front {
-  background: white;
-  /* width: 100%; */
-  width: 250px;
-  margin: 2rem;
-  display: inline-block;
-  position: relative;
-  text-align: center;
-  box-shadow: -1px 15px 30px -12px black;
 }
 
 .drug-card__image {
@@ -185,38 +148,66 @@ sup {
   position: relative;
   font-size: .9rem;
   width: 100%;
-
 }
 
 .carta {
   position: relative;
+  height: 400px;
+  width: 250px;
+  margin: 2rem;
+  display: inline-block;
+  text-align: center;
 }
 
-.drug-card{
-  top: 0;
-  left: 0;
+.carta .face {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
   backface-visibility: hidden;
-  transition: 1s;
+  overflow: hidden;
+  transition: .5s;
 }
 
-.drug-card__front{
-  transform: perspective(500px) rotateY(0deg);
-  /* transform: rotate3d(0deg, 0deg, 180deg); */
+.carta .front {
+  transform: perspective(600px) rotateY(0deg);
+  box-shadow: 0 5px 10px #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.drug-card__back{
-  transform: perspective(500px) rotateY(0deg);
+.carta .front img {
+  position: absolute;
+  width: 80%;
+  height: 80%;
 }
 
-.drug-card__front:hover{
-  transform: perspective(500px) rotateY(180deg);
-  /* transform: rotate3d(0deg, 0deg, 180deg); */
+/* .card .front h3 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  color: #FFF;
+  background: rgba(0,0,0,.4);
+  text-align: center;
+} */
+
+.carta .back {
+  transform: perspective(600px) rotateY(180deg);
+  background: #4723D9;
+  padding: 15px;
+  color: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
 }
 
-.drug-card__back:hover{
-  transform: perspective(500px) rotateY(360deg);
+.carta:hover .front {
+  transform: perspective(600px) rotateY(180deg);
+}
+
+.carta:hover .back {
+  transform: perspective(600px) rotateY(360deg);
 }
