@@ -59,17 +59,38 @@ window.onload=()=>{
             
         }
     
-        function ComprobarContrasena(contrasenaReal,contrasenaInput,rol) {
-            if (contrasenaReal===contrasenaInput){
-                if (rol==='Admin') {
-                    localStorage.setItem("password",contrasenaReal)
+        function ComprobarContrasena(contrasenaInput,rol) {
+            if (comprobarPass(contrasenaInput)){
+                if (rol==='admin') {
+                    localStorage.setItem("password",contrasenaInput)
                     location.replace('./InicioAdmin.html');
                 }else{
                     location.replace('./Inicio.html');
                 }
                 localStorage.setItem('perfil',element.nempleado);
+            }else{
+                console.log("error");
             }
             
         }
     }));
+
+    //Parte de Juanjo
+
+    const comprobarPass=async(password)=>{
+        const option={
+          method:"POST",
+          redirect:"follow",
+          body:password,
+          Headers:{
+            "Accept":"application/json"
+          }
+        }
+        return fetch("BaseDatos/comprobarPass.php",option)
+        .then(response=>response.json())
+        .then(result=>{return result})
+        .catch(e=>{console.error("ERROR:" , e.message)})
+      }
+
+
 }

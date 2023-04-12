@@ -6,7 +6,8 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
     $password=$_POST['password'];
-    $sql="SELECT Contrasena from empleados where CcorreoFarmacia='$correo'";
+    $nempleado=$_POST['Nempleado'];
+    $sql="SELECT Contrasena from empleados where CcorreoFarmacia='$correo' AND Nempleado='$nempleado'";
     
     $pdo->exec("SET NAMES 'utf8mb4'");
     

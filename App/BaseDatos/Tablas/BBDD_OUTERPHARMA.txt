@@ -2,7 +2,7 @@ CREATE TABLE FARMACIAS(
     Ccorreo VARCHAR(50) PRIMARY KEY NOT NULL,
     nColegiado int(9) NOT NULL,
     NombreF VARCHAR(40) NOT NULL,
-    Contrasenia VARCHAR(20) NOT NULL,
+    Contrasenia VARCHAR(64) NOT NULL,
     Direccion VARCHAR(40) NOT NULL,
     nTelefono int(9) NOT NULL
 );
@@ -14,7 +14,7 @@ CREATE TABLE EMPLEADOS(
     Telefono int(12) NOT NULL,
     CorreoPersonal VARCHAR(100),
     CcorreoFarmacia VARCHAR(50) NOT NULL,
-    Contrasena VARCHAR(30) NOT NULL,
+    Contrasena VARCHAR(64) NOT NULL,
     Rol VARCHAR(15) NOT NULL,
     CONSTRAINT Codigo_Farmacia_FK
     FOREIGN KEY (CcorreoFarmacia) REFERENCES FARMACIAS(Ccorreo)
@@ -70,13 +70,14 @@ CREATE TABLE VENTAS_PRODUCTOS(
 );
 
 INSERT INTO FARMACIAS (Ccorreo, nColegiado, NombreF, Contrasenia, Direccion, nTelefono) VALUES
-('farmacia1@gmail.com', 123456789, 'Farmacia La Esperanza', 'password1', 'Calle 1, #23', 5551234),
-('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', 'password2', 'Avenida 2, #45', 5555678);
+('farmacia1@gmail.com', 123456789, 'Farmacia La Esperanza', '655e786674d9d3e77bc05ed1de37b4b6bc89f788829f9f3c679e7687b410c89b', 'Calle 1, #23', 5551234),
+('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', '655e786674d9d3e77bc05ed1de37b4b6bc89f788829f9f3c679e7687b410c89b', 'Avenida 2, #45', 5555678);
 
 INSERT INTO EMPLEADOS (UrlEmpleado,NombreEmpleado,Telefono,CorreoPersonal, CcorreoFarmacia, Contrasena, Rol) VALUES
-('assets/A1.png','Juan Perez',622345367,'juanperez@gmail.com','farmacia1@gmail.com', 'password3', 'User'),
-('assets/A2.png','Maria Rodriguez',624765187,'mariz@gmail.com', 'farmacia1@gmail.com', 'password4', 'Admin'),
-('assets/A3.png','Pedro Garcia',626738523,'pedrito@gmail.com', 'farmacia2@yahoo.com', 'password5', 'User');
+('assets/A1.png','Juan Perez',622345367,'juanperez@gmail.com','farmacia1@gmail.com', '655e786674d9d3e77bc05ed1de37b4b6bc89f788829f9f3c679e7687b410c89b', 'User'),
+('assets/A2.png','Admin',624765187,'mariz@gmail.com', 'farmacia1@gmail.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'Admin'),
+('assets/A3.png','Pedro Garcia',626738523,'pedrito@gmail.com', 'farmacia2@yahoo.com', '655e786674d9d3e77bc05ed1de37b4b6bc89f788829f9f3c679e7687b410c89b', 'User'),
+('assets/A2.png','Admin',624765187,'mariz@gmail.com', 'farmacia2@yahoo.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'Admin');
 
 INSERT INTO PRODUCTOS (CodigoNacional, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
 (698683, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),
