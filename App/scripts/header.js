@@ -67,6 +67,32 @@ document.addEventListener("DOMContentLoaded", function (event) {
             return;
         }
     }
+
+    document.querySelector('.salir').onclick=()=>{
+         
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            title: 'Desea cerrar sesion?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Cerrar sesion',
+            cancelButtonText: 'cancelar',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                location.replace('./selecPerfil.html');
+              
+            }
+          })
+    }
+
 });
 
 
