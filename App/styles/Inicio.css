@@ -35,7 +35,7 @@ canvas{
     display: grid;
     grid-template-columns: 100%;
   }
-  .row *{
+  .row >*{
     width: 100%;
   }
 }
