@@ -6,7 +6,7 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
     $password=$_POST['password'];
-    $sql="SELECT Contrasena from empleados where CcorreoFarmacia='$correo'";
+    $sql="SELECT Contrasena from empleados where CcorreoFarmacia='$correo' AND Rol='Admin'";
     
     $pdo->exec("SET NAMES 'utf8mb4'");
     
@@ -16,11 +16,11 @@
 
     $fila=$sth->fetch();
 
-    $hash = hash('sha256', $password);
+    $verify = password_verify($fila['Contrasena'], $hash);
 
-    if ($hash==$fila['Contrasena']) {
-        echo true;
-    }else {
-        echo false;
+    if ($verify) {
+        echo "true";
+    } else {
+        echo "false";
     }
 ?>
