@@ -17,9 +17,9 @@
 
             $fila=$sth->fetch();
 
-            $hash = hash('sha256', $password);
+            // $hash = hash('sha256', $password);
             session_start();
-            if ($sth->rowCount()==1 && $hash==$fila['Contrasenia']){   
+            if ($sth->rowCount()==1 && $password==$fila['Contrasenia']){
                 //$auth = password_verify($password, $fila['Contraseina']);
                 //contraseña y usuario correctos
                 

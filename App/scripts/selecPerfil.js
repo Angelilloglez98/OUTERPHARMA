@@ -3,7 +3,7 @@ window.onload=()=>{
     fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
-        Pintar(document.querySelector('.contenedorUser'),element.nombre,element.UrlEmpleado,element.nempleado)
+        Pintar(document.querySelector('.contenedorUser'),element.nombre,element.UrlEmpleado)
 
         function Pintar(elemento, mensaje,url){
             
@@ -36,11 +36,11 @@ window.onload=()=>{
             form.appendChild(inputPassword);
             form.appendChild(button);
             button.onclick=()=>{
-                ComprobarContrasena(inputPassword.value,element.rol,element.nempleado);
+                ComprobarContrasena(element.contrasena,inputPassword.value,element.rol);
             }
             form.onsubmit=(e)=>{
                 e.preventDefault();
-                ComprobarContrasena(inputPassword.value,element.rol,element.nempleado);
+                ComprobarContrasena(element.contrasena,inputPassword.value,element.rol);
             }
                 
             elemento.appendChild(form);
@@ -59,11 +59,10 @@ window.onload=()=>{
             
         }
     
-        function ComprobarContrasena(contrasenaInput,rol,empleado) {
-            if (comprobarPass(contrasenaInput)){
-                console.log(contrasenaInput);
-                if (rol==='admin') {
-                    localStorage.setItem("password",contrasenaInput)
+        function ComprobarContrasena(contrasenaReal,contrasenaInput,rol) {
+            if (contrasenaReal===contrasenaInput){
+                if (rol==='Admin') {
+                    localStorage.setItem("password",contrasenaReal)
                     location.replace('./InicioAdmin.html');
                 }else{
                     location.replace('./Inicio.html');
@@ -78,21 +77,21 @@ window.onload=()=>{
 
     //Parte de Juanjo
 
-    const comprobarPass = async (password) => {
-        const option = {
-          method: "POST",
-          redirect: "follow",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          },
-          body:password,
-        };
-        return fetch("BaseDatos/comprobarperfil.php", option)
-          .then(response => response.json())
-          .then(result => result)
-          .catch(e => console.error("ERROR:", e.message));
-      };
+    // const comprobarPass = async (password) => {
+    //     const option = {
+    //       method: "POST",
+    //       redirect: "follow",
+    //       headers: {
+    //         "Accept": "application/json",
+    //         "Content-Type": "application/json"
+    //       },
+    //       body:password,
+    //     };
+    //     return fetch("BaseDatos/comprobarperfil.php", option)
+    //       .then(response => response.json())
+    //       .then(result => result)
+    //       .catch(e => console.error("ERROR:", e.message));
+    //   };
 
 
 }
