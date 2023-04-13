@@ -95,67 +95,6 @@ async function traerDatos() {
     }
 }
 
-
-function pintarDatos(foto, cn, nombre, cant, precio){
-
-    let datos = document.querySelector(".datos");
-    let medicamentos = document.createElement("div");
-    medicamentos.classList.add("my-2", "col-3", "mx-4", "p-3", "medicamentos");
-    medicamentos.dataset.name = nombre;
-    medicamentos.dataset.codigo = cn;
-
-    let medicamento = document.createElement("div");
-    medicamento.classList.add("medicamento");
-
-    let pFoto = new Image();
-    pFoto.src = foto;
-    pFoto.classList.add('imagen_foto');
-
-    let pNombre = document.createElement("p");
-    pNombre.classList.add('info_parrafo');
-    let nombrePro = document.createTextNode(nombre)
-    pNombre.appendChild(nombrePro);
-
-    let pCn = document.createElement("p");
-    pCn.classList.add('info_parrafo');
-    let cnPro = document.createTextNode("CN: " + cn); 
-    pCn.appendChild(cnPro);
-
-    let pCantidad = document.createElement("p");
-    let cantidadPro = document.createTextNode("Stock: " + cant)
-    pCantidad.classList.add('info_parrafo');
-    pCantidad.appendChild(cantidadPro); 
-
-    let pPrecio = document.createElement("p");
-    let precioPro = document.createTextNode("Precio: " + precio + "Euros")
-    pPrecio.classList.add('info_parrafo');
-    pPrecio.appendChild(precioPro);
-
-    let botonBorrar = document.createElement("input");
-    botonBorrar.classList.add("info_botonBorrar");
-    botonBorrar.type = "button";
-    botonBorrar.value = "Borrar";
-
-    botonBorrar.addEventListener('click', function(e){
-        borrar(e);
-    });  
-
-    medicamentos.appendChild(pFoto);
-    medicamentos.appendChild(pNombre);
-    medicamentos.appendChild(pCn);
-    medicamentos.appendChild(pCantidad);
-    medicamentos.appendChild(pPrecio);
-    medicamentos.appendChild(botonBorrar);
-
-    medicamentos.addEventListener('click', function(e){
-        recibir(e);
-    });
-
-    
-
-    datos.appendChild(medicamentos);
-}
-
 function borrar(e){
 
     var codigo = e.target.closest(".carta").dataset.codigo;
@@ -198,80 +137,6 @@ function borrar(e){
       })
 
       
-}
-
-function pintarDatosCaja(foto, nombre, cn, cant, precio, pres, pAct, Lab, vAd){
-    let datos = document.querySelector(".devDatos");
-    datos.innerHTML="";
-    let medicamentos = document.createElement("div");
-    medicamentos.classList.add("medicamento");
-    
-    let imagen = document.createElement("div");
-    imagen.classList.add("medicamento_imagen");
-
-    let info = document.createElement('div');
-    info.classList.add('medicamento_info');
-
-    let pFoto = new Image();
-    pFoto.src = foto;
-    pFoto.classList.add('imagen_foto');
-
-    let pNombre = document.createElement("p");
-    pNombre.classList.add('info_parrafo', 'small');
-    let nombrePro = document.createTextNode(nombre)
-    pNombre.appendChild(nombrePro);
-
-    let pCn = document.createElement("p");
-    pCn.classList.add('info_parrafo', 'small');
-    let cnPro = document.createTextNode("CN: " + cn)
-    pCn.appendChild(cnPro);
-
-    let pCantidad = document.createElement("p");
-    let cantidadPro = document.createTextNode("Stock: " + cant)
-    pCantidad.classList.add('info_parrafo', 'small');
-    pCantidad.appendChild(cantidadPro); 
-
-    let pPrecio = document.createElement("p");
-    let precioPro = document.createTextNode("Precio: " + precio + " Euros")
-    pPrecio.classList.add('info_parrafo', 'small');
-    pPrecio.appendChild(precioPro);
-
-    let pPresc = document.createElement("p");
-    let presPro = document.createTextNode("Prescripcion: " + pres)
-    pPresc.classList.add('info_parrafo', 'small');
-    pPresc.appendChild(presPro);
-        
-    let pActivo = document.createElement("p");
-    let activoPro = document.createTextNode("P.Activo: " + pAct)
-    pActivo.classList.add('info_parrafo', 'small');
-    pActivo.appendChild(activoPro);
-
-    let pLab = document.createElement("p");
-    let labPro = document.createTextNode("Laboratorio: " + Lab)
-    pLab.classList.add('info_parrafo', 'small');
-    pLab.appendChild(labPro);
-
-    let pVia = document.createElement("p");
-    let viaPro = document.createTextNode("Vía: " + vAd)
-    pVia.classList.add('info_parrafo', 'small');
-    pVia.appendChild(viaPro);
-
-    medicamentos.appendChild(pFoto);
-    medicamentos.appendChild(pNombre);
-    medicamentos.appendChild(pCn);
-    medicamentos.appendChild(pCantidad);
-    medicamentos.appendChild(pPrecio);
-    medicamentos.appendChild(pPresc);
-    medicamentos.appendChild(pActivo);
-    medicamentos.appendChild(pLab);
-    medicamentos.appendChild(pVia);
-
-    info.appendChild(medicamentos);
-
-    imagen.appendChild(pFoto);
-
-    datos.appendChild(imagen)
-    datos.appendChild(info);
 }
 
 function cartaBonita(foto, nombre, cn, cant, precio, pres, pAct, Lab, vAd){
@@ -356,33 +221,35 @@ function cartaBonita(foto, nombre, cn, cant, precio, pres, pAct, Lab, vAd){
     let cardB = document.createElement("div");
     cardB.classList.add("back", "face");
     // cardB.appendChild(document.createTextNode(nombre));
+    let cardCont = document.createElement("div");
+    cardCont.classList.add("contenedor");
 
     let pPresc = document.createElement("div");
     let presPro = document.createTextNode("Prescripcion: " + pres)
     pPresc.classList.add('info_parrafo', 'small');
     pPresc.appendChild(presPro);
-    cardB.appendChild(pPresc);
+    cardCont.appendChild(pPresc);
         
     let pActivo = document.createElement("div");
     let activoPro = document.createTextNode("P.Activo: " + pAct)
     pActivo.classList.add('info_parrafo', 'small');
     pActivo.appendChild(activoPro);
-    cardB.appendChild(pActivo);
+    cardCont.appendChild(pActivo);
 
     let pLab = document.createElement("div");
     let labPro = document.createTextNode("Laboratorio: " + Lab)
     pLab.classList.add('info_parrafo', 'small');
     pLab.appendChild(labPro);
-    cardB.appendChild(pLab);
+    cardCont.appendChild(pLab);
 
     let pVia = document.createElement("div");
     let viaPro = document.createTextNode("Vía: " + vAd)
     pVia.classList.add('info_parrafo', 'small');
     pVia.appendChild(viaPro);
-    cardB.appendChild(pVia);
+    cardCont.appendChild(pVia);
 
     let botonBorrar = document.createElement("input");
-    botonBorrar.classList.add("info_botonBorrar");
+    botonBorrar.classList.add("info_botonBorrar", "btn", "btn-rounded");
     botonBorrar.type = "button";
     botonBorrar.value = "Borrar";
 
@@ -390,6 +257,7 @@ function cartaBonita(foto, nombre, cn, cant, precio, pres, pAct, Lab, vAd){
         borrar(e);
     });
 
+    cardB.appendChild(cardCont);
     cardB.appendChild(botonBorrar);
 
     card.appendChild(cardF);
@@ -408,32 +276,6 @@ function vaciarDatos() {
     while (datos.hasChildNodes()) {
         datos.removeChild(datos.firstChild);
     }
-}
-
-function recibir(e){
-    if (e.target.classList.contains('info_botonBorrar')) {
-        return;
-    }
-
-    var codigo = e.target.closest(".medicamentos").dataset.codigo;
-
-    fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?cn=${codigo}`)
-    .then(respuesta=>respuesta.json())
-    .then(resultado=>{
-        resultado.forEach(med => {
-                   
-            fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${med.CodigoNacional}`)
-            .then(res=>res.json())
-            .then(resultadoApi=>{
-                if(resultadoApi.fotos===undefined){
-                    pintarDatosCaja('sin datos',med.NombreProducto, med.CodigoNacional, med.Cantidad, med.Precio, med.presMedica, med.pActivo, med.Laboratorio, med.vAdmin);
-                }else{
-                    pintarDatosCaja(resultadoApi.fotos[0].url, med.NombreProducto, med.CodigoNacional, med.Cantidad, med.Precio, med.presMedica, med.pActivo, med.Laboratorio, med.vAdmin);
-                }
-                
-            });
-        
-    })});
 }
 
 async function insertarProducto(cn){
