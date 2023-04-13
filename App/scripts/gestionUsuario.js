@@ -234,20 +234,16 @@ window.onload = () => {
         let accept = document.querySelector(".aceptar");
         let validacion = document.querySelectorAll("input");
 
-        accept.addEventListener("click", () => {
+        accept.addEventListener("click", () => {  
+          
           let pass = localStorage.getItem("password")
 
-          if (validacion[1].value) {        
-                if (comprobarPass(validacion[1].value)) {
-                  eliminarDatos(nombre, nempleado);
-                  cerrarVentana()
-                  location.reload();
-                } else {
-                  alert("La contraseña es incorrecta");
-                }
-
+          if (validacion[1].value==pass) {
+            eliminarDatos(nombre);
+            cerrarVentana()
+            location.reload();
           } else {
-            alert("Por favor, ingrese su contraseña");
+            alert("La contraseña es incorrecta");
           }
         })
       })
@@ -476,18 +472,18 @@ window.onload = () => {
     xhr.send(data);
   }
 
-  const comprobarPass=async(password)=>{
-    const option={
-      method:"POST",
-      redirect:"follow",
-      body:password,
-      Headers:{
-        "Accept":"application/json"
-      }
-    }
-    return fetch("BaseDatos/comprobarPass.php",option)
-    .then(response=>response.json())
-    .then(result=>{return result})
-    .catch(e=>{console.error("ERROR:" , e.message)})
-  }
+  // const comprobarPass=async(password)=>{
+  //   const option={
+  //     method:"POST",
+  //     redirect:"follow",
+  //     body:password,
+  //     Headers:{
+  //       "Accept":"application/json"
+  //     }
+  //   }
+  //   return fetch("BaseDatos/comprobarPass.php",option)
+  //   .then(response=>response.json())
+  //   .then(result=>{return result})
+  //   .catch(e=>{console.error("ERROR:" , e.message)})
+  // }
 } 

@@ -59,7 +59,7 @@ window.onload = () => {
                     .then(res=>res.json())
                     .then(resultadoApi=>{
                         vaciarDatos();
-                        cartaBonita(resultadoApi.fotos[0].url,element[i].CodigoNacional, element[i].NombreProducto, element[i].Cantidad, element[i].Precio)
+                        pintarDatos(resultadoApi.fotos[0].url,element[i].CodigoNacional, element[i].NombreProducto, element[i].Cantidad, element[i].Precio)
                     });
                     
                 }
@@ -73,97 +73,85 @@ window.onload = () => {
 
 async function traerDatos() {
     try {
-        const res = await fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php');
+        const res = await fetch('http://localhost/OuterPharma/App/BaseDatos/devInfo.php');
         const resultado = await res.json();
 
         for (const inventario of resultado) {
+            console.log(inventario);
             
             const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
             const resultadoApi = await resApi.json();
 
-            if (resultadoApi.fotos === undefined) {
-                cartaBonita('sin datos', inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
-            } else {
-                cartaBonita(resultadoApi.fotos[0].url, inventario.CodigoNacional, inventario.NombreProducto, inventario.Cantidad, inventario.Precio);
+
+            if(resultadoApi.fotos===undefined){
+                cartaBonita('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+            }else{
+                cartaBonita(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
             }
+            
         }
     } catch (error) {
         console.error(error);
     }
 }
 
-function pintarDatos(foto, cn, nombre, cant, precio){
+function borrar(e){
 
-    let datos = document.querySelector(".datos");
-    let medicamentos = document.createElement("div");
-    medicamentos.classList.add("my-2", "col-3", "mx-4", "p-3", "medicamentos");
-    medicamentos.dataset.name = nombre;
-    medicamentos.dataset.codigo = cn;
+    var codigo = e.target.closest(".carta").dataset.codigo;
+    var cantidad;
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Stock a borrar',
+        icon: 'warning',
+        showCancelButton: true,
+        input: 'number',
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'cancelar',
+        inputValidator: (value) => {
+            if(!value) {
+                return 'Escribe una cantidad por favor';
+            }
+            cantidad = value;
+        },
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
 
-    let medicamento = document.createElement("div");
-    medicamento.classList.add("medicamento");
+            swalWithBootstrapButtons.fire(
+                'Borrado',
+                'Los productos han sido borrados correctamente',
+                'success'
+              )
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?CodigoNacional=${codigo}&cantidad=${cantidad}`)
+            vaciarDatos();
+            traerDatos();
+            
+        }
+      })
 
-    let pFoto = new Image();
-    pFoto.src = foto;
-    pFoto.classList.add('imagen_foto');
-
-    let pNombre = document.createElement("p");
-    pNombre.classList.add('info_parrafo');
-    let nombrePro = document.createTextNode(nombre)
-    pNombre.appendChild(nombrePro);
-
-    let pCn = document.createElement("p");
-    pCn.classList.add('info_parrafo');
-    let cnPro = document.createTextNode("CN: " + cn); 
-    pCn.appendChild(cnPro);
-
-    let pCantidad = document.createElement("p");
-    let cantidadPro = document.createTextNode("Stock: " + cant)
-    pCantidad.classList.add('info_parrafo');
-    pCantidad.appendChild(cantidadPro); 
-
-    let pPrecio = document.createElement("p");
-    let precioPro = document.createTextNode("Precio: " + precio + "Euros")
-    pPrecio.classList.add('info_parrafo');
-    pPrecio.appendChild(precioPro);
-
-    let botonBorrar = document.createElement("input");
-    botonBorrar.classList.add("info_botonBorrar");
-    botonBorrar.type = "button";
-    botonBorrar.value = "Borrar";
-
-    botonBorrar.addEventListener('click', function(e){
-        borrar(e);
-    });  
-
-    medicamentos.appendChild(pFoto);
-    medicamentos.appendChild(pNombre);
-    medicamentos.appendChild(pCn);
-    medicamentos.appendChild(pCantidad);
-    medicamentos.appendChild(pPrecio);
-    medicamentos.appendChild(botonBorrar);
-
-    medicamentos.addEventListener('click', function(e){
-        recibir(e);
-    });
-
-    
-
-    datos.appendChild(medicamentos);
+      
 }
 
-function cartaBonita(foto, cn, nombre, cant, precio){
+function cartaBonita(foto, nombre, cn, cant, precio, pres, pAct, Lab, vAd){
     let divPrincipal = document.querySelector(".datos");
 
     // Creación de la carta principal
     let card = document.createElement("div");
-    card.classList.add("drug-card");
+    card.classList.add("carta");
+    card.dataset.name = nombre; // Añadir el dataset de nombre
+    card.dataset.codigo = cn; // Añadir el dataset de codigo
 
     // Creación de la carta por delante
     let cardF = document.createElement("div");
-    cardF.classList.add("drug-card__front");
-    cardF.dataset.name = nombre; // Añadir el dataset de nombre
-    cardF.dataset.codigo = cn; // Añadir el dataset de codigo
+    cardF.classList.add("front", "face");
+    
 
     // Crear el div que contiene la imagen
     let image = document.createElement("div");
@@ -182,7 +170,7 @@ function cartaBonita(foto, cn, nombre, cant, precio){
     name.classList.add("drug-card__name");
     var nom = nombre.split(" ")[0];
     name.appendChild(document.createTextNode(nom));
-    
+
     cardF.appendChild(name); // Meter el nombre en la carta
 
     // Hacer los recuadros 
@@ -231,135 +219,55 @@ function cartaBonita(foto, cn, nombre, cant, precio){
     cardF.appendChild(datos);
 
     let cardB = document.createElement("div");
-    cardB.classList.add("drug-card__back");
-    cardB.appendChild(document.createTextNode(nombre));
+    cardB.classList.add("back", "face");
+    // cardB.appendChild(document.createTextNode(nombre));
+    let cardCont = document.createElement("div");
+    cardCont.classList.add("contenedor");
+
+    let pPresc = document.createElement("div");
+    let presPro = document.createTextNode("Prescripcion: " + pres)
+    pPresc.classList.add('info_parrafo', 'small');
+    pPresc.appendChild(presPro);
+    cardCont.appendChild(pPresc);
+        
+    let pActivo = document.createElement("div");
+    let activoPro = document.createTextNode("P.Activo: " + pAct)
+    pActivo.classList.add('info_parrafo', 'small');
+    pActivo.appendChild(activoPro);
+    cardCont.appendChild(pActivo);
+
+    let pLab = document.createElement("div");
+    let labPro = document.createTextNode("Laboratorio: " + Lab)
+    pLab.classList.add('info_parrafo', 'small');
+    pLab.appendChild(labPro);
+    cardCont.appendChild(pLab);
+
+    let pVia = document.createElement("div");
+    let viaPro = document.createTextNode("Vía: " + vAd)
+    pVia.classList.add('info_parrafo', 'small');
+    pVia.appendChild(viaPro);
+    cardCont.appendChild(pVia);
+
+    let botonBorrar = document.createElement("input");
+    botonBorrar.classList.add("info_botonBorrar", "btn", "btn-rounded");
+    botonBorrar.type = "button";
+    botonBorrar.value = "Borrar";
+
+    botonBorrar.addEventListener('click', function(e){
+        borrar(e);
+    });
+
+    cardB.appendChild(cardCont);
+    cardB.appendChild(botonBorrar);
 
     card.appendChild(cardF);
     card.appendChild(cardB);
 
-    let carta = document.createElement("div")
-    carta.classList.add("carta")
+    // let carta = document.createElement("div")
+    // carta.classList.add("carta")
 
-    carta.appendChild(card)
-    divPrincipal.appendChild(carta); // Meter la carta en el div de datos
-}
-
-function borrar(e){
-
-    var codigo = e.target.closest(".medicamentos").dataset.codigo;
-    var cantidad;
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
-      
-      swalWithBootstrapButtons.fire({
-        title: 'Stock a borrar',
-        icon: 'warning',
-        showCancelButton: true,
-        input: 'number',
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'cancelar',
-        inputValidator: (value) => {
-            if(!value) {
-                return 'Escribe una cantidad por favor';
-            }
-            cantidad = value;
-        },
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-
-            swalWithBootstrapButtons.fire(
-                'Borrado',
-                'Los productos han sido borrados correctamente',
-                'success'
-              )
-            fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?CodigoNacional=${codigo}&cantidad=${cantidad}`)
-            vaciarDatos();
-            traerDatos();
-            
-        }
-      })
-
-      
-}
-
-function pintarDatosCaja(foto, nombre, cn, cant, precio, pres, pAct, Lab, vAd){
-    let datos = document.querySelector(".devDatos");
-    datos.innerHTML="";
-    let medicamentos = document.createElement("div");
-    medicamentos.classList.add("medicamento");
-    
-    let imagen = document.createElement("div");
-    imagen.classList.add("medicamento_imagen");
-
-    let info = document.createElement('div');
-    info.classList.add('medicamento_info');
-
-    let pFoto = new Image();
-    pFoto.src = foto;
-    pFoto.classList.add('imagen_foto');
-
-    let pNombre = document.createElement("p");
-    pNombre.classList.add('info_parrafo', 'small');
-    let nombrePro = document.createTextNode(nombre)
-    pNombre.appendChild(nombrePro);
-
-    let pCn = document.createElement("p");
-    pCn.classList.add('info_parrafo', 'small');
-    let cnPro = document.createTextNode("CN: " + cn)
-    pCn.appendChild(cnPro);
-
-    let pCantidad = document.createElement("p");
-    let cantidadPro = document.createTextNode("Stock: " + cant)
-    pCantidad.classList.add('info_parrafo', 'small');
-    pCantidad.appendChild(cantidadPro); 
-
-    let pPrecio = document.createElement("p");
-    let precioPro = document.createTextNode("Precio: " + precio + " Euros")
-    pPrecio.classList.add('info_parrafo', 'small');
-    pPrecio.appendChild(precioPro);
-
-    let pPresc = document.createElement("p");
-    let presPro = document.createTextNode("Prescripcion: " + pres)
-    pPresc.classList.add('info_parrafo', 'small');
-    pPresc.appendChild(presPro);
-        
-    let pActivo = document.createElement("p");
-    let activoPro = document.createTextNode("P.Activo: " + pAct)
-    pActivo.classList.add('info_parrafo', 'small');
-    pActivo.appendChild(activoPro);
-
-    let pLab = document.createElement("p");
-    let labPro = document.createTextNode("Laboratorio: " + Lab)
-    pLab.classList.add('info_parrafo', 'small');
-    pLab.appendChild(labPro);
-
-    let pVia = document.createElement("p");
-    let viaPro = document.createTextNode("Vía: " + vAd)
-    pVia.classList.add('info_parrafo', 'small');
-    pVia.appendChild(viaPro);
-
-    medicamentos.appendChild(pFoto);
-    medicamentos.appendChild(pNombre);
-    medicamentos.appendChild(pCn);
-    medicamentos.appendChild(pCantidad);
-    medicamentos.appendChild(pPrecio);
-    medicamentos.appendChild(pPresc);
-    medicamentos.appendChild(pActivo);
-    medicamentos.appendChild(pLab);
-    medicamentos.appendChild(pVia);
-
-    info.appendChild(medicamentos);
-
-    imagen.appendChild(pFoto);
-
-    datos.appendChild(imagen)
-    datos.appendChild(info);
+    // carta.appendChild(card)
+    divPrincipal.appendChild(card); // Meter la carta en el div de datos
 }
 
 function vaciarDatos() {
@@ -369,32 +277,6 @@ function vaciarDatos() {
         datos.removeChild(datos.firstChild);
     }
 }
-
-// function recibir(e){
-//     if (e.target.classList.contains('info_botonBorrar')) {
-//         return;
-//     }
-
-//     var codigo = e.target.closest(".drug-card").dataset.codigo;
-
-//     fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?cn=${codigo}`)
-//     .then(respuesta=>respuesta.json())
-//     .then(resultado=>{
-//         resultado.forEach(med => {
-                   
-//             fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${med.CodigoNacional}`)
-//             .then(res=>res.json())
-//             .then(resultadoApi=>{
-//                 if(resultadoApi.fotos===undefined){
-//                     pintarDatosCaja('sin datos',med.NombreProducto, med.CodigoNacional, med.Cantidad, med.Precio, med.presMedica, med.pActivo, med.Laboratorio, med.vAdmin);
-//                 }else{
-//                     pintarDatosCaja(resultadoApi.fotos[0].url, med.NombreProducto, med.CodigoNacional, med.Cantidad, med.Precio, med.presMedica, med.pActivo, med.Laboratorio, med.vAdmin);
-//                 }
-                
-//             });
-        
-//     })});
-// }
 
 async function insertarProducto(cn){
     const medicamentoExistente = await comprobarMedicamento(cn);

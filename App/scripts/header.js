@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             .then(res => res.json())
             .then(resultados => {
                 resultados.forEach(element => {
-                    console.log(element);
+                    
                     AsignarFotoPerfil(element.nEmpleado,element.UrlEmpleado);
                     AsignarSignOut(element.nEmpleado,element.nombre)
                 });
@@ -68,22 +68,31 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 
-    document.querySelector('.signOut').closest('.nav_link').onclick=()=>{
-        Swal.fire({
-            title: 'Cerrar Sesión',
-            text: "Estas seguro de cerrar sesion?",
+    document.querySelector('.salir').onclick=()=>{
+         
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            title: 'Desea cerrar sesion?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Cerrar sesion',
+            cancelButtonText: 'cancelar',
+            reverseButtons: true
           }).then((result) => {
             if (result.isConfirmed) {
                 location.replace('./selecPerfil.html');
+              
             }
           })
-        
     }
+
 });
 
 
