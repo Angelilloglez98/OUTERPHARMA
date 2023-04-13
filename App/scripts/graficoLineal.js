@@ -7,40 +7,40 @@ function datosVentasPedidos() {
             resultado.forEach(venta => {
                 
                 switch (venta.Mes) {
-                    case '1':
+                    case 1:
                         mesesVentas[0] = venta.CantidadVendida;
                         break;
-                    case '2':
+                    case 2:
                         mesesVentas[1] = venta.CantidadVendida;
                         break;
-                    case '3':
+                    case 3:
                         mesesVentas[2] = venta.CantidadVendida;
                         break;
-                    case '4':
+                    case 4:
                         mesesVentas[3] = venta.CantidadVendida;
                         break;
-                    case '5':
+                    case 5:
                         mesesVentas[4] = venta.CantidadVendida;
                         break;
-                    case '6':
+                    case 6:
                         mesesVentas[5] = venta.CantidadVendida;
                         break;
-                    case '7':
+                    case 7:
                         mesesVentas[6] = venta.CantidadVendida;
                         break;
-                    case '8':
+                    case 8:
                         mesesVentas[7] = venta.CantidadVendida;
                         break;
-                    case '9':
+                    case 9:
                         mesesVentas[8] = venta.CantidadVendida;
                         break;
-                    case '10':
+                    case 10:
                         mesesVentas[9] = venta.CantidadVendida;
                         break;
-                    case '11':
+                    case 11:
                         mesesVentas[10] = venta.CantidadVendida;
                         break;
-                    case '12':
+                    case 12:
                         mesesVentas[11] = venta.CantidadVendida;
                         break;
                     default:
