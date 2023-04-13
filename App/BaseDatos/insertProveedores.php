@@ -4,18 +4,22 @@
     session_start();
     $registros=array();
 
-    $Nombre = $_POST["Nombre"];
-    $Direccion = $_POST["Direccion"];
-    $nTelefono = $_POST["nTelefono"];
-    $Link = $_POST["Link"];
+    $data = json_decode(file_get_contents('php://input'), true);
 
-    $CcorreoFarmacia=$_SESSION['CcorreoFarmacia'];
+    $Nombre = $data["Nombre"];
+    $Direccion = $data["Direccion"];
+    $nTelefono = $data["nTelefono"];
+    $Link = $data["Link"];
+
+    echo $Nombre.$Direccion.$nTelefono.$Link; 
+
+    $CcorreoFarmacia=$_SESSION['CorreoFarmacia'];
 
     // Consulta SELECT para verificar si el proveedor ya existe
-    $sth = $pdo->prepare("SELECT * FROM proveedores WHERE Nombre = :Nombre AND CcorreoFarmacia = ':CcorreoFarmacia'");
-    $sth->bindParam(':Nombre', $Nombre);
-    $sth->bindParam(':CcorreoFarmacia', $CcorreoFarmacia);
-    $sth->execute();
+    $sth = $pdo->prepare("SELECT * FROM proveedores WHERE Nombre = :Nombre AND CcorreoFarmacia = :CcorreoFarmacia");
+    // $sth->bindParam(':Nombre', $Nombre);
+    // $sth->bindParam(':CcorreoFarmacia', $CcorreoFarmacia);
+    $sth->execute(array(':Nombre'=> $Nombre, ':CcorreoFarmacia'=> $CcorreoFarmacia));
 
     // Si no hay resultados, agregar el proveedor a la base de datos
     if ($sth->rowCount() == 0) {

@@ -96,9 +96,11 @@ VALUES
 (8,'farmacia1@gmail.com', 2, '2023-01-04', 50);
 
 INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, Link, CcorreoFarmacia) VALUES
+('Abdul Pharma S.L.', 'Calle Domingas, 69', 777777777, 'https://www.youtube.com/watch?v=baX9PUwQVqk', 'farmacia1@gmail.com'),
+('ANTONIO PHARMA S.L.', 'Calle Angelines, 58', 666666666, 'https://www.youtube.com/watch?v=x7Z86jQjG30', 'farmacia1@gmail.com'),
 ('Distribuidora Farmaceutica SA', 'Calle 4, #67', 5554321, 'https://www.youtube.com/watch?v=rPunrzkIpeo', 'farmacia1@gmail.com'),
-('Medicamentos Paqui S.L.', 'Calle la flauta Magica, 4', '664235678', 'https://www.youtube.com/watch?v=-ORrwif5q7Q', 'farmacia1@gmail.com'),
-('Farmaceuticos Unidos', 'Avenida 5, #89', 5558765, 'https://www.youtube.com/watch?v=bl_Jy7Q7l7s', 'farmacia2@yahoo.com');
+('Farmaceuticos Unidos', 'Avenida 5, #89', 5558765, 'https://www.youtube.com/watch?v=bl_Jy7Q7l7s', 'farmacia2@yahoo.com'),
+('Medicamentos Paqui S.L.', 'Calle la flauta Magica, 4', 664235678, 'https://www.youtube.com/watch?v=-ORrwif5q7Q', 'farmacia1@gmail.com');
 
 INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, CodigoNacional, Precio, Cantidad, fEntrada, fCaducidad) VALUES
 ('farmacia1@gmail.com', 698683, 1.25, 100, '2021-12-01', '2023-12-01'),

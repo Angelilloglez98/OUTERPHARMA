@@ -76,7 +76,7 @@ window.onload = () =>{
   const insertProv = async(datos)=>{
     
     var raw = JSON.stringify(datos);
-    console.log(raw);
+
     const options = {
         method: 'POST',
         redirect: 'follow',
@@ -94,35 +94,48 @@ window.onload = () =>{
   }
 
   button.onclick = ()=>{
+
     hideOnBush.style.display = 'flex';
+
     const form = {
-        title: "Formulario",
-        html: `
-          <input type="text" name="nombre" placeholder="Nombre" class="swal2-input">
-          <input type="text" name="direccion" placeholder="Dirección" class="swal2-input">
-          <input type="tel" name="telefono" placeholder="Teléfono" class="swal2-input">
-          <input type="url" name="pagina-web" placeholder="Página Web" class="swal2-input">
-        `,
-        focusConfirm: false,
-        preConfirm: () => {
-          // Retorna un objeto con los valores de los campos del formulario
-          return {
-            Nombre: document.getElementsByName("nombre")[0].value,
-            Direccion: document.getElementsByName("direccion")[0].value,
-            nTelefono: document.getElementsByName("telefono")[0].value,
-            Link: document.getElementsByName("pagina-web")[0].value,
-          };
-        },
-      };
+
+      title: "Formulario",
+
+      html: `
+        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php">
+          <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input">
+          <input type="text" name="Direccion" placeholder="Dirección" class="swal2-input">
+          <input type="tel" name="nTelefono" placeholder="Teléfono" class="swal2-input">
+          <input type="url" name="Link" placeholder="Página Web" class="swal2-input">
+        </form>
+      `,
+
+      focusConfirm: false,
+
+      preConfirm: () => {
+        
+        // Retorna un objeto con los valores de los campos del formulario
+        return {
+          Nombre: document.getElementsByName("Nombre")[0].value,
+          Direccion: document.getElementsByName("Direccion")[0].value,
+          nTelefono: document.getElementsByName("nTelefono")[0].value,
+          Link: document.getElementsByName("Link")[0].value,
+        };
+
+      },
+
+    };
   
       // Muestra la ventana modal con el formulario
       Swal.fire(form).then((result) => {
         // Si el usuario ha enviado el formulario, muestra los valores de los campos
         if (result.isConfirmed) {
-          const formData = result.value;
-          insertProv(formData).then(response => console.log(response));
+
+          console.log(result.value);
+          insertProv(result.value).then(response => console.log(response));
     
         }
+
       });
 }
 
