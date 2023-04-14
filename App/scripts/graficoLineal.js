@@ -5,8 +5,8 @@ function datosVentasPedidos() {
         .then(resultado => {
 
             resultado.forEach(venta => {
-                
-                switch (venta.Mes) {
+                let ventaMes=parseInt(venta.Mes);
+                switch (ventaMes) {
                     case 1:
                         mesesVentas[0] = venta.CantidadVendida;
                         break;
@@ -56,7 +56,8 @@ function datosVentasPedidos() {
             .then(dev => dev.json())
             .then(resultado => {
                 resultado.forEach(venta => {
-                    switch (venta.Mes) {
+                    let ventaMes=parseInt(venta.Mes);
+                    switch (ventaMes) {
                         case 1:
                             mesesPedidos[0] = venta.CantidadPedida;
                             break;
