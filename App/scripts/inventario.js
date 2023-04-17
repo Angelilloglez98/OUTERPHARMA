@@ -84,9 +84,11 @@ async function traerDatos() {
 
 
             if(resultadoApi.fotos===undefined){
-                cartaBonita('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                // cartaBonita('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
             }else{
-                cartaBonita(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                // cartaBonita(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
             }
             
         }
@@ -268,6 +270,57 @@ function cartaBonita(foto, nombre, cn, cant, precio, pres, pAct, Lab, vAd){
 
     // carta.appendChild(card)
     divPrincipal.appendChild(card); // Meter la carta en el div de datos
+
+    divPrincipal.addEventListener('click', (e) => {
+        var div = e.target.closest(".carta");
+        div.classList.toggle('clicked');
+    })
+}
+
+function carta(foto, nombre, cn, cant, precio) {
+
+    let divPrincipal = document.querySelector(".datos");
+
+    let carta = document.createElement("article");
+    carta.classList.add("carta");
+    // carta.style.backgroundImage = `url(${foto})`;
+    // carta.style.backgroundRepeat = "no-repeat";
+    // carta.style.backgroundSize = "cover";
+
+    let temp = document.createElement("div");
+    temp.classList.add("temporary_text");
+    temp.appendChild(document.createTextNode(nombre));
+    
+
+    let img = new Image();
+    img.src = foto;
+    img.classList.add('imagen_foto');
+
+    temp.appendChild(img);
+
+    carta.appendChild(temp)
+
+    let content = document.createElement("div");
+    content.classList.add("card_content");
+
+    let title = document.createElement("span");
+    title.classList.add('card_title');
+    title.appendChild(document.createTextNode(cn));
+    content.appendChild(title);
+
+    let subtitle = document.createElement("span");
+    subtitle.classList.add('card_subtitle');
+    subtitle.appendChild(document.createTextNode(cant));
+    content.appendChild(subtitle);
+
+    let Precio = document.createElement("p");
+    Precio.classList.add('card_description');
+    Precio.appendChild(document.createTextNode(precio));
+    content.appendChild(Precio);
+
+    carta.appendChild(content);
+
+    divPrincipal.appendChild(carta); 
 }
 
 function vaciarDatos() {
