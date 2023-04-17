@@ -5,7 +5,8 @@ function datosVentasPedidos() {
         .then(resultado => {
 
             resultado.forEach(venta => {
-                switch (venta.Mes) {
+                let ventaMes=parseInt(venta.Mes);
+                switch (ventaMes) {
                     case 1:
                         mesesVentas[0] = venta.CantidadVendida;
                         break;
@@ -55,41 +56,42 @@ function datosVentasPedidos() {
             .then(dev => dev.json())
             .then(resultado => {
                 resultado.forEach(venta => {
-                    switch (venta.Mes) {
-                        case '1':
+                    let ventaMes=parseInt(venta.Mes);
+                    switch (ventaMes) {
+                        case 1:
                             mesesPedidos[0] = venta.CantidadPedida;
                             break;
-                        case '2':
+                        case 2:
                             mesesPedidos[1] = venta.CantidadPedida;
                             break;
-                        case '3':
+                        case 3:
                             mesesPedidos[2] = venta.CantidadPedida;
                             break;
-                        case '4':
+                        case 4:
                             mesesPedidos[3] = venta.CantidadPedida;
                             break;
-                        case '5':
+                        case 5:
                             mesesPedidos[4] = venta.CantidadPedida;
                             break;
-                        case '6':
+                        case 6:
                             mesesPedidos[5] = venta.CantidadPedida;
                             break;
-                        case '7':
+                        case 7:
                             mesesPedidos[6] = venta.CantidadPedida;
                             break;
-                        case '8':
+                        case 8:
                             mesesPedidos[7] = venta.CantidadPedida;
                             break;
-                        case '9':
+                        case 9:
                             mesesPedidos[8] = venta.CantidadPedida;
                             break;
-                        case '10':
+                        case 10:
                             mesesPedidos[9] = venta.CantidadPedida;
                             break;
-                        case '11':
+                        case 11:
                             mesesPedidos[10] = venta.CantidadPedida;
                             break;
-                        case '12':
+                        case 12:
                             mesesPedidos[11] = venta.CantidadPedida;
                             break;
                         default:
