@@ -59,7 +59,13 @@ window.onload = () => {
                     .then(res=>res.json())
                     .then(resultadoApi=>{
                         vaciarDatos();
-                        pintarDatos(resultadoApi.fotos[0].url,element[i].CodigoNacional, element[i].NombreProducto, element[i].Cantidad, element[i].Precio)
+                        if(resultadoApi.fotos===undefined){
+                            carta('http://localhost/OuterPharma/App/assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            // carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
+                        }else{
+                            carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            // carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
+                        }
                     });
                     
                 }
