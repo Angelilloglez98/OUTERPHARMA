@@ -1,4 +1,4 @@
-.form-control{
+/* .form-control{
   border-radius: 25px;
   height: fit-content;
 }
@@ -22,30 +22,30 @@ p{
 .col-9{
   border-radius: 25px;
 
-  /* background-color: white; */
-}
+  
+} */
 
-/* Estilos para dispositivos de pantalla pequeña */
-@media only screen and (max-width: 767px) {
+
+/* @media only screen and (max-width: 767px) {
   .col-9, .col-3, .col-2, .col-12 {
-    width: 100%; /* Las columnas ocupan todo el ancho */
-    margin: 0; /* Quita el margen */
-    border-radius: 0; /* Quita el radio del borde */
-    border: none; /* Quita el borde */
+    width: 100%; 
+    margin: 0; 
+    border-radius: 0; 
+    border: none; 
   }
   
   .col-12:first-child {
-    margin-bottom: 1.5rem; /* Reducir la cantidad de margen inferior */
+    margin-bottom: 1.5rem; 
   }
   
   .imagen_foto {
-    width: 100%; /* La imagen ocupa todo el ancho disponible */
-    height: auto; /* La altura se ajusta automáticamente */
+    width: 100%; 
+    height: auto; 
   }
-}
+} */
 
 /* Css de la tarjeta*/
-*, *:before, *:after {
+/* *, *:before, *:after {
   box-sizing: border-box;
 }
 
@@ -189,11 +189,11 @@ sup {
   text-align: center;
 }
 
-.carta:hover .front {
+.carta.clicked .front {
   transform: perspective(600px) rotateY(180deg);
 }
 
-.carta:hover .back {
+.carta.clicked .back {
   transform: perspective(600px) rotateY(360deg);
 }
 
@@ -218,4 +218,80 @@ sup {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   background-color: #FFF;
+} */
+
+/* Carta */
+.carta {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  color: #2e2d31;
+  background-color: #f2f2f2;
+  overflow: hidden;
+  border-radius: 20px;
 }
+
+.temporary_text {
+  font-weight: bold;
+  font-size: 24px;
+  padding: 6px 12px;
+  /* color: #f8f8f8; */
+  
+}
+
+.card_title {
+  font-weight: bold;
+}
+
+.card_content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+    /* edit the width to fit card */
+  width: 100%;
+  padding: 20px;
+  background: #f2f2f2;
+  border-top-left-radius: 20px;
+    /* edit here to change the height of the content box */
+  transform: translateY(150px);
+  transition: transform .25s;
+}
+
+.card_content::before {
+  content: '';
+  position: absolute;
+  top: -47px;
+  right: -45px;
+  width: 100px;
+  height: 100px;
+  transform: rotate(-175deg);
+  border-radius: 50%;
+  box-shadow: inset 48px 48px #f2f2f2;
+}
+
+.card_title {
+  color: #131313;
+  line-height: 15px;
+}
+
+.card_subtitle {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.card_description {
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+.carta:hover .card_content {
+  transform: translateY(0);
+}
+
+.carta:hover .card_description {
+  opacity: 1;
+  transition-delay: .25s;
+}
+
