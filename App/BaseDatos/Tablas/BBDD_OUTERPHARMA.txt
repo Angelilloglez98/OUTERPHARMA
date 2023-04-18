@@ -70,14 +70,14 @@ CREATE TABLE VENTAS_PRODUCTOS(
 );
 
 INSERT INTO FARMACIAS (Ccorreo, nColegiado, NombreF, Contrasenia, Direccion, nTelefono) VALUES
-('farmacia1@gmail.com', 123456789, 'Farmacia La Esperanza', 'password1', 'Calle 1, #23', 5551234),
-('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', 'password2', 'Avenida 2, #45', 5555678);
+('farmacia1@gmail.com', 123456789, 'Farmacia La Esperanza', '$2y$10$UdFGOPpfsEdGYvHIno07KenWQXIMaKekqgYKr8NpWAA5h7N4ejPrS', 'Calle 1, #23', 5551234),
+('farmacia2@yahoo.com', 987654321, 'Farmacia San Rafael', '$2y$10$UdFGOPpfsEdGYvHIno07KenWQXIMaKekqgYKr8NpWAA5h7N4ejPrS', 'Avenida 2, #45', 5555678);
 
 INSERT INTO EMPLEADOS (UrlEmpleado,NombreEmpleado,Telefono,CorreoPersonal, CcorreoFarmacia, Contrasena, Rol) VALUES
-('assets/A1.png','Juan Perez',622345367,'juanperez@gmail.com','farmacia1@gmail.com', 'password3', 'User'),
-('assets/A2.png','Admin',624765187,'mariz@gmail.com', 'farmacia1@gmail.com', 'password4', 'Admin'),
-('assets/A3.png','Pedro Garcia',626738523,'pedrito@gmail.com', 'farmacia2@yahoo.com', 'password5', 'User'),
-('assets/A2.png','Admin',624765187,'mariz@gmail.com', 'farmacia2@yahoo.com', 'password6', 'Admin');
+('assets/A1.png','Juan Perez',622345367,'juanperez@gmail.com','farmacia1@gmail.com', '$2y$10$UdFGOPpfsEdGYvHIno07KenWQXIMaKekqgYKr8NpWAA5h7N4ejPrS', 'User'),
+('assets/A2.png','Admin',624765187,'mariz@gmail.com', 'farmacia1@gmail.com', '$2y$10$dP5et59BBaaz9V61OqF5ieSZV3g8CjviccT684pG1WLQR/2XGh2ke', 'Admin'),
+('assets/A3.png','Pedro Garcia',626738523,'pedrito@gmail.com', 'farmacia2@yahoo.com', '$2y$10$UdFGOPpfsEdGYvHIno07KenWQXIMaKekqgYKr8NpWAA5h7N4ejPrS', 'User'),
+('assets/A2.png','Admin',624765187,'mariz@gmail.com', 'farmacia2@yahoo.com', '$2y$10$dP5et59BBaaz9V61OqF5ieSZV3g8CjviccT684pG1WLQR/2XGh2ke', 'Admin');
 
 INSERT INTO PRODUCTOS (CodigoNacional, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
 (698683, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),

@@ -137,7 +137,7 @@ window.onload = () => {
     pPass.appendChild(txtPass);
     div.appendChild(pPass);
     let inputPass = document.createElement("input");
-    inputPass.classList.add("inputs");
+    inputPass.id = "password";
     inputPass.type = "password";
     div.appendChild(inputPass);
 
@@ -232,19 +232,21 @@ window.onload = () => {
           cerrarVentana()
         })
         let accept = document.querySelector(".aceptar");
-        let validacion = document.querySelectorAll("input");
+        let validacion = document.querySelector("#password")
 
         accept.addEventListener("click", () => {  
           
-          let pass = localStorage.getItem("password")
-
-          if (validacion[1].value==pass) {
-            eliminarDatos(nombre);
-            cerrarVentana()
-            location.reload();
-          } else {
-            alert("La contraseña es incorrecta");
-          }
+          
+          let pass = {'password':validacion.value};
+          comprobarPass(pass).then(result=>{
+            if (result=="true") {
+              eliminarDatos(nombre,nEmpleado);
+              cerrarVentana()
+              location.reload();
+            } else {
+              alert("La contraseña es incorrecta");
+            }}
+            )
         })
       })
     }
@@ -472,18 +474,19 @@ window.onload = () => {
     xhr.send(data);
   }
 
-  // const comprobarPass=async(password)=>{
-  //   const option={
-  //     method:"POST",
-  //     redirect:"follow",
-  //     body:password,
-  //     Headers:{
-  //       "Accept":"application/json"
-  //     }
-  //   }
-  //   return fetch("BaseDatos/comprobarPass.php",option)
-  //   .then(response=>response.json())
-  //   .then(result=>{return result})
-  //   .catch(e=>{console.error("ERROR:" , e.message)})
-  // }
+  const comprobarPass=async(password)=>{
+    var pass = JSON.stringify(password);
+    const option={
+      method:"POST",
+      redirect:"follow",
+      body:pass,
+      Headers:{
+        "Accept":"application/json"
+      }
+    }
+    return fetch("BaseDatos/comprobarPass.php",option)
+    .then(response=>response.text())
+    .then(result=>{return result})
+    .catch(e=>{console.error("ERROR:" , e.message)})
+  }
 } 

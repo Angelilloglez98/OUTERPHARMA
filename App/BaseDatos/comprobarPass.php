@@ -4,8 +4,10 @@
 
     $registros=array();
 
+    $data = json_decode(file_get_contents('php://input'), true);
+
     $correo=$_SESSION['CorreoFarmacia'];
-    $password=$_POST['password'];
+    $password=$data['password'];
     $sql="SELECT Contrasena from empleados where CcorreoFarmacia='$correo' AND Rol='Admin'";
     
     $pdo->exec("SET NAMES 'utf8mb4'");
@@ -16,9 +18,7 @@
 
     $fila=$sth->fetch();
 
-    $verify = password_verify($fila['Contrasena'], $hash);
-
-    if ($verify) {
+    if (password_verify($password,$fila['Contrasena'])) {
         echo "true";
     } else {
         echo "false";

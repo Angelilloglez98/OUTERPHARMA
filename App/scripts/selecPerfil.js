@@ -36,11 +36,11 @@ window.onload=()=>{
             form.appendChild(inputPassword);
             form.appendChild(button);
             button.onclick=()=>{
-                ComprobarContrasena(element.contrasena,inputPassword.value,element.rol);
+                ComprobarContrasena(inputPassword.value,element.rol,element.nEmpleado);
             }
             form.onsubmit=(e)=>{
                 e.preventDefault();
-                ComprobarContrasena(element.contrasena,inputPassword.value,element.rol);
+                ComprobarContrasena(inputPassword.value,element.rol,element.nEmpleado);
             }
                 
             elemento.appendChild(form);
@@ -59,39 +59,46 @@ window.onload=()=>{
             
         }
     
-        function ComprobarContrasena(contrasenaReal,contrasenaInput,rol) {
-            if (contrasenaReal===contrasenaInput){
-                if (rol==='Admin') {
-                    localStorage.setItem("password",contrasenaReal)
-                    location.replace('./InicioAdmin.html');
-                }else{
-                    location.replace('./Inicio.html');
-                }
-                localStorage.setItem('perfil',element.nempleado);
-            }else{
-                console.log("error");
-            }
-            
+        function ComprobarContrasena(contrasenaInput,rol,nEmpleado) {
+
+            let pass = {'password':contrasenaInput};
+            comprobarPass(pass,nEmpleado).then(result=>{
+                if (result=="true") {
+                    if (rol==='Admin') {
+                        localStorage.setItem("password",contrasenaInput)
+                        location.replace('./InicioAdmin.html');
+                    }else{
+                        location.replace('./Inicio.html');
+                    }
+                    localStorage.setItem('perfil',element.nempleado);
+                } else {
+                    console.log("error");
+                }}
+            )
+   
         }
     }));
 
     //Parte de Juanjo
 
-    // const comprobarPass = async (password) => {
-    //     const option = {
-    //       method: "POST",
-    //       redirect: "follow",
-    //       headers: {
-    //         "Accept": "application/json",
-    //         "Content-Type": "application/json"
-    //       },
-    //       body:password,
-    //     };
-    //     return fetch("BaseDatos/comprobarperfil.php", option)
-    //       .then(response => response.json())
-    //       .then(result => result)
-    //       .catch(e => console.error("ERROR:", e.message));
-    //   };
+    const comprobarPass=async(password,nEmpleado)=>{
+        var datos = {
+            datos1: password,
+            datos2: nEmpleado
+        }
+        const option={
+          method:"POST",
+          redirect:"follow",
+          body:JSON.stringify(datos),
+          Headers:{
+            "Accept":"application/json"
+          }
+        }
+        return fetch("BaseDatos/comprobarperfil.php",option)
+        .then(response=>response.text())
+        .then(result=>{return result})
+        .catch(e=>{console.error("ERROR:" , e.message)})
+      }
 
 
 }
