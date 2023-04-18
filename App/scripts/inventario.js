@@ -84,11 +84,11 @@ async function traerDatos() {
 
 
             if(resultadoApi.fotos===undefined){
-                // cartaBonita('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
-                carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
+                carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                // carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
             }else{
-                // cartaBonita(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
-                carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
+                carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                // carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
             }
             
         }
@@ -277,19 +277,20 @@ function cartaBonita(foto, nombre, cn, cant, precio, pres, pAct, Lab, vAd){
     })
 }
 
-function carta(foto, nombre, cn, cant, precio) {
+function carta(foto, nombre, cn, cant, precio, pres, pAct, lab, vAd) {
 
     let divPrincipal = document.querySelector(".datos");
 
     let carta = document.createElement("article");
     carta.classList.add("carta");
-    // carta.style.backgroundImage = `url(${foto})`;
-    // carta.style.backgroundRepeat = "no-repeat";
-    // carta.style.backgroundSize = "cover";
+    carta.dataset.name = nombre; // Añadir el dataset de nombre
+    carta.dataset.codigo = cn; // Añadir el dataset de codigo
+
 
     let temp = document.createElement("div");
     temp.classList.add("temporary_text");
-    temp.appendChild(document.createTextNode(nombre));
+    var nom = nombre.split(" ")[0];
+    temp.appendChild(document.createTextNode(nom));
     
 
     let img = new Image();
@@ -305,22 +306,59 @@ function carta(foto, nombre, cn, cant, precio) {
 
     let title = document.createElement("span");
     title.classList.add('card_title');
-    title.appendChild(document.createTextNode(cn));
+    title.appendChild(document.createTextNode("Codigo Nacional"));
     content.appendChild(title);
 
     let subtitle = document.createElement("span");
     subtitle.classList.add('card_subtitle');
-    subtitle.appendChild(document.createTextNode(cant));
+    subtitle.appendChild(document.createTextNode(cn));
     content.appendChild(subtitle);
+
+    let Cantidad = document.createElement("p");
+    Cantidad.classList.add('card_description');
+    Cantidad.appendChild(document.createTextNode("Stock: " + cant));
+    content.appendChild(Cantidad);
 
     let Precio = document.createElement("p");
     Precio.classList.add('card_description');
-    Precio.appendChild(document.createTextNode(precio));
+    Precio.appendChild(document.createTextNode("Precio: " + precio + "euros"));
     content.appendChild(Precio);
+
+    let Pres = document.createElement("p");
+    Pres.classList.add('card_description');
+    Pres.appendChild(document.createTextNode("Prescipcion médica: " + pres));
+    content.appendChild(Pres);
+
+    let PAct = document.createElement("p");
+    PAct.classList.add('card_description');
+    PAct.appendChild(document.createTextNode("Principio activo: " + pAct));
+    content.appendChild(PAct);
+
+    let Lab = document.createElement("p");
+    Lab.classList.add('card_description');
+    Lab.appendChild(document.createTextNode("Laboratorio: " + lab));
+    content.appendChild(Lab);
+
+    let VAd = document.createElement("p");
+    VAd.classList.add('card_description');
+    VAd.appendChild(document.createTextNode("Via de administración: " + vAd));
+    content.appendChild(VAd);
+
+    let botonBorrar = document.createElement("input");
+    botonBorrar.classList.add("info_botonBorrar", "btn", "btn-rounded");
+    botonBorrar.type = "button";
+    botonBorrar.value = "Borrar";
+
+    botonBorrar.addEventListener('click', function(e){
+        borrar(e);
+    });
+
+    content.appendChild(botonBorrar)
 
     carta.appendChild(content);
 
     divPrincipal.appendChild(carta); 
+
 }
 
 function vaciarDatos() {
