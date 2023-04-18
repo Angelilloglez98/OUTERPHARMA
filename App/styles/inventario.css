@@ -1,4 +1,4 @@
-/* .form-control{
+ .form-control{
   border-radius: 25px;
   height: fit-content;
 }
@@ -21,31 +21,10 @@ p{
 
 .col-9{
   border-radius: 25px;
-
-  
-} */
-
-
-/* @media only screen and (max-width: 767px) {
-  .col-9, .col-3, .col-2, .col-12 {
-    width: 100%; 
-    margin: 0; 
-    border-radius: 0; 
-    border: none; 
-  }
-  
-  .col-12:first-child {
-    margin-bottom: 1.5rem; 
-  }
-  
-  .imagen_foto {
-    width: 100%; 
-    height: auto; 
-  }
-} */
+} 
 
 /* Css de la tarjeta*/
-/* *, *:before, *:after {
+*, *:before, *:after {
   box-sizing: border-box;
 }
 
@@ -53,32 +32,7 @@ p{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center !important;
-}
-
-@media only screen and (max-width: 1400px) {
-  .datos{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
-  }
-
-  .drug-card{
-    display: flex;
-    justify-content: center;
-  }
-}
-
-@media only screen and (max-width: 990px) {
-  .datos{
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    justify-content: center;
-  }
-
-  .drug-card{
-    display: flex;
-    justify-content: center;
-  }
+  row-gap: 4.953125rem;
 }
 
 .row > *{
@@ -93,14 +47,6 @@ p{
   justify-content: center;
   align-items: center;
   padding: .5rem;
-}
-
-.imagen_foto {
-  width: 90%;
-  height: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .drug-card__name {
@@ -140,91 +86,29 @@ sup {
   width: 100%;
 }
 
-.dato {
-  position: relative;
-  font-size: .9rem;
-  width: 100%;
-}
-
-.carta {
-  position: relative;
-  height: 400px;
-  width: 250px;
-  margin: 2rem;
-  display: inline-block;
-  text-align: center;
-}
-
-.carta .face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  overflow: hidden;
-  transition: .5s;
-}
-
-.carta .front {
-  transform: perspective(600px) rotateY(0deg);
-  box-shadow: 0 5px 10px #4723D9;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.carta .front img {
-  position: absolute;
-  width: 80%;
-  height: 80%;
-}
-
-.carta .back {
-  transform: perspective(600px) rotateY(180deg);
-  background: #4723D9;
-  padding: 15px;
-  color: #f3f3f3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-}
-
-.carta.clicked .front {
-  transform: perspective(600px) rotateY(180deg);
-}
-
-.carta.clicked .back {
-  transform: perspective(600px) rotateY(360deg);
-}
-
 .contenedor {
   margin-top: 2rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
 
-.info_parrafo {
-  display: flex;
-  text-align: start;
-  margin-bottom: 2.5rem;
-}
-
 .info_botonBorrar {
+  /* margin-top: 1rem; */
   display: block;
-  margin: 0 auto;
+  margin: 1rem auto;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   background-color: #FFF;
-} */
+} 
 
 /* Carta */
 .carta {
   position: relative;
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   color: #2e2d31;
   background-color: #f2f2f2;
   overflow: hidden;
@@ -235,8 +119,13 @@ sup {
   font-weight: bold;
   font-size: 24px;
   padding: 6px 12px;
+  height: 200px;
   /* color: #f8f8f8; */
-  
+}
+
+.imagen_foto {
+  width: 100%;
+  height: 100%;
 }
 
 .card_title {
@@ -249,28 +138,36 @@ sup {
   bottom: 0;
     /* edit the width to fit card */
   width: 100%;
+  min-height: 300px;
+  max-height: 300px;
   padding: 20px;
-  background: #f2f2f2;
+  background: #000;
+  color: #FFFFFF;
   border-top-left-radius: 20px;
     /* edit here to change the height of the content box */
-  transform: translateY(150px);
+  transform: translateY(240px);
   transition: transform .25s;
+  overflow-y: scroll;
+}
+
+.card_content::-webkit-scrollbar {
+  width: 0px; /* cambia el ancho del scrollbar */
 }
 
 .card_content::before {
   content: '';
   position: absolute;
-  top: -47px;
+  top: -57px;
   right: -45px;
   width: 100px;
   height: 100px;
   transform: rotate(-175deg);
   border-radius: 50%;
-  box-shadow: inset 48px 48px #f2f2f2;
+  box-shadow: inset 48px 48px #000;
 }
 
 .card_title {
-  color: #131313;
+  color: #FFFFFF;
   line-height: 15px;
 }
 
@@ -287,7 +184,7 @@ sup {
 }
 
 .carta:hover .card_content {
-  transform: translateY(0);
+  transform: translateY(35px);
 }
 
 .carta:hover .card_description {
@@ -295,3 +192,46 @@ sup {
   transition-delay: .25s;
 }
 
+@media only screen and (max-width: 1400px) {
+  .datos{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+  }
+
+  .drug-card{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .datos{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: center;
+  }
+
+  .drug-card{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .col-9, .col-3, .col-2, .col-12 {
+    width: 100%; 
+    margin: 0; 
+    border-radius: 0; 
+    border: none; 
+  }
+  
+  .col-12:first-child {
+    margin-bottom: 1.5rem; 
+  }
+  
+  .imagen_foto {
+    width: 100%; 
+    height: auto; 
+  }
+}
