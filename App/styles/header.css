@@ -18,7 +18,7 @@
 body{
   background-color: var(--white-color);
   position: relative;
-  margin: var(--header-height) 0 0 0;
+  /* margin: var(--header-height) 0 0 0; */
   padding: 0 1rem;
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
@@ -147,7 +147,7 @@ a{
 
 @media screen and (min-width: 768px){
   body{
-    margin: calc(var(--header-height) + 1rem) 0 0 0;
+    /* margin: calc(var(--header-height) + 1rem) 0 0 0; */
     padding-left: calc(var(--nav-width) + 2rem);
   }
 
