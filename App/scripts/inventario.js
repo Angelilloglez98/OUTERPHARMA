@@ -344,16 +344,59 @@ function carta(foto, nombre, cn, cant, precio, pres, pAct, lab, vAd) {
     VAd.appendChild(document.createTextNode("Via de administración: " + vAd));
     content.appendChild(VAd);
 
-    let botonBorrar = document.createElement("input");
-    botonBorrar.classList.add("info_botonBorrar", "btn", "btn-rounded");
-    botonBorrar.type = "button";
-    botonBorrar.value = "Borrar";
+    // Create a new button element
+    let button = document.createElement('button');
 
-    botonBorrar.addEventListener('click', function(e){
+    // Set the class of the button element
+    button.className = 'noselect';
+
+    // Create the first span element and set its class and text content
+    let textSpan = document.createElement('span');
+    textSpan.className = 'text';
+    textSpan.textContent = 'Delete';
+
+    // Create the second span element and set its class
+    let iconSpan = document.createElement('span');
+    iconSpan.className = 'icon';
+
+    // Create the SVG element and set its attributes
+    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svg.setAttribute('width', '24');
+    svg.setAttribute('height', '24');
+    svg.setAttribute('viewBox', '0 0 24 24');
+
+    // Create the path element and set its attribute
+    let path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z');
+
+    // Append the path element to the SVG element
+    svg.appendChild(path);
+
+    // Append the SVG element to the icon span element
+    iconSpan.appendChild(svg);
+
+    // Append the two span elements to the button element
+    button.appendChild(textSpan);
+    button.appendChild(iconSpan);
+
+    button.addEventListener('click', function(e){
         borrar(e);
     });
 
-    content.appendChild(botonBorrar)
+    // Add the button element to the DOM (replace "parent" with the appropriate parent element)
+    content.appendChild(button);
+
+    // let botonBorrar = document.createElement("input");
+    // botonBorrar.classList.add("info_botonBorrar", "btn", "btn-rounded");
+    // botonBorrar.type = "button";
+    // botonBorrar.value = "Borrar";
+
+    // botonBorrar.addEventListener('click', function(e){
+    //     borrar(e);
+    // });
+
+    // content.appendChild(botonBorrar)
 
     carta.appendChild(content);
 
