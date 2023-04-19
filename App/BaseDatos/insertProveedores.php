@@ -2,7 +2,6 @@
 
     require('./conexionDB.php');
     session_start();
-    $registros=array();
 
     $data = json_decode(file_get_contents('php://input'), true);
 
@@ -10,8 +9,6 @@
     $Direccion = $data["Direccion"];
     $nTelefono = $data["nTelefono"];
     $Link = $data["Link"];
-
-    echo $Nombre.$Direccion.$nTelefono.$Link; 
 
     $CcorreoFarmacia=$_SESSION['CorreoFarmacia'];
 

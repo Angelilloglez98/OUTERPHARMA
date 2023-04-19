@@ -2,18 +2,19 @@
     require('./conexionDB.php');
     session_start();
 
+    $data = json_decode(file_get_contents('php://input'), true);
+
     $CcorreoFarmacia=$_SESSION['CorreoFarmacia'];
-    $Nombre=$_POST["Nombre"];
+    $Nombre=$data["Nombre"];
    
-
-
-    $sql="DELETE FROM proveedores WHERE CcorreoFarmacia = '$correo' AND Nombre = :Nombre";
+    $sth=$pdo->prepare("DELETE FROM proveedores WHERE CcorreoFarmacia = :CcorreoFarmacia AND Nombre = :Nombre");
     $sth->bindParam(':CcorreoFarmacia', $CcorreoFarmacia);
     $sth->bindParam(':Nombre', $Nombre);
 
-    $pdo->exec("SET NAMES 'utf8mb4'");
+    if ($sth->execute()) {
+        echo true;
+    } else {
+        echo "Error al insertar: " . $sth->errorInfo()[2];
+    }
 
-    $sth=$pdo->prepare($sql);
-
-    $sth->execute();
 ?>
