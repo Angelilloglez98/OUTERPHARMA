@@ -418,9 +418,7 @@ function vaciarDatos() {
 
 async function insertarProducto(cn){
     const medicamentoExistente = await comprobarMedicamento(cn);
-    if (medicamentoExistente) {
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/añadirStock.php?cn=${cn}`);
-    } else {
+     
         const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
         const resultadoApi = await resApi.json();
 
@@ -436,26 +434,47 @@ async function insertarProducto(cn){
             pres = 'S';
         }
 
+        
         let Precio;
-        let fEntrada;
-        	
-        const { value: formValues } = await Swal.fire({
-            title: 'Precio y fecha de caducidad del nuevo medicamento',
-            html:
-            '<input id="swal-input1" type="number" class="swal2-input">' +
-            '<input id="swal-input2" type="date" class="swal2-input">',
-            focusConfirm: false,
-            preConfirm: () => {
-                return [
-                    Precio = document.getElementById('swal-input1').value,
-                    fEntrada = document.getElementById('swal-input2').value
-                ]
-            }
-        })
+        let stock;
+        
+        if (medicamentoExistente) {
+            const { value: formValues } = await Swal.fire({
+                title: 'Stock a añadir del medicamento',
+                html:
+                '<input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">',
+                focusConfirm: false,
+                preConfirm: () => {
+                    return [
+                        stock = document.getElementById('swal-input2').value,
+                    ]
+                }
+            })
+        } else {
+            const { value: formValues } = await Swal.fire({
+                title: 'Precio y Stock a añadir del medicamento',
+                html:
+                '<input id="swal-input1" type="number" class="swal2-input" placeholder="Precio">' + 
+                '<input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">',
+                focusConfirm: false,
+                preConfirm: () => {
+                    return [
+                        Precio = document.getElementById('swal-input1').value,
+                        stock = document.getElementById('swal-input2').value
+                    ]
+                }
+            })
+        }
+        
 
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-        &via=${vAdmin}&pres=${pres}&precio=${Precio}&fecha=${fEntrada}`);
-    }
+        if (medicamentoExistente) {
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`);
+        } else {
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+            &via=${vAdmin}&pres=${pres}&precio=${Precio}&stock=${stock}`);
+        }
+        
+    
     vaciarDatos();
     traerDatos(); 
 }
