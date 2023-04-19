@@ -11,9 +11,9 @@ $lab = $_GET["lab"];
 $vadmin = $_GET["via"];
 $pres = $_GET["pres"];
 $precio =$_GET["precio"];
-$cantidad = 1;
+$cantidad = $_GET["stock"];
 $fEntrada = date('Y-m-d H:i:s');
-$fCaducidad = $_GET["fecha"];
+$fCaducidad = "01-01-2050 00:00:00"
 
 
 $correo=$_SESSION['CorreoFarmacia'];
