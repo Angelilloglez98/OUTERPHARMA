@@ -22,21 +22,21 @@ function Activar(params) {
         
             Quagga.onDetected(function(result) {
             
-                BuscarMedicamento(result.codeResult.code.substring(6,12));
+                insertarProducto(result.codeResult.code.substring(6,12));
                 resetear();
             });
         document.querySelector('#Escaner').style.position='relative';
 }
 
-    boton.addEventListener('click', function() {
-        if (!boton.classList.contains('Active')) {
-            Activar();
-            boton.classList.add('Active');
-        }else{
-            boton.classList.remove('Active');
-            EliminarCodigoBarra(); 
-        }
-    })
+boton.addEventListener('click', function() {
+    if (!boton.classList.contains('Active')) {
+        Activar();
+        boton.classList.add('Active');
+    }else{
+        boton.classList.remove('Active');
+        EliminarCodigoBarra(); 
+    }
+})
     
 
 
