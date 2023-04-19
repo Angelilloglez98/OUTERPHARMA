@@ -7,162 +7,154 @@ window.onload = () => {
 
     }));
 
-  function ventanaEmergenteEdit(nombre, correo, telefono, nempleado) {
-    let div = document.createElement('div');
-    div.setAttribute("id", "emergente");
-    div.classList.add("emergente");
+  function ventanaEmergenteEdit(nombre, telefono, correo, nempleado) {
 
-    let pName = document.createElement('p');
-    let txtName = document.createTextNode("Nombre:");
-    pName.appendChild(txtName);
-    div.appendChild(pName);
-    let inputName = document.createElement("input");
-    inputName.type = "text";
-    inputName.value = nombre;
-    div.appendChild(inputName);
+    const form = {
 
-    let pTelefono = document.createElement('p');
-    let txtTelefono = document.createTextNode("Telefono:");
-    pTelefono.appendChild(txtTelefono);
-    div.appendChild(pTelefono);
-    let inputTelefono = document.createElement("input");
-    inputTelefono.classList.add("inputs");
-    inputTelefono.value = telefono;
-    div.appendChild(inputTelefono);
+      title: "Editar usuario",
 
-    let pCorreo = document.createElement('p');
-    let txtCorreo = document.createTextNode("Correo personal:");
-    pCorreo.appendChild(txtCorreo);
-    div.appendChild(pCorreo);
-    let inputCorreo = document.createElement("input");
-    inputCorreo.classList.add("inputs");
-    inputCorreo.value = correo;
-    div.appendChild(inputCorreo);
+      html: `
+        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/updEmpleado.php">
+          <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input" value="${nombre}">
+          <input type="text" name="Correo" placeholder="Correo" class="swal2-input" value="${correo}">
+          <input type="tel" name="nTelefono" placeholder="Teléfono" class="swal2-input" value="${telefono}">
+          
+        </form>
+      `,
 
-    let p4 = document.createElement('p');
-    let txtnempleado = document.createTextNode(nempleado);
-    p4.classList.add("empleado")
-    p4.hidden = true;
-    p4.appendChild(txtnempleado);
-    div.appendChild(p4)
+      focusConfirm: false,
 
-    let div2 = document.createElement("div");
-    div.appendChild(div2);
+      preConfirm: () => {
+        
+        // Retorna un objeto con los valores de los campos del formulario
+        return {
+          Nombre: document.getElementsByName("Nombre")[0].value,
+          Direccion: document.getElementsByName("Correo")[0].value,
+          nTelefono: document.getElementsByName("nTelefono")[0].value,
+        };
 
-    let buttonAccept = document.createElement('button')
-    buttonAccept.classList.add("aceptar")
-    let textAccept = document.createTextNode("Aceptar")
-    buttonAccept.appendChild(textAccept);
-    let buttonCancel = document.createElement('button')
-    buttonCancel.classList.add("cancel")
-    let textCancel = document.createTextNode("Cancel")
-    buttonCancel.appendChild(textCancel);
-    div2.appendChild(buttonAccept);
-    div2.appendChild(buttonCancel);
-    document.body.appendChild(div);
+      },
+
+    };
+  
+      // Muestra la ventana modal con el formulario
+      Swal.fire(form).then((result) => {
+        // Si el usuario ha enviado el formulario, muestra los valores de los campos
+        if (result.isConfirmed) {
+          let nombre = document.querySelector('input[name="Nombre"]').value
+          let correo = document.querySelector('input[name="Correo"]').value
+          let ntelefono = document.querySelector('input[name="nTelefono"]').value
+
+          if (validarNombre(nombre) == true && validarCorreoElectronico(correo) && validarTelefono(ntelefono)) {
+
+            enviarDatos(nombre, correo, ntelefono,nempleado)
+            location.reload();
+          } else {
+            alert("rellene bien los campos")
+          }
+    
+        }
+
+      });
+
   }
 
   function ventanaEmergenteCrear() {
-    let div = document.createElement('div');
-    div.setAttribute("id", "emergente");
-    div.classList.add("emergente");
+    const form = {
 
-    let pName = document.createElement('p');
-    let txtName = document.createTextNode("Nombre:");
-    pName.appendChild(txtName);
-    div.appendChild(pName);
-    let inputName = document.createElement("input");
+      title: "Agregar usuario",
 
-    div.appendChild(inputName);
+      html: `
+        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/delEmpleados.php">
+          <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input">     
+          <input type="telefono" name="telefono" placeholder="Teléfono" class="swal2-input">
+          <input type="correo" name="correo" placeholder="Correo" class="swal2-input">   
+          <input type="password" name="password" placeholder="Contraseña" class="swal2-input">          
+        </form>
+      `,
 
-    let pTelefono = document.createElement('p');
-    let txtTelefono = document.createTextNode("Telefono:");
-    pTelefono.appendChild(txtTelefono);
-    div.appendChild(pTelefono);
-    let inputTelefono = document.createElement("input");
-    inputTelefono.classList.add("inputs");
-    div.appendChild(inputTelefono);
+      focusConfirm: false,
 
-    let pCorreo = document.createElement('p');
-    let txtCorreo = document.createTextNode("Correo personal:");
-    pCorreo.appendChild(txtCorreo);
-    div.appendChild(pCorreo);
-    let inputCorreo = document.createElement("input");
-    inputCorreo.classList.add("inputs");
-    div.appendChild(inputCorreo);
+      preConfirm: () => {
+        
+        // Retorna un objeto con los valores de los campos del formulario
+        return {
+          Nombre: document.getElementsByName("Nombre")[0].value,
 
-    let pContraseña = document.createElement('p');
-    let txtContraseña = document.createTextNode("Contraseña:");
-    pContraseña.appendChild(txtContraseña);
-    div.appendChild(pContraseña);
-    let inputContraseña = document.createElement("input");
-    inputContraseña.classList.add("inputs");
-    inputContraseña.type = "password"
-    div.appendChild(inputContraseña);
+        };
 
-    let div2 = document.createElement("div");
-    div.appendChild(div2);
+      },
 
-    let buttonAccept = document.createElement('button')
-    buttonAccept.classList.add("aceptar")
-    let textAccept = document.createTextNode("Aceptar")
-    buttonAccept.appendChild(textAccept);
-    let buttonCancel = document.createElement('button')
-    buttonCancel.classList.add("cancel")
-    let textCancel = document.createTextNode("Cancel")
-    buttonCancel.appendChild(textCancel);
-    div2.appendChild(buttonAccept);
-    div2.appendChild(buttonCancel);
-    document.body.appendChild(div);
+    };
+  
+      // Muestra la ventana modal con el formulario
+      Swal.fire(form).then((result) => {
+        // Si el usuario ha enviado el formulario, muestra los valores de los campos
+        if (result.isConfirmed) {
+          let nombre = document.querySelector('input[name="Nombre"]').value
+          let telefono = document.querySelector('input[name="telefono"]').value
+          let correo = document.querySelector('input[name="correo"]').value
+          let contrasena = document.querySelector('input[name="password"]').value
+
+          if (validarNombre(nombre) && validarTelefono(telefono) && validarCorreoElectronico(correo) && validarContrasena(contrasena)) {
+            url = "assets/A1.png";
+            let nombre2 = nombre;
+            let nombreFormateado = nombre2.split(' ').map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)).join(' ')
+            enviarDatosCrear(nombreFormateado, correo, telefono, contrasena,url)
+            location.reload();
+          }
+    
+        }
+
+      });
   }
 
   function ventanaEmergenteEli(nombre, nempleado) {
-    let div = document.createElement('div');
-    div.setAttribute("id", "emergente");
-    div.classList.add("emergente");
 
-    let pName = document.createElement('p');
-    let txtName = document.createTextNode("Nombre:");
-    pName.appendChild(txtName);
-    div.appendChild(pName);
-    let inputName = document.createElement("input");
-    inputName.type = "text";
-    inputName.setAttribute("disabled", true)
-    inputName.value = nombre;
-    div.appendChild(inputName);
+    const form = {
 
+      title: "Eliminar usuario",
 
-    let pPass = document.createElement('p');
-    let txtPass = document.createTextNode("Contraseña del administrador:");
-    pPass.appendChild(txtPass);
-    div.appendChild(pPass);
-    let inputPass = document.createElement("input");
-    inputPass.classList.add("inputs");
-    inputPass.type = "password";
-    div.appendChild(inputPass);
+      html: `
+        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/delEmpleados.php">
+          <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input" value="${nombre}">     
+          <input type="password" name="password" placeholder="Contraseña" class="swal2-input">       
+        </form>
+      `,
 
+      focusConfirm: false,
 
+      preConfirm: () => {
+        
+        // Retorna un objeto con los valores de los campos del formulario
+        return {
+          Nombre: document.getElementsByName("Nombre")[0].value,
 
+        };
 
-    let div2 = document.createElement("div");
-    div.appendChild(div2);
+      },
 
-    let buttonAccept = document.createElement('button')
-    buttonAccept.classList.add("aceptar")
-    let textAccept = document.createTextNode("Aceptar")
-    buttonAccept.appendChild(textAccept);
-    let buttonCancel = document.createElement('button')
-    buttonCancel.classList.add("cancel")
-    let textCancel = document.createTextNode("Cancel")
-    buttonCancel.appendChild(textCancel);
-    div2.appendChild(buttonAccept);
-    div2.appendChild(buttonCancel);
-    document.body.appendChild(div);
-  }
+    };
+  
+      // Muestra la ventana modal con el formulario
+      Swal.fire(form).then((result) => {
+        // Si el usuario ha enviado el formulario, muestra los valores de los campos
+        if (result.isConfirmed) {
+          let nombre = document.querySelector('input[name="Nombre"]').value
+          let validacion = document.querySelector('input[name="password"]').value
 
-  function cerrarVentana() {
-    let cerrar = document.querySelector(".emergente")
-    document.body.removeChild(cerrar)
+          let pass = {'password':validacion};
+          comprobarPass(pass).then(result=>{
+            if (result=="true") {
+              eliminarDatos(nombre,nempleado);
+              location.reload();
+            } else {
+              alert("La contraseña es incorrecta");
+            }})
+    
+        }
+
+      });
   }
 
   function Pintar(elemento, nombre, correo, telefono, nempleado, rol,url) {
@@ -194,6 +186,7 @@ window.onload = () => {
     cardSubtitle.appendChild(txtCorreo)
 
     let botones = document.createElement("div")
+    botones.classList.add("butunos");
 
     let p3 = document.createElement('p');
     let txtTelefono = document.createTextNode(telefono);
@@ -218,7 +211,7 @@ window.onload = () => {
     if (rol != "Admin") {
       let beli = document.createElement('button');
       botones.appendChild(beli);
-      beli.style.backgroundImage = "url('https://www.shutterstock.com/image-vector/recycle-bin-icon-trash-can-260nw-1687424971.jpg')";
+      beli.style.backgroundImage = "url('./assets/trash.svg')";
 
 
       beli.setAttribute("class", "delete");
@@ -226,30 +219,10 @@ window.onload = () => {
         var nombre = e.target.closest(".card").dataset.nombre;
         var nEmpleado = e.target.closest(".card").dataset.numero;
         ventanaEmergenteEli(nombre, nEmpleado);
-
-        let cancel = document.querySelector(".cancel")
-        cancel.addEventListener("click", () => {
-          cerrarVentana()
-        })
-        let accept = document.querySelector(".aceptar");
-        let validacion = document.querySelectorAll("input");
-
-        accept.addEventListener("click", () => {  
-          
-          let pass = localStorage.getItem("password")
-
-          if (validacion[1].value==pass) {
-            eliminarDatos(nombre);
-            cerrarVentana()
-            location.reload();
-          } else {
-            alert("La contraseña es incorrecta");
-          }
-        })
       })
     }
 
-    bedi.style.backgroundImage = "url('https://cdn-icons-png.flaticon.com/512/6324/6324826.png')";
+    bedi.style.backgroundImage = "url('./assets/edit.svg')";
 
     bedi.setAttribute("class", "edit");
     bedi.addEventListener("click", function (e) {
@@ -260,54 +233,18 @@ window.onload = () => {
       var tlf = e.target.closest(".card").dataset.telefono;
       ventanaEmergenteEdit(nombre, tlf, correo, nEmpleado);
 
-      let empleado = document.querySelector(".empleado")
-      let validacion = document.querySelectorAll("input");
-      let cancel = document.querySelector(".cancel")
-      cancel.addEventListener("click", () => {
-        cerrarVentana()
-      })
-
-      let accept = document.querySelector(".aceptar");
-      accept.addEventListener("click", () => {
-
-        if (validarNombre(validacion[0].value) == true && validarCorreoElectronico(validacion[2].value) && validarTelefono(validacion[1].value, empleado)) {
-
-          enviarDatos(validacion[0].value, validacion[2].value, validacion[1].value, empleado.textContent)
-          cerrarVentana()
-          location.reload();
-        } else {
-          alert("rellene bien los campos")
-        }
-      })
     });
     let add = document.querySelector(".add")
     let añadir = document.querySelector("#añadir")
     if (!añadir) {
       let buttonadd = document.createElement("button")
       buttonadd.id = "añadir";
-      let textoadd = document.createTextNode("Añadir")
+      let textoadd = document.createTextNode("+")
       buttonadd.appendChild(textoadd)
       add.appendChild(buttonadd)
 
       buttonadd.addEventListener("click", function () {
         ventanaEmergenteCrear();
-        let cancel = document.querySelector(".cancel")
-        cancel.addEventListener("click", () => {
-          cerrarVentana()
-        })
-        let accept = document.querySelector(".aceptar");
-        let validacion = document.querySelectorAll("input");
-        accept.addEventListener("click", () => {
-
-          if (validarNombre(validacion[0].value) && validarTelefono(validacion[1].value) && validarCorreoElectronico(validacion[2].value) && validarContrasena(validacion[3].value)) {
-            url = "assets/A1.png";
-            let nombre = validacion[0].value;
-            let nombreFormateado = nombre.split(' ').map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)).join(' ')
-            enviarDatosCrear(nombreFormateado, validacion[2].value, validacion[1].value, validacion[3].value,url)
-            cerrarVentana()
-            location.reload();
-          }
-        })
       })
     }
 
@@ -472,18 +409,19 @@ window.onload = () => {
     xhr.send(data);
   }
 
-  // const comprobarPass=async(password)=>{
-  //   const option={
-  //     method:"POST",
-  //     redirect:"follow",
-  //     body:password,
-  //     Headers:{
-  //       "Accept":"application/json"
-  //     }
-  //   }
-  //   return fetch("BaseDatos/comprobarPass.php",option)
-  //   .then(response=>response.json())
-  //   .then(result=>{return result})
-  //   .catch(e=>{console.error("ERROR:" , e.message)})
-  // }
+  const comprobarPass=async(password)=>{
+    var pass = JSON.stringify(password);
+    const option={
+      method:"POST",
+      redirect:"follow",
+      body:pass,
+      Headers:{
+        "Accept":"application/json"
+      }
+    }
+    return fetch("BaseDatos/comprobarPass.php",option)
+    .then(response=>response.text())
+    .then(result=>{return result})
+    .catch(e=>{console.error("ERROR:" , e.message)})
+  }
 } 

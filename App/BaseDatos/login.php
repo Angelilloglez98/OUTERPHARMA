@@ -17,11 +17,8 @@
 
             $fila=$sth->fetch();
 
-            // $hash = hash('sha256', $password);
             session_start();
-            if ($sth->rowCount()==1 && $password==$fila['Contrasenia']){
-                //$auth = password_verify($password, $fila['Contraseina']);
-                //contraseña y usuario correctos
+            if ($sth->rowCount()==1 && password_verify($password,$fila['Contrasenia'])){
                 
                 $_SESSION['CorreoFarmacia']=$fila['Ccorreo'];
                 header('Location: ../selecPerfil.html');

@@ -12,7 +12,7 @@
     $rol = "User";
     $url = $_POST["url"];
     // Hasheamos la contraseña utilizando el algoritmo Bcrypt
-    $hash = hash('sha256', $password);
+    $hash = password_hash($password,PASSWORD_DEFAULT);
 
     $sql="INSERT INTO empleados (CcorreoFarmacia, NombreEmpleado, Telefono, Contrasena, CorreoPersonal,Rol,UrlEmpleado) VALUES ('$correo', '$nombre', '$numero', '$hash', '$correopersonal','$rol','$url')";
     
