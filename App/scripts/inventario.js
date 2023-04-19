@@ -61,10 +61,8 @@ window.onload = () => {
                         vaciarDatos();
                         if(resultadoApi.fotos===undefined){
                             carta('http://localhost/OuterPharma/App/assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                            // carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
                         }else{
                             carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                            // carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
                         }
                     });
                     
@@ -513,4 +511,12 @@ async function comprobarMedicamento(cn){
         }
     });
     return coincidencia;
+}
+
+let formulario = document.querySelector('form[class="codigo"]');
+
+formulario.onsubmit = (e) => {
+    e.preventDefault();
+    let valorInput = document.querySelector('#cn');
+    console.log(valorInput);
 }
