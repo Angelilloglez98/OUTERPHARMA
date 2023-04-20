@@ -42,21 +42,20 @@
             <nav class="navbar bg-body-tertiary">
                 <div class="container">
                   <form role="search">
-                    <input id="busqueda" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input id="busqueda" class="form-control input me-2" type="search" placeholder="Search" aria-label="Search">
                     <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
                     <p>Ordenar por:</p>
-                    <div class="wrapper d-flex align-items-center btn btn-secondary">
-                        <input type="button" value="Nombre" class="btn  btn-rounded busqueda">
+                    <div class="wrapper d-flex align-items-center btn ">
+                        <input type="button" value="Nombre" class="btn btn-rounded busqueda">
                     </div>
                     
-                    <div class="wrapper d-flex align-items-center btn btn-secondary ms-5">
+                    <div class="wrapper d-flex align-items-center btn ms-5">
                         <input type="button" value="Precio" class="btn btn-rounded busqueda">
                     </div>
                   </form>
                   
                 </div>
             </nav>
-
             <div class="container">
                 <div class="">
                     <div class="row gap-3 fit">
@@ -68,8 +67,8 @@
                         <div class="col-2">
                             <div class="row">
                                 <div class="col-12 pedirCN d-flex flex-column align-items-center">
-                                    <form class="codigo" action="">
-                                        <input class="cN" type="text" name="CodigoNacional" id="cn" placeholder="Codigo de barra">
+                                    <form class="codigo" role="search" action="">
+                                        <input id="cn" class="cN input form-control me-2" type="search" name="CodigoNacional" placeholder="Codigo de barra" aria-label="Search">
                                         <input type="button" value="" id="codigoBarra" class="botonverde ">
                                     </form> 
                                 </div>
