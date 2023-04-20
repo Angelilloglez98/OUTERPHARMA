@@ -2,11 +2,13 @@ window.onload = () => {
 
     traerDatos();       
 
-    const form = document.querySelector('form[role="search"]');
+    const form = document.querySelectorAll('form[role="search"]');
 
-    form.addEventListener('submit', (r) => {
-        r.preventDefault();
-    });
+    form.forEach( formularios => {
+        formularios.addEventListener('submit', (e) => {
+            e.preventDefault();
+        })
+    })
 
     const ordenar = document.querySelectorAll('.busqueda');
 
@@ -597,6 +599,17 @@ function mostrarMedicamento(cn) {
         .then(resultadoApi=>{
             console.log(resultadoApi);
 
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/devProducto.php?codigo=${cn}`)
+            .then(res=>res.json())
+            .then(resultado=>{
+                console.log(resultado);
+                if (resultado) {
+                    console.log("ey");
+                } else {
+                    console.log("caca");
+                }
+            })
+            
             let nombre = document.createElement("p")
             nombre.classList.add("nombreMed")
             nombre.appendChild(document.createTextNode(resultadoApi.nombre));
@@ -616,15 +629,7 @@ function mostrarMedicamento(cn) {
         });
     }
 
-    datos.appendChild(dato)
-}
-
-let formulario = document.querySelector('form[class="codigo"]');
-
-formulario.onsubmit = (e) => {
-    e.preventDefault();
-    let valorInput = document.querySelector('#cn').value;
-    insertarProducto(valorInput);
+    datos.appendChild(dato);
 }
 
 // TODO: Controlar que si no estan todos los digitos en el campo de codigo de barra no se pinte, diga que no existe y se desabiliten los botones

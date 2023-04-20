@@ -123,16 +123,9 @@ sup {
   width: 100%;
   max-width: 300px;
   height: fit-content;
-  background: white;
   border-radius: 10px;
   transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   margin-bottom: 1rem;
-}
-
-.sombra {
-box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
-            0 0  0 2px rgb(190, 190, 190),
-            0.3em 0.3em 1em rgba(0,0,0,0.3);
 }
 
 /* Carta */
@@ -159,6 +152,10 @@ box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
   height: 100%;
 }
 
+.bi {
+  background-color: #4723D9;
+}
+
 .card_title {
   font-weight: bold;
 }
@@ -172,7 +169,8 @@ box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
   min-height: 300px;
   max-height: 300px;
   padding: 20px;
-  background: #000;
+  /* background: #000; */
+  background-color: rgba(108, 117, 125, 0.8);
   color: #FFFFFF;
   border-radius: 20px;
     /* edit here to change the height of the content box */
@@ -225,7 +223,7 @@ button {
     background: #e62222;
     margin: auto;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
  
 button, button span {
@@ -326,12 +324,12 @@ button:active .icon svg {
 }
 
 #codigoBarra{
-    padding: 20px;
-    background-image: url('../assets/photo_camera_FILL1_wght400_GRAD0_opsz48.svg');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: #fff;
+  padding: 20px;
+  background-image: url('../assets/photo_camera_FILL1_wght400_GRAD0_opsz48.svg');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #fff;
 }
 
 #Escaner{
@@ -349,6 +347,34 @@ button:active .icon svg {
 
 .drawingBuffer {
   display: none;
+}
+
+/* Css de los input de busqueda */
+.input {
+  line-height: 28px;
+  border: 2px solid transparent;
+  border-bottom-color: #777;
+  padding: .2rem 0;
+  outline: none;
+  background-color: transparent;
+  color: #0d0c22;
+  transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.input:focus, input:hover {
+  outline: none;
+  padding: .2rem 1rem;
+  border-radius: 1rem;
+  border-color: #7a9cc6;
+}
+
+.input::placeholder {
+  color: #777;
+}
+
+.input:focus::placeholder {
+  opacity: 0;
+  transition: opacity .3s;
 }
 
 @media only screen and (max-width: 1400px) {
