@@ -15,20 +15,42 @@ window.onload = () => {
     ordenar.forEach(botones => {
         botones.addEventListener('click', function(e) {
             const buscar = e.target.value;
-
+            const padre = e.target.parentNode;
+        
+            var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svgElement.setAttribute("width", "16");
+            svgElement.setAttribute("height", "16");
+            svgElement.setAttribute("fill", "currentColor");
+            svgElement.setAttribute("viewBox", "0 0 16 16");
+        
+            var pathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            pathElement.setAttribute("fill-rule", "evenodd");
+        
+            svgElement.appendChild(pathElement);
+        
             if (ultimaDireccion === 'ASC') {
-                e.target.classList.add('ascendente')
-                e.target.classList.remove('descendente')
+                svgElement.setAttribute("class", "bi bi-arrow-up"); 
+                pathElement.setAttribute("d", "M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z");
+        
             } else if (ultimaDireccion === 'DESC') {
-                e.target.classList.add('descendente')
-                e.target.classList.remove('ascendente')
+                svgElement.setAttribute("class", "bi bi-arrow-down");
+                pathElement.setAttribute("d", "M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z");
+        
             }
-
+        
+            // Eliminar el elemento SVG anterior, si existe
+            if (padre.querySelector('svg')) {
+                padre.removeChild(padre.querySelector('svg'));
+            }
+        
+            padre.appendChild(svgElement);
+        
             vaciarDatos();
             const direccion = ultimaDireccion === 'ASC' ? 'DESC' : 'ASC'; // alterna la dirección de ordenamiento
             traerDatos(buscar, direccion); // incluye la dirección en la llamada a la función
             ultimaDireccion = direccion; // actualiza la variable global
         })
+        
     });
 
     
