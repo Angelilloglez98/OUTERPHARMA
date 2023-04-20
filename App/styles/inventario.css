@@ -104,10 +104,23 @@ sup {
   background-color: #FFF;
 } 
 
-span {
-  min-width: 5px;
-
+.pedirCN {
+  height: fit-content;
 }
+
+.noMedic {
+  color: red;
+  font-size: .8rem;
+}
+
+.nombreMed {
+  font-weight: bold;
+  font-size: .9rem;
+}
+
+/* .medicamento {
+  
+} */
 
 /* Carta */
 .carta {
