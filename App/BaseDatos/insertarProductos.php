@@ -13,7 +13,7 @@ $pres = $_GET["pres"];
 $precio =$_GET["precio"];
 $cantidad = $_GET["stock"];
 $fEntrada = date('Y-m-d H:i:s');
-$fCaducidad = "01-01-2050 00:00:00"
+$fCaducidad = "01-01-2050 00:00:00";
 
 
 $correo=$_SESSION['CorreoFarmacia'];
