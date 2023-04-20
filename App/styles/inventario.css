@@ -14,7 +14,7 @@ form{
 }
 
 p{
-  width: fit-content;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -104,6 +104,26 @@ sup {
   background-color: #FFF;
 } 
 
+.ascendente::before{
+  content: '';
+  position: absolute;
+  top: -57px;
+  right: -45px;
+  width: 100px;
+  height: 100px;
+  color: #000;
+}
+
+.descendente::before{
+  content: '';
+  position: absolute;
+  top: -57px;
+  right: -45px;
+  width: 100px;
+  height: 100px;
+  color: #000;
+}
+
 /* Carta */
 .carta {
   position: relative;
@@ -143,7 +163,7 @@ sup {
   padding: 20px;
   background: #000;
   color: #FFFFFF;
-  border-top-left-radius: 20px;
+  border-radius: 20px;
     /* edit here to change the height of the content box */
   transform: translateY(240px);
   transition: transform .25s;
@@ -152,19 +172,6 @@ sup {
 
 .card_content::-webkit-scrollbar {
   width: 0px; /* cambia el ancho del scrollbar */
-}
-
-.card_content::before {
-  content: '';
-  position: absolute;
-  top: -57px;
-  right: -45px;
-  width: 100px;
-  height: 100px;
-  transform: rotate(-175deg);
-  border-radius: 50%;
-  box-shadow: inset 48px 48px #000;
-  color: #000;
 }
 
 .card_title {
@@ -195,32 +202,32 @@ sup {
 
 /* Boton */
 button {
-  width: 150px;
-  height: 50px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  background: red;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-  background: #e62222;
-  margin: auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
- }
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: #e62222;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
  
- button, button span {
+button, button span {
   transition: 200ms;
- }
+}
  
- button .text {
+button .text {
   transform: translateX(35px);
   color: white;
   font-weight: bold;
- }
+}
  
- button .icon {
+button .icon {
   position: absolute;
   border-left: 1px solid #c41b1b;
   transform: translateX(110px);
@@ -229,36 +236,36 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
- }
+}
  
- button svg {
+button svg {
   width: 15px;
   fill: #eee;
- }
+}
  
- button:hover {
+button:hover {
   background: #ff3636;
- }
+}
  
- button:hover .text {
+button:hover .text {
   color: transparent;
- }
+}
  
- button:hover .icon {
+button:hover .icon {
   width: 150px;
   border-left: none;
   transform: translateX(-5px);
- }
+}
  
- button:focus {
+button:focus {
   outline: none;
- }
+}
  
- button:active .icon svg {
+button:active .icon svg {
   transform: scale(0.8);
- }
+}
 
- .botonverde {
+.botonverde {
   width: 50px;
   height: 50px;
   appearance: none;
