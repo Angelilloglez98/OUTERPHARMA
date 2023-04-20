@@ -7,6 +7,31 @@ window.onload = () => {
     form.addEventListener('submit', (r) => {
         r.preventDefault();
     });
+
+    const ordenar = document.querySelectorAll('.busqueda');
+
+    let ultimaDireccion = 'ASC';
+
+    ordenar.forEach(botones => {
+        botones.addEventListener('click', function(e) {
+            const buscar = e.target.value;
+
+            if (ultimaDireccion === 'ASC') {
+                e.target.classList.add('ascendente')
+                e.target.classList.remove('descendente')
+            } else if (ultimaDireccion === 'DESC') {
+                e.target.classList.add('descendente')
+                e.target.classList.remove('ascendente')
+            }
+
+            vaciarDatos();
+            const direccion = ultimaDireccion === 'ASC' ? 'DESC' : 'ASC'; // alterna la dirección de ordenamiento
+            traerDatos(buscar, direccion); // incluye la dirección en la llamada a la función
+            ultimaDireccion = direccion; // actualiza la variable global
+        })
+    });
+
+    
     
     const busqueda = document.querySelector('#busqueda');
     
@@ -31,16 +56,16 @@ window.onload = () => {
             // Ejecutar la función de insertar
             insertarProducto(codigo);
         }
-      });
+    });
       
-      btnBorrar.addEventListener('click', function() {
+    btnBorrar.addEventListener('click', function() {
         // Verificar si el botón de borrar está seleccionado
         if (btnBorrar.checked) {
             const codigo = codigoNacional.value;
             // Ejecutar la función de borrar
             borrarProducto(codigo);
         }
-      });
+    });
 
     busqueda.onkeydown =  (event) => {
 
@@ -75,9 +100,9 @@ window.onload = () => {
     };
 }
 
-async function traerDatos() {
+async function traerDatos(orden, direc) {
     try {
-        const res = await fetch('http://localhost/OuterPharma/App/BaseDatos/devInfo.php');
+        const res = await fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?orden=${orden}&direccion=${direc}`);
         const resultado = await res.json();
 
         for (const inventario of resultado) {
@@ -536,6 +561,9 @@ let formulario = document.querySelector('form[class="codigo"]');
 
 formulario.onsubmit = (e) => {
     e.preventDefault();
-    let valorInput = document.querySelector('#cn');
-    console.log(valorInput);
+    let valorInput = document.querySelector('#cn').value;
+    insertarProducto(valorInput);
 }
+// TODO:Cuando se pone el medicameno en el lector de barra te aparezca el nombre y la foto justo abajo
+
+// TODO: Controlar que si no estan todos los digitos en el campo de codigo de barra no se pinte, diga que no existe y se desabiliten los botones
