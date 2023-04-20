@@ -27,16 +27,31 @@
             <div class="header_img"></div>
         </header>
         <div class="l-navbar" id="nav-bar">
-            <nav class="nav">
-                <div> <a href="Inicio.html" class="nav_logo"> <img src="assets/logo.png" class="outerpharma"> <span class="nav_logo-name">OuterPharma</span> </a>
-                    <div class="nav_list"> <a href="Inicio.html" class="nav_link"> <i class='bx bxs-home-alt-2 nav_icon'></i> <span class="nav_name">Inicio</span> </a>
-                        <a href="ventas.html" class="nav_link"> <i class='bx bxs-dollar-circle nav_icon'></i> <span class="nav_name">Venta</span></a> 
-                        <a href="inventario.html" class="nav_link"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name">Inventario</span> </a>
-                        <a href="pedidos.html" class="nav_link active"> <i class='bx bx-search nav_icon'></i> <span class="nav_name">Buscador</span> </a>
-                        <a href="proveedores.html" class="nav_link"> <i class='bx bxs-user nav_icon'></i> <span class="nav_name">Proveedores</span> </a>
-                        <a href="historialVentas.html" class="nav_link"> <i class='bx bxs-credit-card nav_icon'></i> <span class="nav_name">Historial Ventas</span> </a> </div>
-                </div> <a href="#" class="nav_link salir"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name signOut"></span> </a>
-            </nav>
+        <nav class="nav">
+          <div> <a href="Inicio.php" class="nav_logo"> <img src="assets/logo.png" class="outerpharma"> <span class="nav_logo-name">OuterPharma</span> </a>
+              <div class="nav_list"> <a href="Inicio.php" class="nav_link"> <i class='bx bxs-home-alt-2 nav_icon'></i> <span class="nav_name">Inicio</span> </a>
+                  <a href="ventas.php" class="nav_link"> <i class='bx bxs-dollar-circle nav_icon'></i> <span class="nav_name">Ventas</span></a> 
+                  <a href="inventario.php" class="nav_link"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name">Inventario</span> </a>
+                  <a href="pedidos.php" class="nav_link active"> <i class='bx bx-search nav_icon'></i> <span class="nav_name">Buscador</span> </a>
+                  <a href="proveedores.php" class="nav_link"> <i class='bx bxs-user nav_icon'></i> <span class="nav_name">Proveedores</span> </a>
+                  <a href="historialVentas.php" class="nav_link"> <i class='bx bxs-credit-card nav_icon'></i> <span class="nav_name">Historial Ventas</span> </a> </div>
+                  <?php
+                    require('./BaseDatos/conexionDB.php');
+                    session_start();
+                    $numeroEmpleado=$_SESSION['nEmpleado'];
+                    $sql="SELECT Rol FROM empleados WHERE nEmpleado=:nEmpleado";
+
+                    $sth = $pdo->prepare($sql);
+                    $sth->bindParam(':nEmpleado', $_SESSION['nEmpleado']);
+                    $sth->execute();
+                    $rolUsuario=$sth->fetch();
+                    
+                    if ($rolUsuario['Rol']=='Admin') {
+                        echo '<a href="gestionUsuarios.php" class="nav_link"> <i class="bx bxs-id-card nav_icon"></i> <span class="nav_name">Gestion de usuarios</span> </a>';
+                    }        
+                  ?>
+          </div> <a href="#" class="nav_link salir"> <i class='bx bx-log-out nav_icon'></i> <span class=" signOut d-flex align-items-center"></span> </a>
+      </nav>
         </div>
         
         <!--Container Main start-->

@@ -20,6 +20,7 @@
     $fila=$sth->fetch();
 
     if (password_verify($password,$fila['Contrasena'])) {
+        $_SESSION['nEmpleado']=$nempleado;
         echo "true";
     } else {
         echo "false";

@@ -66,9 +66,9 @@ window.onload=()=>{
                 if (result=="true") {
                     if (rol==='Admin') {
                         localStorage.setItem("password",contrasenaInput)
-                        location.replace('./InicioAdmin.html');
+                        location.replace('./Inicio.php');
                     }else{
-                        location.replace('./Inicio.html');
+                        location.replace('./Inicio.php');
                     }
                     localStorage.setItem('perfil',element.nempleado);
                 } else {
