@@ -26,12 +26,58 @@ window.onload = () =>{
 
   }
 
+  const insertProv = async(datos)=>{
+    
+    var raw = JSON.stringify(datos);
+
+    const options = {
+        method: 'POST',
+        redirect: 'follow',
+        body: raw,
+        Headers: {'Accept':'aplication/json'}
+    }
+
+    var url = 'http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php';
+    
+    return fetch(url, options)
+    .then(response => response.text())
+    .then(result => {return result})
+    .catch(e => {console.error("ERROR: ", e.message)});
+
+  }
+
+  const borrarProb = async(nombre)=>{
+    var raw = JSON.stringify({'Nombre': nombre});
+
+    const options = {
+        method: 'POST',
+        redirect: 'follow',
+        body: raw,
+        Headers: {'Accept':'aplication/json'}
+    }
+
+    var url = 'http://localhost/OuterPharma/App/BaseDatos/quitarProveedor.php';
+    
+    return fetch(url, options)
+    .then(response => response.text())
+    .then(result => {return result})
+    .catch(e => {console.error("ERROR: ", e.message)});
+  }
+
   const createProv = (data) => {
 
       data.forEach(element => {
 
           let showProv = document.querySelector(".showProv");
           let cardProv = document.createElement("div");
+          let deleteProv = document.createElement('button');
+          let updateProv = document.createElement('button');
+
+          deleteProv.innerText = 'Borrar';
+          updateProv.innerText = 'Editar';
+          deleteProv.onclick = ()=>{borrarProb(element.nombre).then()};
+          updateProv.onclick = ()=>{console.log(element.nombre)};
+
           cardProv.className = "tarjeta-proveedor";
 
           for (const atribute in element) {
@@ -57,10 +103,10 @@ window.onload = () =>{
 
               cardProv.appendChild(prov);
 
-              console.log(element);
-
           }
 
+          cardProv.appendChild(deleteProv);
+          cardProv.appendChild(updateProv);
           showProv.appendChild(cardProv);
 
       });
@@ -73,25 +119,6 @@ window.onload = () =>{
 
   });
 
-  const insertProv = async(datos)=>{
-    
-    var raw = JSON.stringify(datos);
-
-    const options = {
-        method: 'POST',
-        redirect: 'follow',
-        body: raw,
-        Headers: {'Accept':'aplication/json'}
-    }
-
-    var url = 'http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php';
-    
-    return fetch(url, options)
-    .then(response => response.text())
-    .then(result => {return result})
-    .catch(e => {console.error("ERROR: ", e.message)});
-
-  }
 
   button.onclick = ()=>{
 

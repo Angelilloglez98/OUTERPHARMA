@@ -7,8 +7,12 @@ $registros=array();
 
 $correo=$_SESSION['CorreoFarmacia'];
 
-$sql="SELECT FARMACIAS_PRODUCTOS.Ccorreo,FARMACIAS_PRODUCTOS.CodigoNacional,PRODUCTOS.Nombre,FARMACIAS_PRODUCTOS.Precio,FARMACIAS_PRODUCTOS.Cantidad,FARMACIAS_PRODUCTOS.fCaducidad
-FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.CodigoNacional=PRODUCTOS.CodigoNacional where Ccorreo='$correo' ORDER BY PRODUCTOS.Nombre ASC";
+$sql = "SELECT fp.Ccorreo, fp.CodigoNacional, p.Nombre, fp.Precio, fp.Cantidad, fp.fCaducidad
+        FROM FARMACIAS_PRODUCTOS as fp
+        INNER JOIN PRODUCTOS as p
+        ON fp.CodigoNacional = p.CodigoNacional
+        WHERE fp.Ccorreo = '$correo'
+        ORDER BY p.Nombre ASC";
 
 
 $pdo->exec("SET NAMES 'utf8mb4'");

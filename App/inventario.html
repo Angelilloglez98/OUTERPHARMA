@@ -42,11 +42,19 @@
             </div>
             <nav class="navbar bg-body-tertiary">
                 <div class="container">
-                  <form class="d-flex" role="search">
+                  <form role="search">
                     <input id="busqueda" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
                     <p>Ordenar por:</p>
+                    <div class="wrapper d-flex align-items-center btn btn-secondary">
+                        <input type="button" value="Nombre" class="btn  btn-rounded busqueda">
+                    </div>
+                    
+                    <div class="wrapper d-flex align-items-center btn btn-secondary ms-5">
+                        <input type="button" value="Precio" class="btn btn-rounded busqueda">
+                    </div>
                   </form>
+                  
                 </div>
             </nav>
 
@@ -60,14 +68,13 @@
                         </div>
                         <div class="col-2">
                             <div class="row">
-                                <div class="col-12 devDatos"></div>
-                                <div class="col-12 pedirCN">
+                                <div class="col-12 pedirCN d-flex flex-column align-items-center">
                                     <form class="codigo" action="">
                                         <input class="cN" type="text" name="CodigoNacional" id="cn" placeholder="Codigo de barra">
                                         <input type="button" value="" id="codigoBarra" class="botonverde ">
                                     </form> 
                                 </div>
-                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <div class="col-12 btn-group d-flex align-items-center" role="group" aria-label="Basic radio toggle button group">
                                     <input type="radio" class="btn-check" name="funcion" id="insertar" autocomplete="off">
                                     <label class="btn btn-outline-success" for="insertar">+</label>
                                   

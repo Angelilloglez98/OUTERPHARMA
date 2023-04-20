@@ -7,6 +7,73 @@ window.onload = () => {
     form.addEventListener('submit', (r) => {
         r.preventDefault();
     });
+
+    const ordenar = document.querySelectorAll('.busqueda');
+
+    let ultimaDireccion = 'ASC';
+
+    ordenar.forEach(botones => {
+        botones.addEventListener('click', function(e) {
+            const buscar = e.target.value;
+            const padre = e.target.parentNode;
+        
+            var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svgElement.setAttribute("width", "16");
+            svgElement.setAttribute("height", "16");
+            svgElement.setAttribute("fill", "currentColor");
+            svgElement.setAttribute("viewBox", "0 0 16 16");
+        
+            var pathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            pathElement.setAttribute("fill-rule", "evenodd");
+        
+            svgElement.appendChild(pathElement);
+        
+            if (ultimaDireccion === 'ASC') {
+                svgElement.setAttribute("class", "bi bi-arrow-up"); 
+                pathElement.setAttribute("d", "M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z");
+        
+            } else if (ultimaDireccion === 'DESC') {
+                svgElement.setAttribute("class", "bi bi-arrow-down");
+                pathElement.setAttribute("d", "M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z");
+        
+            }
+        
+            // Eliminar el elemento SVG anterior, si existe
+            if (padre.querySelector('svg')) {
+                padre.removeChild(padre.querySelector('svg'));
+            }
+        
+            padre.appendChild(svgElement);
+        
+            vaciarDatos();
+            const direccion = ultimaDireccion === 'ASC' ? 'DESC' : 'ASC'; // alterna la dirección de ordenamiento
+            traerDatos(buscar, direccion); // incluye la dirección en la llamada a la función
+            ultimaDireccion = direccion; // actualiza la variable global
+        })
+        
+    });
+
+    const btnInsertar = document.getElementById('insertar');
+    const btnBorrar = document.getElementById('borrar');
+    const codigoNacional = document.getElementById('cn');
+
+    btnInsertar.addEventListener('click', function() {
+        // Verificar si el botón de insertar está seleccionado
+        if (btnInsertar.checked) {
+            const codigo = codigoNacional.value;
+            // Ejecutar la función de insertar
+            insertarProducto(codigo);
+        }
+    });
+      
+    btnBorrar.addEventListener('click', function() {
+        // Verificar si el botón de borrar está seleccionado
+        if (btnBorrar.checked) {
+            const codigo = codigoNacional.value;
+            // Ejecutar la función de borrar
+            borrarProducto(codigo);
+        }
+    });
     
     const busqueda = document.querySelector('#busqueda');
     
@@ -20,30 +87,12 @@ window.onload = () => {
         .catch(e => {console.error("ERROR: ", e.message)});
     }
 
-    const btnInsertar = document.getElementById('insertar');
-    const btnBorrar = document.getElementById('borrar');
-    const codigoNacional = document.getElementById('cn');
+    const mostrar = document.querySelector("#cn");
 
-    btnInsertar.addEventListener('click', function() {
-        // Verificar si el botón de insertar está seleccionado
-        if (btnInsertar.checked) {
-            const codigo = codigoNacional.value;
-            // Ejecutar la función de insertar
-            insertarProducto(codigo);
-        }
-      });
-      
-      btnBorrar.addEventListener('click', function() {
-        // Verificar si el botón de borrar está seleccionado
-        if (btnBorrar.checked) {
-            const codigo = codigoNacional.value;
-            // Ejecutar la función de borrar
-            borrarProducto(codigo);
-        }
-      });
-
+    mostrar.onkeyup = () => {
+        mostrarMedicamento(mostrar.value)
+    }
     busqueda.onkeydown =  (event) => {
-
         if (event.key === 'Enter' && busqueda.value != '') {
     
             const tbody = document.querySelector("#buscarMed");
@@ -75,9 +124,9 @@ window.onload = () => {
     };
 }
 
-async function traerDatos() {
+async function traerDatos(orden, direc) {
     try {
-        const res = await fetch('http://localhost/OuterPharma/App/BaseDatos/devInfo.php');
+        const res = await fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?orden=${orden}&direccion=${direc}`);
         const resultado = await res.json();
 
         for (const inventario of resultado) {
@@ -418,9 +467,7 @@ function vaciarDatos() {
 
 async function insertarProducto(cn){
     const medicamentoExistente = await comprobarMedicamento(cn);
-    if (medicamentoExistente) {
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/añadirStock.php?cn=${cn}`);
-    } else {
+     
         const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
         const resultadoApi = await resApi.json();
 
@@ -436,26 +483,47 @@ async function insertarProducto(cn){
             pres = 'S';
         }
 
+        
         let Precio;
-        let fEntrada;
-        	
-        const { value: formValues } = await Swal.fire({
-            title: 'Precio y fecha de caducidad del nuevo medicamento',
-            html:
-            '<input id="swal-input1" type="number" class="swal2-input">' +
-            '<input id="swal-input2" type="date" class="swal2-input">',
-            focusConfirm: false,
-            preConfirm: () => {
-                return [
-                    Precio = document.getElementById('swal-input1').value,
-                    fEntrada = document.getElementById('swal-input2').value
-                ]
-            }
-        })
+        let stock;
+        
+        if (medicamentoExistente) {
+            const { value: formValues } = await Swal.fire({
+                title: 'Stock a añadir del medicamento',
+                html:
+                '<input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">',
+                focusConfirm: false,
+                preConfirm: () => {
+                    return [
+                        stock = document.getElementById('swal-input2').value,
+                    ]
+                }
+            })
+        } else {
+            const { value: formValues } = await Swal.fire({
+                title: 'Precio y Stock a añadir del medicamento',
+                html:
+                '<input id="swal-input1" type="number" class="swal2-input" placeholder="Precio">' + 
+                '<input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">',
+                focusConfirm: false,
+                preConfirm: () => {
+                    return [
+                        Precio = document.getElementById('swal-input1').value,
+                        stock = document.getElementById('swal-input2').value
+                    ]
+                }
+            })
+        }
+        
 
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-        &via=${vAdmin}&pres=${pres}&precio=${Precio}&fecha=${fEntrada}`);
-    }
+        if (medicamentoExistente) {
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`);
+        } else {
+            fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+            &via=${vAdmin}&pres=${pres}&precio=${Precio}&stock=${stock}`);
+        }
+        
+    
     vaciarDatos();
     traerDatos(); 
 }
@@ -513,10 +581,52 @@ async function comprobarMedicamento(cn){
     return coincidencia;
 }
 
+function mostrarMedicamento(cn) {
+    let datos = document.querySelector(".pedirCN")
+
+    datos.removeChild(datos.lastChild)
+    let dato = document.createElement("div");
+    dato.classList.add("medicamento", "sombra")
+
+    if (cn.length < 6) {
+        dato.classList.add("noMedic");
+        dato.appendChild(document.createTextNode("Ponga todos los numeros del Codigo Nacional"));
+    } else {
+        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`)
+        .then(res=>res.json())
+        .then(resultadoApi=>{
+            console.log(resultadoApi);
+
+            let nombre = document.createElement("p")
+            nombre.classList.add("nombreMed")
+            nombre.appendChild(document.createTextNode(resultadoApi.nombre));
+            dato.appendChild(nombre);
+
+            let img = new Image();
+
+            if(resultadoApi.fotos===undefined){
+                img.src = 'http://localhost/OuterPharma/App/assets/pastillica.webp';
+            }else{
+                img.src = resultadoApi.fotos[0].url;
+            }
+            img.classList.add('imagen_foto');
+
+            dato.appendChild(img);
+
+        });
+    }
+
+    datos.appendChild(dato)
+}
+
 let formulario = document.querySelector('form[class="codigo"]');
 
 formulario.onsubmit = (e) => {
     e.preventDefault();
-    let valorInput = document.querySelector('#cn');
-    console.log(valorInput);
+    let valorInput = document.querySelector('#cn').value;
+    insertarProducto(valorInput);
 }
+
+// TODO: Controlar que si no estan todos los digitos en el campo de codigo de barra no se pinte, diga que no existe y se desabiliten los botones
+
+// TODO: Si existe el medicamento en la base de datos se activan los 2 botones, si no existe se activa el de insertar y si no existe en la api que no se active ninguno
