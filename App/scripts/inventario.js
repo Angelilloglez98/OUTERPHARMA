@@ -586,7 +586,7 @@ function mostrarMedicamento(cn) {
 
     datos.removeChild(datos.lastChild)
     let dato = document.createElement("div");
-    dato.classList.add("medicamento")
+    dato.classList.add("medicamento", "sombra")
 
     if (cn.length < 6) {
         dato.classList.add("noMedic");
@@ -626,7 +626,6 @@ formulario.onsubmit = (e) => {
     let valorInput = document.querySelector('#cn').value;
     insertarProducto(valorInput);
 }
-// TODO:Cuando se pone el medicameno en el lector de barra te aparezca el nombre y la foto justo abajo
 
 // TODO: Controlar que si no estan todos los digitos en el campo de codigo de barra no se pinte, diga que no existe y se desabiliten los botones
 
