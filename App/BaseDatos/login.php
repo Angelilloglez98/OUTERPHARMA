@@ -19,7 +19,7 @@
 
             session_start();
             if ($sth->rowCount()==1 && password_verify($password,$fila['Contrasenia'])){
-                
+                //Idea: que cada sesion se genere con un nombre identificativo de cada farmacia, en este caso el correo
                 $_SESSION['CorreoFarmacia']=$fila['Ccorreo'];
                 header('Location: ../selecPerfil.html');
             }else {
