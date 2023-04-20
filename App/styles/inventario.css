@@ -104,24 +104,9 @@ sup {
   background-color: #FFF;
 } 
 
-.ascendente::before{
-  content: '';
-  position: absolute;
-  top: -57px;
-  right: -45px;
-  width: 100px;
-  height: 100px;
-  color: #000;
-}
+span {
+  min-width: 5px;
 
-.descendente::before{
-  content: '';
-  position: absolute;
-  top: -57px;
-  right: -45px;
-  width: 100px;
-  height: 100px;
-  color: #000;
 }
 
 /* Carta */
