@@ -53,20 +53,6 @@ window.onload = () => {
         
     });
 
-    
-    
-    const busqueda = document.querySelector('#busqueda');
-    
-    const buscarMed = (datos) => {
-        
-        var url = `http://localhost/OuterPharma/App/BaseDatos/buscarProducto.php?datos=${datos}`;
-        
-        return fetch(url)
-        .then(response => response.json())
-        .then(medicamentos => {return medicamentos; })
-        .catch(e => {console.error("ERROR: ", e.message)});
-    }
-
     const btnInsertar = document.getElementById('insertar');
     const btnBorrar = document.getElementById('borrar');
     const codigoNacional = document.getElementById('cn');
@@ -88,9 +74,25 @@ window.onload = () => {
             borrarProducto(codigo);
         }
     });
+    
+    const busqueda = document.querySelector('#busqueda');
+    
+    const buscarMed = (datos) => {
+        
+        var url = `http://localhost/OuterPharma/App/BaseDatos/buscarProducto.php?datos=${datos}`;
+        
+        return fetch(url)
+        .then(response => response.json())
+        .then(medicamentos => {return medicamentos; })
+        .catch(e => {console.error("ERROR: ", e.message)});
+    }
 
+    const mostrar = document.querySelector("#cn");
+
+    mostrar.onkeyup = () => {
+        mostrarMedicamento(mostrar.value)
+    }
     busqueda.onkeydown =  (event) => {
-
         if (event.key === 'Enter' && busqueda.value != '') {
     
             const tbody = document.querySelector("#buscarMed");
@@ -579,6 +581,44 @@ async function comprobarMedicamento(cn){
     return coincidencia;
 }
 
+function mostrarMedicamento(cn) {
+    let datos = document.querySelector(".pedirCN")
+
+    datos.removeChild(datos.lastChild)
+    let dato = document.createElement("div");
+    dato.classList.add("medicamento")
+
+    if (cn.length < 6) {
+        dato.classList.add("noMedic");
+        dato.appendChild(document.createTextNode("Ponga todos los numeros del Codigo Nacional"));
+    } else {
+        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`)
+        .then(res=>res.json())
+        .then(resultadoApi=>{
+            console.log(resultadoApi);
+
+            let nombre = document.createElement("p")
+            nombre.classList.add("nombreMed")
+            nombre.appendChild(document.createTextNode(resultadoApi.nombre));
+            dato.appendChild(nombre);
+
+            let img = new Image();
+
+            if(resultadoApi.fotos===undefined){
+                img.src = 'http://localhost/OuterPharma/App/assets/pastillica.webp';
+            }else{
+                img.src = resultadoApi.fotos[0].url;
+            }
+            img.classList.add('imagen_foto');
+
+            dato.appendChild(img);
+
+        });
+    }
+
+    datos.appendChild(dato)
+}
+
 let formulario = document.querySelector('form[class="codigo"]');
 
 formulario.onsubmit = (e) => {
@@ -589,3 +629,5 @@ formulario.onsubmit = (e) => {
 // TODO:Cuando se pone el medicameno en el lector de barra te aparezca el nombre y la foto justo abajo
 
 // TODO: Controlar que si no estan todos los digitos en el campo de codigo de barra no se pinte, diga que no existe y se desabiliten los botones
+
+// TODO: Si existe el medicamento en la base de datos se activan los 2 botones, si no existe se activa el de insertar y si no existe en la api que no se active ninguno
