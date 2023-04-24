@@ -3,7 +3,7 @@ window.onload=()=>{
     fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
-        Pintar(document.querySelector('.contenedorUser'),element.nombre,element.UrlEmpleado,element.correo)
+        Pintar(document.querySelector('.contenedorUser'),element.nombre,element.UrlEmpleado)
 
         function Pintar(elemento, mensaje,url){
             
@@ -64,18 +64,17 @@ window.onload=()=>{
             let pass = {'password':contrasenaInput};
             comprobarPass(pass,nEmpleado).then(result=>{
                 if (result=="true") {
-                    console.log(element.rol);
                     if (rol==='Admin') {
                         localStorage.setItem("password",contrasenaInput)
+<<<<<<< HEAD
                         location.replace('./Inicio.php');
+=======
+                        location.replace('./InicioAdmin.html');
+>>>>>>> parent of bc1f09c (si)
                     }else{
                         location.replace('./Inicio.php');
                     }
-                    localStorage.setItem("nEmpleado",nEmpleado);
                     localStorage.setItem('perfil',element.nempleado);
-                    localStorage.setItem('nombre', element.nombre)
-                    localStorage.setItem('rol',rol);
-                    localStorage.setItem('correo',element.correo);
                 } else {
                     console.log("error");
                 }}
