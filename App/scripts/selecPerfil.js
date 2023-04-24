@@ -66,11 +66,7 @@ window.onload=()=>{
                 if (result=="true") {
                     if (rol==='Admin') {
                         localStorage.setItem("password",contrasenaInput)
-<<<<<<< HEAD
-                        location.replace('./Inicio.php');
-=======
                         location.replace('./InicioAdmin.html');
->>>>>>> parent of bc1f09c (si)
                     }else{
                         location.replace('./Inicio.php');
                     }
