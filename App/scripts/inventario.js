@@ -133,18 +133,17 @@ async function traerDatos(orden, direc) {
 
         for (const inventario of resultado) {
             console.log(inventario);
+            carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
             
-            const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
-            const resultadoApi = await resApi.json();
+            // const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
+            // const resultadoApi = await resApi.json();
 
 
-            if(resultadoApi.fotos===undefined){
-                carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
-                // carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
-            }else{
-                carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
-                // carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio);
-            }
+            // if(resultadoApi.fotos===undefined){
+            //     carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+            // }else{
+            //     carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+            // }
             
         }
     } catch (error) {
@@ -470,19 +469,23 @@ function vaciarDatos() {
 async function insertarProducto(cn){
     const medicamentoExistente = await comprobarMedicamento(cn);
      
-        const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
-        const resultadoApi = await resApi.json();
+        
 
-        let nombre = resultadoApi.nombre;
-        let pactivo = resultadoApi.pactivos;
-        let laboratorio = resultadoApi.labtitular;
-        let vAdmin = resultadoApi.viasAdministracion[0].nombre;
-        let pres = resultadoApi.cpresc;
-
-        if(pres == "Sin Receta") {
-            pres = 'N';
-        } else {
-            pres = 'S';
+        if (!medicamentoExistente) {
+            const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
+            const resultadoApi = await resApi.json();
+    
+            var nombre = resultadoApi.nombre;
+            var pactivo = resultadoApi.pactivos;
+            var laboratorio = resultadoApi.labtitular;
+            var vAdmin = resultadoApi.viasAdministracion[0].nombre;
+            var pres = resultadoApi.cpresc;
+    
+            if(pres == "Sin Receta") {
+                pres = 'N';
+            } else {
+                pres = 'S';
+            } 
         }
 
         
@@ -594,39 +597,48 @@ function mostrarMedicamento(cn) {
         dato.classList.add("noMedic");
         dato.appendChild(document.createTextNode("Ponga todos los numeros del Codigo Nacional"));
     } else {
-        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`)
-        .then(res=>res.json())
-        .then(resultadoApi=>{
-            console.log(resultadoApi);
+        // fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`)
+        // .then(res=>res.json())
+        // .then(resultadoApi=>{
+        //     console.log(resultadoApi);
 
-            fetch(`http://localhost/OuterPharma/App/BaseDatos/devProducto.php?codigo=${cn}`)
-            .then(res=>res.json())
-            .then(resultado=>{
-                console.log(resultado);
-                if (resultado) {
-                    console.log("ey");
-                } else {
-                    console.log("caca");
-                }
-            })
+        //     fetch(`http://localhost/OuterPharma/App/BaseDatos/devProducto.php?codigo=${cn}`)
+        //     .then(res=>res.json())
+        //     .then(resultado=>{
+        //         console.log(resultado);
+        //         if (resultado) {
+        //             console.log("ey");
+        //         } else {
+        //             console.log("caca");
+        //         }
+        //     })
             
-            let nombre = document.createElement("p")
-            nombre.classList.add("nombreMed")
-            nombre.appendChild(document.createTextNode(resultadoApi.nombre));
-            dato.appendChild(nombre);
+        //     let nombre = document.createElement("p")
+        //     nombre.classList.add("nombreMed")
+        //     nombre.appendChild(document.createTextNode(resultadoApi.nombre));
+        //     dato.appendChild(nombre);
 
-            let img = new Image();
+        //     let img = new Image();
 
-            if(resultadoApi.fotos===undefined){
-                img.src = 'http://localhost/OuterPharma/App/assets/pastillica.webp';
-            }else{
-                img.src = resultadoApi.fotos[0].url;
-            }
-            img.classList.add('imagen_foto');
+        //     if(resultadoApi.fotos===undefined){
+        //         img.src = 'http://localhost/OuterPharma/App/assets/pastillica.webp';
+        //     }else{
+        //         img.src = resultadoApi.fotos[0].url;
+        //     }
+        //     img.classList.add('imagen_foto');
 
-            dato.appendChild(img);
+        //     dato.appendChild(img);
 
-        });
+        // });
+
+        let img = new Image();
+
+        img.src = 'http://localhost/OuterPharma/App/assets/pastillica.webp';
+
+        img.classList.add('imagen_foto');
+
+        dato.appendChild(document.createTextNode(cn))
+        dato.appendChild(img);
     }
 
     datos.appendChild(dato);
