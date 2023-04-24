@@ -153,7 +153,8 @@ sup {
 }
 
 .bi {
-  background-color: #4723D9;
+  background-color: rgba(108, 117, 125, 0.8);
+  border-radius: 50%;
 }
 
 .card_title {
