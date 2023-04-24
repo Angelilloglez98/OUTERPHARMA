@@ -56,7 +56,12 @@ a{
   display: flex;
   justify-content: center;
   border-radius: 50%;
-  overflow: hidden
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.header_img:hover{
+transform: scale(1.1);
 }
 
 .header_img img{

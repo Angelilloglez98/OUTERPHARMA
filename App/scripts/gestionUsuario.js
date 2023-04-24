@@ -3,7 +3,7 @@ window.onload = () => {
   fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
-      Pintar(document.querySelector('.contenedorUser'), element.nombre, element.correopersonal, element.telefono, element.nempleado, element.rol,element.UrlEmpleado)
+      Pintar(document.querySelector('.contenedorUser'), element.nombre, element.correopersonal, element.telefono, element.nempleado, element.rol, element.UrlEmpleado)
 
     }));
 
@@ -25,7 +25,7 @@ window.onload = () => {
       focusConfirm: false,
 
       preConfirm: () => {
-        
+
         // Retorna un objeto con los valores de los campos del formulario
         return {
           Nombre: document.getElementsByName("Nombre")[0].value,
@@ -36,26 +36,26 @@ window.onload = () => {
       },
 
     };
-  
-      // Muestra la ventana modal con el formulario
-      Swal.fire(form).then((result) => {
-        // Si el usuario ha enviado el formulario, muestra los valores de los campos
-        if (result.isConfirmed) {
-          let nombre = document.querySelector('input[name="Nombre"]').value
-          let correo = document.querySelector('input[name="Correo"]').value
-          let ntelefono = document.querySelector('input[name="nTelefono"]').value
 
-          if (validarNombre(nombre) == true && validarCorreoElectronico(correo) && validarTelefono(ntelefono)) {
+    // Muestra la ventana modal con el formulario
+    Swal.fire(form).then((result) => {
+      // Si el usuario ha enviado el formulario, muestra los valores de los campos
+      if (result.isConfirmed) {
+        let nombre = document.querySelector('input[name="Nombre"]').value
+        let correo = document.querySelector('input[name="Correo"]').value
+        let ntelefono = document.querySelector('input[name="nTelefono"]').value
 
-            enviarDatos(nombre, correo, ntelefono,nempleado)
-            location.reload();
-          } else {
-            alert("rellene bien los campos")
-          }
-    
+        if (validarNombre(nombre) == true && validarCorreoElectronico(correo) && validarTelefono(ntelefono)) {
+
+          enviarDatos(nombre, correo, ntelefono, nempleado)
+          location.reload();
+        } else {
+          alert("rellene bien los campos")
         }
 
-      });
+      }
+
+    });
 
   }
 
@@ -76,7 +76,7 @@ window.onload = () => {
       focusConfirm: false,
 
       preConfirm: () => {
-        
+
         // Retorna un objeto con los valores de los campos del formulario
         return {
           Nombre: document.getElementsByName("Nombre")[0].value,
@@ -86,27 +86,27 @@ window.onload = () => {
       },
 
     };
-  
-      // Muestra la ventana modal con el formulario
-      Swal.fire(form).then((result) => {
-        // Si el usuario ha enviado el formulario, muestra los valores de los campos
-        if (result.isConfirmed) {
-          let nombre = document.querySelector('input[name="Nombre"]').value
-          let telefono = document.querySelector('input[name="telefono"]').value
-          let correo = document.querySelector('input[name="correo"]').value
-          let contrasena = document.querySelector('input[name="password"]').value
 
-          if (validarNombre(nombre) && validarTelefono(telefono) && validarCorreoElectronico(correo) && validarContrasena(contrasena)) {
-            url = "assets/A1.png";
-            let nombre2 = nombre;
-            let nombreFormateado = nombre2.split(' ').map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)).join(' ')
-            enviarDatosCrear(nombreFormateado, correo, telefono, contrasena,url)
-            location.reload();
-          }
-    
+    // Muestra la ventana modal con el formulario
+    Swal.fire(form).then((result) => {
+      // Si el usuario ha enviado el formulario, muestra los valores de los campos
+      if (result.isConfirmed) {
+        let nombre = document.querySelector('input[name="Nombre"]').value
+        let telefono = document.querySelector('input[name="telefono"]').value
+        let correo = document.querySelector('input[name="correo"]').value
+        let contrasena = document.querySelector('input[name="password"]').value
+
+        if (validarNombre(nombre) && validarTelefono(telefono) && validarCorreoElectronico(correo) && validarContrasena(contrasena)) {
+          url = "assets/A1.png";
+          let nombre2 = nombre;
+          let nombreFormateado = nombre2.split(' ').map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1)).join(' ')
+          enviarDatosCrear(nombreFormateado, correo, telefono, contrasena, url)
+          location.reload();
         }
 
-      });
+      }
+
+    });
   }
 
   function ventanaEmergenteEli(nombre, nempleado) {
@@ -125,7 +125,7 @@ window.onload = () => {
       focusConfirm: false,
 
       preConfirm: () => {
-        
+
         // Retorna un objeto con los valores de los campos del formulario
         return {
           Nombre: document.getElementsByName("Nombre")[0].value,
@@ -135,29 +135,30 @@ window.onload = () => {
       },
 
     };
-  
-      // Muestra la ventana modal con el formulario
-      Swal.fire(form).then((result) => {
-        // Si el usuario ha enviado el formulario, muestra los valores de los campos
-        if (result.isConfirmed) {
-          let nombre = document.querySelector('input[name="Nombre"]').value
-          let validacion = document.querySelector('input[name="password"]').value
 
-          let pass = {'password':validacion};
-          comprobarPass(pass).then(result=>{
-            if (result=="true") {
-              eliminarDatos(nombre,nempleado);
-              location.reload();
-            } else {
-              alert("La contraseña es incorrecta");
-            }})
-    
-        }
+    // Muestra la ventana modal con el formulario
+    Swal.fire(form).then((result) => {
+      // Si el usuario ha enviado el formulario, muestra los valores de los campos
+      if (result.isConfirmed) {
+        let nombre = document.querySelector('input[name="Nombre"]').value
+        let validacion = document.querySelector('input[name="password"]').value
 
-      });
+        let pass = { 'password': validacion };
+        comprobarPass(pass).then(result => {
+          if (result == "true") {
+            eliminarDatos(nombre, nempleado);
+            location.reload();
+          } else {
+            alert("La contraseña es incorrecta");
+          }
+        })
+
+      }
+
+    });
   }
 
-  function Pintar(elemento, nombre, correo, telefono, nempleado, rol,url) {
+  function Pintar(elemento, nombre, correo, telefono, nempleado, rol, url) {
     let div = document.createElement('div');
     div.classList.add("card");
     div.style.width = "18rem";
@@ -179,7 +180,7 @@ window.onload = () => {
     cardTitle.classList.add("card-title");
     let txtNombre = document.createTextNode(nombre);
     cardTitle.appendChild(txtNombre)
- 
+
     const cardSubtitle = document.createElement("h6");
     cardSubtitle.classList.add("card-subtitle", "mb-2", "text-muted");
     let txtCorreo = document.createTextNode(correo);
@@ -247,11 +248,6 @@ window.onload = () => {
         ventanaEmergenteCrear();
       })
     }
-
-
-
-
-
     elemento.appendChild(div);
   }
 
@@ -359,7 +355,7 @@ window.onload = () => {
     xhr.send(data);
   }
 
-  function enviarDatosCrear(nombre, correo, numero, password,url) {
+  function enviarDatosCrear(nombre, correo, numero, password, url) {
     // Creamos un objeto FormData con los datos a enviar
     var data = 'nombre=' + encodeURIComponent(nombre) +
       '&correopersonal=' + encodeURIComponent(correo) +
@@ -409,19 +405,19 @@ window.onload = () => {
     xhr.send(data);
   }
 
-  const comprobarPass=async(password)=>{
+  const comprobarPass = async (password) => {
     var pass = JSON.stringify(password);
-    const option={
-      method:"POST",
-      redirect:"follow",
-      body:pass,
-      Headers:{
-        "Accept":"application/json"
+    const option = {
+      method: "POST",
+      redirect: "follow",
+      body: pass,
+      Headers: {
+        "Accept": "application/json"
       }
     }
-    return fetch("BaseDatos/comprobarPass.php",option)
-    .then(response=>response.text())
-    .then(result=>{return result})
-    .catch(e=>{console.error("ERROR:" , e.message)})
+    return fetch("BaseDatos/comprobarPass.php", option)
+      .then(response => response.text())
+      .then(result => { return result })
+      .catch(e => { console.error("ERROR:", e.message) })
   }
 } 
