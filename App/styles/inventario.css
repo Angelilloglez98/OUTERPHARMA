@@ -14,7 +14,7 @@ form{
 }
 
 p{
-  width: fit-content;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -104,6 +104,30 @@ sup {
   background-color: #FFF;
 } 
 
+.pedirCN {
+  height: fit-content;
+}
+
+.noMedic {
+  color: red;
+  font-size: .8rem;
+}
+
+.nombreMed {
+  font-weight: bold;
+  font-size: .9rem;
+  margin-bottom: 1rem;
+}
+
+.medicamento {
+  width: 100%;
+  max-width: 300px;
+  height: fit-content;
+  border-radius: 10px;
+  transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-bottom: 1rem;
+}
+
 /* Carta */
 .carta {
   position: relative;
@@ -128,6 +152,11 @@ sup {
   height: 100%;
 }
 
+.bi {
+  background-color: rgba(108, 117, 125, 0.8);
+  border-radius: 50%;
+}
+
 .card_title {
   font-weight: bold;
 }
@@ -141,9 +170,10 @@ sup {
   min-height: 300px;
   max-height: 300px;
   padding: 20px;
-  background: #000;
+  /* background: #000; */
+  background-color: rgba(108, 117, 125, 0.8);
   color: #FFFFFF;
-  border-top-left-radius: 20px;
+  border-radius: 20px;
     /* edit here to change the height of the content box */
   transform: translateY(240px);
   transition: transform .25s;
@@ -152,19 +182,6 @@ sup {
 
 .card_content::-webkit-scrollbar {
   width: 0px; /* cambia el ancho del scrollbar */
-}
-
-.card_content::before {
-  content: '';
-  position: absolute;
-  top: -57px;
-  right: -45px;
-  width: 100px;
-  height: 100px;
-  transform: rotate(-175deg);
-  border-radius: 50%;
-  box-shadow: inset 48px 48px #000;
-  color: #000;
 }
 
 .card_title {
@@ -185,7 +202,7 @@ sup {
 }
 
 .carta:hover .card_content {
-  transform: translateY(35px);
+  transform: translateY(45px);
 }
 
 .carta:hover .card_description {
@@ -195,32 +212,32 @@ sup {
 
 /* Boton */
 button {
-  width: 150px;
-  height: 50px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  background: red;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-  background: #e62222;
-  margin: auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
- }
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: #e62222;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
  
- button, button span {
+button, button span {
   transition: 200ms;
- }
+}
  
- button .text {
+button .text {
   transform: translateX(35px);
   color: white;
   font-weight: bold;
- }
+}
  
- button .icon {
+button .icon {
   position: absolute;
   border-left: 1px solid #c41b1b;
   transform: translateX(110px);
@@ -229,34 +246,137 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
- }
+}
  
- button svg {
+button svg {
   width: 15px;
   fill: #eee;
- }
+}
  
- button:hover {
+button:hover {
   background: #ff3636;
- }
+}
  
- button:hover .text {
+button:hover .text {
   color: transparent;
- }
+}
  
- button:hover .icon {
+button:hover .icon {
   width: 150px;
   border-left: none;
   transform: translateX(-5px);
- }
+}
  
- button:focus {
+button:focus {
   outline: none;
- }
+}
  
- button:active .icon svg {
+button:active .icon svg {
   transform: scale(0.8);
- }
+}
+
+.botonverde {
+  width: 50px;
+  height: 50px;
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #27ae60;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  padding: 13px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.botonverde:hover {
+  background-color: #1e8449;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.botonverde:active {
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.botonverde:hover {
+  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+}
+
+#codigoBarra{
+  padding: 20px;
+  background-image: url('../assets/photo_camera_FILL1_wght400_GRAD0_opsz48.svg');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+
+#Escaner{
+  max-width: 300px;
+  max-height: 300px;
+}
+
+#Escaner video{
+  width: 100%;
+}
+
+.cambiarForma{
+  margin: 50px 0;
+}
+
+.drawingBuffer {
+  display: none;
+}
+
+/* Css de los input de busqueda */
+.input {
+  line-height: 28px;
+  border: 2px solid transparent;
+  border-bottom-color: #777;
+  padding: .2rem 0;
+  outline: none;
+  background-color: transparent;
+  color: #0d0c22;
+  transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.input:focus, input:hover {
+  outline: none;
+  padding: .2rem 1rem;
+  border-radius: 1rem;
+  border-color: #7a9cc6;
+}
+
+.input::placeholder {
+  color: #777;
+}
+
+.input:focus::placeholder {
+  opacity: 0;
+  transition: opacity .3s;
+}
 
 @media only screen and (max-width: 1400px) {
   .datos{

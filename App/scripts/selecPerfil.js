@@ -67,10 +67,9 @@ window.onload=()=>{
                     console.log(element.rol);
                     if (rol==='Admin') {
                         localStorage.setItem("password",contrasenaInput)
-
-                        location.replace('./InicioAdmin.html');
+                        location.replace('./Inicio.php');
                     }else{
-                        location.replace('./Inicio.html');
+                        location.replace('./Inicio.php');
                     }
                     localStorage.setItem("nEmpleado",nEmpleado);
                     localStorage.setItem('perfil',element.nempleado);

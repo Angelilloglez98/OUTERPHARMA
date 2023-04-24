@@ -68,6 +68,10 @@ transform: scale(1.1);
   width: 40px
 }
 
+.iconoEmail:before{
+  content: "\e158";
+}
+
 .l-navbar{
   position: fixed;
   top: 0;
@@ -148,6 +152,29 @@ transform: scale(1.1);
 
 .height-100{
   height:100vh;
+}
+
+.BotonEnviarEmail{
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  right: 0;
+  margin: 30px;
+  padding: 20px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 0;
+  background-color:var(--first-color);
+  color: #AFA5D9;
+  transition: all 0.3s;
+}
+.BotonEnviarEmail:hover{
+  background-color:var(--first-color-light);
+  color: var(--first-color);
 }
 
 @media screen and (min-width: 768px){

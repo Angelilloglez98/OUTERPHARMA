@@ -4,10 +4,30 @@ require('./conexionDB.php');
 session_start();
 $registros=array();
 
+$orden = $_GET['orden'];
+$direccion = $_GET['direccion'];
 $correo=$_SESSION['CorreoFarmacia'];
 
-$sql="SELECT FARMACIAS_PRODUCTOS.Ccorreo,FARMACIAS_PRODUCTOS.CodigoNacional,productos.Nombre,FARMACIAS_PRODUCTOS.Precio,FARMACIAS_PRODUCTOS.Cantidad,FARMACIAS_PRODUCTOS.fCaducidad, productos.pActivo, productos.Laboratorio, productos.vAdmin, productos.presMedica
-    FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.CodigoNacional=PRODUCTOS.CodigoNacional where Ccorreo='$correo' ORDER BY productos.Nombre ASC";
+if ($orden == "Nombre") {
+    $sql = "SELECT fp.Ccorreo, fp.CodigoNacional, p.Nombre, fp.Precio, fp.Cantidad, fp.fCaducidad, p.pActivo, p.Laboratorio, p.vAdmin, p.presMedica
+            FROM FARMACIAS_PRODUCTOS fp
+            INNER JOIN PRODUCTOS p ON fp.CodigoNacional = p.CodigoNacional
+            WHERE fp.Ccorreo = '$correo'
+            ORDER BY p.Nombre $direccion";
+} elseif ($orden == "Precio") {
+    $sql = "SELECT fp.Ccorreo, fp.CodigoNacional, p.Nombre, fp.Precio, fp.Cantidad, fp.fCaducidad, p.pActivo, p.Laboratorio, p.vAdmin, p.presMedica
+            FROM FARMACIAS_PRODUCTOS fp
+            INNER JOIN PRODUCTOS p ON fp.CodigoNacional = p.CodigoNacional
+            WHERE fp.Ccorreo = '$correo'
+            ORDER BY fp.Precio $direccion";
+} else {
+    $sql = "SELECT fp.Ccorreo, fp.CodigoNacional, p.Nombre, fp.Precio, fp.Cantidad, fp.fCaducidad, p.pActivo, p.Laboratorio, p.vAdmin, p.presMedica
+            FROM FARMACIAS_PRODUCTOS fp
+            INNER JOIN PRODUCTOS p ON fp.CodigoNacional = p.CodigoNacional
+            WHERE fp.Ccorreo = '$correo'
+            ORDER BY p.Nombre ASC";
+
+}
 
 $pdo->exec("SET NAMES 'utf8mb4'");
 
@@ -17,16 +37,16 @@ $sth->execute();
 
 while ($fila=$sth->fetch()) {
     $registros[]=array(
-        'Ccorreo'=>$fila['Ccorreo'],
+        'Ccorreo'       =>$fila['Ccorreo'],
         'CodigoNacional'=>$fila['CodigoNacional'],
         'NombreProducto'=>$fila['Nombre'],
-        'Precio'=>$fila['Precio'],
-        'Cantidad'=>$fila['Cantidad'],
-        'fCaducidad'=>$fila['fCaducidad'],
-        'pActivo'=>$fila['pActivo'],
-        'Laboratorio'=>$fila['Laboratorio'],
-        'vAdmin'=>$fila['vAdmin'],
-        'presMedica'=>$fila['presMedica']
+        'Precio'        =>$fila['Precio'],
+        'Cantidad'      =>$fila['Cantidad'],
+        'fCaducidad'    =>$fila['fCaducidad'],
+        'pActivo'       =>$fila['pActivo'],
+        'Laboratorio'   =>$fila['Laboratorio'],
+        'vAdmin'        =>$fila['vAdmin'],
+        'presMedica'    =>$fila['presMedica']
     );
 }
 

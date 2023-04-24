@@ -133,8 +133,8 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima,CantidadActual)
 
 function actualizarPrecioTotal() {
     let total = document.querySelector('.total');
-total.disabled=true;
-total.style.textAlign='center';
+    total.disabled=true;
+    total.style.textAlign='center';
     let totales = document.querySelectorAll('.totalfila');
     let sumatorio = 0;
     totales.forEach(costeFila => {
