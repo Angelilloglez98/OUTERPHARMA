@@ -55,7 +55,7 @@
         </div>
         
         <!--Container Main start-->
-        <div class="height-100 bg-light">
+        <div class="bg-light mt-5">
             <h4>Buscador</h4>
 
             <div class="input-group rounded">
