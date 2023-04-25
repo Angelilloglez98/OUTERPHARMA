@@ -486,8 +486,7 @@ async function mostrarMedicamento(cn) {
         } catch (error) {
             let nombre = document.createElement("p")
             nombre.classList.add("nombreMed")
-            console.log(resultado);
-            nombre.appendChild(document.createTextNode(resultado.nombre));
+            nombre.appendChild(document.createTextNode("No se pudo cargar la información del medicamento"));
             dato.appendChild(nombre);
 
             let img = new Image();
