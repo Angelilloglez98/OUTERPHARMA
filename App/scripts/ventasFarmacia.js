@@ -154,7 +154,6 @@ function ActualizarPrecioFila() {
     for (let i = 0; i < financiacion.length; i++) {
         let valor = (cantidad[i].firstChild.value * precio[i].textContent) *  financiacion[i].firstChild.value;
         preciototal.push(valor.toFixed(2))
-
     }
 
     total.forEach((element, i) => {

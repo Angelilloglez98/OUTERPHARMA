@@ -53,7 +53,7 @@
        
         <!--Container Main start-->
          
-        <div class="height-100 bg-light">
+        <div class="height-100 bg-light mt-5">
             <h1>Ventas</h1>
             <div class="cambiarForma">
                 <div id="Escaner" class="viewport"></div>
