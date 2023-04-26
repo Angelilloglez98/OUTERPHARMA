@@ -510,9 +510,4 @@ async function mostrarMedicamento(cn) {
     }
 
     datos.appendChild(dato);
-}
-
-
-// TODO: Controlar que si no estan todos los digitos en el campo de codigo de barra no se pinte, diga que no existe y se desabiliten los botones
-
-// TODO: Si existe el medicamento en la base de datos se activan los 2 botones, si no existe se activa el de insertar y si no existe en la api que no se active ninguno
+}   
