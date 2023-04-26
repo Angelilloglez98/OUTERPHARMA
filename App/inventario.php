@@ -73,7 +73,7 @@
                   
                 </div>
             </nav>
-            <div class="container">
+            <div class="w-100">
                 <div class="">
                     <div class="row gap-3 fit">
                         <div class="col-9">
