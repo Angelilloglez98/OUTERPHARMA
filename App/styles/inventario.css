@@ -30,7 +30,7 @@ p{
 
 .datos{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   justify-items: center !important;
   row-gap: 4.953125rem;
 }
@@ -131,8 +131,8 @@ sup {
 /* Carta */
 .carta {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   color: #2e2d31;
   background-color: #f2f2f2;
   overflow: hidden;
@@ -167,15 +167,15 @@ sup {
   bottom: 0;
     /* edit the width to fit card */
   width: 100%;
-  min-height: 300px;
-  max-height: 300px;
+  min-height: 250px;
+  max-height: 250px;
   padding: 20px;
   /* background: #000; */
   background-color: rgba(108, 117, 125, 0.8);
   color: #FFFFFF;
   border-radius: 20px;
     /* edit here to change the height of the content box */
-  transform: translateY(240px);
+  transform: translateY(190px);
   transition: transform .25s;
   overflow-y: scroll;
 }
@@ -212,19 +212,19 @@ sup {
 
 /* Boton */
 button {
-    width: 150px;
-    height: 50px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    background: red;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-    background: #e62222;
-    margin: auto;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: red;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  background: #e62222;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
  
 button, button span {
@@ -391,7 +391,31 @@ button:active .icon svg {
   }
 }
 
-@media only screen and (max-width: 990px) {
+@media only screen and (max-width: 1880px) {
+  .datos{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .datos{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .datos{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 800px) {
   .datos{
     display: grid;
     grid-template-columns: repeat(1, 1fr);

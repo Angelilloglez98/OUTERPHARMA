@@ -60,6 +60,10 @@
 
         <div class="newProv">
             
+          <button class="addProv">
+            <span>+ Proveedor</span>
+          </button>
+
         </div>
 
     </div>

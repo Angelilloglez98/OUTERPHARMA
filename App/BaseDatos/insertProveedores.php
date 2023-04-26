@@ -14,8 +14,6 @@
 
     // Consulta SELECT para verificar si el proveedor ya existe
     $sth = $pdo->prepare("SELECT * FROM proveedores WHERE Nombre = :Nombre AND CcorreoFarmacia = :CcorreoFarmacia");
-    // $sth->bindParam(':Nombre', $Nombre);
-    // $sth->bindParam(':CcorreoFarmacia', $CcorreoFarmacia);
     $sth->execute(array(':Nombre'=> $Nombre, ':CcorreoFarmacia'=> $CcorreoFarmacia));
 
     // Si no hay resultados, agregar el proveedor a la base de datos

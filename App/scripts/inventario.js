@@ -438,6 +438,10 @@ async function comprobarMedicamento(cn){
 
 async function mostrarMedicamento(cn) {
     let datos = document.querySelector(".pedirCN");
+    let insertar = document.querySelector("#insertar");
+    let borrar = document.querySelector("#borrar");
+    insertar.disabled = true;
+    borrar.disabled = true;
 
     datos.removeChild(datos.lastChild)
     let dato = document.createElement("div");
@@ -446,26 +450,31 @@ async function mostrarMedicamento(cn) {
     if (cn.length < 6) {
         dato.classList.add("noMedic");
         dato.appendChild(document.createTextNode("Ponga todos los numeros del Codigo Nacional"));
+
     } else {
         let resultadoApi = {};
         let resultado = {};
 
         try {
-            const resApi = fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
+            const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
             resultadoApi = await resApi.json();
 
             console.log(resultadoApi);
 
-            const res = fetch(`http://localhost/OuterPharma/App/BaseDatos/devProducto.php?codigo=${cn}`);
+            const res = await fetch(`http://localhost/OuterPharma/App/BaseDatos/devProducto.php?codigo=${cn}`);
             resultado = await res.json();
 
             console.log(resultado);
 
-            if (resultado) {
-                console.log("ey");
-            } else {
-                console.log("caca");
-            }
+            if (Object.keys(resultado).length === 0) {
+                // Si el resultado es un objeto vacío, no se encontró ningún registro en la base de datos
+                insertar.disabled = false;
+                borrar.disabled = true;
+              } else {
+                // Si el resultado contiene datos, se encontró un registro en la base de datos
+                insertar.disabled = false;
+                borrar.disabled = false;
+              }
 
             let nombre = document.createElement("p")
             nombre.classList.add("nombreMed")
@@ -485,9 +494,8 @@ async function mostrarMedicamento(cn) {
 
         } catch (error) {
             let nombre = document.createElement("p")
-            nombre.classList.add("nombreMed")
-            console.log(resultado);
-            nombre.appendChild(document.createTextNode(resultado.nombre));
+            nombre.classList.add("noMedic")
+            nombre.appendChild(document.createTextNode("Este medicamento no existe, por lo cual no se pudo cargar la información del medicamento"));
             dato.appendChild(nombre);
 
             let img = new Image();
@@ -496,16 +504,10 @@ async function mostrarMedicamento(cn) {
 
             img.classList.add('imagen_foto');
 
-            dato.appendChild(document.createTextNode(cn))
             dato.appendChild(img);
         }
         
     }
 
     datos.appendChild(dato);
-}
-
-
-// TODO: Controlar que si no estan todos los digitos en el campo de codigo de barra no se pinte, diga que no existe y se desabiliten los botones
-
-// TODO: Si existe el medicamento en la base de datos se activan los 2 botones, si no existe se activa el de insertar y si no existe en la api que no se active ninguno
+}   

@@ -1,13 +1,11 @@
 window.onload = () =>{
 
   const newProv = document.querySelector(".newProv");
-  const button = document.createElement('button')
-  const hideOnBush = document.createElement('div');
-  const form = document.createElement("form");
+  // const button = document.createElement('button');
   
-  button.className = 'addProv';
-  button. textContent = 'Añadir +';
-  newProv.appendChild(button);
+  // button.className = 'addProv';
+  // button.textContent = 'Aniadir Proveedor';
+  // newProv.appendChild(button);
 
   const buscarProv = async()=>{
 
@@ -46,6 +44,26 @@ window.onload = () =>{
 
   }
 
+  const updProv = async(datos)=>{
+    
+    var raw = JSON.stringify(datos);
+
+    const options = {
+        method: 'POST',
+        redirect: 'follow',
+        body: raw,
+        Headers: {'Accept':'aplication/json'}
+    }
+
+    var url = 'http://localhost/OuterPharma/App/BaseDatos/updProveedores.php';
+    
+    return fetch(url, options)
+    .then(response => response.text())
+    .then(result => {return result})
+    .catch(e => {console.error("ERROR: ", e.message)});
+
+  }
+
   const borrarProb = async(nombre)=>{
     var raw = JSON.stringify({'Nombre': nombre});
 
@@ -73,10 +91,78 @@ window.onload = () =>{
           let deleteProv = document.createElement('button');
           let updateProv = document.createElement('button');
 
-          deleteProv.innerText = 'Borrar';
-          updateProv.innerText = 'Editar';
-          deleteProv.onclick = ()=>{borrarProb(element.nombre).then()};
-          updateProv.onclick = ()=>{console.log(element.nombre)};
+          deleteProv.className = 'delete';          
+          updateProv.className = 'edit';
+
+          deleteProv.onclick = ()=>{
+
+            Swal.fire({
+              title: '¿Estás seguro?',
+              text: "Desaparecerá de forma permanente",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: '¡Si, borralo!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                borrarProb(element.nombre);
+                Swal.fire(
+                  '¡Borrado!',
+                  'El proveedor ha sido eliminado',
+                  'success',
+                )
+              }
+            })
+
+            
+          };
+          updateProv.onclick = ()=>{
+            
+            console.log(element.nombre)
+
+            const form = {
+
+              title: "Formulario",
+        
+              html: `
+                <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php">
+                  <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input" value=${element.nombre} disabled = "true">
+                  <input type="text" name="Direccion" placeholder="Dirección" class="swal2-input" value=${element.direccion}>
+                  <input type="tel" name="nTelefono" placeholder="Teléfono" class="swal2-input" value=${element.nTelefono}>
+                  <input type="url" name="Link" placeholder="Página Web" class="swal2-input" value=${element.link}>
+                </form>
+              `,
+        
+              focusConfirm: false,
+        
+              preConfirm: () => {
+                
+                // Retorna un objeto con los valores de los campos del formulario
+                return {
+                  Nombre: document.getElementsByName("Nombre")[0].value,
+                  Direccion: document.getElementsByName("Direccion")[0].value,
+                  nTelefono: document.getElementsByName("nTelefono")[0].value,
+                  Link: document.getElementsByName("Link")[0].value,
+                };
+        
+              },
+        
+            };
+          
+            // Muestra la ventana modal con el formulario
+            Swal.fire(form).then((result) => {
+              // Si el usuario ha enviado el formulario, muestra los valores de los campos
+              if (result.isConfirmed) {
+        
+                console.log(result.value);
+                updProv(result.value).then(result=>{console.log(result);});
+          
+              }
+        
+            });
+
+          };
 
           cardProv.className = "tarjeta-proveedor";
 
@@ -122,8 +208,6 @@ window.onload = () =>{
 
   button.onclick = ()=>{
 
-    hideOnBush.style.display = 'flex';
-
     const form = {
 
       title: "Formulario",
@@ -153,17 +237,18 @@ window.onload = () =>{
 
     };
   
-      // Muestra la ventana modal con el formulario
-      Swal.fire(form).then((result) => {
-        // Si el usuario ha enviado el formulario, muestra los valores de los campos
-        if (result.isConfirmed) {
+    // Muestra la ventana modal con el formulario
+    Swal.fire(form).then((result) => {
+      // Si el usuario ha enviado el formulario, muestra los valores de los campos
+      if (result.isConfirmed) {
 
-          console.log(result.value);
-          insertProv(result.value).then(response => console.log(response));
-    
-        }
+        console.log(result.value);
+        insertProv(result.value);
+  
+      }
 
-      });
-}
+    });
+
+  }
 
 }
