@@ -109,18 +109,18 @@ input[type=number] { -moz-appearance:textfield; }
 display: flex;
 }
 
-.aceptar{
+.confirm{
 color: white;
 background-color: #46564d;
 
 }
 
-.cancelar{
+.cancel{
     color: white;
 background-color: brown;
 }
 
-.aceptar,.cancelar{
+.confirm,.cancel,.aceptar{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,17 +137,30 @@ background-color: brown;
     margin:0 6px;
 }
 
-.activos{
-    display: none;
+.activ{
+    display: none ;
+}
+
+.aceptar{
+    color: white;
+    background-color: #27ae60;
+    margin: 10px auto;
 }
 
 .editarperfiles{
-position: absolute;
-display: grid;
-grid-template-columns: repeat(3,1fr);
-left: 0;
-top: 0;
-background-color: black;
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    right: 0;
+    top: 0;
+    background-color: white;
+    border: 4px solid #4723D9;
+    margin: 3px;
+    width: 221px;
+
+}
+.activ{
+    display: none ;
 }
 
 .contenedorDatosUser{
@@ -155,5 +168,27 @@ background-color: black;
 }
 
 .editarperfiles>div{
-    padding: 15px;
+    padding: 10px;
+
+}
+
+.filtronegro{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 0;
+    left: 0;
+    top: 0;
+}
+
+.fotoperfiles{
+    border-radius: 50%;
+    
+}
+
+.imagenUser{
+    position: relative;
+    cursor: pointer;
+    z-index: 1200;
 }

@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="styles/header.css">
     <script src="scripts/header.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="scripts/editarPerfil.js" defer></script>
-    <link rel="stylesheet" href="styles/editarPerfil.css">
+    <script src="./scripts/editarPerfil.js" defer></script>
+    <link rel="stylesheet" href="./styles/editarPerfil.css">
 </head>
 <body id="body-pd">
     <a href="mailto:perxasgmail.com"><Button class="BotonEnviarEmail"><span class="material-symbols-outlined">mail</span></Button></a>

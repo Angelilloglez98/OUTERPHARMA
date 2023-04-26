@@ -1,6 +1,5 @@
 
 let imagen = document.querySelector(".header_img")
-
 let nempleado = localStorage.getItem("nEmpleado")
 let nombre = localStorage.getItem("nombre")
 let rol = localStorage.getItem("rol")
@@ -21,10 +20,10 @@ imagen.addEventListener("click", function () {
   ventana.innerHTML = pintarForm(nombre, rol, correo, telefono, foto);
 
   let imagenperfil = document.querySelector('.fotoperfil');
-  imagenperfil.addEventListener("click", function(){
+  imagenperfil.addEventListener("click", function () {
     activarfotos();
   })
-    
+
 
 
   let correoInput = document.querySelector('input[name="correo"]');
@@ -42,7 +41,7 @@ imagen.addEventListener("click", function () {
     validardatos();
   });
 
-  let botonenviar = document.querySelector('.aceptar');
+  let botonenviar = document.querySelector('.confirm');
   botonenviar.addEventListener('submit', function () {
     enviarperfil();
   });
@@ -60,36 +59,40 @@ function pintarForm(nombre, rol, correo, telefono, foto) {
         </div>
     </div>
     <div class="contenedorDatosUser">
-    <div class="editarperfiles activos">
-              <div>
-              <img src= "./assets/A1.png" class="fotoperfiles" alt="" width=100%>
-              </div>
-              <div>
-              <img src= "./assets/A2.png" class="fotoperfiles" alt="" width=100%>
-              </div>
-              <div>
-              <img src= "./assets/A3.png" class="fotoperfiles" alt="" width=100%>
-              </div>
-              <div>
-              <img src= "./assets/A4.png" class="fotoperfiles" alt="" width=100%>
-              </div>
-              <div>
-              <img src= "./assets/A5.png" class="fotoperfiles" alt="" width=100%>
-              </div>
-              <div>
-              <img src= "./assets/A6.png" class="fotoperfiles" alt="" width=100%>
-              </div>
-              <div>
-              <img src= "./assets/A7.png" class="fotoperfiles" alt="" width=100%>
-              </div>
-              <div>
-              <img src= "./assets/A8.png" class="fotoperfiles" alt="" width=100%>
-              </div>
-              <div>
-              <img src= "./assets/A9.png" class="fotoperfiles" alt="" width=100%>
-              </div>
-              <button class="aceptar" >✔</button>
-        </div>
+    <div class="filtronegro activ"></div>
+          <div class="editarperfiles activ">
+                <div>
+                <img src= "./assets/A1.png" class="fotoperfiles" alt="" width=100%>
+                </div>
+                <div>
+                <img src= "./assets/A2.png" class="fotoperfiles" alt="" width=100%>
+                </div>
+                <div>
+                <img src= "./assets/A3.png" class="fotoperfiles" alt="" width=100%>
+                </div>
+                <div>
+                <img src= "./assets/A4.png" class="fotoperfiles" alt="" width=100%>
+                </div>
+                <div>
+                <img src= "./assets/A5.png" class="fotoperfiles" alt="" width=100%>
+                </div>
+                <div>
+                <img src= "./assets/A6.png" class="fotoperfiles" alt="" width=100%>
+                </div>
+                <div>
+                <img src= "./assets/A7.png" class="fotoperfiles" alt="" width=100%>
+                </div>
+                <div>
+                <img src= "./assets/A8.png" class="fotoperfiles" alt="" width=100%>
+                </div>
+                <div>
+                <img src= "./assets/A9.png" class="fotoperfiles" alt="" width=100%>
+                </div>
+                <button class="aceptar" >✔</button>
+          </div>
+
+        
+        
         <div class="datosArriba">
             <div class="nombre">
                 <input type="text" name="nombre" value="${nombre}" disabled>
@@ -110,8 +113,8 @@ function pintarForm(nombre, rol, correo, telefono, foto) {
             </div>
         </div>
         <div class="botonesperfil">
-        <button class="aceptar" disabled>✔</button>
-        <button class="cancelar">🗙</button>
+        <button class="confirm" disabled="true">✔</button>
+        <button class="cancel">🗙</button>
         </div>
     </div>
     </div>`;
@@ -124,7 +127,7 @@ function pintarForm(nombre, rol, correo, telefono, foto) {
 
 
 function enviarperfil() {
-  let aceptarBtn = document.querySelector('.aceptar');
+  let aceptarBtn = document.querySelector('.confirm');
   aceptarBtn.disabled = false;
   aceptarBtn.style.backgroundColor = '#27ae60';
   aceptarBtn.addEventListener('click', function () {
@@ -174,9 +177,9 @@ function validarCorreoElectronico(correo) {
   // Verificar si el correo cumple con el formato
   if (!expresionRegular.test(correo)) {
     let divcorreo = document.querySelector(".correo")
-    crearMensajeError(divcorreo,"El correo no es valido")
+    crearMensajeError(divcorreo, "El correo no es valido")
     return false;
-  }else{
+  } else {
 
     let error = document.querySelector(".correo > .error")
     eliminarMensajeError(error)
@@ -190,9 +193,9 @@ function validarTelefono(telefono) {
   // Verificar si el número de teléfono cumple con el formato
   if (!expresionRegular.test(telefono)) {
     let divtelefono = document.querySelector(".telefono")
-    crearMensajeError(divtelefono,"El telefono no es valido")
+    crearMensajeError(divtelefono, "El telefono no es valido")
     return false;
-  }else{
+  } else {
 
     let error = document.querySelector(".telefono > .error")
     eliminarMensajeError(error)
@@ -203,9 +206,9 @@ function validarTelefono(telefono) {
 function validarContrasena(contrasena) {
   if (contrasena.length < 5) {
     let divpassword = document.querySelector(".password")
-    crearMensajeError(divpassword,"La contraseña almenos 5 caracteres")
+    crearMensajeError(divpassword, "La contraseña almenos 5 caracteres")
     return false;
-  }else{
+  } else {
     let error = document.querySelector(".password > .error")
     eliminarMensajeError(error)
     return true;
@@ -226,24 +229,24 @@ function validardatos() {
 }
 
 function botonfunsiona() {
-  let aceptarBtn = document.querySelector('.aceptar');
+  let aceptarBtn = document.querySelector('.confirm');
 
   aceptarBtn.disabled = false;
   aceptarBtn.style.backgroundColor = '#27ae60';
 }
 
 function botonnofunsiona() {
-  let aceptarBtn = document.querySelector('.aceptar');
+  let aceptarBtn = document.querySelector('.confirm');
 
   aceptarBtn.style.backgroundColor = '#46564d';
-    aceptarBtn.disabled = true;
+  aceptarBtn.disabled = true;
 }
 
 function crearMensajeError(elemento, mensaje) {
-  if (elemento.querySelector(".error")!=null) {
+  if (elemento.querySelector(".error") != null) {
     elemento.querySelector(".error").remove();
   }
-  
+
   let p = document.createElement('p');
   p.classList.add('error');
   let texto = document.createTextNode(mensaje);
@@ -252,27 +255,28 @@ function crearMensajeError(elemento, mensaje) {
 }
 
 function eliminarMensajeError(elemento) {
-  if (elemento!=null) {
+  if (elemento != null) {
     elemento.remove();
   }
-  
+
 }
 
 function comprobarInputs() {
   let errorT = document.querySelector(".telefono > .error")
   let errorP = document.querySelector(".password > .error")
   let errorC = document.querySelector(".correo > .error")
-  if (errorT!=null || errorP!=null || errorC!=null) {
+  if (errorT != null || errorP != null || errorC != null) {
     botonnofunsiona();
-  }else{
+  } else {
     botonfunsiona();
   }
 }
 
 function activarfotos() {
   let imagenes = document.querySelector(".editarperfiles");
-  console.log(imagenes);
-  imagenes.classList.toggle("activos")
+
+  imagenes.classList.toggle("activ");
+  document.querySelector(".filtronegro").classList.toggle('activ');
 }
 
 
