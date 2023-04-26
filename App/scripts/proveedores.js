@@ -1,11 +1,11 @@
 window.onload = () =>{
 
   const newProv = document.querySelector(".newProv");
-  const button = document.createElement('button')
+  // const button = document.createElement('button');
   
-  button.className = 'addProv';
-  button. textContent = 'Añadir +';
-  newProv.appendChild(button);
+  // button.className = 'addProv';
+  // button.textContent = 'Aniadir Proveedor';
+  // newProv.appendChild(button);
 
   const buscarProv = async()=>{
 
@@ -91,8 +91,9 @@ window.onload = () =>{
           let deleteProv = document.createElement('button');
           let updateProv = document.createElement('button');
 
-          deleteProv.innerText = 'Borrar';
-          updateProv.innerText = 'Editar';
+          deleteProv.className = 'delete';          
+          updateProv.className = 'edit';
+
           deleteProv.onclick = ()=>{
 
             Swal.fire({
