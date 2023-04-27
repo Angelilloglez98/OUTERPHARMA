@@ -5,7 +5,9 @@ let nombre = localStorage.getItem("nombre")
 let rol = localStorage.getItem("rol")
 let correo = localStorage.getItem("correo")
 let telefono = localStorage.getItem("telefono")
-let foto = localStorage.getItem("imagen")
+// let foto = localStorage.getItem("imagen")
+let foto = document.querySelector(".fotoUsuario");
+console.log(foto);
 
 imagen.addEventListener("click", function () {
   let ventana = document.querySelector(".emergenteEditarUser")
@@ -22,6 +24,7 @@ imagen.addEventListener("click", function () {
   let imagenperfil = document.querySelector('.fotoperfil');
   imagenperfil.addEventListener("click", function () {
     activarfotos();
+    comprobarInputs();
   })
 
 
@@ -42,9 +45,26 @@ imagen.addEventListener("click", function () {
   });
 
   let botonenviar = document.querySelector('.confirm');
-  botonenviar.addEventListener('submit', function () {
+  botonenviar.addEventListener('click', function () {
     enviarperfil();
+    // location.reload();
   });
+
+  
+
+  let botonCambiarImagen = document.querySelector('.aceptar');
+  botonCambiarImagen.addEventListener('click', function () {
+    activarfotos();
+    comprobarInputs();
+  });
+
+  let imagenes = document.querySelectorAll(".fotoperfiles");
+    for (let i = 0; i < imagenes.length; i++) {
+      imagenes[i].addEventListener('click', function(){
+        let imagenPerfil = document.querySelector(".fotoperfil")
+        imagenPerfil.src = imagenes[i].src;
+      })      
+    }
 
 })
 
@@ -134,21 +154,24 @@ function enviarperfil() {
     let correoInput = document.querySelector('input[name="correo"]').value;
     let telefonoInput = document.querySelector('input[name="telefono"]').value;
     let passwordInput = document.querySelector('input[name="password"]').value;
-    let nombreInput = document.querySelector('input[name="nombre"]').value;
     let nempleado = localStorage.getItem("perfil")
+    let imagenperfil = document.querySelector('.fotoperfil').src
 
     if (validarTelefono(telefonoInput) && validarCorreoElectronico(correoInput) && validarContrasena(passwordInput)) {
       // Creamos un objeto FormData con los datos a enviar
-      var data = '&nombre=' + encodeURIComponent(nombreInput) +
-        '&correopersonal=' + encodeURIComponent(correoInput) +
+
+        var data = '&correopersonal=' + encodeURIComponent(correoInput) +
         '&numero=' + encodeURIComponent(telefonoInput) +
         '&password=' + encodeURIComponent(passwordInput) +
-        '&idempleado=' + encodeURIComponent(nempleado)
+        '&idempleado=' + encodeURIComponent(nempleado) +
+        '&imagen=' + encodeURIComponent(imagenperfil);
+      
+
 
 
       // Creamos una solicitud HTTP POST
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'BaseDatos/updEmpleados.php', true);
+      xhr.open('POST', 'BaseDatos/updPerfil.php', true);
 
       // Configuramos el tipo de contenido que vamos a enviar
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -265,7 +288,9 @@ function comprobarInputs() {
   let errorT = document.querySelector(".telefono > .error")
   let errorP = document.querySelector(".password > .error")
   let errorC = document.querySelector(".correo > .error")
-  if (errorT != null || errorP != null || errorC != null) {
+  let imagenPerfil = document.querySelector(".fotoperfil")
+  let imagenActual = localStorage.getItem("imagen")
+  if (errorT != null || errorP != null || errorC != null || !compararFotos(imagenPerfil,imagenActual)) {
     botonnofunsiona();
   } else {
     botonfunsiona();
@@ -279,6 +304,12 @@ function activarfotos() {
   document.querySelector(".filtronegro").classList.toggle('activ');
 }
 
+function compararFotos(img1,img2) {
 
-
+  if (img1.src !== img2.src) {
+    return true; //imagenes diferentes
+  }else{
+  return false
+  }
+}
 

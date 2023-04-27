@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let perfilActivo = localStorage.getItem('perfil');
         if (perfilActivo == nEmpleado) {
             let imagen = document.createElement('img');
+            localStorage.setItem("fotousuario",imagen)
             imagen.src = urlImagen;
             document.querySelector('.header_img').appendChild(imagen);
             return;
