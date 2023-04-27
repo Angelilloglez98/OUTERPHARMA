@@ -5,9 +5,7 @@ let nombre = localStorage.getItem("nombre")
 let rol = localStorage.getItem("rol")
 let correo = localStorage.getItem("correo")
 let telefono = localStorage.getItem("telefono")
-// let foto = localStorage.getItem("imagen")
-let foto = document.querySelector(".fotoUsuario");
-console.log(foto);
+
 
 imagen.addEventListener("click", function () {
   let ventana = document.querySelector(".emergenteEditarUser")
@@ -18,11 +16,12 @@ imagen.addEventListener("click", function () {
     ventana.style.transform = "translateY(500px)";
 
   }
-
-  ventana.innerHTML = pintarForm(nombre, rol, correo, telefono, foto);
+  let foto = document.querySelector(".header_img > img").attributes[0].nodeValue;
+  ventana.innerHTML = pintarForm(nombre, rol, correo, telefono,foto);
 
   let imagenperfil = document.querySelector('.fotoperfil');
   imagenperfil.addEventListener("click", function () {
+    
     activarfotos();
     comprobarInputs();
   })
@@ -44,11 +43,18 @@ imagen.addEventListener("click", function () {
     validardatos();
   });
 
+
+
+
+
   let botonenviar = document.querySelector('.confirm');
   botonenviar.addEventListener('click', function () {
     enviarperfil();
-    // location.reload();
+    location.replace('./selecPerfil.html');
   });
+
+
+
 
   
 
@@ -62,51 +68,63 @@ imagen.addEventListener("click", function () {
     for (let i = 0; i < imagenes.length; i++) {
       imagenes[i].addEventListener('click', function(){
         let imagenPerfil = document.querySelector(".fotoperfil")
-        imagenPerfil.src = imagenes[i].src;
+        imagenPerfil.attributes[0].nodeValue = imagenes[i].attributes[0].nodeValue;
       })      
     }
+
+    let botonCancelarImagen = document.querySelector(".cancel")
+    botonCancelarImagen.addEventListener('click', function(){
+      ventana.classList.toggle("activo")
+      if (ventana.classList.contains("activo")) {
+        ventana.style.transform = "translateY(0px)";
+      } else {
+        ventana.style.transform = "translateY(500px)";
+    
+      }
+    })
 
 })
 
 
 
-function pintarForm(nombre, rol, correo, telefono, foto) {
+function pintarForm(nombre, rol, correo, telefono,foto) {
+  
   const formulario = `<div class="contenedorEditarUsuario">
       
     <div class="contenedorImagenUser">
         <div class="imagenUser">
-            <img src= "./${foto}" class="fotoperfil" alt="" width=100%>
+            <img src= "${foto}" class="fotoperfil" alt="" width=100%>
         </div>
     </div>
     <div class="contenedorDatosUser">
     <div class="filtronegro activ"></div>
           <div class="editarperfiles activ">
                 <div>
-                <img src= "./assets/A1.png" class="fotoperfiles" alt="" width=100%>
+                <img src= "assets/A1.png" class="fotoperfiles" alt="" width=100%>
                 </div>
                 <div>
-                <img src= "./assets/A2.png" class="fotoperfiles" alt="" width=100%>
+                <img src= "assets/A2.png" class="fotoperfiles" alt="" width=100%>
                 </div>
                 <div>
-                <img src= "./assets/A3.png" class="fotoperfiles" alt="" width=100%>
+                <img src= "assets/A3.png" class="fotoperfiles" alt="" width=100%>
                 </div>
                 <div>
-                <img src= "./assets/A4.png" class="fotoperfiles" alt="" width=100%>
+                <img src= "assets/A4.png" class="fotoperfiles" alt="" width=100%>
                 </div>
                 <div>
-                <img src= "./assets/A5.png" class="fotoperfiles" alt="" width=100%>
+                <img src= "assets/A5.png" class="fotoperfiles" alt="" width=100%>
                 </div>
                 <div>
-                <img src= "./assets/A6.png" class="fotoperfiles" alt="" width=100%>
+                <img src= "assets/A6.png" class="fotoperfiles" alt="" width=100%>
                 </div>
                 <div>
-                <img src= "./assets/A7.png" class="fotoperfiles" alt="" width=100%>
+                <img src= "assets/A7.png" class="fotoperfiles" alt="" width=100%>
                 </div>
                 <div>
-                <img src= "./assets/A8.png" class="fotoperfiles" alt="" width=100%>
+                <img src= "assets/A8.png" class="fotoperfiles" alt="" width=100%>
                 </div>
                 <div>
-                <img src= "./assets/A9.png" class="fotoperfiles" alt="" width=100%>
+                <img src= "assets/A9.png" class="fotoperfiles" alt="" width=100%>
                 </div>
                 <button class="aceptar" >✔</button>
           </div>
@@ -155,7 +173,8 @@ function enviarperfil() {
     let telefonoInput = document.querySelector('input[name="telefono"]').value;
     let passwordInput = document.querySelector('input[name="password"]').value;
     let nempleado = localStorage.getItem("perfil")
-    let imagenperfil = document.querySelector('.fotoperfil').src
+    let imagenperfil = document.querySelector('.fotoperfil').attributes[0].nodeValue;
+    console.log(imagenperfil);
 
     if (validarTelefono(telefonoInput) && validarCorreoElectronico(correoInput) && validarContrasena(passwordInput)) {
       // Creamos un objeto FormData con los datos a enviar
@@ -188,8 +207,6 @@ function enviarperfil() {
     }
     aceptarBtn.disabled = true;
   }
-
-
   )
 }
 
@@ -288,9 +305,9 @@ function comprobarInputs() {
   let errorT = document.querySelector(".telefono > .error")
   let errorP = document.querySelector(".password > .error")
   let errorC = document.querySelector(".correo > .error")
-  let imagenPerfil = document.querySelector(".fotoperfil")
-  let imagenActual = localStorage.getItem("imagen")
-  if (errorT != null || errorP != null || errorC != null || !compararFotos(imagenPerfil,imagenActual)) {
+
+
+  if (errorT != null || errorP != null || errorC != null) {
     botonnofunsiona();
   } else {
     botonfunsiona();
@@ -302,14 +319,5 @@ function activarfotos() {
 
   imagenes.classList.toggle("activ");
   document.querySelector(".filtronegro").classList.toggle('activ');
-}
-
-function compararFotos(img1,img2) {
-
-  if (img1.src !== img2.src) {
-    return true; //imagenes diferentes
-  }else{
-  return false
-  }
 }
 

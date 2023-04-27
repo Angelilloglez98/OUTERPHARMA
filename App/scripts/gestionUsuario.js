@@ -44,19 +44,18 @@ window.onload = () => {
           let nombre = document.querySelector('input[name="Nombre"]').value
           let correo = document.querySelector('input[name="Correo"]').value
           let ntelefono = document.querySelector('input[name="nTelefono"]').value
-          let imagenperfil = document.querySelector('.fotoperfil').value
           let imagenPerfilSinCambios = localStorage.getItem("imagen").value
 
 
 
-          }if (validarNombre(nombre) == true && validarCorreoElectronico(correo) && validarTelefono(ntelefono)) {
+          if (validarNombre(nombre) == true && validarCorreoElectronico(correo) && validarTelefono(ntelefono)) {
             enviarDatos(nombre, correo, ntelefono,nempleado,imagenPerfilSinCambios)
             location.reload();
           }else {
             alert("rellene bien los campos")
           }
     
-        });
+        }});
 
   }
 
@@ -426,4 +425,5 @@ window.onload = () => {
     .then(result=>{return result})
     .catch(e=>{console.error("ERROR:" , e.message)})
   }
+
 } 

@@ -192,3 +192,7 @@ background-color: brown;
     cursor: pointer;
     z-index: 1200;
 }
+
+.error .imagenUser{
+    display: none;
+}
