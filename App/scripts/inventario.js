@@ -380,7 +380,8 @@ async function insertarProducto(cn){
     }   
     
     vaciarDatos();
-    traerDatos(); 
+    traerDatos();
+    location.reload();
 }
 
 function borrarProducto(cn){ 
