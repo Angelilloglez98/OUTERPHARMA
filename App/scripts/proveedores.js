@@ -42,6 +42,7 @@ window.onload = () =>{
     .then(result => {return result})
     .catch(e => {console.error("ERROR: ", e.message)});
 
+
   }
 
   const updProv = async(datos)=>{
@@ -82,6 +83,7 @@ window.onload = () =>{
     .catch(e => {console.error("ERROR: ", e.message)});
   }
 
+  const button = document.querySelector(".addProv");
   const createProv = (data) => {
 
       data.forEach(element => {
@@ -112,6 +114,7 @@ window.onload = () =>{
                   'El proveedor ha sido eliminado',
                   'success',
                 )
+                location.reload()
               }
             })
 
@@ -157,6 +160,7 @@ window.onload = () =>{
         
                 console.log(result.value);
                 updProv(result.value).then(result=>{console.log(result);});
+                location.reload()
           
               }
         
@@ -244,6 +248,7 @@ window.onload = () =>{
 
         console.log(result.value);
         insertProv(result.value);
+        location.reload()
   
       }
 
