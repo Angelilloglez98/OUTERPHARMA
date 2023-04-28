@@ -1,94 +1,77 @@
-
-let imagen = document.querySelector(".header_img")
-let nempleado = localStorage.getItem("nEmpleado")
-let nombre = localStorage.getItem("nombre")
-let rol = localStorage.getItem("rol")
-let correo = localStorage.getItem("correo")
-let telefono = localStorage.getItem("telefono")
-
+let imagen = document.querySelector(".header_img");
+let nempleado = localStorage.getItem("nEmpleado");
+let nombre = localStorage.getItem("nombre");
+let rol = localStorage.getItem("rol");
+let correo = localStorage.getItem("correo");
+let telefono = localStorage.getItem("telefono");
+let pass = localStorage.getItem('password')
 
 imagen.addEventListener("click", function () {
-  let ventana = document.querySelector(".emergenteEditarUser")
-  ventana.classList.toggle("activo")
+  let ventana = document.querySelector(".emergenteEditarUser");
+  ventana.classList.toggle("activo");
   if (ventana.classList.contains("activo")) {
     ventana.style.transform = "translateY(0px)";
   } else {
     ventana.style.transform = "translateY(500px)";
-
   }
-  let foto = document.querySelector(".header_img > img").attributes[0].nodeValue;
-  ventana.innerHTML = pintarForm(nombre, rol, correo, telefono,foto);
+  let foto =
+    document.querySelector(".header_img > img").attributes[0].nodeValue;
+  ventana.innerHTML = pintarForm(nombre, rol, correo, telefono, foto,pass);
 
-  let imagenperfil = document.querySelector('.fotoperfil');
+  let imagenperfil = document.querySelector(".fotoperfil");
   imagenperfil.addEventListener("click", function () {
-    
     activarfotos();
     comprobarInputs();
-  })
-
-
+  });
 
   let correoInput = document.querySelector('input[name="correo"]');
-  correoInput.addEventListener('keyup', function () {
+  correoInput.addEventListener("keyup", function () {
     validardatos();
   });
 
   let telefonoInput = document.querySelector('input[name="telefono"]');
-  telefonoInput.addEventListener('keyup', function () {
+  telefonoInput.addEventListener("keyup", function () {
     validardatos();
   });
 
   let passwordInput = document.querySelector('input[name="password"]');
-  passwordInput.addEventListener('keyup', function () {
+  passwordInput.addEventListener("keyup", function () {
     validardatos();
   });
 
-
-
-
-
-  let botonenviar = document.querySelector('.confirm');
-  botonenviar.addEventListener('click', function () {
+  let botonenviar = document.querySelector(".confirm");
+  botonenviar.addEventListener("click", function () {
     enviarperfil();
     location.replace('./selecPerfil.html');
   });
 
-
-
-
-  
-
-  let botonCambiarImagen = document.querySelector('.aceptar');
-  botonCambiarImagen.addEventListener('click', function () {
+  let botonCambiarImagen = document.querySelector(".aceptar");
+  botonCambiarImagen.addEventListener("click", function () {
     activarfotos();
     comprobarInputs();
   });
 
   let imagenes = document.querySelectorAll(".fotoperfiles");
-    for (let i = 0; i < imagenes.length; i++) {
-      imagenes[i].addEventListener('click', function(){
-        let imagenPerfil = document.querySelector(".fotoperfil")
-        imagenPerfil.attributes[0].nodeValue = imagenes[i].attributes[0].nodeValue;
-      })      
+  for (let i = 0; i < imagenes.length; i++) {
+    imagenes[i].addEventListener("click", function () {
+      let imagenPerfil = document.querySelector(".fotoperfil");
+      imagenPerfil.attributes[0].nodeValue =
+        imagenes[i].attributes[0].nodeValue;
+    });
+  }
+
+  let botonCancelarImagen = document.querySelector(".cancel");
+  botonCancelarImagen.addEventListener("click", function () {
+    ventana.classList.toggle("activo");
+    if (ventana.classList.contains("activo")) {
+      ventana.style.transform = "translateY(0px)";
+    } else {
+      ventana.style.transform = "translateY(500px)";
     }
+  });
+});
 
-    let botonCancelarImagen = document.querySelector(".cancel")
-    botonCancelarImagen.addEventListener('click', function(){
-      ventana.classList.toggle("activo")
-      if (ventana.classList.contains("activo")) {
-        ventana.style.transform = "translateY(0px)";
-      } else {
-        ventana.style.transform = "translateY(500px)";
-    
-      }
-    })
-
-})
-
-
-
-function pintarForm(nombre, rol, correo, telefono,foto) {
-  
+function pintarForm(nombre, rol, correo, telefono, foto,pass) {
   const formulario = `<div class="contenedorEditarUsuario">
       
     <div class="contenedorImagenUser">
@@ -147,7 +130,7 @@ function pintarForm(nombre, rol, correo, telefono,foto) {
                 <input type="number" name="telefono" value="${telefono}">
             </div>
             <div class="password">
-                <input type="password" name="password" value="*********">
+                <input type="password" name="password" value="${pass}">
             </div>
         </div>
         <div class="botonesperfil">
@@ -157,43 +140,47 @@ function pintarForm(nombre, rol, correo, telefono,foto) {
     </div>
     </div>`;
 
-
   return formulario;
-
 }
 
-
-
 function enviarperfil() {
-  let aceptarBtn = document.querySelector('.confirm');
+  let aceptarBtn = document.querySelector(".confirm");
   aceptarBtn.disabled = false;
-  aceptarBtn.style.backgroundColor = '#27ae60';
-  aceptarBtn.addEventListener('click', function () {
+  aceptarBtn.style.backgroundColor = "#27ae60";
+  
     let correoInput = document.querySelector('input[name="correo"]').value;
     let telefonoInput = document.querySelector('input[name="telefono"]').value;
     let passwordInput = document.querySelector('input[name="password"]').value;
-    let nempleado = localStorage.getItem("perfil")
-    let imagenperfil = document.querySelector('.fotoperfil').attributes[0].nodeValue;
+    let nempleado = localStorage.getItem("perfil");
+    let imagenperfil =
+      document.querySelector(".fotoperfil").attributes[0].nodeValue;
     console.log(imagenperfil);
 
-    if (validarTelefono(telefonoInput) && validarCorreoElectronico(correoInput) && validarContrasena(passwordInput)) {
+    if (
+      validarTelefono(telefonoInput) &&
+      validarCorreoElectronico(correoInput) &&
+      validarContrasena(passwordInput)
+    ) {
       // Creamos un objeto FormData con los datos a enviar
 
-        var data = '&correopersonal=' + encodeURIComponent(correoInput) +
-        '&numero=' + encodeURIComponent(telefonoInput) +
-        '&password=' + encodeURIComponent(passwordInput) +
-        '&idempleado=' + encodeURIComponent(nempleado) +
-        '&imagen=' + encodeURIComponent(imagenperfil);
-      
-
-
+      var data =
+        "&correopersonal=" +
+        encodeURIComponent(correoInput) +
+        "&numero=" +
+        encodeURIComponent(telefonoInput) +
+        "&password=" +
+        encodeURIComponent(passwordInput) +
+        "&idempleado=" +
+        encodeURIComponent(nempleado) +
+        "&imagen=" +
+        encodeURIComponent(imagenperfil);
 
       // Creamos una solicitud HTTP POST
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'BaseDatos/updPerfil.php', true);
+      xhr.open("POST", "BaseDatos/updPerfil.php", true);
 
       // Configuramos el tipo de contenido que vamos a enviar
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
       // Manejamos la respuesta del servidor
       xhr.onload = function () {
@@ -206,8 +193,7 @@ function enviarperfil() {
       xhr.send(data);
     }
     aceptarBtn.disabled = true;
-  }
-  )
+  
 }
 
 function validarCorreoElectronico(correo) {
@@ -216,13 +202,12 @@ function validarCorreoElectronico(correo) {
 
   // Verificar si el correo cumple con el formato
   if (!expresionRegular.test(correo)) {
-    let divcorreo = document.querySelector(".correo")
-    crearMensajeError(divcorreo, "El correo no es valido")
+    let divcorreo = document.querySelector(".correo");
+    crearMensajeError(divcorreo, "El correo no es valido");
     return false;
   } else {
-
-    let error = document.querySelector(".correo > .error")
-    eliminarMensajeError(error)
+    let error = document.querySelector(".correo > .error");
+    eliminarMensajeError(error);
     return true;
   }
 }
@@ -232,25 +217,24 @@ function validarTelefono(telefono) {
   const expresionRegular = /^[0-9]{9}$/;
   // Verificar si el número de teléfono cumple con el formato
   if (!expresionRegular.test(telefono)) {
-    let divtelefono = document.querySelector(".telefono")
-    crearMensajeError(divtelefono, "El telefono no es valido")
+    let divtelefono = document.querySelector(".telefono");
+    crearMensajeError(divtelefono, "El telefono no es valido");
     return false;
   } else {
-
-    let error = document.querySelector(".telefono > .error")
-    eliminarMensajeError(error)
+    let error = document.querySelector(".telefono > .error");
+    eliminarMensajeError(error);
     return true;
   }
 }
 
 function validarContrasena(contrasena) {
   if (contrasena.length < 5) {
-    let divpassword = document.querySelector(".password")
-    crearMensajeError(divpassword, "La contraseña almenos 5 caracteres")
+    let divpassword = document.querySelector(".password");
+    crearMensajeError(divpassword, "La contraseña almenos 5 caracteres");
     return false;
   } else {
-    let error = document.querySelector(".password > .error")
-    eliminarMensajeError(error)
+    let error = document.querySelector(".password > .error");
+    eliminarMensajeError(error);
     return true;
   }
 }
@@ -264,21 +248,19 @@ function validardatos() {
   validarTelefono(telefonoInput);
   validarContrasena(passwordInput);
   comprobarInputs();
-
-
 }
 
 function botonfunsiona() {
-  let aceptarBtn = document.querySelector('.confirm');
+  let aceptarBtn = document.querySelector(".confirm");
 
   aceptarBtn.disabled = false;
-  aceptarBtn.style.backgroundColor = '#27ae60';
+  aceptarBtn.style.backgroundColor = "#27ae60";
 }
 
 function botonnofunsiona() {
-  let aceptarBtn = document.querySelector('.confirm');
+  let aceptarBtn = document.querySelector(".confirm");
 
-  aceptarBtn.style.backgroundColor = '#46564d';
+  aceptarBtn.style.backgroundColor = "#46564d";
   aceptarBtn.disabled = true;
 }
 
@@ -287,8 +269,8 @@ function crearMensajeError(elemento, mensaje) {
     elemento.querySelector(".error").remove();
   }
 
-  let p = document.createElement('p');
-  p.classList.add('error');
+  let p = document.createElement("p");
+  p.classList.add("error");
   let texto = document.createTextNode(mensaje);
   p.appendChild(texto);
   elemento.appendChild(p);
@@ -298,14 +280,12 @@ function eliminarMensajeError(elemento) {
   if (elemento != null) {
     elemento.remove();
   }
-
 }
 
 function comprobarInputs() {
-  let errorT = document.querySelector(".telefono > .error")
-  let errorP = document.querySelector(".password > .error")
-  let errorC = document.querySelector(".correo > .error")
-
+  let errorT = document.querySelector(".telefono > .error");
+  let errorP = document.querySelector(".password > .error");
+  let errorC = document.querySelector(".correo > .error");
 
   if (errorT != null || errorP != null || errorC != null) {
     botonnofunsiona();
@@ -318,6 +298,5 @@ function activarfotos() {
   let imagenes = document.querySelector(".editarperfiles");
 
   imagenes.classList.toggle("activ");
-  document.querySelector(".filtronegro").classList.toggle('activ');
+  document.querySelector(".filtronegro").classList.toggle("activ");
 }
-
