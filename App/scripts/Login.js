@@ -54,10 +54,3 @@ function crearMensajeError(elemento, mensaje) {
   elemento.appendChild(p);
 }
 
-function activarRegistrar() {
-  formularios.style.transform = 'translateX(-50%)';
-}
-
-function activarLogin() {
-  formularios.style.transform = 'translateX(0)';
-}

@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="styles/Login.css">
     <script src="./scripts/Login.js" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
-    <script type="text/javascript">
-      emailjs.init('NqWx-4tcJJczGTE9p')
-    </script>
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cabin:wght@700&display=swap" rel="stylesheet">
@@ -25,7 +21,7 @@
     </div>
     <div class="register-login">
       <section>
-        <div class="formularios" id="formularios">
+        
           <form action="BaseDatos/login.php" method="post" class="Login">
             <h2>Login</h2>
             <div class="email">
@@ -38,6 +34,7 @@
             </div>
             <input type="submit" value="Iniciar Sesion">
             <p for="" id="moverRegister" class="parrafoP">¿No tienes cuenta?</p>
+            <P>Llama al<a href="tel:678836981"> 678836981</a> </P>
             <div class="error"> 
 
             <?php
@@ -50,28 +47,6 @@
             
             </div>
           </form>
-          
-          <form id="form">
-             <h2>Contactanos</h2>
-            <div class="field">
-              <label for="from_name">Nombre</label>
-              <input type="text" name="from_name" id="from_name">
-            </div>
-            <div class="field">
-              <label for="message">mensaje</label>
-              <input type="text" name="message" id="message">
-            </div>
-            <div class="field">
-              <label for="user_email">email</label>
-              <input type="text" name="user_email" id="user_email">
-            </div>
-            
-            <input type="submit" id="button" value="Send Email">
-
-            <p><label for="" id="moverLogin" class="parrafoP">Volver</label></p>
-          </form>
-
-        </div>
       </section>
       
     </div>

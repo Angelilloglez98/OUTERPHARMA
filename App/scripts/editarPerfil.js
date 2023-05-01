@@ -5,7 +5,7 @@ let nombre = localStorage.getItem("nombre")
 let rol = localStorage.getItem("rol")
 let correo = localStorage.getItem("correo")
 let telefono = localStorage.getItem("telefono")
-let foto = localStorage.getItem("imagen")
+
 
 imagen.addEventListener("click", function () {
   let ventana = document.querySelector(".emergenteEditarUser")
@@ -16,7 +16,8 @@ imagen.addEventListener("click", function () {
     ventana.style.transform = "translateY(500px)";
 
   }
-
+  let foto=document.querySelector('.header_img > img').attributes[0].nodeValue;
+  console.log(foto);
   ventana.innerHTML = pintarForm(nombre, rol, correo, telefono, foto);
 
   let imagenperfil = document.querySelector('.fotoperfil');
