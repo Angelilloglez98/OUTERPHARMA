@@ -44,18 +44,18 @@ window.onload = () => {
           let nombre = document.querySelector('input[name="Nombre"]').value
           let correo = document.querySelector('input[name="Correo"]').value
           let ntelefono = document.querySelector('input[name="nTelefono"]').value
+          let imagenPerfilSinCambios = localStorage.getItem("imagen").value
+
+
 
           if (validarNombre(nombre) == true && validarCorreoElectronico(correo) && validarTelefono(ntelefono)) {
-
-            enviarDatos(nombre, correo, ntelefono,nempleado)
+            enviarDatos(nombre, correo, ntelefono,nempleado,imagenPerfilSinCambios)
             location.reload();
-          } else {
+          }else {
             alert("rellene bien los campos")
           }
     
-        }
-
-      });
+        }});
 
   }
 
@@ -333,13 +333,12 @@ window.onload = () => {
     }
   }
 
-  function enviarDatos(nombre, correo, numero, idempleado) {
+  function enviarDatos(nombre, correo, numero, idempleado, imagen) {
     // Creamos un objeto FormData con los datos a enviar
     var data = 'nombre=' + encodeURIComponent(nombre) +
       '&correopersonal=' + encodeURIComponent(correo) +
       '&numero=' + encodeURIComponent(numero) +
       '&idempleado=' + encodeURIComponent(idempleado);
-
 
     // Creamos una solicitud HTTP POST
     var xhr = new XMLHttpRequest();
@@ -358,6 +357,8 @@ window.onload = () => {
     // Enviamos los datos al servidor
     xhr.send(data);
   }
+
+  
 
   function enviarDatosCrear(nombre, correo, numero, password,url) {
     // Creamos un objeto FormData con los datos a enviar
@@ -424,4 +425,5 @@ window.onload = () => {
     .then(result=>{return result})
     .catch(e=>{console.error("ERROR:" , e.message)})
   }
+
 } 

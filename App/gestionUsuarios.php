@@ -19,7 +19,7 @@
 </head>
 <body id="body-pd">
     <a href="mailto:perxasgmail.com"><Button class="BotonEnviarEmail"><span class="material-symbols-outlined">mail</span></Button></a>
-    <<header class="header" id="header">
+    <header class="header" id="header">
         <div class="emergenteEditarUser activo mt-5">
         
         </div>
