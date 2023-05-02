@@ -132,18 +132,23 @@ async function traerDatos(orden, direc) {
         const resultado = await res.json();
 
         for (const inventario of resultado) {
+
+            PrecioProducto(inventario.CodigoNacional, function(resultado) {
+
+                console.log(resultado);
+            });
             
             try {
                 const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
                 const resultadoApi = await resApi.json();
               
                 if(resultadoApi.fotos===undefined){
-                  carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                  carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, pPrecio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 }else{
-                  carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                  carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, pPrecio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 }
               } catch (error) {
-                carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, pPrecio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
               }
             
         }
@@ -511,3 +516,36 @@ async function mostrarMedicamento(cn) {
 
     datos.appendChild(dato);
 }   
+
+let pPrecio = 0;
+function PrecioProducto(codigo, callback) {
+
+
+    const url = 'https://nomenclator.org/buscar?q='+codigo;
+
+
+    fetch(url)
+    .then(response => {
+        return response.text();
+    })
+    .then(html => {
+
+        const dom = new DOMParser().parseFromString(html, 'text/html');
+
+        let enlace=dom.querySelector('.search-results > a').href;
+
+        fetch(enlace)
+        .then(response=>{
+            return response.text();
+        })
+        .then(html2=>{
+            const dom2 = new DOMParser().parseFromString(html2, 'text/html');
+            callback(dom2.querySelector('p mark'));
+        })
+    })
+    .catch(error => {
+
+        console.error(error);
+    });
+}
+
