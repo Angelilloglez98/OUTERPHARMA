@@ -74,7 +74,7 @@
                     <option value="vtm">Principip Activo</option>
                 </select>
             </div>
-            <div class="medTable">
+            <div class="mt-3">
 
                <table id="myTable" class="display">
                     <thead >

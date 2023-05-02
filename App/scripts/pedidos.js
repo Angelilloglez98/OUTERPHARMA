@@ -94,74 +94,6 @@ window.onload = () =>{
 
     }
 
-    // const cRow = (data, urlIMG) =>{
-
-    //     let tableBody = document.querySelector("#buscarMed");
-    //     let tr = document.createElement('tr');
-    //     let tdIMG = document.createElement('td');
-    //     let img = document.createElement("img");
-
-    //     img.src = urlIMG;
-
-    //     tdIMG.appendChild(img);
-    //     tr.appendChild(tdIMG);
-
-    //     for (const i in data) {
-
-    //         let td = document.createElement('td');
-
-    //         switch (i) {
-
-    //             case 'nombre': case 'labtitular': case 'cpresc':
-                
-    //                 let info = document.createTextNode(data[i]);
-    //                 td.appendChild(info);
-    //                 tr.appendChild(td);
-    //             break;
-
-    //             case 'docs':
-                    
-    //                 let link = document.createElement('a');
-    //                 link.href = `${data[i][1].urlHtml}`;
-    //                 link.textContent = "Prospecto";
-    //                 link.target = "_blank"
-    //                 td.appendChild(link);
-    //                 tr.appendChild(td);
-    //             break;
-
-    //             case 'vtm': case 'formaFarmaceutica':
-
-    //                 for (const j in data[i]) {
-    //                     if(j == 'nombre'){
-    //                         let info = document.createTextNode(data[i][j]);
-    //                         td.appendChild(info);
-    //                         tr.appendChild(td); 
-    //                     }
-                        
-    //                 }
-                    
-    //             break;
-
-    //             case 'viasAdministracion':
-
-    //                 data[i].forEach(element=>{
-
-    //                     let info = document.createTextNode(element.nombre);
-    //                     td.appendChild(info);
-    //                     tr.appendChild(td); 
-
-    //                 })
-                        
-    //             break;
-
-    //         }
-
-    //     }
-
-    //     tableBody.appendChild(tr);
-
-    // }
-
     busqueda.addEventListener("keydown", (event) => {
  
         if (event.key === 'Enter' && busqueda.value != '') {
@@ -182,7 +114,7 @@ window.onload = () =>{
 
                         if(element.fotos === undefined){
 
-                            const noIMG = "sin datos";
+                            const noIMG = "assets/mondongo.jpg";
 
                             createRows(element, noIMG);
 

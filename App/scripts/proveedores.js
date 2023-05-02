@@ -1,11 +1,11 @@
 window.onload = () =>{
 
   const newProv = document.querySelector(".newProv");
-  const button = document.createElement('button');
+  const button = document.querySelector('.addProv');
   
-  button.className = 'addProv';
-  button.textContent = 'Aniadir Proveedor';
-  newProv.appendChild(button);
+  // button.className = 'addProv';
+  // button.textContent = 'Aniadir Proveedor';
+  // newProv.appendChild(button);
 
   const buscarProv = async()=>{
 
@@ -83,7 +83,6 @@ window.onload = () =>{
     .catch(e => {console.error("ERROR: ", e.message)});
   }
 
-  const button = document.querySelector(".addProv");
   const createProv = (data) => {
 
       data.forEach(element => {
