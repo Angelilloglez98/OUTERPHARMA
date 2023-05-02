@@ -16,6 +16,8 @@ imagen.addEventListener("click", function () {
   }
   let foto =
     document.querySelector(".header_img > img").attributes[0].nodeValue;
+
+
   ventana.innerHTML = pintarForm(nombre, rol, correo, telefono, foto,pass);
 
   let imagenperfil = document.querySelector(".fotoperfil");
@@ -299,4 +301,70 @@ function activarfotos() {
 
   imagenes.classList.toggle("activ");
   document.querySelector(".filtronegro").classList.toggle("activ");
+}
+
+function recibirPassword(idempleado) {
+    const option={
+      method:"POST",
+      redirect:"follow",
+      body:idempleado,
+      Headers:{
+        "Accept":"application/json"
+      }
+    }
+    return fetch("BaseDatos/verPerfil.php",option)
+    .then(response=>response.text())
+    .then(result=>{return result})
+    .catch(e=>{console.error("ERROR:" , e.message)})
+  
+}
+
+
+function ventanaConfirmPass(nombre, nempleado) {
+
+  const form = {
+
+    title: "Escribe tu contraseña para confirmar que eres tu",
+
+    html: `
+      <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/delEmpleados.php"> 
+        <input type="password" name="password" placeholder="Contraseña" class="swal2-input">       
+      </form>
+    `,
+  };
+
+    // Muestra la ventana modal con el formulario
+    Swal.fire({
+      title: 'Escribe tu contraseña para confirmar que eres tu',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Look up',
+      showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        return fetch(`//api.github.com/users/${login}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(response.statusText)
+            }
+            return response.json()
+          })
+          .catch(error => {
+            Swal.showValidationMessage(
+              `Request failed: ${error}`
+            )
+          })
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: `${result.value.login}'s avatar`,
+          imageUrl: result.value.avatar_url
+        })
+      }
+    })
+    
 }

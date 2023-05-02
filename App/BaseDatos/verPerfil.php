@@ -10,7 +10,7 @@
     $idempleado=$data["idempleado"];
 
 
-    $sql="SELECT * FROM empleados WHERE CcorreoFarmacia='$correo' AND nEmpleado='$idempleado'";
+    $sql="SELECT Contrasena FROM empleados WHERE CcorreoFarmacia='$correo' AND nEmpleado='$idempleado'";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
     
@@ -18,7 +18,7 @@
 
     $sth->execute();
 
-    $registro=$sth->fetch();
+    $registro=$sth->fetchColumn();
 
     $resultado = json_encode($registro, JSON_UNESCAPED_UNICODE);
     echo $resultado;
