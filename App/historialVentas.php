@@ -8,6 +8,8 @@
     <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./scripts/editarPerfil.js" defer></script>
+    <link rel="stylesheet" href="./styles/editarPerfil.css">
 
     <!-- datatables-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -30,8 +32,11 @@
     <body id="body-pd">
         <a href="mailto:perxasgmail.com"><Button class="BotonEnviarEmail"><span class="material-symbols-outlined">mail</span></Button></a>
         <header class="header" id="header">
+            <div class="emergenteEditarUser activo mt-5">
+            
+            </div>
             <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-            <div class="header_img"></div>
+            <div class="header_img"> </div>
         </header>
         <div class="l-navbar" id="nav-bar">
         <nav class="nav">

@@ -1,4 +1,5 @@
     <?php
+    session_start();
         require('./conexionDB.php');
 
         if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -18,7 +19,7 @@
             $fila=$sth->fetch();
 
             //Hacer la logica de si la sesion esta abierta, 2 opciones que se cierre la sesion y se habra otra, o que al abrir otra pestaña se inicie sesion solo y te mesutre los usuario solos
-            session_start();
+            
             if ($sth->rowCount()==1 && password_verify($password,$fila['Contrasenia'])){
                 //Idea: que cada sesion se genere con un nombre identificativo de cada farmacia, en este caso el correo
                 $_SESSION['CorreoFarmacia']=$fila['Ccorreo'];

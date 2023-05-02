@@ -4,12 +4,15 @@
 
 
     $correo=$_SESSION['CorreoFarmacia'];
-    $nombre=$_POST["nombre"];
     $correopersonal=$_POST["correopersonal"];
     $numero=$_POST["numero"];
     $idempleado=$_POST["idempleado"];
+    $imagen=$_POST["imagen"];
+    $password=$_POST["password"];
+    $hash = password_hash($password,PASSWORD_DEFAULT);
 
-    $sql="UPDATE empleados SET NombreEmpleado = '$nombre',Telefono='$numero',CorreoPersonal='$correopersonal' where CcorreoFarmacia='$correo' AND nEmpleado='$idempleado'";
+
+    $sql="UPDATE empleados SET Telefono='$numero',CorreoPersonal='$correopersonal',UrlEmpleado='$imagen',Contrasena='$hash' where CcorreoFarmacia='$correo' AND nEmpleado='$idempleado'";
 
     $pdo->exec("SET NAMES 'utf8mb4'");
     

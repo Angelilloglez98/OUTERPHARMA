@@ -15,12 +15,17 @@
     <script src="scripts/header.js"></script>
     <script src="scripts/proveedores.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="./scripts/editarPerfil.js" defer></script>
+    <link rel="stylesheet" href="./styles/editarPerfil.css">
 </head>
 <body id="body-pd">
     <a href="mailto:perxasgmail.com"><Button class="BotonEnviarEmail"><span class="material-symbols-outlined">mail</span></Button></a>
     <header class="header" id="header">
+        <div class="emergenteEditarUser activo mt-5">
+        
+        </div>
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="header_img"></div>
+        <div class="header_img"> </div>
     </header>
     <div class="l-navbar" id="nav-bar">
     <nav class="nav">
@@ -50,7 +55,7 @@
       </nav>
     </div>
     
-    <div class="height-100 bg-light">
+    <div class="bg-light mt-5">
 
         <h4>Proveedores</h4>
 
@@ -60,6 +65,10 @@
 
         <div class="newProv">
             
+          <button class="addProv">
+            <span>+ Proveedor</span>
+          </button>
+
         </div>
 
     </div>

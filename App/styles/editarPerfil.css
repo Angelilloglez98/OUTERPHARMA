@@ -1,0 +1,198 @@
+body{
+    position: relative;  
+  }
+  .emergenteEditarUser{
+      position: absolute;
+      right: 0;
+      width: 320px;
+      top: -500px;
+      background-color: #F7F6FB;
+      z-index: 1000;
+      margin-right: 20px;
+      transition: transform 0.5s ease-in-out;
+  }
+  
+  .contenedorEditarUsuario{
+      height: 100%;
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 0.3fr 1.7fr;
+  }
+  
+  .imagenUser{
+      width: 70px;
+      height: 70px;
+      margin: 0 0 5px 0;
+      transform: translateY(50%);
+      border: solid 6px #F7F6FB;
+      border-radius: 50%;
+  }
+  
+  
+  .contenedorImagenUser{
+      background-color: #4723D9;
+      padding:0 20px 0 20px;
+  }
+  
+  .contenedorDatosUser{
+      padding:35px 20px 0 20px;
+      border-bottom: #4723D9 solid 6px;
+      border-left: #4723D9 solid 6px;
+      border-right: #4723D9 solid 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      row-gap: 15px;
+      
+  }
+  
+  .nombre,.correo,.telefono,.password{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  
+  .nombre img, .correo img, .telefono img, .password img {
+      background-color: #5f5fd3;
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
+      padding: 5px;
+  }
+  
+  .nombre img:hover, .correo img:hover, .telefono img:hover, .password img:hover {
+      background-color: #4e4ed2;
+      transition: background-color 250ms ease-in;
+      cursor: pointer;
+      transform: scale(1.105);
+  
+  }
+  
+  .datosArriba{
+      border-bottom: #4723D9 1px solid;
+      padding: 15px 0;
+  }
+  
+  .datosAbajo{
+      padding: 0 0 15px 0;
+  }
+  
+  .correo input, .telefono input, .password input{
+      border: none;
+      margin: 5px 0 5px 0;
+      background-color: #F7F6FB;
+  }
+  
+  .nombre input{
+      font-weight: bold;
+      font-size: 1.3rem;
+      margin: 0px 0 -10px 0;
+      border: none;
+      background-color: #F7F6FB;
+  }
+  .rol input{
+      border: none;
+      background-color: #F7F6FB;
+      font-size: 0.75rem;
+  }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] { -moz-appearance:textfield; }
+
+.botonesperfil{
+display: flex;
+}
+
+.confirm{
+color: white;
+background-color: #46564d;
+
+}
+
+.cancel{
+    color: white;
+background-color: brown;
+}
+
+.confirm,.cancel,.aceptar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px ;
+    height:40px ;
+    border: none;
+    margin: 0 15px 15px 0;
+    border-radius: 5px;
+}
+
+.error{
+    font-size: 10px;
+    color: red;
+    margin:0 6px;
+}
+
+.activ{
+    display: none ;
+}
+
+.aceptar{
+    color: white;
+    background-color: #27ae60;
+    margin: 10px auto;
+}
+
+.editarperfiles{
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    right: 0;
+    top: 0;
+    background-color: white;
+    border: 4px solid #4723D9;
+    margin: 3px;
+    width: 221px;
+
+}
+.activ{
+    display: none ;
+}
+
+.contenedorDatosUser{
+    position: relative;
+}
+
+.editarperfiles>div{
+    padding: 10px;
+
+}
+
+.filtronegro{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 0;
+    left: 0;
+    top: 0;
+}
+
+.fotoperfiles{
+    border-radius: 50%;
+    
+}
+
+.imagenUser{
+    position: relative;
+    cursor: pointer;
+    z-index: 1200;
+}
+
+.error .imagenUser{
+    display: none;
+}
