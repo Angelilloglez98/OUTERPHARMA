@@ -54,8 +54,7 @@ imagen.addEventListener("click", function () {
   for (let i = 0; i < imagenes.length; i++) {
     imagenes[i].addEventListener("click", function () {
       let imagenPerfil = document.querySelector(".fotoperfil");
-      imagenPerfil.attributes[0].nodeValue =
-        imagenes[i].attributes[0].nodeValue;
+      imagenPerfil.attributes[0].nodeValue  =  imagenes[i].attributes[0].nodeValue;
     });
   }
 
