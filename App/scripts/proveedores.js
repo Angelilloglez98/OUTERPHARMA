@@ -1,11 +1,11 @@
 window.onload = () =>{
 
   const newProv = document.querySelector(".newProv");
-  // const button = document.createElement('button');
+  const button = document.createElement('button');
   
-  // button.className = 'addProv';
-  // button.textContent = 'Aniadir Proveedor';
-  // newProv.appendChild(button);
+  button.className = 'addProv';
+  button.textContent = 'Aniadir Proveedor';
+  newProv.appendChild(button);
 
   const buscarProv = async()=>{
 
@@ -119,7 +119,7 @@ window.onload = () =>{
           };
           updateProv.onclick = ()=>{
             
-            console.log(element.nombre)
+            console.log(element)
 
             const form = {
 
@@ -127,10 +127,10 @@ window.onload = () =>{
         
               html: `
                 <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php">
-                  <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input" value=${element.nombre} disabled = "true">
-                  <input type="text" name="Direccion" placeholder="Dirección" class="swal2-input" value=${element.direccion}>
-                  <input type="tel" name="nTelefono" placeholder="Teléfono" class="swal2-input" value=${element.nTelefono}>
-                  <input type="url" name="Link" placeholder="Página Web" class="swal2-input" value=${element.link}>
+                  <input type="text" name="Nombre" class="swal2-input" value=${element.nombre} disabled = "true">
+                  <input type="text" name="Direccion" class="swal2-input" value=${element.direccion}>
+                  <input type="tel" name="nTelefono" class="swal2-input" value=${element.nTelefono}>
+                  <input type="url" name="Link" class="swal2-input" value=${element.link}>
                 </form>
               `,
         

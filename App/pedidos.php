@@ -69,28 +69,7 @@
                     <option value="vtm">Principip Activo</option>
                 </select>
             </div>
-
-            <!-- <div>
-                <table class="table caption-top" >
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Laboratorio</th>
-                            <th scope="col">Prescripcion</th>
-                            <th scope="col">Docs</th>
-                            <th scope="col">Via Administracion</th>
-                            <th scope="col">Forma</th>
-                            <th scope="col">Principio activo</th>
-                        </tr>
-                    </thead>
-                    <tbody id="buscarMed">
-                    
-                    </tbody>
-                </table>
-            </div> -->
-
-            <div>
+            <div class="medTable">
 
                <table id="myTable" class="display">
                     <thead >
