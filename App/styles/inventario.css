@@ -10,7 +10,7 @@
 form{
   display: flex;
   align-items: center;
-  width: fit-content;
+  /* width: fit-content; */
 }
 
 p{
@@ -377,6 +377,8 @@ button:active .icon svg {
   opacity: 0;
   transition: opacity .3s;
 }
+
+
 
 @media only screen and (max-width: 1400px) {
   .datos{
