@@ -52,8 +52,8 @@ imagen.addEventListener("click", function () {
       title: "Confirma tu contraseña",
   
       html: `
-        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/updPerfil.php">
-          <input type="password" name="password" placeholder="Contraseña" class="swal2-input">       
+        <form id="formulario" method="POST" action="">
+          <input type="password" name="passwordconfirm" placeholder="Contraseña" class="swal2-input">       
           <input type="text" name="correo" class="swal2-input" style="display: none;" value=${correoInput}>   
           <input type="text" name="telefono" class="swal2-input" style="display: none;" value=${telefonoInput}>   
           <input type="text" name="nempleado" class="swal2-input" style="display: none;" value=${nempleado}>   
@@ -78,16 +78,22 @@ imagen.addEventListener("click", function () {
       Swal.fire(form).then((result) => {
         // Si el usuario ha enviado el formulario, muestra los valores de los campos
         if (result.isConfirmed) {
-          let validacion = document.querySelector('input[name="password"]').value
-  
-          let pass = {'password':validacion};
-          comprobarPass(pass).then(result=>{
-            if (result=="true") {
+          let validacion = document.querySelector('input[name="passwordconfirm"]').value
+          let pass = localStorage.getItem('password')
+            if (validacion==pass) {
               enviarperfil();
-              location.replace('./selecPerfil.html');
+              localStorage.setItem('nombre',element.nombre);
+              localStorage.setItem('rol',element.rol);
+              localStorage.setItem('correo',element.correopersonal);
+              localStorage.setItem("telefono",element.telefono)
+              localStorage.setItem("imagen",element.UrlEmpleado)
+              localStorage.setItem('perfil',element.nempleado);
+              localStorage.setItem("password",contrasenaInput)
+              location.reload();
             }else{
-              alert("fallo")
-            }})
+              let errorbotones = document.querySelector('.botonesperfil');
+              crearMensajeError(errorbotones,"La contraseña del usuario es incorrecta")
+            }
         }
       });
   });
@@ -359,27 +365,4 @@ function recibirPassword(idempleado) {
     .then(result=>{return result})
     .catch(e=>{console.error("ERROR:" , e.message)})
   
-}
-
-
-function ventanaConfirmPass() {
-
-  
-    
-}
-
-const comprobarPass=async(password)=>{
-  var pass = JSON.stringify(password);
-  const option={
-    method:"POST",
-    redirect:"follow",
-    body:pass,
-    Headers:{
-      "Accept":"application/json"
-    }
-  }
-  return fetch("BaseDatos/comprobarPass.php",option)
-  .then(response=>response.text())
-  .then(result=>{return result})
-  .catch(e=>{console.error("ERROR:" , e.message)})
 }

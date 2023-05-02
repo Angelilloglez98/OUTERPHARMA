@@ -132,18 +132,23 @@ async function traerDatos(orden, direc) {
         const resultado = await res.json();
 
         for (const inventario of resultado) {
+
+            PrecioProducto(inventario.CodigoNacional, function(resultado) {
+
+                console.log(resultado);
+            });
             
             try {
                 const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${inventario.CodigoNacional}`);
                 const resultadoApi = await resApi.json();
               
                 if(resultadoApi.fotos===undefined){
-                  carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                  carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, pPrecio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 }else{
-                  carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                  carta(resultadoApi.fotos[0].url, inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, pPrecio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 }
               } catch (error) {
-                carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                carta('http://localhost/OuterPharma/App/assets/pastillica.webp',inventario.NombreProducto, inventario.CodigoNacional, inventario.Cantidad, pPrecio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
               }
             
         }
@@ -497,7 +502,69 @@ async function mostrarMedicamento(cn) {
             let nombre = document.createElement("p")
             nombre.classList.add("noMedic")
             nombre.appendChild(document.createTextNode("Este medicamento no existe, por lo cual no se pudo cargar la información del medicamento"));
+            let aniadir = document.createElement("button");
+            aniadir.appendChild(document.createTextNode("¿Quieres darlo de alta?"))
+            aniadir.addEventListener('click', async function() {
+                var nombre;
+                var precio;
+                var pactivo;
+                var laboratorio;
+                var vAdmin;
+                var pres;
+                const { value: formValues } = await Swal.fire({
+                    title: 'Nombre y Precio del producto a dar de alta',
+                    html:
+                    `<form class="nuevo d-flex flex-column">
+                    <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
+                    <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>
+                    <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
+                    <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
+                    <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
+                    <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
+                    <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
+                    </form>`,
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        return [
+                            nombre = document.getElementById('swal-input1').value,
+                            precio = document.getElementById('swal-input2').value,
+                            pactivo = document.getElementById('swal-input3').value,
+                            laboratorio = document.getElementById('swal-input4').value,
+                            vAdmin = document.getElementById('swal-input5').value,
+                            pres = document.getElementById('swal-input6').value,
+                        ]
+                    }
+                })
+
+                if (pactivo) {
+                    pactivo = pactivo
+                } else {
+                    pactivo = "Sin datos";
+                }
+
+                if (laboratorio) {
+                    laboratorio = laboratorio
+                } else {
+                    laboratorio = "Sin datos";
+                }
+
+                if (vAdmin) {
+                    vAdmin = vAdmin
+                } else {
+                    vAdmin = "Sin datos";
+                }
+
+                if (pres) {
+                    pres = pres
+                } else {
+                    pres = "Sin datos";
+                }
+
+                fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+                &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
+            })
             dato.appendChild(nombre);
+            dato.appendChild(aniadir);
 
             let img = new Image();
 
@@ -512,3 +579,65 @@ async function mostrarMedicamento(cn) {
 
     datos.appendChild(dato);
 }   
+
+let pPrecio = 0;
+function PrecioProducto(codigo, callback) {
+
+
+    const url = 'https://nomenclator.org/buscar?q='+codigo;
+
+
+    fetch(url)
+    .then(response => {
+        return response.text();
+    })
+    .then(html => {
+
+        const dom = new DOMParser().parseFromString(html, 'text/html');
+
+        let enlace=dom.querySelector('.search-results > a').href;
+
+        fetch(enlace)
+        .then(response=>{
+            return response.text();
+        })
+        .then(html2=>{
+            const dom2 = new DOMParser().parseFromString(html2, 'text/html');
+            callback(dom2.querySelector('p mark'));
+        })
+    })
+    .catch(error => {
+
+        console.error(error);
+    });
+}
+
+// Swal.fire({
+//     title: 'Nombre y Precio del producto a dar de alta',
+//     html:
+//     `<form class="nuevo d-flex flex-column">
+//     <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
+//     <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>
+//     <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
+//     <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
+//     <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
+//     <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
+//     <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
+//     </form>`,
+//     focusConfirm: false,
+//     preConfirm: () => {
+//       return [
+//         nombre = document.getElementById('swal-input1').value,
+//         precio = document.getElementById('swal-input2').value,
+//         pactivo = document.getElementById('swal-input3').value,
+//         laboratorio = document.getElementById('swal-input4').value,
+//         vAdmin = document.getElementById('swal-input5').value,
+//         pres = document.getElementById('swal-input6').value,
+//       ]
+//     },
+//     inputValidator: (value) => {
+//       if (!value) {
+//         return 'Este campo es obligatorio'
+//       }
+//     }
+//   })

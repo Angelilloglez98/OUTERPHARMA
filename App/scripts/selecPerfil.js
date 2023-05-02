@@ -70,8 +70,8 @@ window.onload=()=>{
                     localStorage.setItem("telefono",element.telefono)
                     localStorage.setItem("imagen",element.UrlEmpleado)
                     localStorage.setItem('perfil',element.nempleado);
+                    localStorage.setItem("password",contrasenaInput)
                     if (rol==='Admin') {
-                        localStorage.setItem("password",contrasenaInput)
                         location.replace('./Inicio.php');
                     }else{
                         location.replace('./Inicio.php');

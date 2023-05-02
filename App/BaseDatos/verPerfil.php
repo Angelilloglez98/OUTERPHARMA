@@ -7,7 +7,8 @@
     $data = json_decode(file_get_contents('php://input'), true);
 
     $correo=$_SESSION['CorreoFarmacia'];
-    $idempleado=$data["idempleado"];
+    $idempleado=$data["nempleado"];
+    $password=$data['password'];
 
 
     $sql="SELECT Contrasena FROM empleados WHERE CcorreoFarmacia='$correo' AND nEmpleado='$idempleado'";
@@ -16,10 +17,11 @@
     
     $sth=$pdo->prepare($sql);
 
-    $sth->execute();
+    $fila = $sth->execute();
 
-    $registro=$sth->fetchColumn();
-
-    $resultado = json_encode($registro, JSON_UNESCAPED_UNICODE);
-    echo $resultado;
+    if (password_verify($password,$fila['Contrasena'])) {
+        echo "true";
+    } else {
+        echo "false";
+    }
 ?>
