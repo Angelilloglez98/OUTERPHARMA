@@ -64,13 +64,19 @@ window.onload=()=>{
             let pass = {'password':contrasenaInput};
             comprobarPass(pass,nEmpleado).then(result=>{
                 if (result=="true") {
+                    localStorage.setItem('nombre',element.nombre);
+                    localStorage.setItem('rol',element.rol);
+                    localStorage.setItem('correo',element.correopersonal);
+                    localStorage.setItem("telefono",element.telefono)
+                    localStorage.setItem("imagen",element.UrlEmpleado)
+                    localStorage.setItem('perfil',element.nempleado);
                     if (rol==='Admin') {
                         localStorage.setItem("password",contrasenaInput)
                         location.replace('./Inicio.php');
                     }else{
                         location.replace('./Inicio.php');
                     }
-                    localStorage.setItem('perfil',element.nempleado);
+                    
                 } else {
                     console.log("error");
                 }}

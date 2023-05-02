@@ -21,14 +21,19 @@
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/Inicio.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="./scripts/editarPerfil.js" defer></script>
+    <link rel="stylesheet" href="./styles/editarPerfil.css">
 </head>
 
 <body id="body-pd">
     <a href="mailto:perxasgmail.com"><Button class="BotonEnviarEmail"><span class="material-symbols-outlined">mail</span></Button></a>
-  <header class="header" id="header">
-    <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-    <div class="header_img">  </div>
-  </header>
+    <header class="header" id="header">
+        <div class="emergenteEditarUser activo mt-5">
+        
+        </div>
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <div class="header_img"> </div>
+    </header>
     <div class="l-navbar" id="nav-bar">
       <nav class="nav">
           <div> <a href="Inicio.php" class="nav_logo"> <img src="assets/logo.png" class="outerpharma"> <span class="nav_logo-name">OuterPharma</span> </a>
@@ -57,7 +62,7 @@
       </nav>
     </div>
     <!--Container Main start-->
-    <div class="height-100 bg-light">
+    <div class="bg-light mt-5">
       <div class="height-100 bg-light">
           <div class="container-fluid">
               <div class="row column-gap-3 row-gap-3 gap-0 rounded">
