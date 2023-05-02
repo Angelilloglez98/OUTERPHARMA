@@ -14,8 +14,7 @@ imagen.addEventListener("click", function () {
   } else {
     ventana.style.transform = "translateY(500px)";
   }
-  let foto =
-    document.querySelector(".header_img > img").attributes[0].nodeValue;
+  let foto =document.querySelector(".header_img > img").attributes[0].nodeValue;
 
 
   ventana.innerHTML = pintarForm(nombre, rol, correo, telefono, foto,pass);
@@ -107,8 +106,7 @@ imagen.addEventListener("click", function () {
   for (let i = 0; i < imagenes.length; i++) {
     imagenes[i].addEventListener("click", function () {
       let imagenPerfil = document.querySelector(".fotoperfil");
-      imagenPerfil.attributes[0].nodeValue =
-        imagenes[i].attributes[0].nodeValue;
+      imagenPerfil.attributes[0].nodeValue  =  imagenes[i].attributes[0].nodeValue;
     });
   }
 
