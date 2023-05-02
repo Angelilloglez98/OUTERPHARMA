@@ -15,7 +15,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="./styles/pedidos.css">
     <script src="scripts/header.js"></script>
     <script src="scripts/pedidos.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
