@@ -14,7 +14,9 @@ imagen.addEventListener("click", function () {
   } else {
     ventana.style.transform = "translateY(500px)";
   }
-  let foto =  document.querySelector(".header_img > img").attributes[0].nodeValue;
+  let foto =document.querySelector(".header_img > img").attributes[0].nodeValue;
+
+
   ventana.innerHTML = pintarForm(nombre, rol, correo, telefono, foto,pass);
 
   let imagenperfil = document.querySelector(".fotoperfil");
@@ -40,8 +42,54 @@ imagen.addEventListener("click", function () {
 
   let botonenviar = document.querySelector(".confirm");
   botonenviar.addEventListener("click", function () {
-    enviarperfil();
-    location.replace('./selecPerfil.html');
+    let correoInput = document.querySelector('input[name="correo"]').value;
+    let telefonoInput = document.querySelector('input[name="telefono"]').value;
+    let nempleado = localStorage.getItem("perfil");
+    let imagenperfil = document.querySelector(".fotoperfil").attributes[0].nodeValue;
+
+    const form = {
+
+      title: "Confirma tu contraseña",
+  
+      html: `
+        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/updPerfil.php">
+          <input type="password" name="password" placeholder="Contraseña" class="swal2-input">       
+          <input type="text" name="correo" class="swal2-input" style="display: none;" value=${correoInput}>   
+          <input type="text" name="telefono" class="swal2-input" style="display: none;" value=${telefonoInput}>   
+          <input type="text" name="nempleado" class="swal2-input" style="display: none;" value=${nempleado}>   
+          <input type="text" name="imagenperfil" class="swal2-input" style="display: none;" value=${imagenperfil}>   
+        </form>
+      `,
+  
+      focusConfirm: false,
+  
+      preConfirm: () => {
+        
+        // Retorna un objeto con los valores de los campos del formulario
+        return {
+  
+        };
+  
+      },
+  
+    };
+  
+      // Muestra la ventana modal con el formulario
+      Swal.fire(form).then((result) => {
+        // Si el usuario ha enviado el formulario, muestra los valores de los campos
+        if (result.isConfirmed) {
+          let validacion = document.querySelector('input[name="password"]').value
+  
+          let pass = {'password':validacion};
+          comprobarPass(pass).then(result=>{
+            if (result=="true") {
+              enviarperfil();
+              location.replace('./selecPerfil.html');
+            }else{
+              alert("fallo")
+            }})
+        }
+      });
   });
 
   let botonCambiarImagen = document.querySelector(".aceptar");
@@ -150,9 +198,7 @@ function enviarperfil() {
     let telefonoInput = document.querySelector('input[name="telefono"]').value;
     let passwordInput = document.querySelector('input[name="password"]').value;
     let nempleado = localStorage.getItem("perfil");
-    let imagenperfil =
-      document.querySelector(".fotoperfil").attributes[0].nodeValue;
-    console.log(imagenperfil);
+    let imagenperfil = document.querySelector(".fotoperfil").attributes[0].nodeValue;
 
     if (
       validarTelefono(telefonoInput) &&
@@ -297,4 +343,43 @@ function activarfotos() {
 
   imagenes.classList.toggle("activ");
   document.querySelector(".filtronegro").classList.toggle("activ");
+}
+
+function recibirPassword(idempleado) {
+    const option={
+      method:"POST",
+      redirect:"follow",
+      body:idempleado,
+      Headers:{
+        "Accept":"application/json"
+      }
+    }
+    return fetch("BaseDatos/verPerfil.php",option)
+    .then(response=>response.text())
+    .then(result=>{return result})
+    .catch(e=>{console.error("ERROR:" , e.message)})
+  
+}
+
+
+function ventanaConfirmPass() {
+
+  
+    
+}
+
+const comprobarPass=async(password)=>{
+  var pass = JSON.stringify(password);
+  const option={
+    method:"POST",
+    redirect:"follow",
+    body:pass,
+    Headers:{
+      "Accept":"application/json"
+    }
+  }
+  return fetch("BaseDatos/comprobarPass.php",option)
+  .then(response=>response.text())
+  .then(result=>{return result})
+  .catch(e=>{console.error("ERROR:" , e.message)})
 }

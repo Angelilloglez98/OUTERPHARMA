@@ -247,11 +247,6 @@ window.onload = () => {
         ventanaEmergenteCrear();
       })
     }
-
-
-
-
-
     elemento.appendChild(div);
   }
 
