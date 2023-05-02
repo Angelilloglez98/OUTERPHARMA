@@ -385,7 +385,8 @@ async function insertarProducto(cn){
     }   
     
     vaciarDatos();
-    traerDatos(); 
+    traerDatos();
+    location.reload();
 }
 
 function borrarProducto(cn){ 
@@ -501,7 +502,67 @@ async function mostrarMedicamento(cn) {
             let nombre = document.createElement("p")
             nombre.classList.add("noMedic")
             nombre.appendChild(document.createTextNode("Este medicamento no existe, por lo cual no se pudo cargar la información del medicamento"));
+            let aniadir = document.createElement("button");
+            aniadir.appendChild(document.createTextNode("¿Quieres darlo de alta?"))
+            aniadir.addEventListener('click', async function() {
+                var nombre;
+                var precio;
+                var pactivo;
+                var laboratorio;
+                var vAdmin;
+                var pres;
+                const { value: formValues } = await Swal.fire({
+                    title: 'Nombre y Precio del producto a dar de alta',
+                    html:
+                    `<input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled> ` +
+                    '<input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>' + 
+                    '<input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>' +
+                    '<input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">' +
+                    '<input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">' +
+                    '<input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración">' +
+                    '<input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">' ,
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        return [
+                            nombre = document.getElementById('swal-input1').value,
+                            precio = document.getElementById('swal-input2').value,
+                            pactivo = document.getElementById('swal-input3').value,
+                            laboratorio = document.getElementById('swal-input4').value,
+                            vAdmin = document.getElementById('swal-input5').value,
+                            pres = document.getElementById('swal-input6').value,
+                        ]
+                    }
+                })
+
+                if (pactivo) {
+                    pactivo = pactivo
+                } else {
+                    pactivo = "Sin datos";
+                }
+
+                if (laboratorio) {
+                    laboratorio = laboratorio
+                } else {
+                    laboratorio = "Sin datos";
+                }
+
+                if (vAdmin) {
+                    vAdmin = vAdmin
+                } else {
+                    vAdmin = "Sin datos";
+                }
+
+                if (pres) {
+                    pres = pres
+                } else {
+                    pres = "Sin datos";
+                }
+
+                fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+                &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
+            })
             dato.appendChild(nombre);
+            dato.appendChild(aniadir);
 
             let img = new Image();
 
@@ -548,4 +609,3 @@ function PrecioProducto(codigo, callback) {
         console.error(error);
     });
 }
-
