@@ -276,57 +276,48 @@ window.onload = () => {
     }
   }
 
-  function validarCorreoElectronico(correo) {
-    // Expresión regular para validar el formato del correo electrónico
-    const expresionRegular = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let validarC = true;
+ function validarCorreoElectronico(correo) {
+  // Expresión regular para validar el formato del correo electrónico
+  const expresionRegular = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Verificar si el correo cumple con el formato
-    if (!expresionRegular.test(correo)) {
-      alert("El correo electrónico no es válido.");
-      validarC = false;
-    }
-
-    if (validarC) {
-      return true;
-
-    } else {
-      return false;
-    }
+  // Verificar si el correo cumple con el formato
+  if (!expresionRegular.test(correo)) {
+    let divcorreo = document.querySelector(".correo");
+    crearMensajeError(divcorreo, "El correo no es valido");
+    return false;
+  } else {
+    let error = document.querySelector(".correo > .error");
+    eliminarMensajeError(error);
+    return true;
   }
+}
 
-  function validarTelefono(telefono) {
-    // Expresión regular para validar el formato del número de teléfono
-    const expresionRegular = /^[0-9]{9}$/;
-    let validarT = true;
-    // Verificar si el número de teléfono cumple con el formato
-    if (!expresionRegular.test(telefono)) {
-      alert("El número de teléfono no es válido.");
-      validarT = false;
-    }
-
-    if (validarT) {
-      return true;
-
-    } else {
-      return false;
-    }
+function validarTelefono(telefono) {
+  // Expresión regular para validar el formato del número de teléfono
+  const expresionRegular = /^[0-9]{9}$/;
+  // Verificar si el número de teléfono cumple con el formato
+  if (!expresionRegular.test(telefono)) {
+    let divtelefono = document.querySelector(".telefono");
+    crearMensajeError(divtelefono, "El telefono no es valido");
+    return false;
+  } else {
+    let error = document.querySelector(".telefono > .error");
+    eliminarMensajeError(error);
+    return true;
   }
+}
 
-  function validarContrasena(contrasena) {
-    let validarP = true;
-    if (contrasena.length < 5) {
-      alert("La contraseña debe tener al menos 5 caracteres.");
-      validarP = false;
-    }
-
-    if (validarP) {
-      return true;
-
-    } else {
-      return false;
-    }
+function validarContrasena(contrasena) {
+  if (contrasena.length < 5) {
+    let divpassword = document.querySelector(".password");
+    crearMensajeError(divpassword, "La contraseña almenos 5 caracteres");
+    return false;
+  } else {
+    let error = document.querySelector(".password > .error");
+    eliminarMensajeError(error);
+    return true;
   }
+}
 
   function enviarDatos(nombre, correo, numero, idempleado, imagen) {
     // Creamos un objeto FormData con los datos a enviar
@@ -419,6 +410,24 @@ window.onload = () => {
     .then(response=>response.text())
     .then(result=>{return result})
     .catch(e=>{console.error("ERROR:" , e.message)})
+  }
+
+  function crearMensajeError(elemento, mensaje) {
+    if (elemento.querySelector(".error") != null) {
+      elemento.querySelector(".error").remove();
+    }
+  
+    let p = document.createElement("p");
+    p.classList.add("error");
+    let texto = document.createTextNode(mensaje);
+    p.appendChild(texto);
+    elemento.appendChild(p);
+  }
+  
+  function eliminarMensajeError(elemento) {
+    if (elemento != null) {
+      elemento.remove();
+    }
   }
 
 } 
