@@ -43,8 +43,54 @@ imagen.addEventListener("click", function () {
 
   let botonenviar = document.querySelector(".confirm");
   botonenviar.addEventListener("click", function () {
-    enviarperfil();
-    location.replace('./selecPerfil.html');
+    let correoInput = document.querySelector('input[name="correo"]').value;
+    let telefonoInput = document.querySelector('input[name="telefono"]').value;
+    let nempleado = localStorage.getItem("perfil");
+    let imagenperfil = document.querySelector(".fotoperfil").attributes[0].nodeValue;
+
+    const form = {
+
+      title: "Confirma tu contraseña",
+  
+      html: `
+        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/updPerfil.php">
+          <input type="password" name="password" placeholder="Contraseña" class="swal2-input">       
+          <input type="text" name="correo" class="swal2-input" style="display: none;" value=${correoInput}>   
+          <input type="text" name="telefono" class="swal2-input" style="display: none;" value=${telefonoInput}>   
+          <input type="text" name="nempleado" class="swal2-input" style="display: none;" value=${nempleado}>   
+          <input type="text" name="imagenperfil" class="swal2-input" style="display: none;" value=${imagenperfil}>   
+        </form>
+      `,
+  
+      focusConfirm: false,
+  
+      preConfirm: () => {
+        
+        // Retorna un objeto con los valores de los campos del formulario
+        return {
+  
+        };
+  
+      },
+  
+    };
+  
+      // Muestra la ventana modal con el formulario
+      Swal.fire(form).then((result) => {
+        // Si el usuario ha enviado el formulario, muestra los valores de los campos
+        if (result.isConfirmed) {
+          let validacion = document.querySelector('input[name="password"]').value
+  
+          let pass = {'password':validacion};
+          comprobarPass(pass).then(result=>{
+            if (result=="true") {
+              enviarperfil();
+              location.replace('./selecPerfil.html');
+            }else{
+              alert("fallo")
+            }})
+        }
+      });
   });
 
   let botonCambiarImagen = document.querySelector(".aceptar");
@@ -154,9 +200,7 @@ function enviarperfil() {
     let telefonoInput = document.querySelector('input[name="telefono"]').value;
     let passwordInput = document.querySelector('input[name="password"]').value;
     let nempleado = localStorage.getItem("perfil");
-    let imagenperfil =
-      document.querySelector(".fotoperfil").attributes[0].nodeValue;
-    console.log(imagenperfil);
+    let imagenperfil = document.querySelector(".fotoperfil").attributes[0].nodeValue;
 
     if (
       validarTelefono(telefonoInput) &&
@@ -320,51 +364,24 @@ function recibirPassword(idempleado) {
 }
 
 
-function ventanaConfirmPass(nombre, nempleado) {
+function ventanaConfirmPass() {
 
-  const form = {
-
-    title: "Escribe tu contraseña para confirmar que eres tu",
-
-    html: `
-      <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/delEmpleados.php"> 
-        <input type="password" name="password" placeholder="Contraseña" class="swal2-input">       
-      </form>
-    `,
-  };
-
-    // Muestra la ventana modal con el formulario
-    Swal.fire({
-      title: 'Escribe tu contraseña para confirmar que eres tu',
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Look up',
-      showLoaderOnConfirm: true,
-      preConfirm: (login) => {
-        return fetch(`//api.github.com/users/${login}`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(response.statusText)
-            }
-            return response.json()
-          })
-          .catch(error => {
-            Swal.showValidationMessage(
-              `Request failed: ${error}`
-            )
-          })
-      },
-      allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: `${result.value.login}'s avatar`,
-          imageUrl: result.value.avatar_url
-        })
-      }
-    })
+  
     
+}
+
+const comprobarPass=async(password)=>{
+  var pass = JSON.stringify(password);
+  const option={
+    method:"POST",
+    redirect:"follow",
+    body:pass,
+    Headers:{
+      "Accept":"application/json"
+    }
+  }
+  return fetch("BaseDatos/comprobarPass.php",option)
+  .then(response=>response.text())
+  .then(result=>{return result})
+  .catch(e=>{console.error("ERROR:" , e.message)})
 }
