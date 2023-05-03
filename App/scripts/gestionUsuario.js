@@ -117,7 +117,7 @@ window.onload = () => {
 
       html: `
         <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/delEmpleados.php">
-          <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input" value="${nombre}">     
+          <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input" value="${nombre}" disabled>     
           <input type="password" name="password" placeholder="Contraseña" class="swal2-input">       
         </form>
       `,
