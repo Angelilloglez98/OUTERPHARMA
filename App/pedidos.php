@@ -15,7 +15,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="./styles/pedidos.css">
     <script src="scripts/header.js"></script>
     <script src="scripts/pedidos.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -74,28 +73,7 @@
                     <option value="vtm">Principip Activo</option>
                 </select>
             </div>
-
-            <!-- <div>
-                <table class="table caption-top" >
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Laboratorio</th>
-                            <th scope="col">Prescripcion</th>
-                            <th scope="col">Docs</th>
-                            <th scope="col">Via Administracion</th>
-                            <th scope="col">Forma</th>
-                            <th scope="col">Principio activo</th>
-                        </tr>
-                    </thead>
-                    <tbody id="buscarMed">
-                    
-                    </tbody>
-                </table>
-            </div> -->
-
-            <div>
+            <div class="mt-3">
 
                <table id="myTable" class="display">
                     <thead >
