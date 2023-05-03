@@ -91,6 +91,7 @@ window.onload = () =>{
           let cardProv = document.createElement("div");
           let deleteProv = document.createElement('button');
           let updateProv = document.createElement('button');
+          let botones = document.createElement('div');
 
           deleteProv.className = 'delete';          
           updateProv.className = 'edit';
@@ -119,6 +120,7 @@ window.onload = () =>{
 
             
           };
+
           updateProv.onclick = ()=>{
             
             console.log(element)
@@ -129,10 +131,10 @@ window.onload = () =>{
         
               html: `
                 <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php">
-                  <input type="text" name="Nombre" class="swal2-input" value=${element.nombre} disabled = "true">
-                  <input type="text" name="Direccion" class="swal2-input" value=${element.direccion}>
-                  <input type="tel" name="nTelefono" class="swal2-input" value=${element.nTelefono}>
-                  <input type="url" name="Link" class="swal2-input" value=${element.link}>
+                  <input type="text" name="Nombre" class="swal2-input" value="${element.nombre}" disabled = "true">
+                  <input type="text" name="Direccion" class="swal2-input" value="${element.direccion}">
+                  <input type="tel" name="nTelefono" class="swal2-input" value="${element.nTelefono}">
+                  <input type="url" name="Link" class="swal2-input" value="${element.link}">
                 </form>
               `,
         
@@ -171,31 +173,35 @@ window.onload = () =>{
 
           for (const atribute in element) {
 
-              let info = document.createTextNode(element[atribute]);
-              let prov = '';
-              if(atribute === 'nombre'){
+            let info = document.createTextNode(element[atribute]);
+            let prov = '';
+            
+            if(atribute === 'nombre'){
 
-                  prov = document.createElement("h5");
-                  prov.appendChild(info);
+              prov = document.createElement("h5");
+              prov.appendChild(info);
 
-              }else if(atribute === 'Link'){
-                  prov = document.createElement("a");
-                  prov.href = `${element[atribute]}`;
-                  prov.textContent = 'Pagina Web';
-                  prov.target = '_blank';
-              }else{
+            }else if(atribute === 'Link'){
 
-                  prov = document.createElement("p");
-                  prov.appendChild(info);
+              prov = document.createElement("a");
+              prov.href = `${element[atribute]}`;
+              prov.textContent = 'Pagina Web';
+              prov.target = '_blank';
 
-              }
+            }else{
 
-              cardProv.appendChild(prov);
+              prov = document.createElement("p");
+              prov.appendChild(info);
+
+            }
+
+            cardProv.appendChild(prov);
 
           }
 
-          cardProv.appendChild(deleteProv);
-          cardProv.appendChild(updateProv);
+          botones.appendChild(deleteProv);
+          botones.appendChild(updateProv);
+          cardProv.appendChild(botones);
           showProv.appendChild(cardProv);
 
       });

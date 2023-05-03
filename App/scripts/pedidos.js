@@ -40,7 +40,7 @@ window.onload = () =>{
 
         let info = [];
 
-        info.push(`<img src="${urlIMG}">`);
+        info.push(`<img width="200px" height="113px" src="${urlIMG}">`);
 
         for (const i in data) {
 
@@ -114,7 +114,7 @@ window.onload = () =>{
 
                         if(element.fotos === undefined){
 
-                            const noIMG = "assets/mondongo.jpg";
+                            const noIMG = "assets/pastillica.webp";
 
                             createRows(element, noIMG);
 
