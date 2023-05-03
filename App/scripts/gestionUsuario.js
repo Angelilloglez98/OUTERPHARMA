@@ -234,19 +234,11 @@ window.onload = () => {
       ventanaEmergenteEdit(nombre, tlf, correo, nEmpleado);
 
     });
-    let add = document.querySelector(".add")
-    let añadir = document.querySelector("#añadir")
-    if (!añadir) {
-      let buttonadd = document.createElement("button")
-      buttonadd.id = "añadir";
-      let textoadd = document.createTextNode("+")
-      buttonadd.appendChild(textoadd)
-      add.appendChild(buttonadd)
-
-      buttonadd.addEventListener("click", function () {
+    let boton = document.querySelector(".addProv")
+      boton.addEventListener("click", function () {
         ventanaEmergenteCrear();
       })
-    }
+    
     elemento.appendChild(div);
   }
 
