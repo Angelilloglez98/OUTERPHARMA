@@ -140,9 +140,9 @@ window.onload = () => {
       Swal.fire(form).then((result) => {
         // Si el usuario ha enviado el formulario, muestra los valores de los campos
         if (result.isConfirmed) {
-          let nombre = document.querySelector('input[name="Nombre"]').value
-          let validacion = document.querySelector('input[name="password"]').value
-
+          let nombre = document.querySelector('input[name="Nombre"]').value;
+          let validacion = document.querySelector('input[name="password"]').value;
+          
           let pass = {'password':validacion};
           comprobarPass(pass).then(result=>{
             if (result=="true") {
