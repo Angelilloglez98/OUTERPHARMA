@@ -15,7 +15,7 @@ window.onload = () =>{
           Headers: {'Accept':'aplication/json'}
       }
 
-      var url = 'http://localhost/OuterPharma/App/BaseDatos/devProveedores.php';
+      var url = './BaseDatos/devProveedores.php';
       
       return fetch(url, options)
       .then(response => response.json())
@@ -35,7 +35,7 @@ window.onload = () =>{
         Headers: {'Accept':'aplication/json'}
     }
 
-    var url = 'http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php';
+    var url = './BaseDatos/insertProveedores.php';
     
     return fetch(url, options)
     .then(response => response.text())
@@ -56,7 +56,7 @@ window.onload = () =>{
         Headers: {'Accept':'aplication/json'}
     }
 
-    var url = 'http://localhost/OuterPharma/App/BaseDatos/updProveedores.php';
+    var url = './BaseDatos/updProveedores.php';
     
     return fetch(url, options)
     .then(response => response.text())
@@ -75,7 +75,7 @@ window.onload = () =>{
         Headers: {'Accept':'aplication/json'}
     }
 
-    var url = 'http://localhost/OuterPharma/App/BaseDatos/quitarProveedor.php';
+    var url = './BaseDatos/quitarProveedor.php';
     
     return fetch(url, options)
     .then(response => response.text())
@@ -128,7 +128,7 @@ window.onload = () =>{
               title: "Formulario",
         
               html: `
-                <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php">
+                <form id="formulario" method="POST" action="./BaseDatos/insertProveedores.php">
                   <input type="text" name="Nombre" class="swal2-input" value=${element.nombre} disabled = "true">
                   <input type="text" name="Direccion" class="swal2-input" value=${element.direccion}>
                   <input type="tel" name="nTelefono" class="swal2-input" value=${element.nTelefono}>
@@ -216,7 +216,7 @@ window.onload = () =>{
       title: "Formulario",
 
       html: `
-        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/insertProveedores.php">
+        <form id="formulario" method="POST" action="./BaseDatos/insertProveedores.php">
           <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input">
           <input type="text" name="Direccion" placeholder="Dirección" class="swal2-input">
           <input type="tel" name="nTelefono" placeholder="Teléfono" class="swal2-input">

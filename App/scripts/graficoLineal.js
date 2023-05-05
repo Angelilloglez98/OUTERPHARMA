@@ -2,7 +2,7 @@
 
  async function datosVentasPedidos() {
     let mesesVentas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-     await fetch('http://localhost/OuterPharma/App/BaseDatos/devVentasMeses.php')
+     await fetch('./BaseDatos/devVentasMeses.php')
         .then(res => res.json())
         .then(resultado => {
 
@@ -54,7 +54,7 @@
         });
 
         let mesesPedidos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-         await fetch('http://localhost/OuterPharma/App/BaseDatos/devPedidosMes.php')
+         await fetch('./BaseDatos/devPedidosMes.php')
             .then(dev => dev.json())
             .then(resultado => {
                 resultado.forEach(venta => {

@@ -1,6 +1,6 @@
 window.onload=()=>{
 
-    fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
+    fetch('BaseDatos/devEmpleados.php')
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
         Pintar(document.querySelector('.contenedorUser'),element.nombre,element.UrlEmpleado)

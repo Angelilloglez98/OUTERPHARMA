@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     linkColor.forEach(l => l.addEventListener('click', colorLink))
 
     function BuscarEmpleados() {
-        fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
+        fetch('./BaseDatos/devEmpleados.php')
             .then(res => res.json())
             .then(resultados => {
                 resultados.forEach(element => {
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             reverseButtons: true
           }).then((result) => {
             if (result.isConfirmed) {
-                location.replace('./selecPerfil.html');
+                location.replace('./selecPerfil.php');
               
             }
           })

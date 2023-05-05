@@ -81,7 +81,7 @@ window.onload = () => {
     
     const buscarMed = (datos) => {
         
-        var url = `http://localhost/OuterPharma/App/BaseDatos/buscarProducto.php?datos=${datos}`;
+        var url = `./BaseDatos/buscarProducto.php?datos=${datos}`;
         
         return fetch(url)
         .then(response => response.json())
@@ -111,7 +111,7 @@ window.onload = () => {
                     .then(resultadoApi=>{
                         vaciarDatos();
                         if(resultadoApi.fotos===undefined){
-                            carta('http://localhost/OuterPharma/App/assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
                         }else{
                             carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
                         }
@@ -128,7 +128,7 @@ window.onload = () => {
 
 async function traerDatos(orden, direc) {
     try {
-        const res = await fetch(`http://localhost/OuterPharma/App/BaseDatos/devInfo.php?orden=${orden}&direccion=${direc}`);
+        const res = await fetch(`./BaseDatos/devInfo.php?orden=${orden}&direccion=${direc}`);
         const resultado = await res.json();
 
         for (const inventario of resultado) {
@@ -140,12 +140,12 @@ async function traerDatos(orden, direc) {
 
 
                 if (resultadoApi.fotos === undefined) {
-                    carta('http://localhost/OuterPharma/App/assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                    carta('./assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 } else {
                     carta(resultadoApi.fotos[0].url, inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 }
             } catch (error) {
-                carta('http://localhost/OuterPharma/App/assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                carta('./assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
             }
 
         }
@@ -188,7 +188,7 @@ function borrar(e){
                 'Los productos han sido borrados correctamente',
                 'success'
               )
-            fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?CodigoNacional=${codigo}&cantidad=${cantidad}`)
+            fetch(`./BaseDatos/QuitarStock.php?CodigoNacional=${codigo}&cantidad=${cantidad}`)
             vaciarDatos();
             traerDatos();
             
@@ -393,9 +393,9 @@ async function insertarProducto(cn){
     
 
     if (medicamentoExistente) {
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`);
+        fetch(`./BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`);
     } else {
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+        fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
         &via=${vAdmin}&pres=${pres}&precio=${Precio}&stock=${stock}`);
     }   
     
@@ -437,7 +437,7 @@ function borrarProducto(cn){
                 'Los productos han sido borrados correctamente',
                 'success'
               )
-            fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?CodigoNacional=${cn}&cantidad=${cantidad}`)
+            fetch(`./BaseDatos/QuitarStock.php?CodigoNacional=${cn}&cantidad=${cantidad}`)
             vaciarDatos();
             traerDatos();
             
@@ -446,7 +446,7 @@ function borrarProducto(cn){
 }
 
 async function comprobarMedicamento(cn){
-    const response = await fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php');
+    const response = await fetch('./BaseDatos/devInventario.php');
     const elementos = await response.json();
     let coincidencia = false;
     elementos.forEach(elemento => {
@@ -482,7 +482,7 @@ async function mostrarMedicamento(cn) {
 
             console.log(resultadoApi);
 
-            const res = await fetch(`http://localhost/OuterPharma/App/BaseDatos/devProducto.php?codigo=${cn}`);
+            const res = await fetch(`./BaseDatos/devProducto.php?codigo=${cn}`);
             resultado = await res.json();
 
             console.log(resultado);
@@ -505,7 +505,7 @@ async function mostrarMedicamento(cn) {
             let img = new Image();
 
             if(resultadoApi.fotos===undefined){
-                img.src = 'http://localhost/OuterPharma/App/assets/pastillica.webp';
+                img.src = './assets/pastillica.webp';
             }else{
                 img.src = resultadoApi.fotos[0].url;
             }
@@ -580,7 +580,7 @@ async function mostrarMedicamento(cn) {
                     pres = "Sin datos";
                 }
 
-                fetch(`http://localhost/OuterPharma/App/BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+                fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
                 &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
             })
             dato.appendChild(nombre);
@@ -588,7 +588,7 @@ async function mostrarMedicamento(cn) {
 
             let img = new Image();
 
-            img.src = 'http://localhost/OuterPharma/App/assets/pastillica.webp';
+            img.src = './assets/pastillica.webp';
 
             img.classList.add('imagen_foto');
 

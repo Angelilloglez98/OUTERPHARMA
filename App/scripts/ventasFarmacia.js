@@ -11,7 +11,7 @@ formulario.onsubmit = (e) => {
 async function BuscarMedicamento(cn) {
     let existe=false;
     let filaExistente;
-    await fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
+    await fetch('./BaseDatos/devInventario.php')
         .then(res => res.json())
         .then(elementos => {
             elementos.forEach(elemento => {
@@ -231,7 +231,7 @@ function VenderProductos() {
 
         let cn=fila.querySelector('.cn').textContent;
         let cantidad=fila.querySelector('.cantidad >input').value;
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/QuitarStock.php?cantidad=${cantidad}&CodigoNacional=${cn}`);
+        fetch(`./BaseDatos/QuitarStock.php?cantidad=${cantidad}&CodigoNacional=${cn}`);
         
     })
 
@@ -253,7 +253,7 @@ function VenderProductos() {
     })
     let nEmpleado=localStorage.getItem('perfil');
     
-    fetch(`http://localhost/OuterPharma/App/BaseDatos/anadirVenta.php?Productos=${JSON.stringify(Productos)}&nEmpleado=${nEmpleado}&PTotal=${PrecioTotalFactura}`)
+    fetch(`./BaseDatos/anadirVenta.php?Productos=${JSON.stringify(Productos)}&nEmpleado=${nEmpleado}&PTotal=${PrecioTotalFactura}`)
 
     filas.forEach(fililla=>{
         EliminarFila(fililla);

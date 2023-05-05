@@ -1,3 +1,9 @@
+<?php
+session_start();
+    if (!isset($_SESSION['CorreoFarmacia'])) {
+        header('Location: ./index.php');
+    }
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +26,7 @@
     <!-- datatables-->
 
     <!-- pdf -->
-        <script src="Library/jspdf.min.js"></script>
+        <script src="./Library/jspdf.min.js" defer></script>
     <!-- pdf -->
 
     <link rel="stylesheet" href="styles/header.css">
@@ -49,7 +55,6 @@
                   <a href="historialVentas.php" class="nav_link active"> <i class='bx bxs-credit-card nav_icon'></i> <span class="nav_name">Historial Ventas</span> </a> </div>
                   <?php
                     require('./BaseDatos/conexionDB.php');
-                    session_start();
                     $numeroEmpleado=$_SESSION['nEmpleado'];
                     $sql="SELECT Rol FROM empleados WHERE nEmpleado=:nEmpleado";
 

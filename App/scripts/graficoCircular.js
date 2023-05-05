@@ -68,7 +68,7 @@ function GraficoCircular(nombresMedicamentos,cantidadMedicamento) {
 function recogerDatos() {
     let nombreMedicamento = [];
     let cantidadPorMedicamento = [];
-    fetch(`http://localhost/OuterPharma/App/BaseDatos/devProductosMasVendidos.php?fecha=${formulario.fecha.value}`)
+    fetch(`./BaseDatos/devProductosMasVendidos.php?fecha=${formulario.fecha.value}`)
     .then(respuesta=>respuesta.json())
     .then(resultado=>{
         resultado.forEach(element => {

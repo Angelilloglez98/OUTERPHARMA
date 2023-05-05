@@ -225,7 +225,7 @@ function enviarperfil() {
 
       // Creamos una solicitud HTTP POST
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "BaseDatos/updPerfil.php", true);
+      xhr.open("POST", "./BaseDatos/updPerfil.php", true);
 
       // Configuramos el tipo de contenido que vamos a enviar
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -358,7 +358,7 @@ function recibirPassword(idempleado) {
         "Accept":"application/json"
       }
     }
-    return fetch("BaseDatos/verPerfil.php",option)
+    return fetch("./BaseDatos/verPerfil.php",option)
     .then(response=>response.text())
     .then(result=>{return result})
     .catch(e=>{console.error("ERROR:" , e.message)})
