@@ -14,15 +14,15 @@ window.onload = () =>{
 
         if(filtro==="cn"){
 
-            url += "?"
-            filtro += "="
+            url += "?";
+            filtro += "=";
 
         }
 
         if(filtro==="nombre" || filtro === "vtm"){
 
-            url += "s?"
-            filtro += "="
+            url += "s?";
+            filtro += "=";
 
         }
         
@@ -34,7 +34,7 @@ window.onload = () =>{
 
     }
 
-    let table = new DataTable('#myTable');
+    let table = new DataTable('#myTable', {"pageLength": 5, "lengthMenu": [5, 10, 25, 50]});
 
     const createRows = (data, urlIMG) => {
 
@@ -61,6 +61,7 @@ window.onload = () =>{
                 case 'vtm': case 'formaFarmaceutica':
 
                     for (const j in data[i]) {
+
                         if(j == 'nombre'){
                             info.push( data[i][j]);
                         }
@@ -73,9 +74,9 @@ window.onload = () =>{
 
                     data[i].forEach(element=>{
 
-                        info.push( element.nombre);
+                        info.push(element.nombre);
 
-                    })
+                    });
                         
                 break;
 
