@@ -23,7 +23,7 @@
             if ($sth->rowCount()==1 && password_verify($password,$fila['Contrasenia'])){
                 //Idea: que cada sesion se genere con un nombre identificativo de cada farmacia, en este caso el correo
                 $_SESSION['CorreoFarmacia']=$fila['Ccorreo'];
-                header('Location: ../selecPerfil.html');
+                header('Location: ../selecPerfil.php');
             }else {
                 // correo electrónico incorrecto
                 $_SESSION['error'] = "El correo electrónico o la contraseña son incorrectos.";

@@ -1,6 +1,6 @@
 window.onload=()=>{
     function recogerDatos() {
-        fetch('http://localhost/OuterPharma/App/BaseDatos/devLabMasTop.php')
+        fetch('./BaseDatos/devLabMasTop.php')
         .then(respuesta=>respuesta.json())
         .then(resultado=>{
             resultado.forEach(element => {

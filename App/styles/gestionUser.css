@@ -162,6 +162,22 @@ p {
   color: white;
 }
 
+.addProv {
+  border: 2px solid #4723D9;
+  background-color: #4723D9;
+  border-radius: 0.5em;
+  padding: 0.8em 1.2em 0.8em 1em;
+  transition: all ease-in-out 0.2s;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.addProv:hover {
+  background-color: #AFA5D9;
+  color: #4723D9;
+}
+
 @media screen and (max-width: 768px) {
   .contenedorUser {
     width: 90%;

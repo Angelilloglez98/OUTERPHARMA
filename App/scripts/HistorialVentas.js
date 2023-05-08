@@ -3,7 +3,7 @@ $(document).ready(function () {
     let table = new DataTable('#myTable');
 
     const BuscarDatos = async () => {
-        return fetch('http://localhost/OuterPharma/App/BaseDatos/devHistorialVentas.php')
+        return fetch('./BaseDatos/devHistorialVentas.php')
             .then(res => res.json())
             .then(resultado => { return resultado });
     }
@@ -24,7 +24,7 @@ $(document).ready(function () {
 
     function pintarDatos(datos, element, res) {
         
-        fetch(`http://localhost/OuterPharma/App/BaseDatos/devHistorialVentasProductos.php?nVentas=${datos[0]}`)
+        fetch(`./BaseDatos/devHistorialVentasProductos.php?nVentas=${datos[0]}`)
         .then(res=>res.json())
         .then((resultado)=>{
             let pdf=GenerarPDF(resultado);

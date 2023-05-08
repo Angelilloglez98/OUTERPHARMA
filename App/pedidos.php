@@ -1,3 +1,9 @@
+<?php
+session_start();
+    if (!isset($_SESSION['CorreoFarmacia'])) {
+        header('Location: ./index.php');
+    }
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +21,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="./styles/pedidos.css">
     <script src="scripts/header.js"></script>
     <script src="scripts/pedidos.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -42,7 +47,6 @@
                   <a href="historialVentas.php" class="nav_link"> <i class='bx bxs-credit-card nav_icon'></i> <span class="nav_name">Historial Ventas</span> </a> </div>
                   <?php
                     require('./BaseDatos/conexionDB.php');
-                    session_start();
                     $numeroEmpleado=$_SESSION['nEmpleado'];
                     $sql="SELECT Rol FROM empleados WHERE nEmpleado=:nEmpleado";
 
@@ -74,28 +78,7 @@
                     <option value="vtm">Principip Activo</option>
                 </select>
             </div>
-
-            <!-- <div>
-                <table class="table caption-top" >
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Laboratorio</th>
-                            <th scope="col">Prescripcion</th>
-                            <th scope="col">Docs</th>
-                            <th scope="col">Via Administracion</th>
-                            <th scope="col">Forma</th>
-                            <th scope="col">Principio activo</th>
-                        </tr>
-                    </thead>
-                    <tbody id="buscarMed">
-                    
-                    </tbody>
-                </table>
-            </div> -->
-
-            <div>
+            <div class="mt-3">
 
                <table id="myTable" class="display">
                     <thead >

@@ -1,6 +1,6 @@
 window.onload = () => {
 
-  fetch('http://localhost/OuterPharma/App/BaseDatos/devEmpleados.php')
+  fetch('./BaseDatos/devEmpleados.php')
     .then(response => response.json())
     .then(registro => registro.forEach(element => {
       Pintar(document.querySelector('.contenedorUser'), element.nombre, element.correopersonal, element.telefono, element.nempleado, element.rol,element.UrlEmpleado)
@@ -14,7 +14,7 @@ window.onload = () => {
       title: "Editar usuario",
 
       html: `
-        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/updEmpleado.php">
+        <form id="formulario" method="POST" action="./BaseDatos/updEmpleado.php">
           <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input" value="${nombre}">
           <input type="text" name="Correo" placeholder="Correo" class="swal2-input" value="${correo}">
           <input type="tel" name="nTelefono" placeholder="Teléfono" class="swal2-input" value="${telefono}">
@@ -65,7 +65,7 @@ window.onload = () => {
       title: "Agregar usuario",
 
       html: `
-        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/delEmpleados.php">
+        <form id="formulario" method="POST" action="./BaseDatos/delEmpleados.php">
           <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input">     
           <input type="telefono" name="telefono" placeholder="Teléfono" class="swal2-input">
           <input type="correo" name="correo" placeholder="Correo" class="swal2-input">   
@@ -116,8 +116,8 @@ window.onload = () => {
       title: "Eliminar usuario",
 
       html: `
-        <form id="formulario" method="POST" action="http://localhost/OuterPharma/App/BaseDatos/delEmpleados.php">
-          <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input" value="${nombre}" disabled>     
+        <form id="formulario" method="POST" action="./BaseDatos/delEmpleados.php">
+          <input type="text" name="Nombre" placeholder="Nombre" class="swal2-input" value="${nombre}">     
           <input type="password" name="password" placeholder="Contraseña" class="swal2-input">       
         </form>
       `,
@@ -140,9 +140,9 @@ window.onload = () => {
       Swal.fire(form).then((result) => {
         // Si el usuario ha enviado el formulario, muestra los valores de los campos
         if (result.isConfirmed) {
-          let nombre = document.querySelector('input[name="Nombre"]').value
-          let validacion = document.querySelector('input[name="password"]').value
-
+          let nombre = document.querySelector('input[name="Nombre"]').value;
+          let validacion = document.querySelector('input[name="password"]').value;
+          
           let pass = {'password':validacion};
           comprobarPass(pass).then(result=>{
             if (result=="true") {
@@ -234,19 +234,11 @@ window.onload = () => {
       ventanaEmergenteEdit(nombre, tlf, correo, nEmpleado);
 
     });
-    let add = document.querySelector(".add")
-    let añadir = document.querySelector("#añadir")
-    if (!añadir) {
-      let buttonadd = document.createElement("button")
-      buttonadd.id = "añadir";
-      let textoadd = document.createTextNode("+")
-      buttonadd.appendChild(textoadd)
-      add.appendChild(buttonadd)
-
-      buttonadd.addEventListener("click", function () {
+    let boton = document.querySelector(".addProv")
+      boton.addEventListener("click", function () {
         ventanaEmergenteCrear();
       })
-    }
+    
     elemento.appendChild(div);
   }
 
@@ -379,7 +371,7 @@ function validarContrasena(contrasena) {
       '&idempleado=' + encodeURIComponent(idempleado)
     // Creamos una solicitud HTTP POST
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'BaseDatos/delEmpleados.php', true);
+    xhr.open('POST', './BaseDatos/delEmpleados.php', true);
 
     // Configuramos el tipo de contenido que vamos a enviar
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -406,7 +398,7 @@ function validarContrasena(contrasena) {
         "Accept":"application/json"
       }
     }
-    return fetch("BaseDatos/comprobarPass.php",option)
+    return fetch("./BaseDatos/comprobarPass.php",option)
     .then(response=>response.text())
     .then(result=>{return result})
     .catch(e=>{console.error("ERROR:" , e.message)})

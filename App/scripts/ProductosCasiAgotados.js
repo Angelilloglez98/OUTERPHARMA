@@ -1,5 +1,5 @@
 
-fetch('http://localhost/OuterPharma/App/BaseDatos/devInventario.php')
+fetch('./BaseDatos/devInventario.php')
 .then(res=>res.json())
 .then(response=>{
     // Aquí usamos el método sort para ordenar las cartas por cantidad.

@@ -184,6 +184,7 @@ background-color: brown;
 
 .fotoperfiles{
     border-radius: 50%;
+    cursor: pointer;
     
 }
 
@@ -196,3 +197,4 @@ background-color: brown;
 .error .imagenUser{
     display: none;
 }
+

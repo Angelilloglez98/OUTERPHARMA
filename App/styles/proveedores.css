@@ -53,14 +53,21 @@
     padding: 20px;
 }
 
-/* .addProv{
-    width: 100px;
-    height: 100px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    background-image: url('../assets/mondongo.jpg');
-} */
+.addProv {
+    border: 2px solid #4723D9;
+    background-color: #4723D9;
+    border-radius: 0.5em;
+    padding: 0.8em 1.2em 0.8em 1em;
+    transition: all ease-in-out 0.2s;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.addProv:hover {
+    background-color: #AFA5D9;
+    color: #4723D9;
+}
 
 .edit,
 .delete {
@@ -89,64 +96,6 @@
     background-image: url('../assets/trash.svg');
     background-color: brown;
 }
-
-
-    .addProv {
-    border: none;
-    position: relative;
-    width: 200px;
-    height: 73px;
-    padding: 0;
-    z-index: 2;
-    -webkit-mask: url("https://tinyurl.com/2p8sa93e") no-repeat 50% 50%;
-    mask: url("https://tinyurl.com/2p8sa93e") no-repeat 50% 50%;
-    -webkit-mask-size: 100%;
-    cursor: pointer;
-    background-color: transparent;
-    transform: translateY(8px)
-   }
-   .addProv:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: 0px 0 0 0 white;
-    transition: all 2s ease;
-   }
-   .addProv:hover:after {
-    box-shadow: 0px -13px 56px 12px #ffffffa6;
-   }
-   .addProv span {
-    position: absolute;
-    width: 100%;
-    font-size: 15px;
-    font-weight: 100;
-    left: 50%;
-    top: 39%;
-    letter-spacing: 3px;
-    text-align: center;
-    transform: translate(-50%,-50%);
-    color: black;
-    transition: all 2s ease;
-   }
-   .addProv:hover span {
-    color: white;
-   }
-   .addProv:before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 100%;
-    background-color: black;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 1s ease;
-   }
-   .addProv:hover:before {
-    width: 100%;
-   }
   
 @media screen and (max-width: 1500px) {
     .showProv {
