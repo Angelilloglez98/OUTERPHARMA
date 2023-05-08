@@ -33,7 +33,7 @@ window.onload = () => {
           nTelefono: document.getElementsByName("nTelefono")[0].value,
         };
 
-      },
+      }
 
     };
   
@@ -45,14 +45,19 @@ window.onload = () => {
           let correo = document.querySelector('input[name="Correo"]').value
           let ntelefono = document.querySelector('input[name="nTelefono"]').value
           let imagenPerfilSinCambios = localStorage.getItem("imagen").value
+          let nempleadoStorage = localStorage.getItem("nEmpleado");
 
 
 
           if (validarNombre(nombre) == true && validarCorreoElectronico(correo) && validarTelefono(ntelefono)) {
             enviarDatos(nombre, correo, ntelefono,nempleado,imagenPerfilSinCambios)
-            location.reload();
-          }else {
-            alert("rellene bien los campos")
+
+            if (nempleado==nempleadoStorage) {
+              localStorage.setItem('nombre',nombre);
+              localStorage.setItem('correo',correo);
+              localStorage.setItem("telefono",ntelefono)
+              location.reload();
+            }
           }
     
         }});
@@ -232,7 +237,8 @@ window.onload = () => {
       var correo = e.target.closest(".card").dataset.correo;
       var tlf = e.target.closest(".card").dataset.telefono;
       ventanaEmergenteEdit(nombre, tlf, correo, nEmpleado);
-
+      
+      
     });
     let boton = document.querySelector(".addProv")
       boton.addEventListener("click", function () {
