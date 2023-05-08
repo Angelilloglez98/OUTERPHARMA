@@ -486,33 +486,35 @@ async function mostrarMedicamento(cn) {
             resultado = await res.json();
 
             console.log(resultado);
+            
+            console.log(resultado.length);
 
-            if (Object.keys(resultado).length === 0) {
-                // Si el resultado es un objeto vacío, no se encontró ningún registro en la base de datos
-                insertar.disabled = false;
-                borrar.disabled = true;
-              } else {
-                // Si el resultado contiene datos, se encontró un registro en la base de datos
+            if (resultado.length === 0) {
+                console.log("Ey");
+                
+            } else {
+                console.log("Caca");
                 insertar.disabled = false;
                 borrar.disabled = false;
-              }
 
-            let nombre = document.createElement("p")
-            nombre.classList.add("nombreMed")
-            nombre.appendChild(document.createTextNode(resultadoApi.nombre));
-            dato.appendChild(nombre);
+                let nombre = document.createElement("p")
+                nombre.classList.add("nombreMed")
+                nombre.appendChild(document.createTextNode(resultadoApi.nombre));
+                dato.appendChild(nombre);
 
-            let img = new Image();
+                let img = new Image();
 
-            if(resultadoApi.fotos===undefined){
-                img.src = './assets/pastillica.webp';
-            }else{
-                img.src = resultadoApi.fotos[0].url;
+                if(resultadoApi.fotos===undefined){
+                    img.src = './assets/pastillica.webp';
+                }else{
+                    img.src = resultadoApi.fotos[0].url;
+                }
+                img.classList.add('imagen_foto');
+
+                dato.appendChild(img);
             }
-            img.classList.add('imagen_foto');
 
-            dato.appendChild(img);
-
+            
         } catch (error) {
             let nombre = document.createElement("p")
             nombre.classList.add("noMedic")
@@ -583,16 +585,16 @@ async function mostrarMedicamento(cn) {
                 fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
                 &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
             })
-            dato.appendChild(nombre);
-            dato.appendChild(aniadir);
+            // dato.appendChild(nombre);
+            // dato.appendChild(aniadir);
 
-            let img = new Image();
+            // let img = new Image();
 
-            img.src = './assets/pastillica.webp';
+            // img.src = './assets/pastillica.webp';
 
-            img.classList.add('imagen_foto');
+            // img.classList.add('imagen_foto');
 
-            dato.appendChild(img);
+            // dato.appendChild(img);
         }
         
     }
@@ -612,19 +614,26 @@ const PrecioProducto = async (codigo, callback) => {
 
         const dom = new DOMParser().parseFromString(html, 'text/html');
 
-        let enlace=dom.querySelector('.search-results > a').href;
+        const linkElement = dom.querySelector('.search-results > a');
+        if (linkElement) {
+            const enlace = linkElement.href;
+            fetch(enlace)
+            .then(response=>{
+                return response.text();
+            })
+            .then(html2=>{
+                const dom2 = new DOMParser().parseFromString(html2, 'text/html');
+                const markElement = dom2.querySelector('p mark');
+                const markTextContent = markElement ? markElement.textContent : null;
+                callback(markTextContent);
 
-        fetch(enlace)
-        .then(response=>{
-            return response.text();
-        })
-        .then(html2=>{
-            const dom2 = new DOMParser().parseFromString(html2, 'text/html');
-            const markElement = dom2.querySelector('p mark');
-            const markTextContent = markElement ? markElement.textContent : null;
-            callback(markTextContent);
+            })
+        } else {
+            callback(null);
+        }
 
-        })
+        
+        
     })
     .catch(error => {
         console.error(error);
