@@ -468,9 +468,9 @@ async function mostrarMedicamento(cn) {
     let dato = document.createElement("div");
     dato.classList.add("medicamento")
 
-    if (cn.length < 6) {
+    if (cn.length != 6 ) {
         dato.classList.add("noMedic");
-        dato.appendChild(document.createTextNode("Ponga todos los numeros del Codigo Nacional"));
+        dato.appendChild(document.createTextNode("Ponga los numeros correctos del Codigo Nacional"));
 
     } else {
         let resultadoApi = {};
@@ -631,64 +631,3 @@ const PrecioProducto = async (codigo, callback) => {
     });
 }
 let precioProducto;
-
-
-//     const url = 'https://nomenclator.org/buscar?q='+codigo;
-
-
-//     await fetch(url)
-//     .then(response => {
-//         return response.text();
-//     })
-//     .then(html => {
-
-//         const dom = new DOMParser().parseFromString(html, 'text/html');
-
-//         let enlace=dom.querySelector('.search-results > a').href;
-
-//         fetch(enlace)
-//         .then(response=>{
-//             return response.text();
-//         })
-//         .then(html2=>{
-//             const dom2 = new DOMParser().parseFromString(html2, 'text/html');
-//             callback(dom2.querySelector('p mark').textContent);
-//         })
-//     })
-//     .catch(error => {
-
-//         console.error(error);
-//     });
-// }
-
-
-
-// Swal.fire({
-//     title: 'Nombre y Precio del producto a dar de alta',
-//     html:
-//     `<form class="nuevo d-flex flex-column">
-//     <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
-//     <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>
-//     <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
-//     <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
-//     <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
-//     <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
-//     <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
-//     </form>`,
-//     focusConfirm: false,
-//     preConfirm: () => {
-//       return [
-//         nombre = document.getElementById('swal-input1').value,
-//         precio = document.getElementById('swal-input2').value,
-//         pactivo = document.getElementById('swal-input3').value,
-//         laboratorio = document.getElementById('swal-input4').value,
-//         vAdmin = document.getElementById('swal-input5').value,
-//         pres = document.getElementById('swal-input6').value,
-//       ]
-//     },
-//     inputValidator: (value) => {
-//       if (!value) {
-//         return 'Este campo es obligatorio'
-//       }
-//     }
-//   })
