@@ -18,10 +18,9 @@ table{
 }
 
 @media (max-width:500px) {
-    .contenedor{
+    table{
         font-size: 0.6em;
     }
-    
     .sobra{
         display: none;
     }

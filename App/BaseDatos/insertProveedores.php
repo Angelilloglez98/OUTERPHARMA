@@ -19,17 +19,20 @@
     // Si no hay resultados, agregar el proveedor a la base de datos
     if ($sth->rowCount() == 0) {
 
-        $sth = $pdo->prepare("INSERT INTO proveedores (CcorreoFarmacia, Nombre, Direccion, nTelefono, Link) VALUES (:CcorreoFarmacia, :Nombre, :Direccion, :nTelefono, :Link)");
-        $sth->bindParam(':CcorreoFarmacia', $CcorreoFarmacia);
-        $sth->bindParam(':Nombre', $Nombre);
-        $sth->bindParam(':Direccion', $Direccion);
-        $sth->bindParam(':nTelefono', $nTelefono);
-        $sth->bindParam(':Link', $Link);
-        if ($sth->execute()) {
-            echo true;
-        } else {
-            echo "Error al insertar: " . $sth->errorInfo()[2];
+        if(!empty($Nombre)){
+            $sth = $pdo->prepare("INSERT INTO proveedores (CcorreoFarmacia, Nombre, Direccion, nTelefono, Link) VALUES (:CcorreoFarmacia, :Nombre, :Direccion, :nTelefono, :Link)");
+            $sth->bindParam(':CcorreoFarmacia', $CcorreoFarmacia);
+            $sth->bindParam(':Nombre', $Nombre);
+            $sth->bindParam(':Direccion', $Direccion);
+            $sth->bindParam(':nTelefono', $nTelefono);
+            $sth->bindParam(':Link', $Link);
+            if ($sth->execute()) {
+                echo true;
+            } else {
+                echo "Error al insertar: " . $sth->errorInfo()[2];
+            }
         }
+        
 
     }else{
         echo false;
