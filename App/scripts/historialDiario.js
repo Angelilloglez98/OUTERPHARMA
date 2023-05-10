@@ -1,5 +1,5 @@
 function cogerDatosHistorial() {
-    fetch('http://localhost/OuterPharma/App/BaseDatos/devHistorialDiario.php')
+    fetch('./BaseDatos/devHistorialDiario.php')
     .then(respuesta=>respuesta.json())
     .then(resultado=>{
         resultado.forEach(element => {

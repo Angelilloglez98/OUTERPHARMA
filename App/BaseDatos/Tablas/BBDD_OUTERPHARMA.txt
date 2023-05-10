@@ -56,7 +56,7 @@ CREATE TABLE FARMACIAS_PRODUCTOS(
     fEntrada DATETIME,
     fCaducidad DATETIME,
     FOREIGN KEY (Ccorreo) REFERENCES FARMACIAS(Ccorreo),
-    FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional)
+    FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional) ON DELETE SET NULL
 );
 
 CREATE TABLE VENTAS_PRODUCTOS(
@@ -66,7 +66,7 @@ CREATE TABLE VENTAS_PRODUCTOS(
     PVP float(4,2),
     PrecioProductos float(4,2),
     FOREIGN KEY (nVentas) REFERENCES VENTAS(nVentas) ON DELETE SET NULL,
-    FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional)
+    FOREIGN KEY (CodigoNacional) REFERENCES PRODUCTOS(CodigoNacional) ON DELETE SET NULL
 );
 
 INSERT INTO FARMACIAS (Ccorreo, nColegiado, NombreF, Contrasenia, Direccion, nTelefono) VALUES

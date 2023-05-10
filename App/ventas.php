@@ -1,3 +1,9 @@
+<?php
+session_start();
+    if (!isset($_SESSION['CorreoFarmacia'])) {
+        header('Location: ./index.php');
+    }
+?>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
@@ -7,7 +13,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+        <script src="./Library/quagga.js" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="styles/header.css">
         <link rel="stylesheet" href="styles/ventas.css">
@@ -39,7 +45,6 @@
                   <a href="historialVentas.php" class="nav_link"> <i class='bx bxs-credit-card nav_icon'></i> <span class="nav_name">Historial Ventas</span> </a> </div>
                   <?php
                     require('./BaseDatos/conexionDB.php');
-                    session_start();
                     $numeroEmpleado=$_SESSION['nEmpleado'];
                     $sql="SELECT Rol FROM empleados WHERE nEmpleado=:nEmpleado";
 

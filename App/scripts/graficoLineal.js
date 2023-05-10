@@ -1,6 +1,8 @@
-function datosVentasPedidos() {
+
+
+ async function datosVentasPedidos() {
     let mesesVentas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    fetch('http://localhost/OuterPharma/App/BaseDatos/devVentasMeses.php')
+     await fetch('./BaseDatos/devVentasMeses.php')
         .then(res => res.json())
         .then(resultado => {
 
@@ -52,7 +54,7 @@ function datosVentasPedidos() {
         });
 
         let mesesPedidos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        fetch('http://localhost/OuterPharma/App/BaseDatos/devPedidosMes.php')
+         await fetch('./BaseDatos/devPedidosMes.php')
             .then(dev => dev.json())
             .then(resultado => {
                 resultado.forEach(venta => {
@@ -134,6 +136,7 @@ function graficoLineal(linea1,linea2) {
 }
 
 datosVentasPedidos(); 
+
 
 
 

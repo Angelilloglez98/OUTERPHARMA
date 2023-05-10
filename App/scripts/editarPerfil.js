@@ -79,16 +79,14 @@ imagen.addEventListener("click", function () {
         // Si el usuario ha enviado el formulario, muestra los valores de los campos
         if (result.isConfirmed) {
           let validacion = document.querySelector('input[name="passwordconfirm"]').value
+          let password = document.querySelector('input[name="password"]').value
           let pass = localStorage.getItem('password')
             if (validacion==pass) {
               enviarperfil();
-              localStorage.setItem('nombre',element.nombre);
-              localStorage.setItem('rol',element.rol);
-              localStorage.setItem('correo',element.correopersonal);
-              localStorage.setItem("telefono",element.telefono)
-              localStorage.setItem("imagen",element.UrlEmpleado)
-              localStorage.setItem('perfil',element.nempleado);
-              localStorage.setItem("password",contrasenaInput)
+              localStorage.setItem('correo',correoInput);
+              localStorage.setItem("telefono",telefonoInput)
+              localStorage.setItem("imagen",imagenperfil)
+              localStorage.setItem("password", password)
               location.reload();
             }else{
               let errorbotones = document.querySelector('.botonesperfil');
@@ -227,7 +225,7 @@ function enviarperfil() {
 
       // Creamos una solicitud HTTP POST
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "BaseDatos/updPerfil.php", true);
+      xhr.open("POST", "./BaseDatos/updPerfil.php", true);
 
       // Configuramos el tipo de contenido que vamos a enviar
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -360,7 +358,7 @@ function recibirPassword(idempleado) {
         "Accept":"application/json"
       }
     }
-    return fetch("BaseDatos/verPerfil.php",option)
+    return fetch("./BaseDatos/verPerfil.php",option)
     .then(response=>response.text())
     .then(result=>{return result})
     .catch(e=>{console.error("ERROR:" , e.message)})

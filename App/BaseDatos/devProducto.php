@@ -7,7 +7,7 @@
     $correo = $_SESSION['CorreoFarmacia'];
     $codigo = $_GET['codigo'];
 
-    $sql="SELECT Productos.Nombre
+    $sql="SELECT Productos.Nombre, FARMACIAS_PRODUCTOS.Cantidad
     FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.CodigoNacional=PRODUCTOS.CodigoNacional where Ccorreo='$correo' and FARMACIAS_PRODUCTOS.CodigoNacional = '$codigo'";
     
     
@@ -19,7 +19,8 @@
 
     while ($fila=$sth->fetch()) {
         $registros[]=array(
-            'NombreProducto'=>$fila['Nombre']
+            'NombreProducto'=>$fila['Nombre'],
+            'Cantidad'=>$fila['Cantidad']
         );
     }
     
