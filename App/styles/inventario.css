@@ -362,7 +362,7 @@ button:active .icon svg {
   transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.input:focus, input:hover {
+.input:focus, .input:hover {
   outline: none;
   padding: .2rem 1rem;
   border-radius: 1rem;
