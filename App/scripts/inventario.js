@@ -580,7 +580,7 @@ async function mostrarMedicamento(cn) {
                         laboratorio = document.getElementById('swal-input4').value,
                         vAdmin = document.getElementById('swal-input5').value,
                         pres = document.getElementById('swal-input6').value
-                        
+
                         if (!validarNombreMed(nombre)) {
                             Swal.showValidationMessage('El nombre es inválido');
                         } else if (!validarNum(precio)) {
@@ -707,6 +707,7 @@ function validarNombreMed(nombre) {
 
 function validarNum(stock) {
     // Verificar si el campo no está vacío
+    const expresionRegular = /^[0-9]{1,6}$/;
     if (stock.trim() === '') {
       return false;
     } else {
