@@ -346,7 +346,6 @@ async function insertarProducto(cn){
 
     precioNumerico = await new Promise((resolve) => {
     PrecioProducto(cn, (resultado) => {
-        console.log(resultado);
         if (resultado) {
             let tmp = resultado.split(' ');
             let precio = parseFloat(tmp[1]);
@@ -360,7 +359,6 @@ async function insertarProducto(cn){
     
 
     const precio = precioNumerico ?? '';
-    console.log(precio);
     let stock;
     
     if (medicamentoExistente) {
@@ -489,7 +487,6 @@ async function mostrarMedicamento(cn) {
                 const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
                 resultadoApi = await resApi.json();
                 
-                console.log(resultadoApi);
 
                 let nombre = document.createElement("p")
                 nombre.classList.add("nombreMed")
@@ -509,7 +506,6 @@ async function mostrarMedicamento(cn) {
 
                 const res = await fetch(`./BaseDatos/devProducto.php?codigo=${cn}`);
                 resultado = await res.json();
-                console.log(resultado);
 
                 if (resultado[0].Cantidad == 0) {
                     borrar.disabled = true;    
@@ -620,7 +616,6 @@ async function mostrarMedicamento(cn) {
                 &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
             })
             // Mostrar un mensaje indicando que el medicamento no está disponible
-            console.log("El medicamento no está disponible en la base de datos.");
             dato.appendChild(nombre);
             dato.appendChild(aniadir);
 
