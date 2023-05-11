@@ -104,18 +104,24 @@ window.onload = () => {
           
             buscarMed(datos).then((element) => {
     
-                console.log(element);
+                // console.log(element);
                 for (const i in element) {
-                    fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
-                    .then(res=>res.json())
-                    .then(resultadoApi=>{
+
+                    try {
+                        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
+                        .then(res=>res.json())
+                        .then(resultadoApi=>{
+                            vaciarDatos();
+                            if(resultadoApi.fotos===undefined){
+                                carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            }else{
+                                carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            }
+                        });
+                    } catch (error) {
                         vaciarDatos();
-                        if(resultadoApi.fotos===undefined){
-                            carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                        }else{
-                            carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                        }
-                    });
+                        carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                    }
                     
                 }
     
@@ -145,7 +151,6 @@ async function traerDatos(orden, direc) {
                     carta(resultadoApi.fotos[0].url, inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 }
             } catch (error) {
-                console.log(inventario);
                 carta('./assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
             }
 
@@ -519,11 +524,11 @@ async function mostrarMedicamento(cn) {
             } catch (error) {
                 const res = await fetch(`./BaseDatos/devProducto.php?codigo=${cn}`);
                 resultado = await res.json();
-                console.log(resultado );
+                console.log(resultado[0] );
 
                 let nombre = document.createElement("p")
                 nombre.classList.add("nombreMed")
-                nombre.appendChild(document.createTextNode(resultado.nombre));
+                nombre.appendChild(document.createTextNode(resultado[0].NombreProducto));
                 dato.appendChild(nombre);
 
                 let img = new Image();
