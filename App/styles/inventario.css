@@ -197,8 +197,6 @@ sup {
 
 .card_description {
   font-size: 14px;
-  opacity: 0;
-  transition: opacity .5s;
 }
 
 .carta:hover .card_content {
@@ -445,5 +443,11 @@ button:active .icon svg {
   .imagen_foto {
     width: 100%; 
     height: auto; 
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  form {
+    flex-wrap: wrap;
   }
 }

@@ -104,18 +104,24 @@ window.onload = () => {
           
             buscarMed(datos).then((element) => {
     
-                console.log(element);
+                // console.log(element);
                 for (const i in element) {
-                    fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
-                    .then(res=>res.json())
-                    .then(resultadoApi=>{
+
+                    try {
+                        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
+                        .then(res=>res.json())
+                        .then(resultadoApi=>{
+                            vaciarDatos();
+                            if(resultadoApi.fotos===undefined){
+                                carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            }else{
+                                carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            }
+                        });
+                    } catch (error) {
                         vaciarDatos();
-                        if(resultadoApi.fotos===undefined){
-                            carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                        }else{
-                            carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                        }
-                    });
+                        carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                    }
                     
                 }
     
@@ -346,7 +352,6 @@ async function insertarProducto(cn){
 
     precioNumerico = await new Promise((resolve) => {
     PrecioProducto(cn, (resultado) => {
-        console.log(resultado);
         if (resultado) {
             let tmp = resultado.split(' ');
             let precio = parseFloat(tmp[1]);
@@ -360,7 +365,6 @@ async function insertarProducto(cn){
     
 
     const precio = precioNumerico ?? '';
-    console.log(precio);
     let stock;
     
     if (medicamentoExistente) {
@@ -489,7 +493,6 @@ async function mostrarMedicamento(cn) {
                 const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
                 resultadoApi = await resApi.json();
                 
-                console.log(resultadoApi);
 
                 let nombre = document.createElement("p")
                 nombre.classList.add("nombreMed")
@@ -509,7 +512,6 @@ async function mostrarMedicamento(cn) {
 
                 const res = await fetch(`./BaseDatos/devProducto.php?codigo=${cn}`);
                 resultado = await res.json();
-                console.log(resultado);
 
                 if (resultado[0].Cantidad == 0) {
                     borrar.disabled = true;    
@@ -522,11 +524,10 @@ async function mostrarMedicamento(cn) {
             } catch (error) {
                 const res = await fetch(`./BaseDatos/devProducto.php?codigo=${cn}`);
                 resultado = await res.json();
-                console.log(resultado );
 
                 let nombre = document.createElement("p")
                 nombre.classList.add("nombreMed")
-                nombre.appendChild(document.createTextNode(resultado.nombre));
+                nombre.appendChild(document.createTextNode(resultado[0].NombreProducto));
                 dato.appendChild(nombre);
 
                 let img = new Image();
@@ -545,93 +546,124 @@ async function mostrarMedicamento(cn) {
             }
             
         } else {
-            let nombre = document.createElement("p")
-            nombre.classList.add("noMedic")
-            nombre.appendChild(document.createTextNode("Este medicamento no existe, por lo cual no se pudo cargar la información del medicamento"));
-            let aniadir = document.createElement("button");
-            aniadir.appendChild(document.createTextNode("¿Quieres darlo de alta?"))
-            aniadir.addEventListener('click', async function() {
-                var nombre;
-                var precio;
-                var pactivo;
-                var laboratorio;
-                var vAdmin;
-                var pres;
-                Swal.fire({
-                    title: 'Nombre y Precio del producto a dar de alta',
-                    html:
-                    `<form class="nuevo d-flex flex-column">
-                        <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
-                        <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>
-                        <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
-                        <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
-                        <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
-                        <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
-                        <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
-                    </form>`,
-                    focusConfirm: false,
-                }).then((result) => {
-                    
+            try {
+                const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
+                resultadoApi = await resApi.json();
+                
 
-                    if (result.isConfirmed) {
-                        nombre = document.getElementById('swal-input1').value,
-                        precio = document.getElementById('swal-input2').value,
-                        pactivo = document.getElementById('swal-input3').value,
-                        laboratorio = document.getElementById('swal-input4').value,
-                        vAdmin = document.getElementById('swal-input5').value,
-                        pres = document.getElementById('swal-input6').value
+                let nombre = document.createElement("p")
+                nombre.classList.add("nombreMed")
+                nombre.appendChild(document.createTextNode(resultadoApi.nombre));
+                dato.appendChild(nombre);
+
+                let img = new Image();
+
+                if(resultadoApi.fotos===undefined){
+                    img.src = './assets/pastillica.webp';
+                }else{
+                    img.src = resultadoApi.fotos[0].url;
+                }
+                img.classList.add('imagen_foto');
+
+                dato.appendChild(img);
+
+                insertar.disabled = false;
+                borrar.disabled = true;
+                
+
+            } catch (error) {
+                let nombre = document.createElement("p")
+                nombre.classList.add("noMedic")
+                nombre.appendChild(document.createTextNode("Este medicamento no existe, por lo cual no se pudo cargar la información del medicamento"));
+                let aniadir = document.createElement("button");
+                aniadir.appendChild(document.createTextNode("¿Quieres darlo de alta?"))
+                aniadir.addEventListener('click', async function() {
+                    var nombre;
+                    var precio;
+                    var pactivo;
+                    var laboratorio;
+                    var vAdmin;
+                    var pres;
+                    Swal.fire({
+                        title: 'Nombre y Precio del producto a dar de alta',
+                        html:
+                        `<form class="nuevo d-flex flex-column">
+                            <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
+                            <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>
+                            <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
+                            <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
+                            <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
+                            <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
+                            <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
+                        </form>`,
+                        focusConfirm: false,
+                    }).then((result) => {
                         
-                        if (!validarNombreMed(nombre)) {
-                            Swal.showValidationMessage('El nombre es inválido');
-                        } else if (!validarNum(precio)) {
-                            Swal.showValidationMessage('El precio es inválido');
-                        } else {
-                            return [nombre, precio, pactivo, laboratorio, vAdmin, pres];
+
+                        if (result.isConfirmed) {
+                            nombre = document.getElementById('swal-input1').value,
+                            precio = document.getElementById('swal-input2').value,
+                            pactivo = document.getElementById('swal-input3').value,
+                            laboratorio = document.getElementById('swal-input4').value,
+                            vAdmin = document.getElementById('swal-input5').value,
+                            pres = document.getElementById('swal-input6').value
+
+                            if (!validarNombreMed(nombre)) {
+                                Swal.showValidationMessage('El nombre es inválido');
+                            } else if (!validarNum(precio)) {
+                                Swal.showValidationMessage('El precio es inválido');
+                            }
+
+                            
                         }
-                    }
+
+                        if (pactivo) {
+                            pactivo = pactivo
+                        } else {
+                            pactivo = "Sin datos";
+                        }
+    
+                        if (laboratorio) {
+                            laboratorio = laboratorio
+                        } else {
+                            laboratorio = "Sin datos";
+                        }
+    
+                        if (vAdmin) {
+                            vAdmin = vAdmin
+                        } else {
+                            vAdmin = "Sin datos";
+                        }
+    
+                        if (pres) {
+                            pres = pres
+                        } else {
+                            pres = "N";
+                        }
+    
+                        fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+                        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
+                        
+                    });
+
                     
-                  });
+                })
+                // Mostrar un mensaje indicando que el medicamento no está disponible
+                dato.appendChild(nombre);
+                dato.appendChild(aniadir);
 
-                if (pactivo) {
-                    pactivo = pactivo
-                } else {
-                    pactivo = "Sin datos";
-                }
+                let img = new Image();
 
-                if (laboratorio) {
-                    laboratorio = laboratorio
-                } else {
-                    laboratorio = "Sin datos";
-                }
+                img.src = './assets/pastillica.webp';
 
-                if (vAdmin) {
-                    vAdmin = vAdmin
-                } else {
-                    vAdmin = "Sin datos";
-                }
+                img.classList.add('imagen_foto');
 
-                if (pres) {
-                    pres = pres
-                } else {
-                    pres = "Sin datos";
-                }
-
-                fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-                &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
-            })
-            // Mostrar un mensaje indicando que el medicamento no está disponible
-            console.log("El medicamento no está disponible en la base de datos.");
-            dato.appendChild(nombre);
-            dato.appendChild(aniadir);
-
-            let img = new Image();
-
-            img.src = './assets/pastillica.webp';
-
-            img.classList.add('imagen_foto');
-
-            dato.appendChild(img);
+                dato.appendChild(img);
+            }
         }
+
+        vaciarDatos();
+        traerDatos();
     } else {
         
         dato.classList.add("noMedic");
@@ -707,6 +739,7 @@ function validarNombreMed(nombre) {
 
 function validarNum(stock) {
     // Verificar si el campo no está vacío
+    const expresionRegular = /^[0-9]{1,6}$/;
     if (stock.trim() === '') {
       return false;
     } else {
