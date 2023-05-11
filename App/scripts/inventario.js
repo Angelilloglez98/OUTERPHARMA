@@ -145,6 +145,7 @@ async function traerDatos(orden, direc) {
                     carta(resultadoApi.fotos[0].url, inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 }
             } catch (error) {
+                console.log(inventario);
                 carta('./assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
             }
 
@@ -607,39 +608,41 @@ async function mostrarMedicamento(cn) {
                                 Swal.showValidationMessage('El nombre es inválido');
                             } else if (!validarNum(precio)) {
                                 Swal.showValidationMessage('El precio es inválido');
-                            } else {
-                                return [nombre, precio, pactivo, laboratorio, vAdmin, pres];
                             }
+
+                            
                         }
+
+                        if (pactivo) {
+                            pactivo = pactivo
+                        } else {
+                            pactivo = "Sin datos";
+                        }
+    
+                        if (laboratorio) {
+                            laboratorio = laboratorio
+                        } else {
+                            laboratorio = "Sin datos";
+                        }
+    
+                        if (vAdmin) {
+                            vAdmin = vAdmin
+                        } else {
+                            vAdmin = "Sin datos";
+                        }
+    
+                        if (pres) {
+                            pres = pres
+                        } else {
+                            pres = "N";
+                        }
+    
+                        fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+                        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
                         
                     });
 
-                    if (pactivo) {
-                        pactivo = pactivo
-                    } else {
-                        pactivo = "Sin datos";
-                    }
-
-                    if (laboratorio) {
-                        laboratorio = laboratorio
-                    } else {
-                        laboratorio = "Sin datos";
-                    }
-
-                    if (vAdmin) {
-                        vAdmin = vAdmin
-                    } else {
-                        vAdmin = "Sin datos";
-                    }
-
-                    if (pres) {
-                        pres = pres
-                    } else {
-                        pres = "Sin datos";
-                    }
-
-                    fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-                    &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
+                    
                 })
                 // Mostrar un mensaje indicando que el medicamento no está disponible
                 dato.appendChild(nombre);
@@ -654,6 +657,9 @@ async function mostrarMedicamento(cn) {
                 dato.appendChild(img);
             }
         }
+
+        vaciarDatos();
+        traerDatos();
     } else {
         
         dato.classList.add("noMedic");
