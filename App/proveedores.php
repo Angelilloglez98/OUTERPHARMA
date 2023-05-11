@@ -55,7 +55,7 @@
       </nav>
     </div>
     
-    <div class="bg-light mt-5">
+    <div class="bg-light mt-5 container-fluid">
 
         <h4>Proveedores</h4>
 

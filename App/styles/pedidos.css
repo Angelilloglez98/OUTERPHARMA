@@ -1,0 +1,37 @@
+table{
+    font-size: 1em;
+}
+
+@media (max-width:1250px) {
+    table{
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width:1100px) {
+    .imgNone{
+        display: none;
+    }
+    tr > td:first-child{
+        display: none;
+    }
+}
+
+@media (max-width:500px) {
+    table{
+        font-size: 0.6em;
+    }
+    .sobra{
+        display: none;
+    }
+    tr td:nth-child(3) {
+        display: none;
+    }
+    tr td:nth-child(6) {
+        display: none;
+    }
+    tr td:nth-child(7) {
+        display: none;
+    }
+}
+ 

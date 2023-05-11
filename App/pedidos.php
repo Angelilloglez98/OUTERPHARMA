@@ -23,6 +23,7 @@ session_start();
     <link rel="stylesheet" href="styles/header.css">
     <script src="scripts/header.js"></script>
     <script src="scripts/pedidos.js"></script>
+    <link rel="stylesheet" href="./styles/pedidos.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="./scripts/editarPerfil.js" defer></script>
     <link rel="stylesheet" href="./styles/editarPerfil.css">
@@ -64,7 +65,7 @@ session_start();
         </div>
         
         <!--Container Main start-->
-        <div class="bg-light mt-5">
+        <div class="bg-light mt-5 buscadorMed container-fluid">
             <h4>Buscador</h4>
 
             <div class="input-group rounded">
@@ -78,19 +79,19 @@ session_start();
                     <option value="vtm">Principip Activo</option>
                 </select>
             </div>
-            <div class="mt-3">
+            <div class="mt-3 contenedor">
 
                <table id="myTable" class="display">
                     <thead >
                         <tr>
-                            <th >#</th>
+                            <th class="imgNone">#</th>
                             <th >Nombre</th>
-                            <th >Laboratorio</th>
+                            <th class="sobra">Laboratorio</th>
                             <th >Prescripcion</th>
                             <th >Docs</th>
                             <th >Via Administracion</th>
-                            <th >Forma</th>
-                            <th >Principio activo</th>
+                            <th class="sobra">Forma</th>
+                            <th class="sobra">Principio activo</th>
                         </tr>
                     </thead>
                     <tbody id="buscarMed">
