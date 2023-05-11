@@ -197,8 +197,6 @@ sup {
 
 .card_description {
   font-size: 14px;
-  opacity: 0;
-  transition: opacity .5s;
 }
 
 .carta:hover .card_content {
