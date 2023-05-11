@@ -156,6 +156,7 @@ window.onload = () =>{
           
             // Muestra la ventana modal con el formulario
             Swal.fire(form).then((result) => {
+              
               // Si el usuario ha enviado el formulario, muestra los valores de los campos
               if (result.isConfirmed) {
         
