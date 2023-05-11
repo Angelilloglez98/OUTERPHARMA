@@ -524,7 +524,6 @@ async function mostrarMedicamento(cn) {
             } catch (error) {
                 const res = await fetch(`./BaseDatos/devProducto.php?codigo=${cn}`);
                 resultado = await res.json();
-                console.log(resultado[0] );
 
                 let nombre = document.createElement("p")
                 nombre.classList.add("nombreMed")
