@@ -14,15 +14,17 @@ if (is_numeric($datos)) {
     $sql = "SELECT fp.Ccorreo, fp.CodigoNacional, p.Nombre, fp.Precio, fp.Cantidad, fp.fCaducidad, p.pActivo, p.Laboratorio, p.vAdmin, p.presMedica
     FROM FARMACIAS_PRODUCTOS fp
     INNER JOIN PRODUCTOS p ON fp.CodigoNacional = p.CodigoNacional
-    WHERE fp.Ccorreo = '$correo' and fp.CodigoNacional = '$datos'
+    WHERE fp.Ccorreo = '$correo' and fp.CodigoNacional LIKE '$datos%'
     ORDER BY p.Nombre ASC";
 } else {
     $sql = "SELECT fp.Ccorreo, fp.CodigoNacional, p.Nombre, fp.Precio, fp.Cantidad, fp.fCaducidad, p.pActivo, p.Laboratorio, p.vAdmin, p.presMedica
     FROM FARMACIAS_PRODUCTOS fp
     INNER JOIN PRODUCTOS p ON fp.CodigoNacional = p.CodigoNacional
-    WHERE fp.Ccorreo = '$correo' and p.Nombre = '$datos'
+    WHERE fp.Ccorreo = '$correo' and p.Nombre LIKE '$datos%'
     ORDER BY p.Nombre ASC";
 }
+
+
     
 $pdo->exec("SET NAMES 'utf8mb4'");
 
