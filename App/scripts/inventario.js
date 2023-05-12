@@ -248,7 +248,7 @@ function carta(foto, nombre, cn, cant, precio, pres, pAct, lab, vAd) {
 
     let Precio = document.createElement("p");
     Precio.classList.add('card_description');
-    Precio.appendChild(document.createTextNode("Precio: " + precio + "euros"));
+    Precio.appendChild(document.createTextNode("Precio: " + precio + "€"));
     content.appendChild(Precio);
 
     let Pres = document.createElement("p");
@@ -708,6 +708,7 @@ const PrecioProducto = async (codigo, callback) => {
     })
     .catch(error => {
         console.error(error);
+        callback(null)
     });
 }
 
