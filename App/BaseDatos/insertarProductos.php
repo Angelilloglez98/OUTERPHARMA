@@ -37,7 +37,7 @@ if ($sth->rowCount() == 0) {
         }
     }
 
-    if(!empty($cantidad)){
+        if(!empty($precio)){
         $sth = $pdo->prepare("INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, CodigoNacional, Precio, Cantidad, fEntrada, fCaducidad) VALUES (:correo, :codigo, :precio, :cantidad, :fEntrada, :fCaducidad)");
         $sth->execute(array(':correo' => $correo, ':codigo' => $codigo, ':precio' => $precio, ':cantidad' => $cantidad, ':fEntrada' => $fEntrada, ':fCaducidad' => $fCaducidad));
     }

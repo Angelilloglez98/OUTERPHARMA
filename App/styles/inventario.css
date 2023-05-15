@@ -30,7 +30,7 @@ p{
 
 .datos{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   justify-items: center !important;
   row-gap: 4.953125rem;
 }
@@ -39,52 +39,6 @@ p{
   padding: 0;
 }
 
-.drug-card__image {
-  position: relative;
-  height: 230px;
-  margin-bottom: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: .5rem;
-}
-
-.drug-card__name {
-  font-size: 1.5rem;
-  color: black;
-  font-weight: 400;
-  margin-bottom: 5px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold; 
-}
-
-.drug-card__datos {
-  color: black;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-}
-
-.one-third {
-  float: left;
-  padding: 20px 0px;
-  background-color: #4723D9;
-  color: white;
-}
-
-sup {
-  position: absolute;
-  bottom: 4px; 
-  font-size: 45%;
-  margin-left: 2px;
-}
-
-.dato_num {
-  position: relative;
-  font-size: 1rem;
-  width: 100%;
-}
 
 .contenedor {
   margin-top: 2rem;
@@ -93,7 +47,7 @@ sup {
 }
 
 .info_botonBorrar {
-  /* margin-top: 1rem; */
+
   display: block;
   margin: 1rem auto;
   padding: 10px 20px;
@@ -109,8 +63,13 @@ sup {
 }
 
 .noMedic {
-  color: red;
+  color: brown;
   font-size: .8rem;
+}
+.medicamento button{
+  background-color: transparent;
+  color: white;
+  background-color: brown;
 }
 
 .nombreMed {
@@ -134,9 +93,9 @@ sup {
   width: 250px;
   height: 250px;
   color: #2e2d31;
-  background-color: #f2f2f2;
+  background-color: #ededed;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 5px;
 }
 
 .temporary_text {
@@ -144,16 +103,15 @@ sup {
   font-size: 24px;
   padding: 6px 12px;
   height: 200px;
-  /* color: #f8f8f8; */
 }
 
 .imagen_foto {
   width: 100%;
   height: 100%;
+  border-radius: 5px;
 }
 
 .bi {
-  background-color: rgba(108, 117, 125, 0.8);
   border-radius: 50%;
 }
 
@@ -165,23 +123,20 @@ sup {
   position: absolute;
   left: 0;
   bottom: 0;
-    /* edit the width to fit card */
   width: 100%;
   min-height: 250px;
   max-height: 250px;
   padding: 20px;
-  /* background: #000; */
-  background-color: rgba(108, 117, 125, 0.8);
+  background-color: #4723D9;
   color: #FFFFFF;
-  border-radius: 20px;
-    /* edit here to change the height of the content box */
+  border-radius: 5px;
   transform: translateY(190px);
   transition: transform .25s;
   overflow-y: scroll;
 }
 
 .card_content::-webkit-scrollbar {
-  width: 0px; /* cambia el ancho del scrollbar */
+  width: 0px; 
 }
 
 .card_title {
@@ -197,8 +152,8 @@ sup {
 
 .card_description {
   font-size: 14px;
-  opacity: 0;
-  transition: opacity .5s;
+  /* opacity: 0;
+  transition: opacity .2s; */
 }
 
 .carta:hover .card_content {
@@ -239,7 +194,7 @@ button .text {
  
 button .icon {
   position: absolute;
-  border-left: 1px solid #c41b1b;
+  border-left: 1px solid brown;
   transform: translateX(110px);
   height: 40px;
   width: 40px;
@@ -254,7 +209,7 @@ button svg {
 }
  
 button:hover {
-  background: #ff3636;
+  background: brown;
 }
  
 button:hover .text {
@@ -309,7 +264,7 @@ button:active .icon svg {
 }
 
 .botonverde:hover {
-  background-color: #1e8449;
+  background-color: #1e8449 !important;
   opacity: 1;
   transform: translateY(0);
   transition-duration: .35s;
@@ -322,15 +277,20 @@ button:active .icon svg {
 
 .botonverde:hover {
   box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+  color: white !important;
 }
 
 #codigoBarra{
   padding: 20px;
-  background-image: url('../assets/photo_camera_FILL1_wght400_GRAD0_opsz48.svg');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: #fff;
+    background-image: url('../assets/photo_camera_FILL1_wght400_GRAD0_opsz48.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #F7F6FB;
+    border-radius: 8px;
+    border-style: none;
+    width: 50px;
+    height: 50px;
 }
 
 #Escaner{
@@ -354,18 +314,19 @@ button:active .icon svg {
 .input {
   line-height: 28px;
   border: 2px solid transparent;
-  border-bottom-color: #777;
-  padding: .2rem 0;
+  padding: .2rem 0.3rem;
   outline: none;
   background-color: transparent;
   color: #0d0c22;
   transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  border: 1px solid #d4d4d4;
+  
 }
 
 .input:focus, .input:hover {
   outline: none;
-  padding: .2rem 1rem;
-  border-radius: 1rem;
+  padding: .2rem 0.5rem;
+  border-radius: 1em;
   border-color: #7a9cc6;
 }
 
@@ -377,8 +338,26 @@ button:active .icon svg {
   opacity: 0;
   transition: opacity .3s;
 }
+.botones{
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 2em;
+}
 
-
+.botones label{
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+}
+.botonrojo{
+  background-color: rgb(211, 66, 64);
+  color: white;
+  margin-left: 10px;
+}
+.botonrojo:hover{
+  background-color: rgb(180, 57, 55) !important;
+  color: white !important;
+}
 
 @media only screen and (max-width: 1400px) {
   .datos{
@@ -445,11 +424,5 @@ button:active .icon svg {
   .imagen_foto {
     width: 100%; 
     height: auto; 
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  form {
-    flex-wrap: wrap;
   }
 }

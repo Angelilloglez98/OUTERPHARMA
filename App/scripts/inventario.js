@@ -104,18 +104,24 @@ window.onload = () => {
           
             buscarMed(datos).then((element) => {
     
-                console.log(element);
+                // console.log(element);
                 for (const i in element) {
-                    fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
-                    .then(res=>res.json())
-                    .then(resultadoApi=>{
+
+                    try {
+                        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
+                        .then(res=>res.json())
+                        .then(resultadoApi=>{
+                            vaciarDatos();
+                            if(resultadoApi.fotos===undefined){
+                                carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            }else{
+                                carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            }
+                        });
+                    } catch (error) {
                         vaciarDatos();
-                        if(resultadoApi.fotos===undefined){
-                            carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                        }else{
-                            carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                        }
-                    });
+                        carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                    }
                     
                 }
     
@@ -127,6 +133,7 @@ window.onload = () => {
 }
 
 async function traerDatos(orden, direc) {
+    console.log("Hola");
     try {
         const res = await fetch(`./BaseDatos/devInfo.php?orden=${orden}&direccion=${direc}`);
         const resultado = await res.json();
@@ -242,7 +249,7 @@ function carta(foto, nombre, cn, cant, precio, pres, pAct, lab, vAd) {
 
     let Precio = document.createElement("p");
     Precio.classList.add('card_description');
-    Precio.appendChild(document.createTextNode("Precio: " + precio + "euros"));
+    Precio.appendChild(document.createTextNode("Precio: " + precio + "€"));
     content.appendChild(Precio);
 
     let Pres = document.createElement("p");
@@ -274,7 +281,7 @@ function carta(foto, nombre, cn, cant, precio, pres, pAct, lab, vAd) {
     // Create the first span element and set its class and text content
     let textSpan = document.createElement('span');
     textSpan.className = 'text';
-    textSpan.textContent = 'Delete';
+    textSpan.textContent = 'Borrar';
 
     // Create the second span element and set its class
     let iconSpan = document.createElement('span');
@@ -459,18 +466,25 @@ function borrarProducto(cn){
 }
 
 async function comprobarMedicamento(cn){
-    const response = await fetch('./BaseDatos/devInventario.php');
-    const elementos = await response.json();
     let coincidencia = false;
-    elementos.forEach(elemento => {
-        if (cn == elemento.CodigoNacional) {
-            coincidencia = true;
-        }
-    });
-    return coincidencia;
+    try {
+        const response = await fetch('./BaseDatos/devInventario.php');
+        const elementos = await response.json();
+        
+        elementos.forEach(elemento => {
+            if (cn == elemento.CodigoNacional) {
+                coincidencia = true;
+            }
+        });
+        return coincidencia;
+    } catch (error) {
+        return coincidencia;
+    }
+    
 }
 
 async function mostrarMedicamento(cn) {
+    console.log("mostrar");
     const estaDisponible = await comprobarMedicamento(cn);
     let datos = document.querySelector(".pedirCN");
     let insertar = document.querySelector("#insertar");
@@ -518,11 +532,10 @@ async function mostrarMedicamento(cn) {
             } catch (error) {
                 const res = await fetch(`./BaseDatos/devProducto.php?codigo=${cn}`);
                 resultado = await res.json();
-                console.log(resultado );
 
                 let nombre = document.createElement("p")
                 nombre.classList.add("nombreMed")
-                nombre.appendChild(document.createTextNode(resultado.nombre));
+                nombre.appendChild(document.createTextNode(resultado[0].NombreProducto));
                 dato.appendChild(nombre);
 
                 let img = new Image();
@@ -607,39 +620,41 @@ async function mostrarMedicamento(cn) {
                                 Swal.showValidationMessage('El nombre es inválido');
                             } else if (!validarNum(precio)) {
                                 Swal.showValidationMessage('El precio es inválido');
-                            } else {
-                                return [nombre, precio, pactivo, laboratorio, vAdmin, pres];
                             }
+
+                            
                         }
+
+                        if (pactivo) {
+                            pactivo = pactivo
+                        } else {
+                            pactivo = "Sin datos";
+                        }
+    
+                        if (laboratorio) {
+                            laboratorio = laboratorio
+                        } else {
+                            laboratorio = "Sin datos";
+                        }
+    
+                        if (vAdmin) {
+                            vAdmin = vAdmin
+                        } else {
+                            vAdmin = "Sin datos";
+                        }
+    
+                        if (pres) {
+                            pres = pres
+                        } else {
+                            pres = "N";
+                        }
+    
+                        fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+                        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
                         
                     });
 
-                    if (pactivo) {
-                        pactivo = pactivo
-                    } else {
-                        pactivo = "Sin datos";
-                    }
-
-                    if (laboratorio) {
-                        laboratorio = laboratorio
-                    } else {
-                        laboratorio = "Sin datos";
-                    }
-
-                    if (vAdmin) {
-                        vAdmin = vAdmin
-                    } else {
-                        vAdmin = "Sin datos";
-                    }
-
-                    if (pres) {
-                        pres = pres
-                    } else {
-                        pres = "Sin datos";
-                    }
-
-                    fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-                    &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
+                    
                 })
                 // Mostrar un mensaje indicando que el medicamento no está disponible
                 dato.appendChild(nombre);
@@ -654,6 +669,9 @@ async function mostrarMedicamento(cn) {
                 dato.appendChild(img);
             }
         }
+
+        vaciarDatos();
+        traerDatos();
     } else {
         
         dato.classList.add("noMedic");
@@ -698,6 +716,7 @@ const PrecioProducto = async (codigo, callback) => {
     })
     .catch(error => {
         console.error(error);
+        callback(null)
     });
 }
 

@@ -131,10 +131,10 @@ window.onload = () =>{
         
               html: `
                 <form id="formulario" method="POST" action="./BaseDatos/insertProveedores.php">
-                  <input type="text" name="Nombre" class="swal2-input" value=${element.nombre} disabled = "true">
-                  <input type="text" name="Direccion" class="swal2-input" value=${element.direccion}>
-                  <input type="tel" name="nTelefono" class="swal2-input" value=${element.nTelefono}>
-                  <input type="url" name="Link" class="swal2-input" value=${element.link}>
+                  <input type="text" name="Nombre" class="swal2-input" value='${element.nombre}' disabled = "true">
+                  <input type="text" name="Direccion" class="swal2-input" value='${element.direccion}'>
+                  <input type="tel" name="nTelefono" class="swal2-input" value='${element.nTelefono}'>
+                  <input type="url" name="Link" class="swal2-input" value='${element.link}'>
                 </form>
               `,
         
@@ -156,6 +156,7 @@ window.onload = () =>{
           
             // Muestra la ventana modal con el formulario
             Swal.fire(form).then((result) => {
+              
               // Si el usuario ha enviado el formulario, muestra los valores de los campos
               if (result.isConfirmed) {
         

@@ -39,7 +39,7 @@ fetch('./BaseDatos/devInventario.php')
         contenedorCarta.appendChild(carta);
 
         if (Cantidad>=0 && Cantidad<=5) {
-            carta.style.backgroundColor='#B40001';
+            carta.style.backgroundColor='#D34240';
         }else if(Cantidad>5 && Cantidad<=15){
             carta.style.backgroundColor='#FFB52E';
         }else{
