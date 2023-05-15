@@ -683,9 +683,6 @@ function validarNombreMed(nombre) {
       validarN = false;
     }
 
-    // Convertir la primera letra de cada palabra en mayúscula y unir las palabras
-    const nombreFormateado = palabras.map(palabra => palabra.charAt(0).toUpperCase());
-
     if (validarN) {
         return true;
 
