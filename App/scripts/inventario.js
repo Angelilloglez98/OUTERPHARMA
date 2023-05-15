@@ -440,7 +440,7 @@ async function insertarProducto(cn){
     
     vaciarDatos();
     traerDatos();
-    location.reload();
+    // location.reload();
 }
 
 function borrarProducto(cn){ 
