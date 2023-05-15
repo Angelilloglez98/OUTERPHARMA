@@ -679,13 +679,6 @@ function validarNombreMed(nombre) {
       validarN = false;
     }
 
-    // Verificar que el nombre contenga de 1 a 3 palabras
-    const palabras = nombre.trim().split(/\s+/);
-    if (palabras.length > 3) {
-      alert("El nombre no puede tener más de 3 palabras.");
-      validarN = false;
-    }
-
     // Convertir la primera letra de cada palabra en mayúscula y unir las palabras
     const nombreFormateado = palabras.map(palabra => palabra.charAt(0).toUpperCase());
 
