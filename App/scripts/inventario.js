@@ -340,20 +340,29 @@ async function insertarProducto(cn){
     const medicamentoExistente = await comprobarMedicamento(cn);
 
     if (!medicamentoExistente) {
-        const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
-        const resultadoApi = await resApi.json();
+        try {
+            const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
+            const resultadoApi = await resApi.json();
 
-        var nombre = resultadoApi.nombre;
-        var pactivo = resultadoApi.pactivos;
-        var laboratorio = resultadoApi.labtitular;
-        var vAdmin = resultadoApi.viasAdministracion[0].nombre;
-        var pres = resultadoApi.cpresc;
+            var nombre = resultadoApi.nombre;
+            var pactivo = resultadoApi.pactivos;
+            var laboratorio = resultadoApi.labtitular;
+            var vAdmin = resultadoApi.viasAdministracion[0].nombre;
+            var pres = resultadoApi.cpresc;
 
-        if(pres == "Sin Receta") {
-            pres = 'N';
-        } else {
-            pres = 'S';
-        } 
+            if(pres == "Sin Receta") {
+                pres = 'N';
+            } else {
+                pres = 'S';
+            } 
+        } catch (error) {
+            var nombre = "Sin Datos";
+            var pactivo = "Sin Datos";
+            var laboratorio = "Sin Datos";
+            var vAdmin = "Sin Datos";
+            var pres = "Sin Datos";
+        }
+        
     }
     
     let precioNumerico;
@@ -393,6 +402,8 @@ async function insertarProducto(cn){
                 }
             }
         })
+
+        fetch(`./BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`);
     } else {
         try {
             const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
@@ -420,19 +431,13 @@ async function insertarProducto(cn){
                     }
                 }
             })
+            fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+            &via=${vAdmin}&pres=${pres}&precio=${Precio}&stock=${stock}`);
         } catch (error) {
             insertarNoApi(cn);
         }
         
     }
-    
-
-    if (medicamentoExistente) {
-        fetch(`./BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`);
-    } else {
-        fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-        &via=${vAdmin}&pres=${pres}&precio=${Precio}&stock=${stock}`);
-    }   
     
     vaciarDatos();
     traerDatos();
