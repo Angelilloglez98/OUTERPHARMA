@@ -100,40 +100,41 @@ window.onload = () => {
     }, 300); // Espera 300 ms antes de llamar a mostrarMedicamento
     };
 
-    busqueda.onkeydown =  (event) => {
-        if (event.key === 'Enter' && busqueda.value != '') {
-    
-            const tbody = document.querySelector("#buscarMed");
-    
-            var datos = busqueda.value;
-            busqueda.value = "";
-          
-            buscarMed(datos).then((element) => {
-    
-                // console.log(element);
-                for (const i in element) {
-
-                    try {
-                        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
-                        .then(res=>res.json())
-                        .then(resultadoApi=>{
-                            vaciarDatos();
-                            if(resultadoApi.fotos===undefined){
-                                carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                            }else{
-                                carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                            }
-                        });
-                    } catch (error) {
-                        vaciarDatos();
-                        carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                    }
-                    
-                }
-    
-            })
-    
+    busqueda.onkeydown = (event) => {
+        if (busqueda.value == "") {
+            vaciarDatos();
+            traerDatos();
+            
         }
+
+        const tbody = document.querySelector("#buscarMed");
+
+        var datos = busqueda.value;
+        
+        buscarMed(datos).then((element) => {
+
+            // console.log(element);
+            for (const i in element) {
+
+                try {
+                    fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
+                    .then(res=>res.json())
+                    .then(resultadoApi=>{
+                        vaciarDatos();
+                        if(resultadoApi.fotos===undefined){
+                            carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                        }else{
+                            carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                        }
+                    });
+                } catch (error) {
+                    vaciarDatos();
+                    carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                }
+                
+            }
+
+        })
         
     };
 }
