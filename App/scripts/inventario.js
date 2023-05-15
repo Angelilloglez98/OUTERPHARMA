@@ -1,4 +1,4 @@
-window.onload = () => {
+window.onload = () => { 
 
     traerDatos();       
 
@@ -91,9 +91,15 @@ window.onload = () => {
 
     const mostrar = document.querySelector("#cn");
 
+    let timeoutId;
+
     mostrar.onkeyup = () => {
-        mostrarMedicamento(mostrar.value)
-    }
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+        mostrarMedicamento(mostrar.value);
+    }, 300); // Espera 300 ms antes de llamar a mostrarMedicamento
+    };
+
     busqueda.onkeydown =  (event) => {
         if (event.key === 'Enter' && busqueda.value != '') {
     
