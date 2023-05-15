@@ -407,7 +407,8 @@ async function insertarProducto(cn){
         try {
             const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
             const resultadoApi = await resApi.json();
-
+        
+            // Aquí se muestra el cuadro de diálogo de Swal solo si la solicitud a la API tiene éxito
             const { value: formValues } = await Swal.fire({
                 title: 'Precio y Stock a añadir del medicamento',
                 html:
@@ -415,26 +416,29 @@ async function insertarProducto(cn){
                 <input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">`,
                 focusConfirm: false,
                 preConfirm: () => {
-                    return [
-                        Precio = document.getElementById('swal-input1').value,
-                        stock = document.getElementById('swal-input2').value
-                    ]
-                },
-                inputValidator: (Precio, stock) => {
-                    if (!Precio) {
-                        return 'Este campo es obligatorio'
+                    const Precio = document.getElementById('swal-input1').value;
+                    const stock = document.getElementById('swal-input2').value;
+        
+                    if (!Precio || !stock) {
+                        Swal.showValidationMessage('Todos los campos son obligatorios');
+                        // Utilizar un throw para salir del bloque preConfirm y evitar que se ejecute el código posterior
+                        throw new Error('Campos obligatorios faltantes');
                     }
-    
-                    if (!stock) {
-                        return 'Este campo es obligatorio'
-                    }
+        
+                    return [Precio, stock];
                 }
-            })
-            fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-            &via=${vAdmin}&pres=${pres}&precio=${Precio}&stock=${stock}`);
+            });
+        
+            // Si el cuadro de diálogo Swal se cerró sin errores, se realiza la inserción en la base de datos
+            if (formValues) {
+                const [Precio, stock] = formValues;
+                fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+                &via=${vAdmin}&pres=${pres}&precio=${Precio}&stock=${stock}`);
+            }
         } catch (error) {
             insertarNoApi(cn);
         }
+        
         
     }
     
