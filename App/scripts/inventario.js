@@ -94,10 +94,10 @@ window.onload = () => {
     let timeoutId;
 
     mostrar.onkeyup = () => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-        mostrarMedicamento(mostrar.value);
-    }, 300); // Espera 300 ms antes de llamar a mostrarMedicamento
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            mostrarMedicamento(mostrar.value);
+        }, 300); // Espera 300 ms antes de llamar a mostrarMedicamento
     };
 
     busqueda.onkeydown =  (event) => {
