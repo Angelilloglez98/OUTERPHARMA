@@ -404,6 +404,7 @@ async function insertarProducto(cn){
         })
 
         fetch(`./BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`);
+        location.reload();
     } else {
         try {
             const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
@@ -440,12 +441,11 @@ async function insertarProducto(cn){
             insertarNoApi(cn);
         }
         
-        
+        location.reload();
     }
     
     vaciarDatos();
     traerDatos();
-    location.reload();
 }
 
 function borrarProducto(cn){ 
