@@ -445,7 +445,7 @@ async function insertarProducto(cn){
     
     vaciarDatos();
     traerDatos();
-    // location.reload();
+    location.reload();
 }
 
 function borrarProducto(cn){ 
@@ -683,9 +683,6 @@ function validarNombreMed(nombre) {
       alert("El nombre no puede estar vacío.");
       validarN = false;
     }
-
-    // Convertir la primera letra de cada palabra en mayúscula y unir las palabras
-    const nombreFormateado = palabras.map(palabra => palabra.charAt(0).toUpperCase());
 
     if (validarN) {
         return true;
