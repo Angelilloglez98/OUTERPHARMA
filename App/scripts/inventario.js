@@ -393,28 +393,36 @@ async function insertarProducto(cn){
             }
         })
     } else {
-        const { value: formValues } = await Swal.fire({
-            title: 'Precio y Stock a añadir del medicamento',
-            html:
-            `<input id="swal-input1" type="number" class="swal2-input" value=${precio}>
-            <input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">`,
-            focusConfirm: false,
-            preConfirm: () => {
-                return [
-                    Precio = document.getElementById('swal-input1').value,
-                    stock = document.getElementById('swal-input2').value
-                ]
-            },
-            inputValidator: (Precio, stock) => {
-                if (!Precio) {
-                    return 'Este campo es obligatorio'
-                }
+        try {
+            const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
+            const resultadoApi = await resApi.json();
 
-                if (!stock) {
-                    return 'Este campo es obligatorio'
+            const { value: formValues } = await Swal.fire({
+                title: 'Precio y Stock a añadir del medicamento',
+                html:
+                `<input id="swal-input1" type="number" class="swal2-input" value=${precio}>
+                <input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">`,
+                focusConfirm: false,
+                preConfirm: () => {
+                    return [
+                        Precio = document.getElementById('swal-input1').value,
+                        stock = document.getElementById('swal-input2').value
+                    ]
+                },
+                inputValidator: (Precio, stock) => {
+                    if (!Precio) {
+                        return 'Este campo es obligatorio'
+                    }
+    
+                    if (!stock) {
+                        return 'Este campo es obligatorio'
+                    }
                 }
-            }
-        })
+            })
+        } catch (error) {
+            insertarNoApi(cn);
+        }
+        
     }
     
 
@@ -592,75 +600,7 @@ async function mostrarMedicamento(cn) {
                 let aniadir = document.createElement("button");
                 aniadir.appendChild(document.createTextNode("¿Quieres darlo de alta?"))
                 aniadir.addEventListener('click', async function() {
-                    var nombre;
-                    var precio;
-                    var pactivo;
-                    var laboratorio;
-                    var vAdmin;
-                    var pres;
-                    Swal.fire({
-                        title: 'Nombre y Precio del producto a dar de alta',
-                        html:
-                        `<form class="nuevo d-flex flex-column">
-                            <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
-                            <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>
-                            <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
-                            <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
-                            <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
-                            <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
-                            <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
-                        </form>`,
-                        focusConfirm: false,
-                    }).then((result) => {
-                        
-
-                        if (result.isConfirmed) {
-                            nombre = document.getElementById('swal-input1').value,
-                            precio = document.getElementById('swal-input2').value,
-                            pactivo = document.getElementById('swal-input3').value,
-                            laboratorio = document.getElementById('swal-input4').value,
-                            vAdmin = document.getElementById('swal-input5').value,
-                            pres = document.getElementById('swal-input6').value
-
-                            if (!validarNombreMed(nombre)) {
-                                Swal.showValidationMessage('El nombre es inválido');
-                            } else if (!validarNum(precio)) {
-                                Swal.showValidationMessage('El precio es inválido');
-                            }
-
-                            
-                        }
-
-                        if (pactivo) {
-                            pactivo = pactivo
-                        } else {
-                            pactivo = "Sin datos";
-                        }
-    
-                        if (laboratorio) {
-                            laboratorio = laboratorio
-                        } else {
-                            laboratorio = "Sin datos";
-                        }
-    
-                        if (vAdmin) {
-                            vAdmin = vAdmin
-                        } else {
-                            vAdmin = "Sin datos";
-                        }
-    
-                        if (pres) {
-                            pres = pres
-                        } else {
-                            pres = "N";
-                        }
-    
-                        fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-                        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
-                        
-                    });
-
-                    
+                    insertarNoApi(cn);
                 })
                 // Mostrar un mensaje indicando que el medicamento no está disponible
                 dato.appendChild(nombre);
@@ -762,3 +702,73 @@ function validarNum(stock) {
     }
 }
 let precioProducto;
+
+function insertarNoApi(cn) {
+    var nombre;
+    var precio;
+    var pactivo;
+    var laboratorio;
+    var vAdmin;
+    var pres;
+    Swal.fire({
+        title: 'Nombre y Precio del producto a dar de alta',
+        html:
+        `<form class="nuevo d-flex flex-column">
+            <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
+            <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>
+            <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
+            <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
+            <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
+            <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
+            <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
+        </form>`,
+        focusConfirm: false,
+    }).then((result) => {
+        
+
+        if (result.isConfirmed) {
+            nombre = document.getElementById('swal-input1').value,
+            precio = document.getElementById('swal-input2').value,
+            pactivo = document.getElementById('swal-input3').value,
+            laboratorio = document.getElementById('swal-input4').value,
+            vAdmin = document.getElementById('swal-input5').value,
+            pres = document.getElementById('swal-input6').value
+
+            if (!validarNombreMed(nombre)) {
+                Swal.showValidationMessage('El nombre es inválido');
+            } else if (!validarNum(precio)) {
+                Swal.showValidationMessage('El precio es inválido');
+            }
+
+            
+        }
+
+        if (pactivo) {
+            pactivo = pactivo
+        } else {
+            pactivo = "Sin datos";
+        }
+
+        if (laboratorio) {
+            laboratorio = laboratorio
+        } else {
+            laboratorio = "Sin datos";
+        }
+
+        if (vAdmin) {
+            vAdmin = vAdmin
+        } else {
+            vAdmin = "Sin datos";
+        }
+
+        if (pres) {
+            pres = pres
+        } else {
+            pres = "N";
+        }
+
+        fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
+        
+    });
+}
