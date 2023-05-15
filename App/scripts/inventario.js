@@ -133,6 +133,7 @@ window.onload = () => {
 }
 
 async function traerDatos(orden, direc) {
+    console.log("Hola");
     try {
         const res = await fetch(`./BaseDatos/devInfo.php?orden=${orden}&direccion=${direc}`);
         const resultado = await res.json();
@@ -280,7 +281,7 @@ function carta(foto, nombre, cn, cant, precio, pres, pAct, lab, vAd) {
     // Create the first span element and set its class and text content
     let textSpan = document.createElement('span');
     textSpan.className = 'text';
-    textSpan.textContent = 'Delete';
+    textSpan.textContent = 'Borrar';
 
     // Create the second span element and set its class
     let iconSpan = document.createElement('span');
@@ -465,18 +466,25 @@ function borrarProducto(cn){
 }
 
 async function comprobarMedicamento(cn){
-    const response = await fetch('./BaseDatos/devInventario.php');
-    const elementos = await response.json();
     let coincidencia = false;
-    elementos.forEach(elemento => {
-        if (cn == elemento.CodigoNacional) {
-            coincidencia = true;
-        }
-    });
-    return coincidencia;
+    try {
+        const response = await fetch('./BaseDatos/devInventario.php');
+        const elementos = await response.json();
+        
+        elementos.forEach(elemento => {
+            if (cn == elemento.CodigoNacional) {
+                coincidencia = true;
+            }
+        });
+        return coincidencia;
+    } catch (error) {
+        return coincidencia;
+    }
+    
 }
 
 async function mostrarMedicamento(cn) {
+    console.log("mostrar");
     const estaDisponible = await comprobarMedicamento(cn);
     let datos = document.querySelector(".pedirCN");
     let insertar = document.querySelector("#insertar");
