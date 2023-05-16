@@ -403,8 +403,10 @@ async function insertarProducto(cn){
             }
         })
 
-        fetch(`./BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`);
-        location.reload();
+        fetch(`./BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`).then(response=>{
+            location.reload();
+        })
+        
     } else {
         try {
             const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
@@ -435,7 +437,9 @@ async function insertarProducto(cn){
             if (formValues) {
                 const [Precio, stock] = formValues;
                 fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-                &via=${vAdmin}&pres=${pres}&precio=${Precio}&stock=${stock}`);
+                &via=${vAdmin}&pres=${pres}&precio=${Precio}&stock=${stock}`).then(result=>{
+                    location.reload();
+                })
             }
         } catch (error) {
             insertarNoApi(cn);
@@ -703,14 +707,14 @@ function validarNum(stock) {
 }
 let precioProducto;
 
-function insertarNoApi(cn) {
+async function insertarNoApi(cn) {
     var nombre;
     var precio;
     var pactivo;
     var laboratorio;
     var vAdmin;
     var pres;
-    Swal.fire({
+    await Swal.fire({
         title: 'Nombre y Precio del producto a dar de alta',
         html:
         `<form class="nuevo d-flex flex-column">
@@ -768,7 +772,9 @@ function insertarNoApi(cn) {
         }
 
         fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`)
+        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`).then(result=>{
+            location.reload();
+        })
         
     });
 }
