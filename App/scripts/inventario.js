@@ -381,13 +381,12 @@ async function insertarProducto(cn){
     
 
     const precio = precioNumerico ?? '';
-    let stock;
     
     if (medicamentoExistente) {
         const { value: formValues } = await Swal.fire({
             title: 'Precio y Stock a añadir del medicamento',
             html:
-            '<input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">',
+            '<input id="swal-input1" type="number" class="swal2-input" placeholder="Stock">',
             focusConfirm: false,
             preConfirm: () => {
                 const stock = document.getElementById('swal-input1').value;
