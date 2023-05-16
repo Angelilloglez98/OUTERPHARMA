@@ -368,16 +368,16 @@ async function insertarProducto(cn){
     let precioNumerico;
 
     precioNumerico = await new Promise((resolve) => {
-    PrecioProducto(cn, (resultado) => {
-        if (resultado) {
-            let tmp = resultado.split(' ');
-            let precio = parseFloat(tmp[1]);
-            resolve(precio); 
-        }
+        PrecioProducto(cn, (resultado) => {
+            if (resultado) {
+                let tmp = resultado.split(' ');
+                let precio = parseFloat(tmp[1]);
+                resolve(precio); 
+            }
 
-        resolve(resultado)
-        
-    });
+            resolve(resultado)
+            
+        });
     });
     
 
@@ -386,27 +386,29 @@ async function insertarProducto(cn){
     
     if (medicamentoExistente) {
         const { value: formValues } = await Swal.fire({
-            title: 'Stock a añadir del medicamento',
+            title: 'Precio y Stock a añadir del medicamento',
             html:
             '<input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">',
             focusConfirm: false,
             preConfirm: () => {
-                return [
-                    stock = document.getElementById('swal-input2').value,
-                ]
-                
-            },
-            inputValidator: (stock) => {
+                const stock = document.getElementById('swal-input1').value;
+    
                 if (!stock) {
-                    return 'Este campo es obligatorio'
+                    Swal.showValidationMessage('Todos los campos son obligatorios');
+                    // Utilizar un throw para salir del bloque preConfirm y evitar que se ejecute el código posterior
+                    throw new Error('Campos obligatorios faltantes');
                 }
+    
+                return [stock];
             }
-        })
-
-        fetch(`./BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`).then(response=>{
-            location.reload();
-        })
-        
+        });
+    
+        // Si el cuadro de diálogo Swal se cerró sin errores, se realiza la inserción en la base de datos
+        if (formValues) {
+            const [stock] = formValues;
+            fetch(`./BaseDatos/añadirStock.php?cn=${cn}&stock=${stock}`);
+        }
+        location.reload();
     } else {
         try {
             const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
@@ -714,8 +716,8 @@ async function insertarNoApi(cn) {
     var laboratorio;
     var vAdmin;
     var pres;
-    await Swal.fire({
-        title: 'Nombre y Precio del producto a dar de alta',
+    const { value: formValues } = Swal.fire({
+        title: 'Precio y Stock a añadir del medicamento',
         html:
         `<form class="nuevo d-flex flex-column">
             <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
@@ -727,10 +729,7 @@ async function insertarNoApi(cn) {
             <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
         </form>`,
         focusConfirm: false,
-    }).then((result) => {
-        
-
-        if (result.isConfirmed) {
+        preConfirm: () => {
             nombre = document.getElementById('swal-input1').value,
             precio = document.getElementById('swal-input2').value,
             pactivo = document.getElementById('swal-input3').value,
@@ -738,14 +737,19 @@ async function insertarNoApi(cn) {
             vAdmin = document.getElementById('swal-input5').value,
             pres = document.getElementById('swal-input6').value
 
-            if (!validarNombreMed(nombre)) {
-                Swal.showValidationMessage('El nombre es inválido');
-            } else if (!validarNum(precio)) {
-                Swal.showValidationMessage('El precio es inválido');
+            if (!nombre || !precio) {
+                Swal.showValidationMessage('Los campos Nombre y Precio son obligatorios');
+                // Utilizar un throw para salir del bloque preConfirm y evitar que se ejecute el código posterior
+                throw new Error('Campos obligatorios faltantes');
             }
 
-            
+            return [nombre, precio, pactivo, laboratorio, vAdmin, pres];
         }
+    });
+
+    // Si el cuadro de diálogo Swal se cerró sin errores, se realiza la inserción en la base de datos
+    if (formValues) {
+        const [nombre, precio, pactivo, laboratorio, vAdmin, pres] = formValues;
 
         if (pactivo) {
             pactivo = pactivo
@@ -772,9 +776,6 @@ async function insertarNoApi(cn) {
         }
 
         fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`).then(result=>{
-            location.reload();
-        })
-        
-    });
+        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`);
+    }
 }
