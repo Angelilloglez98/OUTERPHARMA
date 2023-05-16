@@ -10,7 +10,7 @@ $pactivo = $_GET["pactivo"];
 $lab = $_GET["lab"];
 $vadmin = $_GET["via"];
 $pres = $_GET["pres"];
-$precio =$_GET["precio"];
+$precio = $_GET["precio"];
 $cantidad = $_GET["stock"];
 $fEntrada = date('Y-m-d H:i:s');
 $fCaducidad = "01-01-2050 00:00:00";
@@ -37,7 +37,7 @@ if ($sth->rowCount() == 0) {
         }
     }
 
-        if(!empty($precio)){
+    if(!empty($precio)){
         $sth = $pdo->prepare("INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, CodigoNacional, Precio, Cantidad, fEntrada, fCaducidad) VALUES (:correo, :codigo, :precio, :cantidad, :fEntrada, :fCaducidad)");
         $sth->execute(array(':correo' => $correo, ':codigo' => $codigo, ':precio' => $precio, ':cantidad' => $cantidad, ':fEntrada' => $fEntrada, ':fCaducidad' => $fCaducidad));
     }
