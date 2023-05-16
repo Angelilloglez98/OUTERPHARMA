@@ -735,7 +735,7 @@ function insertarNoApi(cn) {
             if (!nombre || !precio) {
                 Swal.showValidationMessage('Los campos Nombre y Precio son obligatorios');
                 // Utilizar un throw para salir del bloque preConfirm y evitar que se ejecute el código posterior
-                throw new Error('Campos obligatorios faltantes');
+                return false;
             }
 
             return [nombre, precio, pactivo, laboratorio, vAdmin, pres];
