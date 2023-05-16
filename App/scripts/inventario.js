@@ -705,6 +705,7 @@ function validarNum(stock) {
 }
 let precioProducto;
 
+
 function insertarNoApi(cn) {
     var nombre;
     var precio;
@@ -715,15 +716,13 @@ function insertarNoApi(cn) {
     const { value: formValues } = Swal.fire({
         title: 'Precio y Stock a añadir del medicamento',
         html:
-        `<form class="nuevo d-flex flex-column">
-            <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
+        `   <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
             <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>
             <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
             <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
             <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
             <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
-            <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
-        </form>`,
+            <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">`,
         focusConfirm: false,
         preConfirm: () => {
             nombre = document.getElementById('swal-input1').value,
@@ -747,28 +746,20 @@ function insertarNoApi(cn) {
     if (formValues) {
         const [nombre, precio, pactivo, laboratorio, vAdmin, pres] = formValues;
 
-        if (pactivo) {
-            pactivo = pactivo
-        } else {
-            pactivo = "Sin datos";
+        if (!pactivo) {
+            pactivo = 'Sin datos';
         }
 
-        if (laboratorio) {
-            laboratorio = laboratorio
-        } else {
-            laboratorio = "Sin datos";
+        if (!laboratorio) {
+            laboratorio = 'Sin datos';
         }
 
-        if (vAdmin) {
-            vAdmin = vAdmin
-        } else {
-            vAdmin = "Sin datos";
+        if (!vAdmin) {
+            vAdmin = 'Sin datos';
         }
 
-        if (pres) {
-            pres = pres
-        } else {
-            pres = "N";
+        if (!pres) {
+            pres = 'N';
         }
 
         fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
