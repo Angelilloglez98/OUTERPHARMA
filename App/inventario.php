@@ -72,7 +72,7 @@ session_start();
                     <input id="busqueda" class="form-control input me-2" type="search" placeholder="Search" aria-label="Search">
                     <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
                     <p>Ordenar por:</p>
-                    <div class="wrapper d-flex align-items-center btn ">
+                    <div class="wrapper d-flex align-items-center btn ms-5">
                         <input type="button" value="Nombre" class="btn btn-rounded busqueda">
                     </div>
                     
@@ -86,12 +86,12 @@ session_start();
             <div class="w-100">
                 <div class="">
                     <div class="row gap-3 fit">
-                        <div class="col-9">
+                        <div class="col-9 datos_izquierda">
                             <div class="row datos">
                                 
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-2 datos_derecha">
                             <div class="row">
                                 <div class="col-12 pedirCN d-flex flex-column align-items-center">
                                     <form class="codigo" role="search" action="">
