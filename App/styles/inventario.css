@@ -13,13 +13,17 @@ form{
   /* width: fit-content; */
 }
 
+.row {
+  margin: 0;
+}
+
 p{
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-.col-9{
+.datos_izquierda{
   border-radius: 25px;
 } 
 
@@ -33,6 +37,14 @@ p{
   grid-template-columns: repeat(4, 1fr);
   justify-items: center !important;
   row-gap: 4.953125rem;
+  max-height: 1000px;
+  overflow-y: scroll;
+}
+
+.datos::-webkit-scrollbar {
+  width: 2px; /* cambia el ancho del scrollbar */
+  display: flex;
+  background-color: #0d0c22;
 }
 
 .row > *{
@@ -388,7 +400,7 @@ button:active .icon svg {
   }
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1300px) {
   .datos{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -396,7 +408,16 @@ button:active .icon svg {
   }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 950px) {
+  .datos_derecha {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+  }
+}
+
+@media only screen and (max-width: 900px) {
   .datos{
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -410,8 +431,13 @@ button:active .icon svg {
 }
 
 @media only screen and (max-width: 767px) {
-  .col-9, .col-3, .col-2, .col-12 {
-    width: 100%; 
+
+  .datos {
+    max-height: 400px;
+  }
+
+  .datos_izquierda, .col-3{
+    width: 90%; 
     margin: 0; 
     border-radius: 0; 
     border: none; 
@@ -424,5 +450,9 @@ button:active .icon svg {
   .imagen_foto {
     width: 100%; 
     height: auto; 
+  }
+
+  form {
+    flex-wrap: wrap;
   }
 }
