@@ -32,7 +32,7 @@ session_start();
     <link rel="stylesheet" href="styles/header.css">
     <script src="scripts/header.js"></script>
     <script src="scripts/HistorialVentas.js"></script>
-    <link rel="stylesheet" href="styles/HistorialVentas.css">
+    <link rel="stylesheet" href="./styles/HistorialVentas.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
     <body id="body-pd">
@@ -72,7 +72,7 @@ session_start();
         </div>
         <!--Container Main start-->
         <div class="height-100 bg-light">
-            
+            <div class="height-100 bg-light">
                 <div class="container-fluid">
                     <h4 class="mb-5">Historial de Ventas</h4>
                     <table id="myTable" class="display">
@@ -90,6 +90,7 @@ session_start();
                         </tbody>
                     </table>
                 </div>
+            </div>
         </div>
         
     </body>
