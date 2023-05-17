@@ -26,10 +26,17 @@ function Activar(params) {
                 const mostrar = document.querySelector("#cn");
                 mostrar.value = result.codeResult.code.substring(6,12);
 
-                const enterKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
-                mostrar.dispatchEvent(enterKeyEvent);
-                const aniadir = document.querySelector("#aniadir");
-                aniadir.click();
+                const estaDisponible = comprobarMedicamento(mostrar.value);
+
+                if (estaDisponible) {
+                    insertarProducto(mostrar.value);
+                } else {
+                    insertarNoApi(mostrar.value)
+                }
+                // const enterKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
+                // mostrar.dispatchEvent(enterKeyEvent);
+                // const aniadir = document.querySelector("#aniadir");
+                // aniadir.click();
                 
                 resetear();
             });
