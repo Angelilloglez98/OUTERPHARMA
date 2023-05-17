@@ -29,9 +29,8 @@ function Activar(params) {
                 const enterKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
                 mostrar.dispatchEvent(enterKeyEvent);
                 const aniadir = document.querySelector("#aniadir");
-                if (aniadir) {
-                    aniadir.click();
-                }
+                aniadir.click();
+                
                 resetear();
             });
         document.querySelector('#Escaner').style.position='relative';
