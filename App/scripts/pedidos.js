@@ -2,6 +2,15 @@ window.onload = () =>{
 
     const busqueda = document.querySelector('input[type="search"]');
 
+    busqueda.oninput = () => {
+        let codigo = busqueda.value;
+        if (codigo.length == 13) {
+            let cortar = codigo.substring(6, 12);
+            busqueda.value = cortar;
+        }
+        
+    };
+
     const buscarMed = async(datos, filtro) => {
 
         const options = {

@@ -59,6 +59,12 @@ window.onload = () => {
     const btnBorrar = document.getElementById('borrar');
     const codigoNacional = document.getElementById('cn');
 
+    const mostrar = document.querySelector("#cn");
+    const busqueda = document.querySelector('#busqueda');
+
+    btnInsertar.disabled = true;
+    btnBorrar.disabled = true;
+
     btnInsertar.addEventListener('click', function() {
         // Verificar si el botón de insertar está seleccionado
         if (btnInsertar.checked) {
@@ -77,7 +83,7 @@ window.onload = () => {
         }
     });
     
-    const busqueda = document.querySelector('#busqueda');
+    
 
     busqueda.oninput = () => {
         let codigo = busqueda.value;
@@ -98,8 +104,6 @@ window.onload = () => {
         .catch(e => {console.error("ERROR: ", e.message)});
     }
 
-    const mostrar = document.querySelector("#cn");
-
     let timeoutId;
 
     mostrar.onkeydown = () => {
@@ -119,12 +123,14 @@ window.onload = () => {
         
     };
     busqueda.onkeydown =  (event) => {
-        if (event.key === 'Enter' && busqueda.value != '') {
-    
-            const tbody = document.querySelector("#buscarMed");
+        if (event.key === 'Enter') {
     
             var datos = busqueda.value;
             busqueda.value = "";
+            const tbody = document.querySelector("#buscarMed");
+    
+            
+            
           
             buscarMed(datos).then((element) => {
     
@@ -141,10 +147,11 @@ window.onload = () => {
                             }else{
                                 carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
                             }
-                        });
+                        })
+                        .catch(e => {vaciarDatos();traerDatos()});
                     } catch (error) {
                         vaciarDatos();
-                        carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                        traerDatos()
                     }
                     
                 }

@@ -44,7 +44,7 @@ p{
 .datos::-webkit-scrollbar {
   width: 2px; /* cambia el ancho del scrollbar */
   display: flex;
-  background-color: #0d0c22;
+  background-color: #ededed;
 }
 
 .row > *{
@@ -88,6 +88,18 @@ p{
   font-weight: bold;
   font-size: .9rem;
   margin-bottom: 1rem;
+}
+
+.botonesOrd{
+  --bs-btn-border-color: none;
+}
+
+#insertar {
+  --bs-btn-border-color: #14A44D;
+}
+
+#borrar {
+  --bs-btn-border-color: #DC4C64;
 }
 
 .medicamento {
@@ -250,7 +262,6 @@ button:active .icon svg {
   background-color: #27ae60;
   border-radius: 8px;
   border-style: none;
-  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -276,7 +287,6 @@ button:active .icon svg {
 }
 
 .botonverde:hover {
-  background-color: #1e8449 !important;
   opacity: 1;
   transform: translateY(0);
   transition-duration: .35s;
@@ -288,7 +298,6 @@ button:active .icon svg {
 }
 
 .botonverde:hover {
-  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
   color: white !important;
 }
 

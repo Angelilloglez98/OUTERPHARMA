@@ -1,5 +1,17 @@
 cargarDatos();
 let formulario = document.querySelector('form');
+   
+const mostrar = document.querySelector("#AnadirPorCN");
+mostrar.oninput = () => {
+    let codigo = mostrar.value;
+    if (codigo.length == 13) {
+        let cortar = codigo.substring(6, 12);
+        mostrar.value = '';
+        BuscarMedicamento(cortar);
+        guardarLocalStorage();
+    
+    }
+};
 
 formulario.onsubmit = (e) => {
     e.preventDefault();
