@@ -72,12 +72,12 @@ session_start();
                     <input id="busqueda" class="form-control input me-2" type="search" placeholder="Search" aria-label="Search">
                     <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
                     <p>Ordenar por:</p>
-                    <div class="wrapper d-flex align-items-center btn ms-5">
-                        <input type="button" value="Nombre" class="btn btn-rounded busqueda">
+                    <div class="wrapper d-flex align-items-center btn botonesOrd ms-5">
+                        <input type="button" value="Nombre" class="btn botonesOrd btn-rounded busqueda">
                     </div>
                     
-                    <div class="wrapper d-flex align-items-center btn ms-5">
-                        <input type="button" value="Precio" class="btn btn-rounded busqueda">
+                    <div class="wrapper d-flex align-items-center btn botonesOrd ms-5">
+                        <input type="button" value="Precio" class="btn botonesOrd btn-rounded busqueda">
                     </div>
                   </form>
                   
