@@ -102,7 +102,7 @@ window.onload = () => {
 
     let timeoutId;
 
-    mostrar.onkeyup = () => {
+    mostrar.oninput = () => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             mostrarMedicamento(mostrar.value);
@@ -627,6 +627,7 @@ async function mostrarMedicamento(cn) {
                 nombre.classList.add("noMedic")
                 nombre.appendChild(document.createTextNode("Este medicamento no existe, por lo cual no se pudo cargar la información del medicamento"));
                 let aniadir = document.createElement("button");
+                aniadir.id = "anadir";
                 aniadir.appendChild(document.createTextNode("¿Quieres darlo de alta?"))
                 aniadir.addEventListener('click', async function() {
                     insertarNoApi(cn);
@@ -721,7 +722,6 @@ function validarNum(stock) {
     }
 }
 let precioProducto;
-
 
 function insertarNoApi(cn) {
     var nombre;
