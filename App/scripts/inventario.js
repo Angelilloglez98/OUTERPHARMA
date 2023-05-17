@@ -491,8 +491,6 @@ async function insertarProducto(cn){
         } catch (error) {
             insertarNoApi(cn);
         }
-        
-        location.reload();
     }
     
     vaciarDatos();
