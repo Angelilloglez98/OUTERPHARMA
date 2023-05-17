@@ -78,6 +78,15 @@ window.onload = () => {
     });
     
     const busqueda = document.querySelector('#busqueda');
+
+    busqueda.oninput = () => {
+        let codigo = busqueda.value;
+        if (codigo.length == 13) {
+            let cortar = codigo.substring(6, 12);
+            busqueda.value = cortar;
+        }
+        
+    };
     
     const buscarMed = (datos) => {
         
@@ -100,11 +109,47 @@ window.onload = () => {
         }, 300); // Espera 300 ms antes de llamar a mostrarMedicamento
     };
 
-    busqueda.onkeydown = (event) => {
-        if (busqueda.value == "") {
-            vaciarDatos();
-            traerDatos();
-            
+    mostrar.oninput = () => {
+        let codigo = mostrar.value;
+        if (codigo.length == 13) {
+            let cortar = codigo.substring(6, 12);
+            mostrar.value = cortar;
+        }
+        
+    };
+    busqueda.onkeydown =  (event) => {
+        if (event.key === 'Enter' && busqueda.value != '') {
+    
+            const tbody = document.querySelector("#buscarMed");
+    
+            var datos = busqueda.value;
+            busqueda.value = "";
+          
+            buscarMed(datos).then((element) => {
+    
+                // console.log(element);
+                for (const i in element) {
+
+                    try {
+                        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
+                        .then(res=>res.json())
+                        .then(resultadoApi=>{
+                            vaciarDatos();
+                            if(resultadoApi.fotos===undefined){
+                                carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            }else{
+                                carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                            }
+                        });
+                    } catch (error) {
+                        vaciarDatos();
+                        carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                    }
+                    
+                }
+    
+            })
+    
         }
 
         const tbody = document.querySelector("#buscarMed");
@@ -140,7 +185,7 @@ window.onload = () => {
 }
 
 async function traerDatos(orden, direc) {
-    console.log("Hola");
+    // console.log("Hola");
     try {
         const res = await fetch(`./BaseDatos/devInfo.php?orden=${orden}&direccion=${direc}`);
         const resultado = await res.json();
@@ -513,7 +558,7 @@ async function comprobarMedicamento(cn){
 }
 
 async function mostrarMedicamento(cn) {
-    console.log("mostrar");
+    // console.log("mostrar");
     const estaDisponible = await comprobarMedicamento(cn);
     let datos = document.querySelector(".pedirCN");
     let insertar = document.querySelector("#insertar");
@@ -708,7 +753,8 @@ function validarNum(stock) {
 }
 let precioProducto;
 
-async function insertarNoApi(cn) {
+
+function insertarNoApi(cn) {
     var nombre;
     var precio;
     var pactivo;
@@ -718,15 +764,13 @@ async function insertarNoApi(cn) {
     const { value: formValues } = Swal.fire({
         title: 'Precio y Stock a añadir del medicamento',
         html:
-        `<form class="nuevo d-flex flex-column">
-            <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
+        `   <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
             <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>
             <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
             <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
             <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
             <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
-            <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">
-        </form>`,
+            <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">`,
         focusConfirm: false,
         preConfirm: () => {
             nombre = document.getElementById('swal-input1').value,
@@ -739,7 +783,7 @@ async function insertarNoApi(cn) {
             if (!nombre || !precio) {
                 Swal.showValidationMessage('Los campos Nombre y Precio son obligatorios');
                 // Utilizar un throw para salir del bloque preConfirm y evitar que se ejecute el código posterior
-                throw new Error('Campos obligatorios faltantes');
+                return false;
             }
 
             return [nombre, precio, pactivo, laboratorio, vAdmin, pres];
@@ -750,28 +794,20 @@ async function insertarNoApi(cn) {
     if (formValues) {
         const [nombre, precio, pactivo, laboratorio, vAdmin, pres] = formValues;
 
-        if (pactivo) {
-            pactivo = pactivo
-        } else {
-            pactivo = "Sin datos";
+        if (!pactivo) {
+            pactivo = 'Sin datos';
         }
 
-        if (laboratorio) {
-            laboratorio = laboratorio
-        } else {
-            laboratorio = "Sin datos";
+        if (!laboratorio) {
+            laboratorio = 'Sin datos';
         }
 
-        if (vAdmin) {
-            vAdmin = vAdmin
-        } else {
-            vAdmin = "Sin datos";
+        if (!vAdmin) {
+            vAdmin = 'Sin datos';
         }
 
-        if (pres) {
-            pres = pres
-        } else {
-            pres = "N";
+        if (!pres) {
+            pres = 'N';
         }
 
         fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}

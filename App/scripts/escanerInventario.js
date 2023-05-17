@@ -22,7 +22,9 @@ function Activar(params) {
         
             Quagga.onDetected(function(result) {
             
-                insertarProducto(result.codeResult.code.substring(6,12));
+                // insertarProducto(result.codeResult.code.substring(6,12));
+                const mostrar = document.querySelector("#cn");
+                mostrar.value = result.codeResult.code.substring(6,12);
                 resetear();
             });
         document.querySelector('#Escaner').style.position='relative';
