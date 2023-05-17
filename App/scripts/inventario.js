@@ -761,31 +761,31 @@ function insertarNoApi(cn) {
                 return false;
             }
 
-            return [nombre, precio, pactivo, laboratorio, vAdmin, pres];
+            if (!pactivo) {
+                pactivo = 'Sin datos';
+            }
+    
+            if (!laboratorio) {
+                laboratorio = 'Sin datos';
+            }
+    
+            if (!vAdmin) {
+                vAdmin = 'Sin datos';
+            }
+    
+            if (!pres) {
+                pres = 'N';
+            } else if (pres = 'Si') {
+                pres = 'S';
+            }
+    
+            fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
+            &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`);
+            location.reload();
+            
         }
     });
 
     // Si el cuadro de diálogo Swal se cerró sin errores, se realiza la inserción en la base de datos
-    if (formValues) {
-        const [nombre, precio, pactivo, laboratorio, vAdmin, pres] = formValues;
-
-        if (!pactivo) {
-            pactivo = 'Sin datos';
-        }
-
-        if (!laboratorio) {
-            laboratorio = 'Sin datos';
-        }
-
-        if (!vAdmin) {
-            vAdmin = 'Sin datos';
-        }
-
-        if (!pres) {
-            pres = 'N';
-        }
-
-        fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
-        &via=${vAdmin}&pres=${pres}&precio=${precio}&stock=${0}`);
-    }
+    
 }
