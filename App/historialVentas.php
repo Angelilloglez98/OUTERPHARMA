@@ -71,11 +71,11 @@ session_start();
       </nav>
         </div>
         <!--Container Main start-->
-        <div class="height-100 bg-light">
+        <div class="bg-light mt-5">
             <div class="height-100 bg-light">
                 <div class="container-fluid">
                     <h4 class="mb-5">Historial de Ventas</h4>
-                    <table id="myTable" class="display">
+                    <table id="myTable" class="display:flex">
                         <thead>
                             <tr>
                                 <th>IdVenta</th>
