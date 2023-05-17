@@ -31,12 +31,12 @@ function Activar(params) {
                 if (estaDisponible) {
                     insertarProducto(mostrar.value);
                 } else {
-                    insertarNoApi(mostrar.value)
+                    const enterKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
+                    mostrar.dispatchEvent(enterKeyEvent);
+                    const aniadir = document.querySelector("#aniadir");
+                    aniadir.click();
                 }
-                // const enterKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
-                // mostrar.dispatchEvent(enterKeyEvent);
-                // const aniadir = document.querySelector("#aniadir");
-                // aniadir.click();
+                
                 
                 resetear();
             });
