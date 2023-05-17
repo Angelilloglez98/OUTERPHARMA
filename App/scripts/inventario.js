@@ -78,6 +78,15 @@ window.onload = () => {
     });
     
     const busqueda = document.querySelector('#busqueda');
+
+    busqueda.oninput = () => {
+        let codigo = busqueda.value;
+        if (codigo.length == 13) {
+            let cortar = codigo.substring(6, 12);
+            busqueda.value = cortar;
+        }
+        
+    };
     
     const buscarMed = (datos) => {
         
@@ -100,6 +109,14 @@ window.onload = () => {
         }, 300); // Espera 300 ms antes de llamar a mostrarMedicamento
     };
 
+    mostrar.oninput = () => {
+        let codigo = mostrar.value;
+        if (codigo.length == 13) {
+            let cortar = codigo.substring(6, 12);
+            mostrar.value = cortar;
+        }
+        
+    };
     busqueda.onkeydown =  (event) => {
         if (event.key === 'Enter' && busqueda.value != '') {
     
@@ -139,7 +156,7 @@ window.onload = () => {
 }
 
 async function traerDatos(orden, direc) {
-    console.log("Hola");
+    // console.log("Hola");
     try {
         const res = await fetch(`./BaseDatos/devInfo.php?orden=${orden}&direccion=${direc}`);
         const resultado = await res.json();
@@ -510,7 +527,7 @@ async function comprobarMedicamento(cn){
 }
 
 async function mostrarMedicamento(cn) {
-    console.log("mostrar");
+    // console.log("mostrar");
     const estaDisponible = await comprobarMedicamento(cn);
     let datos = document.querySelector(".pedirCN");
     let insertar = document.querySelector("#insertar");
