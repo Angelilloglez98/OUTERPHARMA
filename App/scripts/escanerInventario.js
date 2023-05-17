@@ -25,6 +25,10 @@ function Activar(params) {
                 // insertarProducto(result.codeResult.code.substring(6,12));
                 const mostrar = document.querySelector("#cn");
                 mostrar.value = result.codeResult.code.substring(6,12);
+                const aniadir = document.querySelector("#aniadir");
+                if (aniadir) {
+                    aniadir.click();
+                }
                 resetear();
             });
         document.querySelector('#Escaner').style.position='relative';
