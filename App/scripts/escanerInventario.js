@@ -25,7 +25,9 @@ function Activar(params) {
                 // insertarProducto(result.codeResult.code.substring(6,12));
                 const mostrar = document.querySelector("#cn");
                 mostrar.value = result.codeResult.code.substring(6,12);
-                mostrar.submit();
+
+                const enterKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
+                mostrar.dispatchEvent(enterKeyEvent);
                 const aniadir = document.querySelector("#aniadir");
                 if (aniadir) {
                     aniadir.click();
