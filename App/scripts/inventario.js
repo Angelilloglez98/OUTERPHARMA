@@ -412,7 +412,7 @@ async function insertarProducto(cn){
                 if (!stock) {
                     Swal.showValidationMessage('Todos los campos son obligatorios');
                     // Utilizar un throw para salir del bloque preConfirm y evitar que se ejecute el código posterior
-                    throw new Error('Campos obligatorios faltantes');
+                    return false;
                 }
     
                 return [stock];
@@ -444,7 +444,7 @@ async function insertarProducto(cn){
                     if (!Precio || !stock) {
                         Swal.showValidationMessage('Todos los campos son obligatorios');
                         // Utilizar un throw para salir del bloque preConfirm y evitar que se ejecute el código posterior
-                        throw new Error('Campos obligatorios faltantes');
+                        return false;
                     }
         
                     return [Precio, stock];
