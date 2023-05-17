@@ -25,6 +25,7 @@ function Activar(params) {
                 // insertarProducto(result.codeResult.code.substring(6,12));
                 const mostrar = document.querySelector("#cn");
                 mostrar.value = result.codeResult.code.substring(6,12);
+                mostrar.submit();
                 const aniadir = document.querySelector("#aniadir");
                 if (aniadir) {
                     aniadir.click();
