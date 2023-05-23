@@ -10,7 +10,8 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     background-color: #D9DAD8;
     transition: 0.3s;
-    width: 300px;
+    min-width: 200px;
+    max-width: 300px;
     margin: 10px;
     border-radius: 7px;
 }
@@ -102,6 +103,16 @@ h5 {
     background-image: url('../assets/trash.svg');
     background-color: #D34240;
 }
+
+.contenedorTitulo{
+    width: 100%;
+  }
+  
+  .titulo{
+    width: fit-content;
+    box-shadow:-25px 25px 0px -15px #4723D9;
+    font-weight: 800;
+  }
   
 @media screen and (max-width: 1500px) {
     .showProv {

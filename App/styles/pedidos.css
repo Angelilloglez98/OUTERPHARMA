@@ -2,36 +2,67 @@ table{
     font-size: 1em;
 }
 
+input,select{
+    border-radius: 10px !important;
+}
+
+.contenedorTitulo{
+    width: 100%;
+    margin-bottom: 35px;
+}
+  
+.titulo{
+width: fit-content;
+box-shadow:-25px 25px 0px -15px #4723D9;
+font-weight: 800;
+}
+
 @media (max-width:1250px) {
+
     table{
         font-size: 0.8em;
     }
+
 }
 
 @media (max-width:1100px) {
+
     .imgNone{
         display: none;
     }
+
     tr > td:first-child{
         display: none;
     }
+
 }
 
 @media (max-width:500px) {
+
     table{
         font-size: 0.6em;
     }
+
     .sobra{
         display: none;
     }
+
     tr td:nth-child(3) {
         display: none;
     }
+
     tr td:nth-child(6) {
         display: none;
     }
+
     tr td:nth-child(7) {
         display: none;
     }
+
+    input,select{
+        border-radius: 10px !important;
+        font-size: 0.8rem;
+    }
+
 }
  

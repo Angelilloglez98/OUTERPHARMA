@@ -1,6 +1,83 @@
-table{
-    margin: auto;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+html{
+    font-size: 16px;
+}
+
+.contenedorTitulo{
+    width: 100%;
+}
+
+.titulo{
+    width: fit-content;
+    box-shadow:-25px 25px 0px -15px #4723D9;
+    font-weight: 800;
+}
+
+.contenedor_buscarProducto{
+    margin-top: 1rem;
+}
+
+.buscarProducto{
+    display: flex;
+    align-items: center;
+}
+
+.buscarproducto input[type='submit'], input[type='button']{
+    width: 7rem;
+    height: 3rem;
+    margin-left: .5rem;
+    border: none;
+    background-color: #4723D9;
+    border-radius: 10px;
+    font-family: 'Cabin', sans-serif;
+    color: white;
+}
+
+.buscarProducto input[type='text'],.dinero{
+    width: 100%;
+    max-width: 10rem;
+    background-color: transparent;
+    color: #2b2b2b;
+    margin: 10px;
+    font-weight: bold;
+    outline: none;
+    transition: background-color 0.7s;
+    border-radius: 10px;
+    border: 1px solid rgb(190, 190, 190);
+    padding:0.7rem;
+    border-radius: 10px;
+}
+
+
+#codigoBarra{
+    background-image: url('../assets/photo_camera_FILL1_wght400_GRAD0_opsz48.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: rgb(248, 249, 250);
+}
+
+/* Camara */
+
+#Escaner{
+    width: 100%;
+    
+}
+#Escaner video{
+    width: 100%;
+    
+}
+
+.drawingBuffer{
+    display: none;
+}
+
+/* camara */
 
 .filaVenta{
     display: grid;
@@ -15,27 +92,14 @@ tr img{
     width: 100%;
     min-width: 100px;
 }
-
-.realizarventa form{
-    width: 100%;
-    display: grid;
-    grid-template-areas:'realizarpedido none none none none devuelta total';
-    grid-template-columns: repeat(7,1fr);
-}
 .filaResumen{
     display: grid;
     grid-template-columns: repeat(4,1fr);
 }
 
-.ventanaVenta{
-    transform: translateY(20000px);
-    background-color: #ffffff;
-    border: 1px solid black;
-    border-radius: 5px;
-    z-index: 1000;
-    padding: 60px;
+.ventana{
+    margin: 30px 0;
 }
-
 
 form{
     display: flex;
@@ -73,7 +137,6 @@ form{
     align-items: center;
     margin: 0;
     color: brown;
-    margin: 010px;
 }
 
 .papelera:hover{
@@ -82,7 +145,7 @@ form{
 
 form{
     display: flex;
-    width: 50%;
+    
 }
 
 .dinero{
@@ -94,66 +157,10 @@ form{
     align-items: center;
     justify-content: center;
 }
-/* CSS */
-.botonverde {
-    width: 50px;
-    height: 50px;
-    appearance: none;
-    backface-visibility: hidden;
-    background-color: #27ae60;
-    border-radius: 8px;
-    border-style: none;
-    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: normal;
-    line-height: 1.5;
-    outline: none;
-    overflow: hidden;
-    padding: 13px 20px;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transform: translate3d(0, 0, 0);
-    transition: all .3s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: top;
-    white-space: nowrap;
-}
+
+
 form >input{
     width: fit-content;
-}
-
-.botonverde:hover {
-  background-color: #1e8449;
-  opacity: 1;
-  transform: translateY(0);
-  transition-duration: .35s;
-}
-
-.botonverde:active {
-  transform: translateY(2px);
-  transition-duration: .35s;
-}
-
-.botonverde:hover {
-  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
-}
-
-#codigoBarra{
-    padding: 20px;
-    background-image: url('../assets/photo_camera_FILL1_wght400_GRAD0_opsz48.svg');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: #fff;
 }
 
 #Escaner{
@@ -165,18 +172,19 @@ form >input{
 }
 
 .cambiarForma{
-    margin: 50px 0;
+    margin: 5px 0;
 }
 
 .total{
-    width: 100px;
-    height: 50px;
+    width: 6rem;
+    height: 3rem;
     grid-area: total;
 }
 
 .venta{
+    width: fit-content !important;
     grid-area: realizarpedido;
-    min-width: 160px;
+    padding: 0 10px 0 10px;
 }
 
 td{
@@ -184,18 +192,31 @@ td{
     justify-content: left;
     align-items: start;
 }
-.ventanaVenta{
-    position: absolute;
-  left: -100%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+
+.fotoProducto img{
+    width: 50%;
 }
-.ventanaVenta.animado{
-    animation: mover-div 0.3s forwards;
+
+table{
+    max-height: 300px !important;
+    overflow-y: scroll;
 }
-.ventaVenta.izquierda {
-    animation: mover-izquierda 0.3s forwards;
-  }
+.realizarVenta form{
+    margin: 2rem 0;
+}
+
+.financiacion select{
+    border: none;
+    background-color: rgb(248, 249, 250);
+    outline: none;
+}
+.cantidad input{
+ border: 1px solid gray;
+ border-radius: 10px;
+ outline: none;
+ padding-left: 5px;
+}
+
 
 @keyframes mover-div {
     from {

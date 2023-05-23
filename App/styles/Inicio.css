@@ -1,5 +1,5 @@
 canvas{
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    
     border-radius: 5px;
     min-height: 150px;
 }
@@ -28,9 +28,18 @@ canvas{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+  }
+  .tablas th{
+    background-color: #4723D9;
+    color: rgb(244, 250, 255);
   }
 
-
+  .tablas::-webkit-scrollbar {
+    width: 2px; /* cambia el ancho del scrollbar */
+    display: flex;
+    background-color: #ededed;
+  }
 
   .carta{
     min-width: 200px;
@@ -135,7 +144,40 @@ canvas{
     right: 0;
   }
   
-  
+  h4{
+    font-family: 'Cabin', sans-serif;
+    font-size: 1.4em;
+  }
+
+  .selectFecha{
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-bottom: .3rem solid #4723D9;
+    background-color: transparent;
+    color: #2b2b2b;
+    margin: 10px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.7s;
+  }
+
+  .selectFecha:hover{
+    background-color: #f0f0f0;
+    color: #2b2b2b;
+  }
+
+  .contenedorTitulo{
+    width: 100%;
+  }
+
+  .titulo{
+    width: fit-content;
+    box-shadow:-25px 25px 0px -15px #4723D9;
+    font-weight: 800;
+  }
+
+
 @media (max-width:900px) {
   .row{
     

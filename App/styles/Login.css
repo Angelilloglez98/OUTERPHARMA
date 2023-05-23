@@ -3,7 +3,8 @@
     --azul-claro:#b9e0e8;
     --blanco:rgb(244, 250, 255);
     --gris-claro:rgb(207, 207, 207);
-    --gris-oscuro:rgb(62, 63, 65);
+    --gris-oscuro:rgb(242, 239, 255);
+    --amarillo:#FFDE59;
 }
 
 *{
@@ -21,8 +22,12 @@
     grid-template-rows: 100%;
     justify-content: center;
     align-items: center;
-    background-color: rgb(243, 246, 248); 
+    background-color: rgb(243, 246, 248);
     font-family: 'Cabin', sans-serif;
+    background-image: url('../assets/wave.svg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    color: var(--blanco);
 }
 
 .corporation{
@@ -30,9 +35,6 @@
     justify-content: center;
     align-items: center;
     column-gap: 1em;
-    background-image: url('../assets/wave.svg');
-    background-size:cover;
-    background-repeat: no-repeat;
     height: 100%;
     margin-right: 20px;
 }
@@ -45,6 +47,9 @@
     font-size: 4em;
     color: var(--gris-oscuro); 
     text-size-adjust: 23PX;
+}
+.corporation>p>span{
+    color: var(--amarillo);
 }
 
 .register-login{
@@ -84,13 +89,21 @@ form p{
 
 form input{
     height: 3em;
-    border-radius: 10px;
     border: 1px solid var(--gris-claro);
     padding:10px;
+    border-radius: 10px;
+}
+form input[type='submit']{
+    background-color: var(--blanco);
+    color: rgb(44, 14, 62);
+    border-radius: 5px;
 }
 
 form h2{
     font-size: 3em;
+}
+form h2 span{
+    color: var(--amarillo);
 }
 
 form h2,input[type='button']{
@@ -109,6 +122,17 @@ form input[type='button']:hover{
 #moverLogin{
     width: fit-content;
 }
+
+p a{
+    color: var(--amarillo);
+    text-decoration: none;
+    transition: .5s;
+}
+p a:hover{
+    color: #978333;
+    text-decoration: none;
+}
+
 .error{
     color: red;
 }
@@ -152,7 +176,12 @@ form input[type='button']:hover{
     .contenedor-grid{
         grid-template-rows: 100%;
         grid-template-columns: 100%;
+        background-image: url('../assets/wave.svg');
+        background-size: cover;
+        background-position: left;
+        
     }
+
     .corporation{
         display: none;
     }
@@ -167,7 +196,7 @@ form input[type='button']:hover{
 @media (max-width:480px) {
 
     form{
-        width: 80%;
+        
         height: 50%;
         padding: 5px 10px 5px 10px;
         font-size: 1em;
@@ -180,7 +209,7 @@ form input[type='button']:hover{
         
     }
     form{
-        width: 80%;
+        
         height: 50%;
         padding: 5px 10px 5px 10px;
     }

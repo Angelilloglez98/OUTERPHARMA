@@ -107,7 +107,7 @@ window.onload = () => {
     let timeoutId;
 
     mostrar.onkeydown = () => {
-        console.log("Hola");
+        
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             mostrarMedicamento(mostrar.value);
@@ -122,7 +122,7 @@ window.onload = () => {
         }
         
     };
-    busqueda.onkeydown =  (event) => {
+    busqueda.onkeyup =  (event) => {
         if (event.key === 'Enter') {
     
             var datos = busqueda.value;
@@ -468,7 +468,7 @@ async function insertarProducto(cn){
         
             // Aquí se muestra el cuadro de diálogo de Swal solo si la solicitud a la API tiene éxito
             const { value: formValues } = await Swal.fire({
-                title: 'Precio y Stock a añadir del medicamento',
+                title: 'Añadir stock y precio',
                 html:
                 `<input id="swal-input1" type="number" class="swal2-input" value=${precio}>
                 <input id="swal-input2" type="number" class="swal2-input" placeholder="Stock">`,
@@ -768,7 +768,7 @@ function insertarNoApi(cn) {
     var vAdmin;
     var pres;
     const { value: formValues } = Swal.fire({
-        title: 'Precio y Stock a añadir del medicamento',
+        title: 'Crear nuevo producto',
         html:
         `   <input id="swal-input0" type="number" class="swal2-input" value=${cn} disabled>  
             <input id="swal-input1" type="text" class="swal2-input" placeholder="Nombre" required>

@@ -37,7 +37,7 @@ p{
   grid-template-columns: repeat(4, 1fr);
   justify-items: center !important;
   row-gap: 4.953125rem;
-  max-height: 1000px;
+  max-height: 700px;
   overflow-y: scroll;
 }
 
@@ -117,7 +117,7 @@ p{
   width: 250px;
   height: 250px;
   color: #2e2d31;
-  background-color: #ededed;
+  background-color: #D9DAD8;
   overflow: hidden;
   border-radius: 5px;
 }
@@ -324,7 +324,7 @@ button:active .icon svg {
 }
 
 .cambiarForma{
-  margin: 50px 0;
+  margin: 5px 0;
 }
 
 .drawingBuffer {
@@ -379,6 +379,32 @@ button:active .icon svg {
   background-color: rgb(180, 57, 55) !important;
   color: white !important;
 }
+
+.contenedorTitulo{
+  width: 100%;
+}
+
+.titulo{
+  width: fit-content;
+  box-shadow:-25px 25px 0px -15px #4723D9;
+  font-weight: 800;
+}
+
+
+.ordenar{
+  display: flex;
+  margin: 0 0 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.fit{
+  justify-content: center;
+}
+
+
 
 @media only screen and (max-width: 1400px) {
   .datos{
@@ -443,6 +469,15 @@ button:active .icon svg {
 
   .datos {
     max-height: 400px;
+  }
+  .ordenar *{
+  font-size: 0.8rem;
+  }
+  .ordenar{
+    margin: 0;
+  }
+  .ordenar p{
+    width: fit-content;
   }
 
   .datos_izquierda, .col-3{
