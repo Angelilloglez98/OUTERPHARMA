@@ -83,8 +83,6 @@ window.onload = () => {
         }
     });
     
-    
-
     busqueda.oninput = () => {
         let codigo = busqueda.value;
         if (codigo.length == 13) {
@@ -93,16 +91,6 @@ window.onload = () => {
         }
         
     };
-    
-    // const buscarMed = () => {
-        
-    //     var url = `./BaseDatos/buscarProducto.php`;
-        
-    //     return fetch(url)
-    //     .then(response => response.json())
-    //     .then(medicamentos => {return medicamentos; })
-    //     .catch(e => {console.error("ERROR: ", e.message)});
-    // }
 
     let timeoutId;
 
@@ -119,46 +107,56 @@ window.onload = () => {
         if (codigo.length == 13) {
             let cortar = codigo.substring(6, 12);
             mostrar.value = cortar;
+
+            btnInsertar.click()
         }
+
+
         
     };
-    busqueda.onkeydown = async (event) => {
-        if (event.key === 'Enter') {
-            var datos = busqueda.value;
-            busqueda.value = "";
-            const tbody = document.querySelector("#buscarMed");
-    
-            vaciarDatos();
-    
-            try {
-                const res = await fetch(`./BaseDatos/buscarProducto.php`);
-                const resultado = await res.json();
-    
-                for (const inventario of elementosFiltrados) {
-                    const cn = inventario.CodigoNacional;
+    busqueda.onkeyup = async (event) => {
+        
+        var datos = busqueda.value;
+        
+        const tbody = document.querySelector("#buscarMed");
 
-                    const elementosFiltrados = resultado.filter((inventario) => {
-                        return cn == datos;
-                    });
-                    
-                    try {
-                        const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
-                        const resultadoApi = await resApi.json();
-    
-                        if (resultadoApi.fotos === undefined) {
-                            carta('./assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
-                        } else {
-                            carta(resultadoApi.fotos[0].url, inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
-                        }
-                    } catch (error) {
+        vaciarDatos();
+
+        try {
+            const res = await fetch(`./BaseDatos/buscarProducto.php`);
+            const resultado = await res.json(); 
+
+            const resfilt = resultado.filter((objeto) =>
+            objeto.NombreProducto.toLowerCase().includes(datos.toLowerCase()) ||
+            objeto.CodigoNacional.toString().toLowerCase().includes(datos.toLowerCase())
+            );
+
+            for (const inventario of resfilt) {
+                const cn = inventario.CodigoNacional;
+
+                try {
+                    const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
+                    const resultadoApi = await resApi.json();
+
+                    if (resultadoApi.fotos === undefined) {
                         carta('./assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                    } else {
+                        carta(resultadoApi.fotos[0].url, inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                     }
+                } catch (error) {
+                    carta('./assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 }
-            } catch (error) {
-                console.error(error);
             }
+            if (event.key === 'Enter') {
+                busqueda.value = "";
+            }
+
+        } catch (error) {
+            console.error(error);
         }
+    
     };
+    
     
 }
 
