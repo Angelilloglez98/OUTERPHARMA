@@ -743,8 +743,13 @@ function insertarNoApi(cn) {
             <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
             <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
             <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
-            <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
-            <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">`,
+            <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración">`,
+            input: 'select',
+            inputOptions: {
+                'N': 'No',
+                'S': 'Si'
+            },
+            inputPlaceholder: 'Prescripción Médica',
         focusConfirm: false,
         preConfirm: () => {
             nombre = document.getElementById('swal-input1').value,
@@ -774,8 +779,6 @@ function insertarNoApi(cn) {
     
             if (!pres) {
                 pres = 'N';
-            } else if (pres = 'Si') {
-                pres = 'S';
             }
     
             fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}
