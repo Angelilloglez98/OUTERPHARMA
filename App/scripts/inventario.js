@@ -83,8 +83,6 @@ window.onload = () => {
         }
     });
     
-    
-
     busqueda.oninput = () => {
         let codigo = busqueda.value;
         if (codigo.length == 13) {
@@ -93,16 +91,6 @@ window.onload = () => {
         }
         
     };
-    
-    const buscarMed = (datos) => {
-        
-        var url = `./BaseDatos/buscarProducto.php?datos=${datos}`;
-        
-        return fetch(url)
-        .then(response => response.json())
-        .then(medicamentos => {return medicamentos; })
-        .catch(e => {console.error("ERROR: ", e.message)});
-    }
 
     let timeoutId;
 
@@ -119,77 +107,57 @@ window.onload = () => {
         if (codigo.length == 13) {
             let cortar = codigo.substring(6, 12);
             mostrar.value = cortar;
+
+            btnInsertar.click()
         }
+
+
         
     };
-    busqueda.onkeyup =  (event) => {
-        if (event.key === 'Enter') {
-    
-            var datos = busqueda.value;
-            busqueda.value = "";
-            const tbody = document.querySelector("#buscarMed");
-    
-            
-            
-          
-            buscarMed(datos).then((element) => {
-    
-                // console.log(element);
-                for (const i in element) {
-
-                    try {
-                        fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
-                        .then(res=>res.json())
-                        .then(resultadoApi=>{
-                            vaciarDatos();
-                            if(resultadoApi.fotos===undefined){
-                                carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                            }else{
-                                carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                            }
-                        })
-                        .catch(e => {vaciarDatos();traerDatos()});
-                    } catch (error) {
-                        vaciarDatos();
-                        traerDatos()
-                    }
-                    
-                }
-    
-            })
-    
-        }
-
-        const tbody = document.querySelector("#buscarMed");
-
+    busqueda.onkeyup = async (event) => {
+        
         var datos = busqueda.value;
         
-        buscarMed(datos).then((element) => {
+        const tbody = document.querySelector("#buscarMed");
 
-            // console.log(element);
-            for (const i in element) {
+        vaciarDatos();
+
+        try {
+            const res = await fetch(`./BaseDatos/buscarProducto.php`);
+            const resultado = await res.json(); 
+
+            const resfilt = resultado.filter((objeto) =>
+            objeto.NombreProducto.toLowerCase().includes(datos.toLowerCase()) ||
+            objeto.CodigoNacional.toString().toLowerCase().includes(datos.toLowerCase())
+            );
+
+            for (const inventario of resfilt) {
+                const cn = inventario.CodigoNacional;
 
                 try {
-                    fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${element[i].CodigoNacional}`)
-                    .then(res=>res.json())
-                    .then(resultadoApi=>{
-                        vaciarDatos();
-                        if(resultadoApi.fotos===undefined){
-                            carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                        }else{
-                            carta(resultadoApi.fotos[0].url, element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
-                        }
-                    });
+                    const resApi = await fetch(`https://cima.aemps.es/cima/rest/medicamento?cn=${cn}`);
+                    const resultadoApi = await resApi.json();
+
+                    if (resultadoApi.fotos === undefined) {
+                        carta('./assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                    } else {
+                        carta(resultadoApi.fotos[0].url, inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
+                    }
                 } catch (error) {
-                    vaciarDatos();
-                    carta('./assets/pastillica.webp',element[i].NombreProducto, element[i].CodigoNacional, element[i].Cantidad, element[i].Precio, element[i].presMedica, element[i].pActivo, element[i].Laboratorio, element[i].vAdmin);
+                    carta('./assets/pastillica.webp', inventario.NombreProducto, cn, inventario.Cantidad, inventario.Precio, inventario.presMedica, inventario.pActivo, inventario.Laboratorio, inventario.vAdmin);
                 }
-                
+            }
+            if (event.key === 'Enter') {
+                busqueda.value = "";
             }
 
-        })
-        
+        } catch (error) {
+            console.error(error);
+        }
+    
     };
+    
+    
 }
 
 async function traerDatos(orden, direc) {
@@ -775,8 +743,13 @@ function insertarNoApi(cn) {
             <input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" required>
             <input id="swal-input3" type="text" class="swal2-input" placeholder="Principio Activo">
             <input id="swal-input4" type="text" class="swal2-input" placeholder="Laboratorio">
-            <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración"> 
-            <input id="swal-input6" type="text" class="swal2-input" placeholder="Prescripción Médica">`,
+            <input id="swal-input5" type="text" class="swal2-input" placeholder="Via de Administración">`,
+            input: 'select',
+            inputOptions: {
+                'N': 'No',
+                'S': 'Si'
+            },
+            inputPlaceholder: 'Prescripción Médica',
         focusConfirm: false,
         preConfirm: () => {
             nombre = document.getElementById('swal-input1').value,
@@ -806,8 +779,6 @@ function insertarNoApi(cn) {
     
             if (!pres) {
                 pres = 'N';
-            } else if (pres = 'Si') {
-                pres = 'S';
             }
     
             fetch(`./BaseDatos/insertarProductos.php?cn=${cn}&nombre=${nombre}&pactivo=${pactivo}&lab=${laboratorio}

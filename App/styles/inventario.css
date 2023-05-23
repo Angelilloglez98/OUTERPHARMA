@@ -413,7 +413,11 @@ button:active .icon svg {
   justify-content: center;
 }
 
-
+.swal2-select {
+  margin: auto !important;
+  width: 274.38px;
+  height: 53.16px;
+}
 
 @media only screen and (max-width: 1400px) {
   .datos{
