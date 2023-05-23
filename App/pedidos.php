@@ -89,7 +89,7 @@ if (!isset($_SESSION['CorreoFarmacia'])) {
                         <h2 class='titulo'>Buscador</h2>
                     </div>
 
-                    <div class="input-group rounded">
+                    <div class="input-group rounded mt-3">
                         <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" />
                         <span class="input-group-text border-0" id="search-addon">
                             <i class='bx bx-search'></i>
@@ -101,7 +101,7 @@ if (!isset($_SESSION['CorreoFarmacia'])) {
                             <option value="vtm">Principip Activo</option>
                         </select>
                     </div>
-                    <div class="mt-5 contenedor table-responsive">
+                    <div class="mt-3 contenedor table-responsive">
 
                         <table id="myTable" class="display table">
                             <thead>

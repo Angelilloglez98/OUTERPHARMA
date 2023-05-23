@@ -8,14 +8,22 @@ input,select{
 
 .contenedorTitulo{
     width: 100%;
-    margin-bottom: 35px;
-}
   
-.titulo{
-width: fit-content;
-box-shadow:-25px 25px 0px -15px #4723D9;
-font-weight: 800;
-}
+  }
+  
+  .contenedorTitulo::after{
+    display: block;
+    content: '';
+    background-color: #4723D9;
+    width: 50px;
+    height: 8px;
+    margin-left: -15px;
+  }
+  
+  .titulo{
+    width: fit-content;
+    font-weight: 800;
+  }
 
 @media (max-width:1250px) {
 

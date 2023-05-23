@@ -178,6 +178,25 @@ p {
   color: #4723D9;
 }
 
+.contenedorTitulo{
+  width: 100%;
+
+}
+
+.contenedorTitulo::after{
+  display: block;
+  content: '';
+  background-color: #4723D9;
+  width: 50px;
+  height: 8px;
+  margin-left: -15px;
+}
+
+.titulo{
+  width: fit-content;
+  font-weight: 800;
+}
+
 @media screen and (max-width: 768px) {
   .contenedorUser {
     width: 90%;

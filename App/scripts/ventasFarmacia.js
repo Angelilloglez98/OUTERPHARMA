@@ -57,7 +57,7 @@ async function BuscarMedicamento(cn) {
                                 return;
                             }else{
                                 if (resultadoApi.fotos === undefined) {
-                                    PintarTabla('assets/pastillica.webp', resultadoApi.nombre, elemento.CodigoNacional, elemento.Precio, elemento.Cantidad);
+                                    PintarTabla('./assets/pastillica.webp', resultadoApi.nombre, elemento.CodigoNacional, elemento.Precio, elemento.Cantidad);
                                 } else {
                                     PintarTabla(resultadoApi.fotos[0].url, resultadoApi.nombre, elemento.CodigoNacional, elemento.Precio, elemento.Cantidad);
                                 }

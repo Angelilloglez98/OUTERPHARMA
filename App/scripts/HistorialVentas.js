@@ -16,7 +16,6 @@ $(document).ready(function () {
                 element['NombreEmpleado'],
                 element['Fecha'],
                 element['Total'],
-                
             ];
             pintarDatos(datos, element, res);
         });
