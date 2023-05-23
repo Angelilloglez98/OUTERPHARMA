@@ -757,7 +757,7 @@ function insertarNoApi(cn) {
             pactivo = document.getElementById('swal-input3').value,
             laboratorio = document.getElementById('swal-input4').value,
             vAdmin = document.getElementById('swal-input5').value,
-            pres = document.getElementById('swal-input6').value
+            pres = document.querySelector('.swal2-select').value
 
             if (!nombre || !precio) {
                 Swal.showValidationMessage('Los campos Nombre y Precio son obligatorios');
