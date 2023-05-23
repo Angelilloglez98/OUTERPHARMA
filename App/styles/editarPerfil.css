@@ -208,7 +208,10 @@ background-color: brown;
     display: none;
 }
 
-.swal2-input, .swal2-file, .swal2-textarea, .swal2-select, .swal2-radio, .swal2-checkbox{
+.swal2-input, .swal2-file, .swal2-textarea, .swal2-radio, .swal2-checkbox{
     margin:10px 0px !important;
 }
 
+#formulario {
+    justify-content: center;
+}
