@@ -80,10 +80,28 @@ INSERT INTO EMPLEADOS (UrlEmpleado,NombreEmpleado,Telefono,CorreoPersonal, Ccorr
 ('assets/A2.png','Admin',624765187,'mariz@gmail.com', 'farmacia2@yahoo.com', '$2y$10$dP5et59BBaaz9V61OqF5ieSZV3g8CjviccT684pG1WLQR/2XGh2ke', 'Admin');
 
 INSERT INTO PRODUCTOS (CodigoNacional, Nombre, pActivo, Laboratorio, vAdmin, presMedica) VALUES
-(698683, 'Paracetamol', 'Paracetamol', 'Bayer', 'Oral', 'N'),
-(712729, 'Aspirina', 'Acido acetilsalicilico', 'Pfizer', 'Oral', 'N'),
-(660477, 'Ibuprofeno', 'Ibuprofeno', 'Roche', 'Oral', 'N'),
-(730705, 'Acetilcisteina', 'Acetilcisteina', 'MOBA', 'Efervescente', 'N');
+(698683, 'Paracetamol', 'PARACETAMOL', 'Abamed Pharma', 'VÍA ORAL', 'S'),
+(712729, 'Aspirina', 'ACETILSALICILICO ACIDO, ASCORB', 'Bayer Hispania', 'VÍA ORAL', 'N'),
+(660477, 'Ibuprofeno', 'IBUPROFENO', 'Kern Pharma, S', 'VÍA ORAL', 'S'),
+(730705, 'Acetilcisteina', 'ACETILCISTEINA', 'Bexal Farmaceut', 'VÍA ORAL', 'S'),
+(707896, 'Airflusal', 'FLUTICASONA PROPIONATO, SALMET', 'Sandoz Farmaceu', 'VÍA INHALATORIA', 'S'),
+(687364, 'Algifast', 'IBUPROFENO LISINA', 'Laboratorio De', 'VÍA ORAL', 'N'),
+(884197, 'Loratadina', 'LORATADINA', 'Laboratorios No', 'VÍA ORAL', 'S');
+
+INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, CodigoNacional, Precio, Cantidad, fEntrada, fCaducidad) VALUES
+('farmacia1@gmail.com', 698683, 3.20, 4, '2023-06-02', '2050-12-01'),
+('farmacia1@gmail.com', 712729, 2.70, 3, '2023-06-02', '2050-12-01'),
+('farmacia1@gmail.com', 660477, 2.50, 100, '2023-06-02', '2050-12-01'),
+('farmacia1@gmail.com', 707896, 41.38, 100, '2023-06-02', '2050-12-01'),   
+('farmacia1@gmail.com', 687364, 2.40, 13, '2023-06-02', '2050-12-01'),
+('farmacia1@gmail.com', 884197, 2.50, 50, '2023-06-02', '2050-12-01'),
+
+('farmacia2@yahoo.com', 687364, 2.40, 13, '2023-06-02', '2050-12-01'),
+('farmacia2@yahoo.com', 884197, 2.50, 50, '2023-06-02', '2050-12-01'),
+('farmacia2@yahoo.com', 707896, 41.38, 100, '2023-06-02', '2050-12-01'),
+('farmacia2@yahoo.com', 698683, 3.20, 4, '2023-06-02', '2050-12-01'),
+('farmacia2@yahoo.com', 712729, 2.70, 3, '2023-06-02', '2050-12-01'),
+('farmacia2@yahoo.com', 660477, 2.50, 12, '2023-06-02', '2050-12-01');
 
 INSERT INTO VENTAS
 VALUES 
@@ -102,12 +120,6 @@ INSERT INTO PROVEEDORES (Nombre, Direccion, nTelefono, Link, CcorreoFarmacia) VA
 ('Distribuidora Farmaceutica SA', 'Calle 4, #67', 5554321, 'https://www.youtube.com/watch?v=rPunrzkIpeo', 'farmacia1@gmail.com'),
 ('Farmaceuticos Unidos', 'Avenida 5, #89', 5558765, 'https://www.youtube.com/watch?v=bl_Jy7Q7l7s', 'farmacia2@yahoo.com'),
 ('Medicamentos Paqui S.L.', 'Calle la flauta Magica, 4', 664235678, 'https://www.youtube.com/watch?v=-ORrwif5q7Q', 'farmacia1@gmail.com');
-
-INSERT INTO FARMACIAS_PRODUCTOS (Ccorreo, CodigoNacional, Precio, Cantidad, fEntrada, fCaducidad) VALUES
-('farmacia1@gmail.com', 698683, 1.25, 100, '2021-12-01', '2023-12-01'),
-('farmacia1@gmail.com', 712729, 1.50, 50, '2021-12-01', '2023-12-01'),
-('farmacia2@yahoo.com', 660477, 2.00, 75, '2021-12-01', '2023-12-01'),
-('farmacia1@gmail.com', 730705, 1.75, 75, '2021-12-01', '2023-12-01');
 
 INSERT INTO VENTAS_PRODUCTOS VALUES
 (1, 730705,3,1.75,5.5),
