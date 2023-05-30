@@ -19,7 +19,7 @@ $fCaducidad = "01-01-2050 00:00:00";
 $correo=$_SESSION['CorreoFarmacia'];
 
 // Consulta SELECT para verificar si el producto ya existe
-$sth = $pdo->prepare("SELECT * FROM FARMACIAS_PRODUCTOS WHERE CodigoNacional = :codigo AND Ccorreo = '$correo'");
+$sth = $pdo->prepare("SELECT * FROM farmacias_productos WHERE CodigoNacional = :codigo AND Ccorreo = '$correo'");
 $sth->bindParam(':codigo', $codigo);
 $sth->execute();
 

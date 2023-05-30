@@ -7,10 +7,10 @@
     $correo=$_SESSION['CorreoFarmacia'];
 
     $sql="SELECT MONTH(ventas.Fecha) AS Mes, SUM(ventas_productos.Cantidad) AS CantidadMedicamentosVendidos
-    FROM VENTAS
-    JOIN VENTAS_PRODUCTOS ON VENTAS.nVentas = VENTAS_PRODUCTOS.nVentas
-    JOIN FARMACIAS_PRODUCTOS ON VENTAS_PRODUCTOS.CodigoNacional = FARMACIAS_PRODUCTOS.CodigoNacional
-    WHERE YEAR(Fecha) = YEAR(CURDATE()) AND VENTAS.Ccorreo = '$correo'
+    FROM ventas
+    JOIN ventas_productos ON ventas.nVentas = ventas_productos.nVentas
+    JOIN farmacias_productos ON ventas_productos.CodigoNacional = farmacias_productos.CodigoNacional
+    WHERE YEAR(Fecha) = YEAR(CURDATE()) AND ventas.Ccorreo = '$correo'
     GROUP BY Mes";
       
     $pdo->exec("SET NAMES 'utf8mb4'");

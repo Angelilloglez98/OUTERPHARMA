@@ -6,16 +6,16 @@
 
     $correo=$_SESSION['CorreoFarmacia'];
 
-    $sql="SELECT PRODUCTOS.Nombre, VENTAS.nEmpleado, VENTAS.Cantidad, VENTAS.Fecha, VENTAS.Total, MONTH(VENTAS.Fecha) AS Mes
-    FROM VENTAS
-    INNER JOIN VENTAS_PRODUCTOS ON VENTAS.nVentas = VENTAS_PRODUCTOS.nVentas
-    INNER JOIN PRODUCTOS ON VENTAS_PRODUCTOS.CodigoNacional = PRODUCTOS.CodigoNacional
-    ORDER BY MONTH(VENTAS.Fecha)";
+    $sql="SELECT productos.Nombre, ventas.nEmpleado, ventas.Cantidad, ventas.Fecha, ventas.Total, MONTH(ventas.Fecha) AS Mes
+    FROM ventas
+    INNER JOIN ventas_productos ON ventas.nVentas = ventas_productos.nVentas
+    INNER JOIN productos ON ventas_productos.CodigoNacional = productos.CodigoNacional
+    ORDER BY MONTH(ventas.Fecha)";
     
     
     
     $sql_totalVentas= "SELECT SUM(Total) AS TotalVenta, MONTH(Fecha) AS Mes
-    FROM VENTAS
+    FROM ventas
     GROUP BY MONTH(Fecha)";
     // Id producto -> Nombre del producto, nº Empleado, Cantidad vendida, fecha de la venta, total de esa venta
 

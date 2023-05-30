@@ -7,9 +7,9 @@
     $correo=$_SESSION['CorreoFarmacia'];
 
     $sql="SELECT MONTH(fEntrada) AS Mes, SUM(Cantidad) AS TotalPedidos
-    FROM fARMACIAS_PRODUCTOS 
-    JOIN FARMACIAS ON FARMACIAS_PRODUCTOS.Ccorreo = FARMACIAS.Ccorreo 
-    WHERE FARMACIAS.Ccorreo = '$correo' AND YEAR(fEntrada) = YEAR(CURRENT_DATE())
+    FROM farmacias_productos 
+    JOIN farmacias ON farmacias_productos .Ccorreo = farmacias.Ccorreo 
+    WHERE farmacias.Ccorreo = '$correo' AND YEAR(fEntrada) = YEAR(CURRENT_DATE())
     GROUP BY MONTH(fEntrada)";
     
     $pdo->exec("SET NAMES 'utf8mb4'");

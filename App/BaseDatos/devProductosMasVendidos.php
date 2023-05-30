@@ -12,10 +12,10 @@
     $correo=$_SESSION['CorreoFarmacia'];
 
     $sql="SELECT p.Nombre, SUM(vp.Cantidad) AS CantidadVendida
-    FROM PRODUCTOS p
-    JOIN VENTAS_PRODUCTOS vp ON p.CodigoNacional = vp.CodigoNacional
-    JOIN VENTAS v ON vp.nVentas = v.nVentas
-    JOIN FARMACIAS f ON v.Ccorreo = f.Ccorreo
+    FROM productor p
+    JOIN ventas_productos vp ON p.CodigoNacional = vp.CodigoNacional
+    JOIN ventas v ON vp.nVentas = v.nVentas
+    JOIN farmacias f ON v.Ccorreo = f.Ccorreo
     WHERE f.Ccorreo = '$correo' AND YEAR(v.Fecha) = '$fecha'
     GROUP BY p.Nombre
     ORDER BY CantidadVendida DESC";
