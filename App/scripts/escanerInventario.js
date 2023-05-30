@@ -22,7 +22,22 @@ function Activar(params) {
         
             Quagga.onDetected(function(result) {
             
-                insertarProducto(result.codeResult.code.substring(6,12));
+                // insertarProducto(result.codeResult.code.substring(6,12));
+                const mostrar = document.querySelector("#cn");
+                mostrar.value = result.codeResult.code.substring(6,12);
+
+                const estaDisponible = comprobarMedicamento(mostrar.value);
+
+                if (estaDisponible) {
+                    insertarProducto(mostrar.value);
+                } else {
+                    const enterKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
+                    mostrar.dispatchEvent(enterKeyEvent);
+                    const aniadir = document.querySelector("#aniadir");
+                    aniadir.click();
+                }
+                
+                
                 resetear();
             });
         document.querySelector('#Escaner').style.position='relative';

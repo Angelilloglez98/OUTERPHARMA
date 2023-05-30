@@ -2,6 +2,15 @@ window.onload = () =>{
 
     const busqueda = document.querySelector('input[type="search"]');
 
+    busqueda.oninput = () => {
+        let codigo = busqueda.value;
+        if (codigo.length == 13) {
+            let cortar = codigo.substring(6, 12);
+            busqueda.value = cortar;
+        }
+        
+    };
+
     const buscarMed = async(datos, filtro) => {
 
         const options = {
@@ -14,15 +23,15 @@ window.onload = () =>{
 
         if(filtro==="cn"){
 
-            url += "?"
-            filtro += "="
+            url += "?";
+            filtro += "=";
 
         }
 
         if(filtro==="nombre" || filtro === "vtm"){
 
-            url += "s?"
-            filtro += "="
+            url += "s?";
+            filtro += "=";
 
         }
         
@@ -34,13 +43,13 @@ window.onload = () =>{
 
     }
 
-    let table = new DataTable('#myTable');
+    let table = new DataTable('#myTable', {"pageLength": 5, "lengthMenu": [5, 10, 25, 50]});
 
     const createRows = (data, urlIMG) => {
 
         let info = [];
 
-        info.push(`<img src="${urlIMG}">`);
+        info.push(`<img width="200px" height="113px" src="${urlIMG}">`);
 
         for (const i in data) {
 
@@ -61,6 +70,7 @@ window.onload = () =>{
                 case 'vtm': case 'formaFarmaceutica':
 
                     for (const j in data[i]) {
+
                         if(j == 'nombre'){
                             info.push( data[i][j]);
                         }
@@ -73,9 +83,9 @@ window.onload = () =>{
 
                     data[i].forEach(element=>{
 
-                        info.push( element.nombre);
+                        info.push(element.nombre);
 
-                    })
+                    });
                         
                 break;
 
@@ -114,7 +124,7 @@ window.onload = () =>{
 
                         if(element.fotos === undefined){
 
-                            const noIMG = "assets/mondongo.jpg";
+                            const noIMG = "assets/pastillica.webp";
 
                             createRows(element, noIMG);
 

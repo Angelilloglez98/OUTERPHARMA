@@ -7,8 +7,8 @@
     $correo = $_SESSION['CorreoFarmacia'];
     $codigo = $_GET['codigo'];
 
-    $sql="SELECT Productos.Nombre
-    FROM farmacias_productos INNER JOIN productos ON farmacias_productos.CodigoNacional=productos.CodigoNacional where Ccorreo='$correo' and farmacias_productos.CodigoNacional = '$codigo'";
+    $sql="SELECT Productos.Nombre, FARMACIAS_PRODUCTOS.Cantidad
+    FROM FARMACIAS_PRODUCTOS INNER JOIN PRODUCTOS ON FARMACIAS_PRODUCTOS.CodigoNacional=PRODUCTOS.CodigoNacional where Ccorreo='$correo' and FARMACIAS_PRODUCTOS.CodigoNacional = '$codigo'";
     
     
     $pdo->exec("SET NAMES 'utf8mb4'");
@@ -19,7 +19,8 @@
 
     while ($fila=$sth->fetch()) {
         $registros[]=array(
-            'NombreProducto'=>$fila['Nombre']
+            'NombreProducto'=>$fila['Nombre'],
+            'Cantidad'=>$fila['Cantidad']
         );
     }
     

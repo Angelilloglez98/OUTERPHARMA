@@ -1,3 +1,12 @@
+:root{
+    --Azul:#448bc5;
+    --azul-claro:#b9e0e8;
+    --blanco:rgb(244, 250, 255);
+    --gris-claro:rgb(207, 207, 207);
+    --gris-oscuro:rgb(242, 239, 255);
+    --amarillo:#FFDE59;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -8,11 +17,14 @@ body{
 }
 
 .contenedor{
-    margin-top:100px ;
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    min-height: 100vh;
+    background-image: url('../assets/wave.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .contenedor >h1{
     
@@ -49,16 +61,16 @@ body{
 .user img{
     width: 100%;
     border-radius: 100px;
-    box-shadow: 5px 5px  10px  #a19ead;
+    border: 5px solid var(--amarillo);
     cursor: pointer;
     
 }
 .user p{
     margin-top: 10px;
-    font-family: 'Noto Serif', serif;
-    font-size: 1.2EM;
+    font-family: 'Cabin', sans-serif;
+    font-size: 1.5EM;
     text-align: center;
-    color: rgb(59, 59, 59);
+    color: var(--blanco);
     font-weight: 700;
 
 }
@@ -67,6 +79,18 @@ body{
     align-items: center;
     justify-content: center;
     
+    
+}
+.user input{
+    border-radius: 10px;
+    border: none;
+    padding: 10px 5px;
+    
+}
+.user input:focus{
+    outline: none;
+    border: none;
+    outline:3px solid  var(--amarillo);
 }
 @media (max-width:900px) {
     .contenedor{

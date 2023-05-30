@@ -1,0 +1,43 @@
+.contenedorTitulo{
+  width: 100%;
+
+}
+
+.contenedorTitulo::after{
+  display: block;
+  content: '';
+  background-color: #4723D9;
+  width: 50px;
+  height: 8px;
+  margin-left: -15px;
+}
+
+.titulo{
+  width: fit-content;
+  font-weight: 800;
+}
+  #myTable_wrapper{
+    margin-top: 50px;
+  }
+  #myTable{
+    width: 100% !important;
+  }
+
+@media (max-width:1250px) {
+    #myTable{
+        font-size: 0.7em !important ;
+    }
+    
+}
+
+@media (max-width:500px) {
+
+    tr th:nth-child(1){
+      display: none;
+    }
+
+    #myTable tr td:nth-child(1) {
+      display: none;
+    }
+
+}

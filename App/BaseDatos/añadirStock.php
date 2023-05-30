@@ -15,6 +15,9 @@ $sth->execute(array(':codigo' => $codigo));
 $cantidad = $sth->fetchColumn();
 $cantidad = $cantidad + $stock;
 
-$sth = $pdo->prepare("UPDATE Farmacias_PRODUCTOS SET Cantidad = $cantidad WHERE CodigoNacional = :codigo AND Ccorreo = '$correo'");
-$sth->execute(array(':codigo' => $codigo));
+if(!empty($stock)){
+    $sth = $pdo->prepare("UPDATE Farmacias_PRODUCTOS SET Cantidad = $cantidad WHERE CodigoNacional = :codigo AND Ccorreo = '$correo'");
+    $sth->execute(array(':codigo' => $codigo));
+}
+
 ?>

@@ -8,10 +8,12 @@
 
 .tarjeta-proveedor {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-color: #DAE2E4;
+    background-color: #D9DAD8;
     transition: 0.3s;
-    width: 300px;
+    min-width: 200px;
+    max-width: 300px;
     margin: 10px;
+    border-radius: 7px;
 }
 
 .tarjeta-proveedor:hover {
@@ -32,14 +34,15 @@
 .tarjeta-proveedor a {
     display: block;
     text-align: center;
-    background-color: #4CAF50;
+    background-color: #766baf;
     color: white;
     padding: 10px;
     text-decoration: none;
 }
 
 .tarjeta-proveedor a:hover {
-    background-color: #3e8e41;
+    background-color: #AFA5D9;
+    color: #4723D9
 }
 
 .card {
@@ -51,6 +54,9 @@
 
 .card-body {
     padding: 20px;
+}
+h5 {
+    font-weight: bold;
 }
 
 .addProv {
@@ -69,6 +75,11 @@
     color: #4723D9;
 }
 
+.tarjeta-proveedor div{
+    display: flex;
+    justify-content: space-around;
+}
+
 .edit,
 .delete {
   width: 50px;
@@ -76,26 +87,41 @@
   background-size: 30px;
   background-repeat: no-repeat;
   background-position: center;
-  border: 1px solid #dddddd;
-  border-radius: 7px;
+  border: none;
   padding: 0;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  margin-left: 3.1rem;
-  margin-right: 3.1rem;
-
+  margin: 10px;
+  border-radius: 7px;
 }
 
 .edit {
     background-image: url('../assets/edit.svg');
-    background-color: #4CAF50;
+    background-color: #91c470;
     color: white;
 }
 
 .delete {
     background-image: url('../assets/trash.svg');
-    background-color: brown;
+    background-color: #D34240;
 }
+
+.contenedorTitulo{
+    width: 100%;
+  
+  }
+  
+  .contenedorTitulo::after{
+    display: block;
+    content: '';
+    background-color: #4723D9;
+    width: 50px;
+    height: 8px;
+    margin-left: -15px;
+  }
+  
+  .titulo{
+    width: fit-content;
+    font-weight: 800;
+  }
   
 @media screen and (max-width: 1500px) {
     .showProv {

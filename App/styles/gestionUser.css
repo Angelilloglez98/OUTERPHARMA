@@ -121,16 +121,16 @@ p {
 }
 
 .edit {
-  background-color: #4CAF50;
+  background-color: #91c470;
   color: white;
 }
 
 .delete {
-  background-color: brown;
+  background-color: #D34240;
 }
 
 .card {
-  background-color: #DAE2E4 !important;
+  background-color: #D9DAD8 !important;
   /* border: 1px solid #dd2476 !important; */
   color: rgba(60, 60, 60, 0.8);
   margin-bottom: 2rem;
@@ -176,6 +176,25 @@ p {
 .addProv:hover {
   background-color: #AFA5D9;
   color: #4723D9;
+}
+
+.contenedorTitulo{
+  width: 100%;
+
+}
+
+.contenedorTitulo::after{
+  display: block;
+  content: '';
+  background-color: #4723D9;
+  width: 50px;
+  height: 8px;
+  margin-left: -15px;
+}
+
+.titulo{
+  width: fit-content;
+  font-weight: 800;
 }
 
 @media screen and (max-width: 768px) {

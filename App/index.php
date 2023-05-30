@@ -16,14 +16,14 @@
 <body>
   <div class="contenedor-grid">
     <div class="corporation">
-      <img src="assets/Logo.png" alt="">
-      <p for="">OuterPharma<p>
+      <img src="assets/logo.png" alt="">
+      <p for=""><span>O</span>uter<span>P</span>harma<p>
     </div>
     <div class="register-login">
       <section>
         
           <form action="BaseDatos/login.php" method="post" class="Login">
-            <h2>Login</h2>
+            <h2> <span>Iniciar</span> Sesión</h2>
             <div class="email">
               <label for="">Email</label>
               <input type="email" name="email" id="" placeholder="Introduce tu correo electronico">

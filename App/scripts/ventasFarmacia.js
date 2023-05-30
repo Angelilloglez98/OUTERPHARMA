@@ -1,5 +1,17 @@
 cargarDatos();
 let formulario = document.querySelector('form');
+   
+const mostrar = document.querySelector("#AnadirPorCN");
+mostrar.oninput = () => {
+    let codigo = mostrar.value;
+    if (codigo.length == 13) {
+        let cortar = codigo.substring(6, 12);
+        mostrar.value = '';
+        BuscarMedicamento(cortar);
+        guardarLocalStorage();
+    
+    }
+};
 
 formulario.onsubmit = (e) => {
     e.preventDefault();
@@ -45,7 +57,7 @@ async function BuscarMedicamento(cn) {
                                 return;
                             }else{
                                 if (resultadoApi.fotos === undefined) {
-                                    PintarTabla('sin datos', resultadoApi.nombre, elemento.CodigoNacional, elemento.Precio, elemento.Cantidad);
+                                    PintarTabla('./assets/pastillica.webp', resultadoApi.nombre, elemento.CodigoNacional, elemento.Precio, elemento.Cantidad);
                                 } else {
                                     PintarTabla(resultadoApi.fotos[0].url, resultadoApi.nombre, elemento.CodigoNacional, elemento.Precio, elemento.Cantidad);
                                 }
@@ -65,7 +77,7 @@ async function BuscarMedicamento(cn) {
 function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima,CantidadActual) {
     let tabla = document.querySelector('#venta');
     let fila = document.createElement('tr');
-    fila.classList.add('filaVenta')
+    fila.classList.add('filaVenta');
     let colfoto = document.createElement('td');
     colfoto.classList.add('fotoProducto');
     let nombre = document.createElement('td');
@@ -75,7 +87,7 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima,CantidadActual)
     let financiacion = document.createElement('td');
     financiacion.classList.add('financiacion');
     let precio = document.createElement('td');
-    precio.classList.add('precio')
+    precio.classList.add('precio');
     let cantidad = document.createElement('td');
     cantidad.classList.add('cantidad');
     let total = document.createElement('td');
@@ -92,11 +104,12 @@ function PintarTabla(Urlfoto, Nombre, CN, Precio, cantidadMaxima,CantidadActual)
         <option value="0.7">30%</option>
         <option value="0.6">40%</option>
         <option value="0.5">50%</option>
-        <option value="0.3">70%</option>
+        <option value="0.4">60%</option>
+        <option value="0.0">100%</option>
         </select>`;
     foto.src = Urlfoto;
     colfoto.appendChild(foto);
-    nombre.appendChild(document.createTextNode(Nombre));
+    nombre.appendChild(document.createTextNode(Nombre.substring(0,30)));
     CodigoNacional.appendChild(document.createTextNode(CN));
     precio.appendChild(document.createTextNode(Precio));
     let valorCantidad;
@@ -140,7 +153,7 @@ function actualizarPrecioTotal() {
     totales.forEach(costeFila => {
         sumatorio += parseFloat(costeFila.textContent);
     });
-    total.value = sumatorio.toFixed(2);
+    total.value = sumatorio.toFixed(2)+'€';
 }
 
 function ActualizarPrecioFila() {
@@ -158,7 +171,7 @@ function ActualizarPrecioFila() {
 
     total.forEach((element, i) => {
         element.innerHTML = '';
-        element.appendChild(document.createTextNode(preciototal[i]));
+        element.appendChild(document.createTextNode(preciototal[i]+'€'));
     })
 
     document.querySelectorAll('select,input[type="number"]').forEach(element => {
@@ -178,7 +191,7 @@ function devuelta() {
     if (!isNaN(total)){
         if (inputVuelta>=total){
             let totaldevuelto=inputVuelta-total;
-            document.querySelector('.devuelta').appendChild(document.createTextNode(totaldevuelto.toFixed(2)+' Euros'));
+            document.querySelector('.devuelta').appendChild(document.createTextNode(totaldevuelto.toFixed(2)+'€'));
         }else{
             document.querySelector('.devuelta').appendChild(document.createTextNode('No hay suficiente dinero'));
         }
